@@ -18,6 +18,11 @@
 		DC99C4001D9562740031DBE4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FF1D9562740031DBE4 /* User.swift */; };
 		DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4011D9562F70031DBE4 /* NetworkManager.swift */; };
 		DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4031D95647E0031DBE4 /* UserRequest.swift */; };
+		DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4051D95719C0031DBE4 /* JobList.swift */; };
+		DC99C4081D9572930031DBE4 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4071D9572930031DBE4 /* Errors.swift */; };
+		DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */; };
+		DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */; };
+		DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,11 @@
 		DC99C3FF1D9562740031DBE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC99C4011D9562F70031DBE4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DC99C4031D95647E0031DBE4 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
+		DC99C4051D95719C0031DBE4 /* JobList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobList.swift; sourceTree = "<group>"; };
+		DC99C4071D9572930031DBE4 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsColor.swift; sourceTree = "<group>"; };
+		DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthReportResult.swift; sourceTree = "<group>"; };
+		DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +118,13 @@
 			isa = PBXGroup;
 			children = (
 				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
+				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
+				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 				DC99C3F61D9561500031DBE4 /* Build.swift */,
 				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
 				DC99C3FF1D9562740031DBE4 /* User.swift */,
 				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
+				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -124,6 +137,7 @@
 				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
 				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
 				DC99C3E01D955C900031DBE4 /* Info.plist */,
+				DC99C4071D9572930031DBE4 /* Errors.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -139,6 +153,7 @@
 		DC99C3FE1D9562440031DBE4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -248,13 +263,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
+				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
+				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC99C4001D9562740031DBE4 /* User.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
+				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
+				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
