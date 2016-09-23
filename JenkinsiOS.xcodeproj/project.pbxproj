@@ -8,11 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3D41D955C900031DBE4 /* AppDelegate.swift */; };
-		DC99C3D71D955C900031DBE4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3D61D955C900031DBE4 /* ViewController.swift */; };
 		DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3D81D955C900031DBE4 /* Main.storyboard */; };
 		DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DB1D955C900031DBE4 /* Assets.xcassets */; };
 		DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */; };
 		DC99C3EA1D955C910031DBE4 /* JenkinsiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3E91D955C910031DBE4 /* JenkinsiOSTests.swift */; };
+		DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F41D955E1B0031DBE4 /* Job.swift */; };
+		DC99C3F71D9561500031DBE4 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F61D9561500031DBE4 /* Build.swift */; };
+		DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */; };
+		DC99C4001D9562740031DBE4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FF1D9562740031DBE4 /* User.swift */; };
+		DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4011D9562F70031DBE4 /* NetworkManager.swift */; };
+		DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4031D95647E0031DBE4 /* UserRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +33,6 @@
 /* Begin PBXFileReference section */
 		DC99C3D11D955C900031DBE4 /* JenkinsiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JenkinsiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99C3D41D955C900031DBE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DC99C3D61D955C900031DBE4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DC99C3D91D955C900031DBE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC99C3DB1D955C900031DBE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC99C3DE1D955C900031DBE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +40,12 @@
 		DC99C3E51D955C910031DBE4 /* JenkinsiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JenkinsiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99C3E91D955C910031DBE4 /* JenkinsiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JenkinsiOSTests.swift; sourceTree = "<group>"; };
 		DC99C3EB1D955C910031DBE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC99C3F41D955E1B0031DBE4 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		DC99C3F61D9561500031DBE4 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
+		DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueue.swift; sourceTree = "<group>"; };
+		DC99C3FF1D9562740031DBE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DC99C4011D9562F70031DBE4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		DC99C4031D95647E0031DBE4 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +87,10 @@
 		DC99C3D31D955C900031DBE4 /* JenkinsiOS */ = {
 			isa = PBXGroup;
 			children = (
-				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
-				DC99C3D61D955C900031DBE4 /* ViewController.swift */,
-				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
-				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
-				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
-				DC99C3E01D955C900031DBE4 /* Info.plist */,
+				DC99C3FE1D9562440031DBE4 /* Controller */,
+				DC99C3FD1D9562330031DBE4 /* Service */,
+				DC99C3F81D95615A0031DBE4 /* Model */,
+				DC99C3F91D9561710031DBE4 /* Other */,
 			);
 			path = JenkinsiOS;
 			sourceTree = "<group>";
@@ -94,6 +102,45 @@
 				DC99C3EB1D955C910031DBE4 /* Info.plist */,
 			);
 			path = JenkinsiOSTests;
+			sourceTree = "<group>";
+		};
+		DC99C3F81D95615A0031DBE4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
+				DC99C3F61D9561500031DBE4 /* Build.swift */,
+				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
+				DC99C3FF1D9562740031DBE4 /* User.swift */,
+				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DC99C3F91D9561710031DBE4 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
+				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
+				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
+				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
+				DC99C3E01D955C900031DBE4 /* Info.plist */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		DC99C3FD1D9562330031DBE4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		DC99C3FE1D9562440031DBE4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +248,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC99C3D71D955C900031DBE4 /* ViewController.swift in Sources */,
+				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
+				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
+				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
+				DC99C4001D9562740031DBE4 /* User.swift in Sources */,
+				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
+				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
