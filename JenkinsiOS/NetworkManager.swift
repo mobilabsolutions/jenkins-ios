@@ -9,6 +9,7 @@
 import Foundation
 
 class NetworkManager{
+    
     static let manager = NetworkManager()
     
     //MARK: - Enumerations
@@ -27,7 +28,7 @@ class NetworkManager{
     /// Get a list of all jobs for the given url
     ///
     /// - parameter userRequest: The user request object including a base url (where base is a specific, however not yet API-ified url), password and username
-    /// - parameter completion:
+    /// - parameter completion: A closure that handles the (optional) job list and the (optional) Error
     func getJobs(userRequest: UserRequest, completion: @escaping (JobList?, Error?) -> ()){
         performRequest(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
@@ -96,7 +97,7 @@ class NetworkManager{
         var request = URLRequest(url: userRequest.apiURL)
         request.httpMethod = method.rawValue
         
-        if let username = userRequest.username, let password = userRequest.password{
+        if let username = userRequest.account.username, let password = userRequest.account.password{
             request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
         }
         
