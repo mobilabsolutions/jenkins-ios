@@ -8,13 +8,14 @@
 
 import Foundation
 
-class Build{
+class Build: CustomDebugStringConvertible{
     
     var number: Int
     var url: URL
     
     
     //TODO: Add actions/causes
+    var actions: Actions?
     
     var building: Bool?
     var description: String?
@@ -29,6 +30,11 @@ class Build{
     var duration: TimeInterval?
     var estimatedDuration: TimeInterval?
     
+    var consoleOutputUrl: URL{
+        get{
+            return url.appendingPathComponent("/logText/progressiveHtml?start=0")
+        }
+    }
     
     init?(json: [String: AnyObject], minimalVersion: Bool = false){
         guard let number = json["number"] as? Int, let urlString = json["url"] as? String, let url = URL(string: urlString)
@@ -37,8 +43,18 @@ class Build{
         self.number = number
         self.url = url
         
-        if minimalVersion{
-            return
+        if !minimalVersion{
+            addAdditionalFields(from: json)
+        }
+    }
+    
+    /// Add values for fields in the full job category
+    ///
+    /// - parameter json: The JSON parsed data from which to get the values for the additional fields
+    func addAdditionalFields(from json: [String: AnyObject]){
+        
+        if let actionsJson = json["actions"] as? [[String: AnyObject]]{
+            actions = Actions(json: actionsJson)
         }
         
         building = json["building"] as? Bool
@@ -51,5 +67,9 @@ class Build{
         
         duration = json["duration"] as? TimeInterval
         estimatedDuration = json["estimatedDuration"] as? TimeInterval
+    }
+    
+    var debugDescription: String{
+        return "Build #\(number) at \(url)"
     }
 }

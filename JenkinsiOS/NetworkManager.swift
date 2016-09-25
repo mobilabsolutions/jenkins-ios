@@ -48,6 +48,42 @@ class NetworkManager{
         }
     }
     
+    /// Complete the information for a given job
+    ///
+    /// - parameter userRequest: The user request fitting for the given job
+    /// - parameter job:         The job whose fields should be completed
+    /// - parameter completion:  A closure that handles the job and an (optional) error
+    func completeJobInformation(userRequest: UserRequest, job: Job, completion: @escaping (Job, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else { completion(job, error); return }
+            guard let data = data
+                else { completion(job, NetworkManagerError.noDataFound); return }
+            guard let json = data as? [String: AnyObject]
+                else { completion(job, NetworkManagerError.JSONParsingFailed); return }
+            job.addAdditionalFields(from: json)
+            completion(job, nil)
+        }
+    }
+    
+    /// Complete the information for a given build
+    ///
+    /// - parameter userRequest: The user request fitting for the current build
+    /// - parameter build:       The build whose fields should be completed
+    /// - parameter completion:  A closure handling the build and an (optional) error
+    func completeBuildInformation(userRequest: UserRequest, build: Build, completion: @escaping (Build, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else { completion(build, error); return }
+            guard let data = data
+                else { completion(build, NetworkManagerError.noDataFound); return }
+            guard let json = data as? [String: AnyObject]
+                else { completion(build, NetworkManagerError.JSONParsingFailed); return }
+            build.addAdditionalFields(from: json)
+            completion(build, nil)
+        }
+    }
+    
     //MARK: - Direct networking
     
     /// Perform a request with the given method and, on returned data, call the completion handler

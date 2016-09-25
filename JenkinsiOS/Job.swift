@@ -51,8 +51,20 @@ class Job{
         self.name = name
         
         // The minimal version only contains these select fields
-        if minimalVersion{
-            return
+        if !minimalVersion{
+            addAdditionalFields(from: json)
+        }
+        
+
+    }
+    
+    /// Add values for fields in the full job category
+    ///
+    /// - parameter json: The JSON parsed data from which to get the values for the additional fields
+    func addAdditionalFields(from json: [String: AnyObject]){
+        
+        if let stringColor = json["color"] as? String{
+            self.color = JenkinsColor(rawValue: stringColor)
         }
         
         description = json["description"] as? String
