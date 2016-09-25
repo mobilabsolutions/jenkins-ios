@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEBE1D97FD9000808ED0 /* Account.swift */; };
+		DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */; };
+		DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */; };
+		DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC41D98069F00808ED0 /* Constants.swift */; };
+		DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC61D98079A00808ED0 /* AccountManager.swift */; };
+		DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC81D981D8A00808ED0 /* Cause.swift */; };
+		DC66CECB1D981EE000808ED0 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECA1D981EE000808ED0 /* Action.swift */; };
+		DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECC1D98256C00808ED0 /* Extensions.swift */; };
+		DC66CECF1D98273A00808ED0 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECE1D98273A00808ED0 /* View.swift */; };
+		DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CED01D982B8B00808ED0 /* Computer.swift */; };
 		DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3D41D955C900031DBE4 /* AppDelegate.swift */; };
 		DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3D81D955C900031DBE4 /* Main.storyboard */; };
 		DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DB1D955C900031DBE4 /* Assets.xcassets */; };
@@ -36,6 +46,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC66CEBE1D97FD9000808ED0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
+		DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewController.swift; sourceTree = "<group>"; };
+		DC66CEC41D98069F00808ED0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DC66CEC61D98079A00808ED0 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		DC66CEC81D981D8A00808ED0 /* Cause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cause.swift; sourceTree = "<group>"; };
+		DC66CECA1D981EE000808ED0 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		DC66CECC1D98256C00808ED0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DC66CECE1D98273A00808ED0 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		DC66CED01D982B8B00808ED0 /* Computer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
 		DC99C3D11D955C900031DBE4 /* JenkinsiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JenkinsiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99C3D41D955C900031DBE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC99C3D91D955C900031DBE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -121,10 +141,15 @@
 				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
 				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 				DC99C3F61D9561500031DBE4 /* Build.swift */,
+				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
+				DC66CECA1D981EE000808ED0 /* Action.swift */,
 				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
 				DC99C3FF1D9562740031DBE4 /* User.swift */,
 				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
+				DC66CECE1D98273A00808ED0 /* View.swift */,
 				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
+				DC66CEBE1D97FD9000808ED0 /* Account.swift */,
+				DC66CED01D982B8B00808ED0 /* Computer.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -138,6 +163,8 @@
 				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
 				DC99C3E01D955C900031DBE4 /* Info.plist */,
 				DC99C4071D9572930031DBE4 /* Errors.swift */,
+				DC66CEC41D98069F00808ED0 /* Constants.swift */,
+				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -146,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
+				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -154,6 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
+				DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */,
+				DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -264,15 +294,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
+				DC66CECB1D981EE000808ED0 /* Action.swift in Sources */,
+				DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */,
+				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
+				DC66CECF1D98273A00808ED0 /* View.swift in Sources */,
+				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
+				DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
+				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
+				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC99C4001D9562740031DBE4 /* User.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
+				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
+				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 			);
@@ -484,6 +524,7 @@
 				DC99C3F01D955C910031DBE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC99C3F11D955C910031DBE4 /* Build configuration list for PBXNativeTarget "JenkinsiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +533,7 @@
 				DC99C3F31D955C910031DBE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
