@@ -34,3 +34,17 @@ extension UIColor{
         return Constants.Colors.jenkinsColors[color] ?? UIColor.clear
     }
 }
+
+extension Optional{
+    /// Return a nicer version of an optional value string
+    ///
+    /// - returns: A string describing the optional: either "nil" or its actual value
+    func textify() -> String{
+        switch self{
+            case .none:
+                return "nil"
+            default:
+                return "\(self!)"
+        }
+    }
+}
