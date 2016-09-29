@@ -30,9 +30,15 @@ class Build: CustomDebugStringConvertible{
     var duration: TimeInterval?
     var estimatedDuration: TimeInterval?
     
+    var changeSet: ChangeSet?
+    
     var consoleOutputUrl: URL{
         get{
-            return url.appendingPathComponent("/logText/progressiveHtml?start=0")
+            var components = URLComponents(url: url.appendingPathComponent("/logText/progressiveHtml"), resolvingAgainstBaseURL: true)
+            components?.queryItems = [
+                URLQueryItem(name: "start", value: "0")
+            ]
+            return components?.url ?? url
         }
     }
     
@@ -67,6 +73,10 @@ class Build: CustomDebugStringConvertible{
         
         duration = json["duration"] as? TimeInterval
         estimatedDuration = json["estimatedDuration"] as? TimeInterval
+        
+        if let changeSetJson = json["changeSet"] as? [String: AnyObject]{
+            changeSet = ChangeSet(json: changeSetJson)
+        }
     }
     
     var debugDescription: String{
