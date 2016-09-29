@@ -85,6 +85,64 @@ class NetworkManager{
         }
     }
     
+    /// Get the list of computers for a given url
+    ///
+    /// - parameter userRequest: The user request including url, etc.
+    /// - parameter completion:  A closure handling the (optional) computer list and (optional) error
+    func getComputerList(userRequest: UserRequest, completion: @escaping (ComputerList?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else { completion(nil, error); return }
+            guard let data = data
+                else { completion(nil, NetworkManagerError.noDataFound); return }
+            guard let json = data as? [String: AnyObject]
+                else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
+            let computerList = ComputerList(json: json)
+            completion(computerList, nil)
+        }
+    }
+    
+    /// Perform a build on a job using jenkins remote access api
+    ///
+    /// - parameter account:    The user account, which should be used to trigger the build
+    /// - parameter job:        The job that should be built
+    /// - parameter token:      The user's token that is set up in the job configuration
+    /// - parameter parameters: The build's parameters
+    /// - parameter completion: A closure handling the returned data and an (optional) error
+    func performBuild(account: Account, job: Job, token: String, parameters: [String: AnyObject]?, completion: ((AnyObject?, Error?) -> ())?) throws{
+        var components = URLComponents(url: job.url.appendingPathComponent("/build"), resolvingAgainstBaseURL: true)
+        
+        components?.queryItems = [
+                URLQueryItem(name: "token", value: token)
+            ]
+        
+        if let parameters = parameters{
+            
+            let keyValuePairs = parameters.flatMap({ (key: String, value: AnyObject) -> String in
+                return "\(key):\(value)"
+            })
+            
+            components?.queryItems?.append(URLQueryItem(name: "parameter", value: keyValuePairs.joined(separator: ",")))
+        }
+        
+        guard let url = components?.url
+            else { completion?(nil, NetworkManagerError.URLBuildingError); return }
+        
+        let userRequest = UserRequest(requestUrl: url, account: account)
+        performRequest(userRequest: userRequest, method: .POST) { (data, error) in
+            if error != nil{
+                completion?(nil, error)
+                return
+            }
+            else if data == nil{
+                completion?(nil, NetworkManagerError.noDataFound)
+                return
+            }
+            
+            completion?(data as AnyObject, nil)
+        }
+    }
+    
     //MARK: - Direct networking
     
     /// Perform a request with the given method and, on returned data, call the completion handler
