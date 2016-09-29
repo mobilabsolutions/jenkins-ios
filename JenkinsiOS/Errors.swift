@@ -13,6 +13,7 @@ enum NetworkManagerError: Error{
     case HTTPResponseNoSuccess(code: Int, message: String)
     case dataTaskError(nsError: NSError)
     case noDataFound
+    case URLBuildingError
     
     var localizedDescription: String{
         switch self {
@@ -24,6 +25,8 @@ enum NetworkManagerError: Error{
             return error.localizedDescription
         case .noDataFound:
             return "No data found"
+        case .URLBuildingError:
+            return "Cannot build url"
         default:
             return "An Error in the NetworkManager occurred"
         }

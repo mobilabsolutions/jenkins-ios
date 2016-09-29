@@ -18,7 +18,12 @@ struct Constants{
     struct Identifiers{
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
+        static let buildCell = "buildCell"
+        
         static let showJobsSegue = "showJobsSegue"
+        static let showJobSegue = "showJobSegue"
+        static let showBuildsSegue = "showBuildsSegue"
+        static let showBuildSegue = "showBuildSegue"
     }
     
     struct Colors{
