@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobsTableViewController: UITableViewController {
+class JobsTableViewController: UITableViewController{
     var account: Account?
     var jobs: JobList?{
         didSet{
@@ -17,7 +17,7 @@ class JobsTableViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
-        print(account)
+            
         guard let account = account
             else { return }
         //FIXME: Init with different tree
@@ -32,7 +32,16 @@ class JobsTableViewController: UITableViewController {
         }
     }
     
-    //MARK: Tableview datasource and delegate
+    //MARK: - Viewcontroller navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let job = sender as? Job{
+            dest.job = job
+            dest.account = account
+        }
+    }
+    
+    //MARK: - Tableview datasource and delegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.jobCell, for: indexPath)
@@ -46,15 +55,9 @@ class JobsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let account = account, let job = jobs?.jobs[indexPath.row]
+        guard let job = jobs?.jobs[indexPath.row]
             else { return }
-        let request = UserRequest(requestUrl: job.url, account: account)
-        NetworkManager.manager.completeJobInformation(userRequest: request, job: job) { (job, error) in
-            //FIXME: Show a message on error
-            if error == nil{
-                let mirror = Mirror(reflecting: job)
-                mirror.children.forEach{ print($0) }
-            }
-        }
+        
+        performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
     }
 }
