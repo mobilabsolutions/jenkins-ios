@@ -10,31 +10,36 @@ import UIKit
 
 class JobsTableViewController: UITableViewController{
     var account: Account?
-    var jobs: JobList?{
-        didSet{
-            tableView.reloadData()
-        }
-    }
+    var jobs: JobList?
     
     override func viewDidLoad() {
-            
+        loadJobs()
+    }
+    
+    func loadJobs(){
         guard let account = account
             else { return }
         NetworkManager.manager.getJobs(userRequest: UserRequest(requestUrl: account.baseUrl, account: account, additionalQueryItems: Constants.API.jobListAdditionalQueryItems)) { (jobList, error) in
             //FIXME: Display an error message on error
             if error == nil && jobList != nil{
                 self.jobs = jobList
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
             }
             else{
                 print("Error: \(error)")
             }
         }
+
     }
     
     //MARK: - Viewcontroller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let job = sender as? Job{
+        if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let jobCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: jobCell), let job = jobs?.allJobsView?.jobs[indexPath.row]{
             dest.job = job
             dest.account = account
         }
@@ -51,12 +56,5 @@ class JobsTableViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jobs?.allJobsView?.jobs.count ?? 0
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let job = jobs?.allJobsView?.jobs[indexPath.row]
-            else { return }
-        
-        performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
     }
 }

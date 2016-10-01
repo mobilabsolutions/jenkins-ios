@@ -17,8 +17,8 @@ class AccountsTableViewController: UITableViewController {
     //MARK: - Viewcontroller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let account = sender as? Account, let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showJobsSegue{
-            dest.account = account
+        if let accountCell = sender as? UITableViewCell, let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showJobsSegue, let indexPath = tableView.indexPath(for: accountCell){
+            dest.account = AccountManager.manager.accounts[indexPath.row]
         }
     }
     
@@ -31,10 +31,5 @@ class AccountsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AccountManager.manager.accounts.count
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let account = AccountManager.manager.accounts[indexPath.row]
-        performSegue(withIdentifier: Constants.Identifiers.showJobsSegue, sender: account)
     }
 }
