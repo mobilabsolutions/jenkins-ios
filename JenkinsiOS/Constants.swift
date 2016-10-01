@@ -17,6 +17,7 @@ struct Constants{
     
     struct Paths{
         static let userPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("User")
+        static let accountsPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("Account")
     }
     
     struct Identifiers{
@@ -28,6 +29,72 @@ struct Constants{
         static let showJobSegue = "showJobSegue"
         static let showBuildsSegue = "showBuildsSegue"
         static let showBuildSegue = "showBuildSegue"
+    }
+    
+    struct JSON {
+        static let allViews = "All"
+        static let views = "views"
+        static let name = "name"
+        static let url = "url"
+        static let jobs = "jobs"
+        static let color = "color"
+        static let builds = "builds"
+        static let firstBuild = "firstBuild"
+        static let absoluteUrl = "absoluteUrl"
+        static let fullName = "fullName"
+        static let blocked = "blocked"
+        static let buildable = "buildable"
+        static let id = "id"
+        static let inQueueSince = "inQueueSince"
+        static let params = "params"
+        static let stuck = "stuck"
+        static let why = "why"
+        static let task = "task"
+        static let buildableStartMilliseconds = "buildableStartMilliseconds"
+        static let actions = "actions"
+        static let items = "items"
+        static let age = "age"
+        static let className = "className"
+        static let duration = "duration"
+        static let errorDetails = "errorDetails"
+        static let errorStackTrace = "errorStackTrace"
+        static let failedSince = "failedSince"
+        static let name = "name"
+        static let skipped = "skipped"
+        static let skippedMessage = "skippedMessage"
+        static let status = "status"
+        static let stdout = "stdout"
+        static let stderr = "stderr"
+        static let reportUrl = "reportUrl"
+        static let cases = "cases"
+        static let timestamp = "timestamp"
+        static let number = "number"
+        static let empty = "empty"
+        static let failCount = "failCount"
+        static let passCount = "passCount"
+        static let skipCount = "skipCount"
+        static let suites = "suites"
+        static let child = "child"
+        static let result = "result"
+        static let totalCount = "totalCount"
+        static let childReports = "childReports"
+        static let urlName = "urlName"
+    }
+    
+    struct API{
+        static let consoleOutput = "/logText/progressiveHtml"
+        static let consoleOutputQueryItems = [
+            URLQueryItem(name: "start", value: "0")
+        ]
+        static let jobListAdditionalQueryItems = [
+            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]]")
+        ]
+        static let testReport = "/testReport"
+        static let testReportAdditionalQueryItems = [
+            URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount")
+        ]
+        static let buildQueue = "/queue"
+        static let computer = "/computer"
     }
     
     struct Colors{
