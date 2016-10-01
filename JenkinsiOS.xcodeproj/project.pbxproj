@@ -13,7 +13,7 @@
 		DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC41D98069F00808ED0 /* Constants.swift */; };
 		DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC61D98079A00808ED0 /* AccountManager.swift */; };
 		DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC81D981D8A00808ED0 /* Cause.swift */; };
-		DC66CECB1D981EE000808ED0 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECA1D981EE000808ED0 /* Action.swift */; };
+		DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECA1D981EE000808ED0 /* Actions.swift */; };
 		DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECC1D98256C00808ED0 /* Extensions.swift */; };
 		DC66CECF1D98273A00808ED0 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECE1D98273A00808ED0 /* View.swift */; };
 		DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CED01D982B8B00808ED0 /* Computer.swift */; };
@@ -32,7 +32,6 @@
 		DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F41D955E1B0031DBE4 /* Job.swift */; };
 		DC99C3F71D9561500031DBE4 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F61D9561500031DBE4 /* Build.swift */; };
 		DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */; };
-		DC99C4001D9562740031DBE4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FF1D9562740031DBE4 /* User.swift */; };
 		DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4011D9562F70031DBE4 /* NetworkManager.swift */; };
 		DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4031D95647E0031DBE4 /* UserRequest.swift */; };
 		DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4051D95719C0031DBE4 /* JobList.swift */; };
@@ -48,6 +47,12 @@
 		DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1691D9FF54E00491B98 /* Favoratible.swift */; };
 		DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */; };
 		DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */; };
+		DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1701DA0196200491B98 /* TestResult.swift */; };
+		DCC2E1741DA0197800491B98 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1731DA0197800491B98 /* Child.swift */; };
+		DCC2E1761DA0198300491B98 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1751DA0198300491B98 /* Result.swift */; };
+		DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1771DA0198F00491B98 /* Suite.swift */; };
+		DCC2E17A1DA0199900491B98 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1791DA0199900491B98 /* Case.swift */; };
+		DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E17B1DA01A1300491B98 /* ChildReport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +86,7 @@
 		DC66CEC41D98069F00808ED0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DC66CEC61D98079A00808ED0 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		DC66CEC81D981D8A00808ED0 /* Cause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cause.swift; sourceTree = "<group>"; };
-		DC66CECA1D981EE000808ED0 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		DC66CECA1D981EE000808ED0 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		DC66CECC1D98256C00808ED0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DC66CECE1D98273A00808ED0 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		DC66CED01D982B8B00808ED0 /* Computer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
@@ -104,7 +109,6 @@
 		DC99C3F41D955E1B0031DBE4 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		DC99C3F61D9561500031DBE4 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueue.swift; sourceTree = "<group>"; };
-		DC99C3FF1D9562740031DBE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC99C4011D9562F70031DBE4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DC99C4031D95647E0031DBE4 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		DC99C4051D95719C0031DBE4 /* JobList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobList.swift; sourceTree = "<group>"; };
@@ -119,6 +123,12 @@
 		DCC2E1691D9FF54E00491B98 /* Favoratible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favoratible.swift; sourceTree = "<group>"; };
 		DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManager.swift; sourceTree = "<group>"; };
 		DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceUtils.swift; sourceTree = "<group>"; };
+		DCC2E1701DA0196200491B98 /* TestResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResult.swift; sourceTree = "<group>"; };
+		DCC2E1731DA0197800491B98 /* Child.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
+		DCC2E1751DA0198300491B98 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		DCC2E1771DA0198F00491B98 /* Suite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
+		DCC2E1791DA0199900491B98 /* Case.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
+		DCC2E17B1DA01A1300491B98 /* ChildReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildReport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,21 +262,21 @@
 		DCC2E1661D9FF2DD00491B98 /* JenkinsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				DC66CED01D982B8B00808ED0 /* Computer.swift */,
-				DC66CED21D9D408300808ED0 /* Item.swift */,
+				DC66CECA1D981EE000808ED0 /* Actions.swift */,
 				DC66CED41D9D40DF00808ED0 /* Author.swift */,
-				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
-				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
-				DC66CECE1D98273A00808ED0 /* View.swift */,
-				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
-				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
-				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
-				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 				DC99C3F61D9561500031DBE4 /* Build.swift */,
-				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
-				DC66CECA1D981EE000808ED0 /* Action.swift */,
 				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
-				DC99C3FF1D9562740031DBE4 /* User.swift */,
+				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
+				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
+				DC66CED01D982B8B00808ED0 /* Computer.swift */,
+				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
+				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
+				DC66CED21D9D408300808ED0 /* Item.swift */,
+				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
+				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
+				DC99C4051D95719C0031DBE4 /* JobList.swift */,
+				DC66CECE1D98273A00808ED0 /* View.swift */,
+				DCC2E1721DA0196800491B98 /* TestResult */,
 			);
 			name = JenkinsAPI;
 			sourceTree = "<group>";
@@ -277,6 +287,19 @@
 				DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		DCC2E1721DA0196800491B98 /* TestResult */ = {
+			isa = PBXGroup;
+			children = (
+				DCC2E1701DA0196200491B98 /* TestResult.swift */,
+				DCC2E1731DA0197800491B98 /* Child.swift */,
+				DCC2E1751DA0198300491B98 /* Result.swift */,
+				DCC2E1771DA0198F00491B98 /* Suite.swift */,
+				DCC2E1791DA0199900491B98 /* Case.swift */,
+				DCC2E17B1DA01A1300491B98 /* ChildReport.swift */,
+			);
+			name = TestResult;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,9 +409,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
+				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
+				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
-				DC66CECB1D981EE000808ED0 /* Action.swift in Sources */,
+				DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */,
 				DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */,
 				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
@@ -402,11 +427,13 @@
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
+				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
+				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
+				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
-				DC99C4001D9562740031DBE4 /* User.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
@@ -418,6 +445,7 @@
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
+				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
