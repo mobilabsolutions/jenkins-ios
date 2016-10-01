@@ -34,13 +34,14 @@ class Build: Favoratible, CustomDebugStringConvertible{
     
     var consoleOutputUrl: URL{
         get{
-            var components = URLComponents(url: url.appendingPathComponent("/logText/progressiveHtml"), resolvingAgainstBaseURL: true)
-            components?.queryItems = [
-                URLQueryItem(name: "start", value: "0")
-            ]
+            var components = URLComponents(url: url.appendingPathComponent(Constants.API.consoleOutput), resolvingAgainstBaseURL: true)
+            components?.queryItems = Constants.API.consoleOutputQueryItems
             return components?.url ?? url
         }
     }
+    
+    /// Is the build information based on "full version" JSON?
+    var isFullVersion = false
     
     init?(json: [String: AnyObject], minimalVersion: Bool = false){
         guard let number = json["number"] as? Int, let urlString = json["url"] as? String, let url = URL(string: urlString)
@@ -77,6 +78,8 @@ class Build: Favoratible, CustomDebugStringConvertible{
         if let changeSetJson = json["changeSet"] as? [String: AnyObject]{
             changeSet = ChangeSet(json: changeSetJson)
         }
+        
+        isFullVersion = true
     }
     
     var debugDescription: String{

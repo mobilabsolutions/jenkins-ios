@@ -10,37 +10,29 @@ import Foundation
 
 class JobList: CustomStringConvertible{
     
-    var jobs: [Job] = []
-    var views: [View]?
-    
-    //FIXME: Init with different tree
-    init(data: Any) throws{
-        guard let json = data as? [String: AnyObject]
-            else { throw ParsingError.DataNotCorrectFormatError }
-        guard let jsonJobs = json["jobs"] as? [[String: AnyObject]]
-            else{ throw ParsingError.KeyMissingError(key: "jobs") }
+    var allJobs: [Job] = []
+    var views: [View] = []
         
-        for jsonJob in jsonJobs{
-            if let job = Job(json: jsonJob, minimalVersion: true){
-                jobs.append(job)
-            }
-        }
+    init(json: [String: AnyObject]) throws{
+        guard let viewsJson = json[Constants.JSON.views] as? [[String: AnyObject]]
+            else { throw ParsingError.KeyMissingError(key: Constants.JSON.views) }
         
-        if let jsonViews = json["views"] as? [[String: AnyObject]]{
-            views = []
-            for jsonView in jsonViews{
-                if let view = View(json: jsonView){
-                    views?.append(view)
+        for viewJson in viewsJson{
+            if let view = View(json: viewJson){
+                views.append(view)
+                
+                if view.name == Constants.JSON.allViews{
+                    allJobs = view.jobs
                 }
             }
         }
     }
     
     var description: String{
-        return "{\n" + jobs.reduce("", { (result, job) -> String in
+        return "{\n" + allJobs.reduce("", { (result, job) -> String in
             return "\(result) Name: \(job.name), Description: \(job.description) \n"
-        }) + (views?.reduce("Views: ", { (result, view) -> String in
+        }) + (views.reduce("Views: ", { (result, view) -> String in
             return "\(result)\(view)\n"
-        }) ?? "No views") + "}"
+        })) + "}"
     }
 }

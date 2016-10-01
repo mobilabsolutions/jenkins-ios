@@ -37,8 +37,11 @@ class Job: Favoratible{
 
     var nextbuildNumber: Int?
     
+    /// Is the job information based on "full version" JSON?
+    var isFullVersion = false
+    
     init?(json: [String: AnyObject], minimalVersion: Bool = false){
-        guard let name = json["name"] as? String, let urlString = json["url"] as? String
+        guard let name = json[Constants.JSON.name] as? String, let urlString = json[Constants.JSON.url] as? String
             else { return nil }
         guard let url = URL(string: urlString)
             else { return nil }
@@ -85,5 +88,7 @@ class Job: Favoratible{
         lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject])
         
         nextbuildNumber = json["nextBuildNumber"] as? Int
+        
+        isFullVersion = true
     }
 }

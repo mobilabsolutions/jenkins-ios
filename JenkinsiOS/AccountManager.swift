@@ -31,15 +31,15 @@ class AccountManager{
             SAMKeychain.setPassword(password, forService: "com.mobilabsolutions.jenkins.account", account: username)
         }
         
-        var url = PersistenceUtils.getDocumentDirectory()?.appendingPathComponent("Account")
+        var url = Constants.Paths.accountsPath
         
-        if !FileManager.default.fileExists(atPath: url!.absoluteString){
-            _ = try? FileManager.default.createDirectory(at: url!, withIntermediateDirectories: true, attributes: nil)
+        if !FileManager.default.fileExists(atPath: url.absoluteString){
+            _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         
-        url?.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        url.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
         
-        NSKeyedArchiver.archiveRootObject(account, toFile: url!.path)
+        NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
     }
     
     /// Return the full list of accounts
@@ -60,10 +60,10 @@ class AccountManager{
             return returnDict
         }
         
-        let url = PersistenceUtils.getDocumentDirectory()?.appendingPathComponent("Account")
+        let url = Constants.Paths.accountsPath
         
         do{
-            let urls = try FileManager.default.contentsOfDirectory(at: url!, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            let urls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
             for fileUrl in urls{
                 if let account = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) as? Account{
                     

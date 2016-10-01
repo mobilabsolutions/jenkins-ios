@@ -40,7 +40,9 @@ class NetworkManager{
                 else{ completion(nil, NetworkManagerError.noDataFound); return }
             
             do{
-                let jobList = try JobList(data: data)
+                guard let jobListJson = data as? [String: AnyObject]
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                let jobList = try JobList(json: jobListJson)
                 completion(jobList, nil)
             }
             catch{
