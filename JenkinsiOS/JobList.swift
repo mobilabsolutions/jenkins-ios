@@ -10,7 +10,7 @@ import Foundation
 
 class JobList: CustomStringConvertible{
     
-    var allJobs: [Job] = []
+    var allJobsView: View?
     var views: [View] = []
         
     init(json: [String: AnyObject]) throws{
@@ -22,17 +22,19 @@ class JobList: CustomStringConvertible{
                 views.append(view)
                 
                 if view.name == Constants.JSON.allViews{
-                    allJobs = view.jobs
+                    allJobsView = view
                 }
             }
         }
     }
     
     var description: String{
-        return "{\n" + allJobs.reduce("", { (result, job) -> String in
+        return "{\n" + (allJobsView?.jobs.reduce("", { (result, job) -> String in
             return "\(result) Name: \(job.name), Description: \(job.description) \n"
-        }) + (views.reduce("Views: ", { (result, view) -> String in
-            return "\(result)\(view)\n"
-        })) + "}"
+        }) ?? "No all view")
+            + (views.reduce("Views: ", { (result, view) -> String in
+                return "\(result)\(view)\n"
+        }))
+            + "}"
     }
 }

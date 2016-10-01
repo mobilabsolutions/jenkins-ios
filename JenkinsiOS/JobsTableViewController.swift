@@ -44,17 +44,17 @@ class JobsTableViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.jobCell, for: indexPath)
-        cell.textLabel?.text = jobs?.allJobs[indexPath.row].name
-        cell.detailTextLabel?.text = jobs?.allJobs[indexPath.row].color?.rawValue ?? jobs?.allJobs[indexPath.row].description
+        cell.textLabel?.text = jobs?.allJobsView?.jobs[indexPath.row].name
+        cell.detailTextLabel?.text = jobs?.allJobsView?.jobs[indexPath.row].color?.rawValue ?? jobs?.allJobsView?.jobs[indexPath.row].description
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return jobs?.allJobs.count ?? 0
+        return jobs?.allJobsView?.jobs.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let job = jobs?.allJobs[indexPath.row]
+        guard let job = jobs?.allJobsView?.jobs[indexPath.row]
             else { return }
         
         performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)

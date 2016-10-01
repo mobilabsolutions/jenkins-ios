@@ -36,7 +36,7 @@ class TestResult{
         
         if let suitesJson = json[Constants.JSON.suites] as? [[String: AnyObject]]{
             for suiteJson in suitesJson{
-                if let suite = Suite(json: suitesJson){
+                if let suite = Suite(json: suiteJson){
                     suites.append(suite)
                 }
             }

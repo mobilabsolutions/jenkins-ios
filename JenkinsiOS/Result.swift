@@ -24,6 +24,12 @@ class Result{
               let skipCount = json[Constants.JSON.skipCount] as? Int
             else { return nil }
         
+        self.duration = duration
+        self.empty = empty
+        self.failCount = failCount
+        self.passCount = passCount
+        self.skipCount = skipCount
+        
         if let suitesJson = json[Constants.JSON.suites] as? [[String: AnyObject]]{
             for suiteJson in suitesJson{
                 if let suite = Suite(json: suiteJson){

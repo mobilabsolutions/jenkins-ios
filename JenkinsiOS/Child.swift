@@ -14,7 +14,7 @@ class Child{
     
     init?(json: [String: AnyObject]){
         number = json[Constants.JSON.number] as? Int
-        if let urlString = json[Constants.JSON.url] as? URL{
+        if let urlString = json[Constants.JSON.url] as? String{
             url = URL(string: urlString)
         }
     }

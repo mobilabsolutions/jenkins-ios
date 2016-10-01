@@ -59,7 +59,6 @@ struct Constants{
         static let errorDetails = "errorDetails"
         static let errorStackTrace = "errorStackTrace"
         static let failedSince = "failedSince"
-        static let name = "name"
         static let skipped = "skipped"
         static let skippedMessage = "skippedMessage"
         static let status = "status"
