@@ -31,7 +31,7 @@ class AccountManager{
             SAMKeychain.setPassword(password, forService: "com.mobilabsolutions.jenkins.account", account: username)
         }
         
-        var url = getDocumentDirectory()?.appendingPathComponent("Account")
+        var url = PersistenceUtils.getDocumentDirectory()?.appendingPathComponent("Account")
         
         if !FileManager.default.fileExists(atPath: url!.absoluteString){
             _ = try? FileManager.default.createDirectory(at: url!, withIntermediateDirectories: true, attributes: nil)
@@ -39,7 +39,7 @@ class AccountManager{
         
         url?.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
         
-        print(NSKeyedArchiver.archiveRootObject(account, toFile: url!.path))
+        NSKeyedArchiver.archiveRootObject(account, toFile: url!.path)
     }
     
     /// Return the full list of accounts
@@ -60,7 +60,7 @@ class AccountManager{
             return returnDict
         }
         
-        let url = getDocumentDirectory()?.appendingPathComponent("Account")
+        let url = PersistenceUtils.getDocumentDirectory()?.appendingPathComponent("Account")
         
         do{
             let urls = try FileManager.default.contentsOfDirectory(at: url!, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
@@ -79,17 +79,5 @@ class AccountManager{
             print(error)
         }
         return accounts
-    }
-
-
-    /// Get the url for the document directory with a path component added
-    ///
-    /// - parameter path:      The path component that should be added to the directory
-    /// - parameter directory: Whether or not the path is a directory
-    ///
-    /// - returns: The URL describing the document directory with the added path component
-    private func getDocumentDirectory() -> URL?{
-        return (try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
-    }
-    
+    }    
 }
