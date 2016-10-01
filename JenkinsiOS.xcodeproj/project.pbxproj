@@ -46,6 +46,8 @@
 		DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1641D9FF2BA00491B98 /* Favorite.swift */; };
 		DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */; };
 		DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1691D9FF54E00491B98 /* Favoratible.swift */; };
+		DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */; };
+		DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +117,8 @@
 		DCC2E1641D9FF2BA00491B98 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUser.swift; sourceTree = "<group>"; };
 		DCC2E1691D9FF54E00491B98 /* Favoratible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favoratible.swift; sourceTree = "<group>"; };
+		DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManager.swift; sourceTree = "<group>"; };
+		DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				DC99C3FE1D9562440031DBE4 /* Controller */,
-				DC99C3FD1D9562330031DBE4 /* Service */,
 				DC99C3F81D95615A0031DBE4 /* Model */,
+				DC99C3FD1D9562330031DBE4 /* Service */,
+				DCC2E16D1D9FFD3000491B98 /* Utils */,
 				DC99C3F91D9561710031DBE4 /* Other */,
 			);
 			path = JenkinsiOS;
@@ -210,6 +215,7 @@
 			children = (
 				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
 				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
+				DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -263,6 +269,14 @@
 				DC99C3FF1D9562740031DBE4 /* User.swift */,
 			);
 			name = JenkinsAPI;
+			sourceTree = "<group>";
+		};
+		DCC2E16D1D9FFD3000491B98 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,6 +397,7 @@
 				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
 				DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */,
+				DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */,
 				DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
@@ -393,6 +408,7 @@
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC99C4001D9562740031DBE4 /* User.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
+				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC66CED51D9D40DF00808ED0 /* Author.swift in Sources */,
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
