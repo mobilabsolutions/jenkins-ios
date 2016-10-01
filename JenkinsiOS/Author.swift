@@ -12,8 +12,11 @@ class Author{
     var absoluteUrl: URL
     var fullName: String
     
-    //FIXME: Actually implement initialization from JSON
     init?(json: [String: Any]){
-        return nil
+        guard let absoluteUrlString = json[Constants.JSON.absoluteUrl] as? String, let fullName = json[Constants.JSON.fullName] as? String, let absoluteUrl = URL(string: absoluteUrlString)
+            else { return nil }
+        
+        self.absoluteUrl = absoluteUrl
+        self.fullName = fullName
     }
 }
