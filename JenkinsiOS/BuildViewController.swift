@@ -23,30 +23,32 @@ class BuildViewController: UIViewController {
         consoleWebView.allowsLinkPreview = true
         consoleWebView.delegate = self
         
-        guard let build = build, let account = account
+        updateUI()
+        
+        guard let build = build
             else { return }
         
-        let userRequest = UserRequest(requestUrl: build.url, account: account)
-        
-        nameLabel.text = build.displayName ?? "Build #\(build.number)"
-        urlLabel.text = "\(build.url)"
-        
         let request = URLRequest(url: build.consoleOutputUrl.using(scheme: "https")!)
-        print(build.consoleOutputUrl.using(scheme: "https")!)
         consoleWebView.loadRequest(request)
         
-        NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build) { (build, error) in
-            //FIXME: Actually show an alert
-            guard error == nil
-                else { print(error); return }
-            DispatchQueue.main.async {
-                //FIXME: Actually present data
-                let mirror = Mirror(reflecting: build)
-                mirror.children.forEach({ (child) in
-                    print("\(child.label.textify()):\((child.value as Optional).textify())")
-                })
-            }
+        if build.isFullVersion == false, let account = account{
+            let userRequest = UserRequest(requestUrl: build.url, account: account)
+            
+            NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
+                //FIXME: Actually display errors
+                DispatchQueue.main.async {
+                    self.updateUI()
+                }
+            })
         }
+    }
+    
+    func updateUI(){
+        guard let build = build
+            else { return }
+        
+        nameLabel.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
+        urlLabel.text = "\(build.url)"
     }
 }
 
