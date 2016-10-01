@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Build: CustomDebugStringConvertible{
+class Build: Favoratible, CustomDebugStringConvertible{
     
     var number: Int
     var url: URL

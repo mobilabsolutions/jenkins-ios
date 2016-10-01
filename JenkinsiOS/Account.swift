@@ -13,7 +13,7 @@ class Account: NSObject, NSCoding{
     var username: String?
     var password: String?
     var port: Int?
-    
+        
     init(baseUrl: URL, username: String?, password: String?, port: Int?){
         self.baseUrl = baseUrl
         self.username = username

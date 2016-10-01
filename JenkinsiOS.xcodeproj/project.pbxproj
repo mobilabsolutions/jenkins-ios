@@ -43,6 +43,9 @@
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
 		DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
 		DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1641D9FF2BA00491B98 /* Favorite.swift */; };
+		DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */; };
+		DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1691D9FF54E00491B98 /* Favoratible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,9 @@
 		DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
 		DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = ../Carthage/Build/iOS/SAMKeychain.framework; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DCC2E1641D9FF2BA00491B98 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUser.swift; sourceTree = "<group>"; };
+		DCC2E1691D9FF54E00491B98 /* Favoratible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favoratible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,23 +179,12 @@
 		DC99C3F81D95615A0031DBE4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
-				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
-				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
-				DC99C4051D95719C0031DBE4 /* JobList.swift */,
-				DC99C3F61D9561500031DBE4 /* Build.swift */,
-				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
-				DC66CECA1D981EE000808ED0 /* Action.swift */,
-				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
-				DC99C3FF1D9562740031DBE4 /* User.swift */,
+				DCC2E1661D9FF2DD00491B98 /* JenkinsAPI */,
 				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
-				DC66CECE1D98273A00808ED0 /* View.swift */,
-				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
 				DC66CEBE1D97FD9000808ED0 /* Account.swift */,
-				DC66CED01D982B8B00808ED0 /* Computer.swift */,
-				DC66CED21D9D408300808ED0 /* Item.swift */,
-				DC66CED41D9D40DF00808ED0 /* Author.swift */,
-				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
+				DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */,
+				DCC2E1641D9FF2BA00491B98 /* Favorite.swift */,
+				DCC2E1691D9FF54E00491B98 /* Favoratible.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -246,6 +241,28 @@
 				DCC2E15F1D9D7CDA00491B98 /* Security.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCC2E1661D9FF2DD00491B98 /* JenkinsAPI */ = {
+			isa = PBXGroup;
+			children = (
+				DC66CED01D982B8B00808ED0 /* Computer.swift */,
+				DC66CED21D9D408300808ED0 /* Item.swift */,
+				DC66CED41D9D40DF00808ED0 /* Author.swift */,
+				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
+				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
+				DC66CECE1D98273A00808ED0 /* View.swift */,
+				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
+				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
+				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
+				DC99C4051D95719C0031DBE4 /* JobList.swift */,
+				DC99C3F61D9561500031DBE4 /* Build.swift */,
+				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
+				DC66CECA1D981EE000808ED0 /* Action.swift */,
+				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
+				DC99C3FF1D9562740031DBE4 /* User.swift */,
+			);
+			name = JenkinsAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +386,7 @@
 				DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
+				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
@@ -380,8 +398,10 @@
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
+				DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */,
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
+				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
