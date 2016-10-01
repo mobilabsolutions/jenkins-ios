@@ -18,12 +18,19 @@ class UserRequest{
             var components = URLComponents(url: requestUrl.appendingPathComponent("/api/json"), resolvingAgainstBaseURL: false)
             components?.queryItems = [URLQueryItem(name: "pretty", value: "false")]
             
+            if let additionalQueryItems = additionalQueryItems{
+                components?.queryItems?.append(contentsOf: additionalQueryItems)
+            }
+            
             return components?.url ?? requestUrl
         }
     }
     
-    init(requestUrl: URL, account: Account){
+    private var additionalQueryItems: [URLQueryItem]?
+    
+    init(requestUrl: URL, account: Account, additionalQueryItems: [URLQueryItem]? = nil){
         self.requestUrl = requestUrl.using(scheme: "https", at: account.port)!
         self.account = account
+        self.additionalQueryItems = additionalQueryItems
     }
 }
