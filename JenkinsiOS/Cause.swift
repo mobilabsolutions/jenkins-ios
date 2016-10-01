@@ -11,17 +11,15 @@ import Foundation
 class Cause{
     
     var shortDescription: String
-    var userId: String
-    var userName: String
+    var userId: String?
+    var userName: String?
     
     init?(json: [String: AnyObject]){
-        guard let shortDescription = json["shortDescription"] as? String,
-            let userId = json["userId"] as? String,
-            let userName = json["userName"] as? String
+        guard let shortDescription = json["shortDescription"] as? String
             else { return nil }
         
-        self.userName = userName
-        self.userId = userId
+        self.userName = json["userName"] as? String
+        self.userId = json["userId"] as? String
         self.shortDescription = shortDescription
     }
 }
