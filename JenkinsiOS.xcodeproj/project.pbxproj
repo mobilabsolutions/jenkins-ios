@@ -40,8 +40,9 @@
 		DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */; };
 		DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */; };
 		DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */; };
-		DCC2E15C1D9D7C9A00491B98 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
+		DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
+		DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,20 @@
 			remoteInfo = JenkinsiOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCC2E1631D9FE85600491B98 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DC66CEBE1D97FD9000808ED0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -102,7 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */,
-				DCC2E15C1D9D7C9A00491B98 /* SAMKeychain.framework in Frameworks */,
+				DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +258,7 @@
 				DC99C3CD1D955C8F0031DBE4 /* Sources */,
 				DC99C3CE1D955C8F0031DBE4 /* Frameworks */,
 				DC99C3CF1D955C8F0031DBE4 /* Resources */,
+				DCC2E1631D9FE85600491B98 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
