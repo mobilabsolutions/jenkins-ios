@@ -10,10 +10,9 @@ import Foundation
 
 class ApplicationUser: NSCoding{
 
-    static let shared = ApplicationUser()
     var favorites: [Favorite] = []
     
-    private init(){}
+    init(){}
     
     required init?(coder aDecoder: NSCoder) {
         guard let favoritesData = aDecoder.decodeObject(forKey: "favorites") as? [Data]

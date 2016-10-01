@@ -27,7 +27,7 @@ extension Favoratible{
                 type = nil
         }
         if let type = type{
-            ApplicationUser.shared.favorites.append(Favorite(url: self.url, type: type))
+            ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: self.url, type: type))
         }
     }
 }

@@ -15,6 +15,10 @@ struct Constants{
         static let defaultPort = 443
     }
     
+    struct Paths{
+        static let userPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("User")
+    }
+    
     struct Identifiers{
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
