@@ -58,7 +58,7 @@ class JobViewController: UIViewController {
                 guard error == nil
                     else { print(error); return }
                 DispatchQueue.main.async {
-                    // FIXME: Update UI
+                    // FIXME: Update UI: Add other info for Job
                     if let description = job.description{
                         self.descriptionWebView.loadHTMLString(description, baseURL: nil)
                     }

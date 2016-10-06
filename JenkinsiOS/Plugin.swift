@@ -47,8 +47,8 @@ class Plugin{
         
         if let dependenciesJSON = json[Constants.JSON.dependencies] as? [[String: AnyObject]]{
             for dependecyJSON in dependenciesJSON{
-                if let dependecy = Dependency(json: dependecyJSON){
-                    dependecies.append(dependency)
+                if let dependency = Dependency(json: dependecyJSON){
+                    dependencies.append(dependency)
                 }
             }
         }
