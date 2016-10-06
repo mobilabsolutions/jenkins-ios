@@ -10,26 +10,31 @@ import UIKit
 
 class BuildsTableViewController: UITableViewController {
 
-    var builds: [Build]?{
-        didSet{
-            if let builds = builds, let account = account{
-                for (index, build) in builds.enumerated(){
-                    let userRequest = UserRequest(requestUrl: build.url, account: account)
-                    NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (build, error) in
-                        //FIXME: Display errors
-                        
-                        DispatchQueue.main.async {
-                            self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                        }
-                    })
-                }
-            }
-        }
-    }
+    var builds: [Build]?
     var account: Account?
     
     override func viewDidLoad() {
-        print(builds)
+        completeBuilds()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        completeBuilds()
+    }
+    
+    private func completeBuilds(){
+        if let builds = builds, let account = account{
+            for (index, build) in builds.enumerated().filter({$0.1.isFullVersion == false}){
+
+                let userRequest = UserRequest(requestUrl: build.url, account: account)
+                NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (build, error) in
+                    //FIXME: Display errors
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    }
+                })
+            }
+        }
+
     }
     
     // MARK: - Table view data source

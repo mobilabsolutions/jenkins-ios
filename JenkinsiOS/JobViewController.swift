@@ -65,6 +65,9 @@ class JobViewController: UIViewController {
                 }
             })
             
+            self.descriptionWebView.allowsLinkPreview = true
+            self.descriptionWebView.delegate = self
+            
             nameLabel.text = job.name
             urlLabel.text = "\(job.url)"
             //FIXME: Set image according to color
@@ -81,4 +84,10 @@ class JobViewController: UIViewController {
     }
     
     
+}
+
+extension JobViewController: UIWebViewDelegate{
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        return navigationType == .other
+    }
 }
