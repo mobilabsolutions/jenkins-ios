@@ -78,6 +78,20 @@ struct Constants{
         static let totalCount = "totalCount"
         static let childReports = "childReports"
         static let urlName = "urlName"
+        static let active = "active"
+        static let shortName = "shortName"
+        static let bundled = "bundled"
+        static let deleted = "deleted"
+        static let downgradable = "downgradable"
+        static let enabled = "enabled"
+        static let hasUpdate = "hasUpdate"
+        static let longName = "longName"
+        static let pinned = "pinned"
+        static let supportsDynamicLoad = "supportsDynamicLoad"
+        static let version = "version"
+        static let dependencies = "dependencies"
+        static let optional = "optional"
+        static let plugins = "plugins"
     }
     
     struct API{
