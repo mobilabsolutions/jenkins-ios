@@ -8,11 +8,13 @@
 
 import Foundation
 
-class ApplicationUser: NSCoding{
+class ApplicationUser: NSObject, NSCoding{
 
     var favorites: [Favorite] = []
     
-    init(){}
+    override init() {
+        super.init()
+    }
     
     required init?(coder aDecoder: NSCoder) {
         guard let favoritesData = aDecoder.decodeObject(forKey: "favorites") as? [Data]
