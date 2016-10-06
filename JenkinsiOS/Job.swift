@@ -72,20 +72,20 @@ class Job: Favoratible{
         
         description = json["description"] as? String
         buildable = json["buildable"] as? Bool
-        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0) }.filter{ $0 != nil }.map{ $0! }
+        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: true) }.filter{ $0 != nil }.map{ $0! }
         healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! }
         inQueue = json["inQueue"] as? Bool
         keepDependencies =  json["keepDependencies"] as? Bool
         
         // Get the interesting builds from the json data and, if they can be converted to a dictionary, try to initialize a Build from them
-        firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject])
-        lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject])
-        lastCompletedBuild = json["lastCompletedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastCompletedBuild"] as! [String: AnyObject])
-        lastFailedBuild = json["lastFailedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastFailedBuild"] as! [String: AnyObject])
-        lastStableBuild = json["lastStableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastStableBuild"] as! [String: AnyObject])
-        lastSuccessfulBuild = json["lastSuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastSuccessfulBuild"] as! [String: AnyObject])
-        lastUnstableBuild = json["lastUnstableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnstableBuild"] as! [String: AnyObject])
-        lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject])
+        firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastCompletedBuild = json["lastCompletedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastCompletedBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastFailedBuild = json["lastFailedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastFailedBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastStableBuild = json["lastStableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastStableBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastSuccessfulBuild = json["lastSuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastSuccessfulBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastUnstableBuild = json["lastUnstableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnstableBuild"] as! [String: AnyObject], minimalVersion: true)
+        lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject], minimalVersion: true)
         
         nextbuildNumber = json["nextBuildNumber"] as? Int
         

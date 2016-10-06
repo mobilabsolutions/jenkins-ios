@@ -41,9 +41,9 @@ class Build: Favoratible, CustomDebugStringConvertible{
     }
     
     /// Is the build information based on "full version" JSON?
-    var isFullVersion = false
+    private(set) var isFullVersion = false
     
-    init?(json: [String: AnyObject], minimalVersion: Bool = false){
+    init?(json: [String: AnyObject], minimalVersion: Bool){
         guard let number = json["number"] as? Int, let urlString = json["url"] as? String, let url = URL(string: urlString)
             else { return nil }
         
