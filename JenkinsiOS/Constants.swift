@@ -108,6 +108,10 @@ struct Constants{
         ]
         static let buildQueue = "/queue"
         static let computer = "/computer"
+        static let plugins = "/pluginManager"
+        static let pluginsAdditionalQueryItems = [
+            URLQueryItem(name: "depth", value: "2")
+        ]
     }
     
     struct Colors{
