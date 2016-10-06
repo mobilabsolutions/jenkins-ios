@@ -30,7 +30,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
     var duration: TimeInterval?
     var estimatedDuration: TimeInterval?
     
-    var changeSet: ChangeSet?
+    var changeSets: [ChangeSet] = []
     
     var consoleOutputUrl: URL{
         get{
@@ -76,7 +76,13 @@ class Build: Favoratible, CustomDebugStringConvertible{
         estimatedDuration = json["estimatedDuration"] as? TimeInterval
         
         if let changeSetJson = json["changeSet"] as? [String: AnyObject]{
-            changeSet = ChangeSet(json: changeSetJson)
+            changeSets.append(ChangeSet(json: changeSetJson))
+        }
+            // It seems, as if Change Sets could also be in an array
+        else if let changeSetsJson = json["changeSet"] as? [[String: AnyObject]]{
+            changeSets = changeSetsJson.map({ (dict) -> ChangeSet in
+                return ChangeSet(json: dict)
+            })
         }
         
         isFullVersion = true
