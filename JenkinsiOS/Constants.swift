@@ -92,6 +92,10 @@ struct Constants{
         static let dependencies = "dependencies"
         static let optional = "optional"
         static let plugins = "plugins"
+        static let description = "description"
+        static let nodeDescription = "nodeDescription"
+        static let mode = "mode"
+        static let nodeName = "nodeName"
     }
     
     struct API{
@@ -100,7 +104,7 @@ struct Constants{
             URLQueryItem(name: "start", value: "0")
         ]
         static let jobListAdditionalQueryItems = [
-            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]]")
+            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]],nodeDescription,nodeName,mode,description")
         ]
         static let testReport = "/testReport"
         static let testReportAdditionalQueryItems = [
