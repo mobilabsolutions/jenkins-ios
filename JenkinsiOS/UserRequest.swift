@@ -58,7 +58,7 @@ extension UserRequest{
     static func userRequestForUsers(account: Account) -> UserRequest{
         let url = account.baseUrl.appendingPathComponent(Constants.API.users)
         
-        return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
+        return UserRequest(requestUrl: url, account: account)
     }
     
     /// Return the user request specific to getting the list of jobs
@@ -93,7 +93,7 @@ extension UserRequest{
     static func userRequestForComputers(account: Account) -> UserRequest{
         let url = account.baseUrl.appendingPathComponent(Constants.API.computer)
         
-        return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
+        return UserRequest(requestUrl: url, account: account)
     }
     
     /// Return the user request specific to getting the build queue
@@ -104,6 +104,6 @@ extension UserRequest{
     static func userRequestForBuildQueue(account: Account) -> UserRequest{
         let url = account.baseUrl.appendingPathComponent(Constants.API.buildQueue)
         
-        return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
+        return UserRequest(requestUrl: url, account: account)
     }
 }

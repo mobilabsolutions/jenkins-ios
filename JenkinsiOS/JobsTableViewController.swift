@@ -25,7 +25,8 @@ class JobsTableViewController: UITableViewController{
     func loadJobs(){
         guard let account = account
             else { return }
-        NetworkManager.manager.getJobs(userRequest: UserRequest(requestUrl: account.baseUrl, account: account, additionalQueryItems: Constants.API.jobListAdditionalQueryItems)) { (jobList, error) in
+
+        NetworkManager.manager.getJobs(userRequest: UserRequest.userRequestForJobList(account: account)) { (jobList, error) in
             //FIXME: Display an error message on error
             if error == nil && jobList != nil{
                 self.jobs = jobList
