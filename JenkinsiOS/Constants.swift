@@ -96,6 +96,10 @@ struct Constants{
         static let nodeDescription = "nodeDescription"
         static let mode = "mode"
         static let nodeName = "nodeName"
+        static let lastChange = "lastChange"
+        static let project = "project"
+        static let user = "user"
+        static let users = "users"
     }
     
     struct API{
@@ -116,6 +120,7 @@ struct Constants{
         static let pluginsAdditionalQueryItems = [
             URLQueryItem(name: "depth", value: "2")
         ]
+        static let users = "/asynchPeople"
     }
     
     struct Colors{

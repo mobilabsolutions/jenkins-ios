@@ -122,6 +122,24 @@ class NetworkManager{
         }
     }
     
+    /// Get the list of users for a given url
+    ///
+    /// - parameter userRequest: The user request including the url, etc
+    /// - parameter completion:  A closure handling the (optional) user list and an (optional) error
+    func getUsers(userRequest: UserRequest, completion: @escaping (UserList?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else { completion(nil, error); return }
+            guard let data = data
+                else { completion(nil, NetworkManagerError.noDataFound); return }
+            guard let json = data as? [String: AnyObject]
+                else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
+            let userList = UserList(json: json)
+            completion(userList, nil)
+        }
+    }
+
+    
     /// Perform a build on a job using jenkins remote access api
     ///
     /// - parameter account:    The user account, which should be used to trigger the build
