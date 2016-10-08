@@ -30,6 +30,7 @@ class BuildViewController: UIViewController {
         
         let request = URLRequest(url: build.consoleOutputUrl.using(scheme: "https")!)
         consoleWebView.loadRequest(request)
+
         
         if build.isFullVersion == false, let account = account{
             let userRequest = UserRequest(requestUrl: build.url, account: account)

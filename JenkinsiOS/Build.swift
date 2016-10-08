@@ -13,8 +13,6 @@ class Build: Favoratible, CustomDebugStringConvertible{
     var number: Int
     var url: URL
     
-    
-    //TODO: Add actions/causes
     var actions: Actions?
     
     var building: Bool?

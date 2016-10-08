@@ -22,7 +22,7 @@ class Job: Favoratible{
     var buildable: Bool?
     var builds: [Build]?
     
-    var healthReport: [HealthReportResult]?
+    var healthReport: [HealthReportResult] = []
     var inQueue: Bool?
     var keepDependencies: Bool?
     
@@ -73,7 +73,7 @@ class Job: Favoratible{
         description = json["description"] as? String
         buildable = json["buildable"] as? Bool
         builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: true) }.filter{ $0 != nil }.map{ $0! }
-        healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! }
+        healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! } ?? []
         inQueue = json["inQueue"] as? Bool
         keepDependencies =  json["keepDependencies"] as? Bool
         
