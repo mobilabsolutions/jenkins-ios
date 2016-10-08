@@ -33,7 +33,7 @@ class AccountManager{
         
         var url = Constants.Paths.accountsPath
         
-        if !FileManager.default.fileExists(atPath: url.absoluteString){
+        if !FileManager.default.fileExists(atPath: url.path){
             _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         
@@ -45,7 +45,7 @@ class AccountManager{
     /// Return the full list of accounts
     ///
     /// - returns: The list of user added accounts
-    func getAccounts() -> [Account]{
+    private func getAccounts() -> [Account]{
         
         var accounts: [Account] = []
         
@@ -79,5 +79,21 @@ class AccountManager{
             print(error)
         }
         return accounts
-    }    
+    }
+    
+    /// Delete a given account persistently
+    ///
+    /// - parameter account: The account to delete
+    func deleteAccount(account: Account) throws{
+        
+        let url = Constants.Paths.accountsPath.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        
+        try FileManager.default.removeItem(at: url)
+        
+        if let username = account.username{
+            SAMKeychain.deletePassword(forService: "com.mobilabsolutions.jenkins.account", account: username)
+        }
+        
+        accounts = getAccounts()
+    }
 }

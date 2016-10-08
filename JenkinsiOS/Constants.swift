@@ -24,6 +24,8 @@ struct Constants{
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
         static let buildCell = "buildCell"
+        static let favoritesCell = "favoritesCell"
+        static let jenkinsCell = "jenkinsCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"

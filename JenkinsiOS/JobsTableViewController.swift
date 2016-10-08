@@ -14,7 +14,10 @@ class JobsTableViewController: UITableViewController{
     var jobs: JobList?
     var currentView: View?
     
-    @IBOutlet weak var viewPicker: UIPickerView!
+    var viewPicker: UIPickerView!
+    
+    let sections = [Constants.Identifiers.jenkinsCell , Constants.Identifiers.jobCell]
+    let jenkinsCells = ["Build Queue", "Jenkins"]
     
     override func viewDidLoad() {
         loadJobs()
@@ -46,10 +49,11 @@ class JobsTableViewController: UITableViewController{
     }
     
     func setUpPicker(){
+        viewPicker = UIPickerView()
         viewPicker.dataSource = self
         viewPicker.delegate = self
+        viewPicker.backgroundColor = UIColor.clear
     }
-    
     
     private func pickerScrollToAllView(){
         if let jobs = jobs, let currentView = currentView, let index = jobs.views.index(where: {$0.name == currentView.name}){
@@ -69,16 +73,77 @@ class JobsTableViewController: UITableViewController{
     //MARK: - Tableview datasource and delegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.jobCell, for: indexPath)
+        let identifier = sections[indexPath.section]
+        return prepareCellWithIdentifier(identifier: identifier, indexPath: indexPath)
+    }
+    
+    private func prepareCellWithIdentifier(identifier: String, indexPath: IndexPath) -> UITableViewCell{
         
-        cell.textLabel?.text = currentView?.jobs[indexPath.row].name
-        cell.detailTextLabel?.text = currentView?.jobs[indexPath.row].color?.rawValue ?? currentView?.jobs[indexPath.row].description
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        
+        switch identifier{
+            case Constants.Identifiers.jobCell:
+                prepareCellForJob(cell: cell, indexPath: indexPath)
+            case Constants.Identifiers.jenkinsCell:
+                prepareCellForJenkins(cell: cell, indexPath: indexPath)
+            default: return cell
+        }
         
         return cell
     }
     
+    private func prepareCellForJob(cell: UITableViewCell, indexPath: IndexPath){
+        cell.textLabel?.text = currentView?.jobs[indexPath.row].name
+        cell.detailTextLabel?.text = currentView?.jobs[indexPath.row].description
+        
+        if let color = currentView?.jobs[indexPath.row].color{
+            cell.imageView?.image = UIImage(named: color.rawValue + "Circle")
+        }
+    }
+    
+    private func prepareCellForJenkins(cell: UITableViewCell, indexPath: IndexPath){
+        cell.textLabel?.text = jenkinsCells[indexPath.row]
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentView?.jobs.count ?? 0
+        switch section{
+            case 0: return jenkinsCells.count
+            case 1: return currentView?.jobs.count ?? 0
+            default: return 0
+        }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1{
+            let viewPickerSuperView = UIView()
+            
+            viewPicker.frame = viewPickerSuperView.bounds
+            viewPicker.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            
+            if UIAccessibilityIsReduceTransparencyEnabled() == false{
+                
+                var effect = UIBlurEffect(style: .light)
+                
+                let effectView = UIVisualEffectView(effect: effect)
+                effectView.frame = viewPicker.bounds
+                effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                viewPickerSuperView.addSubview(effectView)
+            }
+            
+            viewPickerSuperView.addSubview(viewPicker)
+            
+            return viewPickerSuperView
+        }
+        return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 1 ? 100 : 0
     }
 }
 

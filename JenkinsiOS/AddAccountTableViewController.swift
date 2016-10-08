@@ -17,6 +17,8 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var apiKeyTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
+    
     
     //MARK: - Actions
     
@@ -25,13 +27,16 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     func addAccount(){
-        guard let url = URL(string: urlTextField.text!)
+        guard let url = URL(string: "https://" + urlTextField.text!)
             else { return }
+        
         let port = Int(portTextField.text!) ?? Constants.Defaults.defaultPort
         let username = usernameTextField.text != "" ? usernameTextField.text : nil
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
         
-        let account = Account(baseUrl: url, username: username, password: password, port: port)
+        let displayName = nameTextField.text != "" ? nameTextField.text : nil
+        
+        let account = Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName)
         AccountManager.manager.addAccount(account: account)
         
         dismiss(animated: true, completion: nil)
