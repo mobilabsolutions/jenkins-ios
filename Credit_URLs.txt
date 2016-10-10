@@ -1,3 +1,5 @@
 Red heart: http://www.flaticon.com/free-icon/heart_179539#term=heart&page=1&position=22
 Empty heart: http://www.flaticon.com/free-icon/like_149217#term=heart&page=1&position=2
 Circles: http://www.flaticon.com/free-icon/oval_136963#term=oval&page=1&position=21
+Weather: http://www.flaticon.com/packs/weather-4
+Empty circle: http://www.flaticon.com/free-icon/circle_106796#term=circle%20shape&page=1&position=77

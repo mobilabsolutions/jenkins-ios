@@ -24,17 +24,6 @@ extension URL{
     }
 }
 
-extension UIColor{
-    /// Get the corresponding UIColor from a given JenkinsColor
-    ///
-    /// - parameter jenkinsColor: The Jenkins Color whose UIColor should be determined
-    ///
-    /// - returns: The UIColor that corresponds to the given JenkinsColor
-    static func from(jenkinsColor color: JenkinsColor) -> UIColor{
-        return Constants.Colors.jenkinsColors[color] ?? UIColor.clear
-    }
-}
-
 extension Optional{
     /// Return a nicer version of an optional value string
     ///

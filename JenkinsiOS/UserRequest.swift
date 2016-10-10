@@ -72,19 +72,7 @@ extension UserRequest{
         
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
-    
-    /// Return the user request specific to getting the list of test reports
-    ///
-    /// - parameter account: The account for which the user request should be create
-    ///
-    /// - returns: The fitting user request object
-    static func userRequestForTestReport(account: Account) -> UserRequest{
-        let url = account.baseUrl.appendingPathComponent(Constants.API.testReport)
-        let additionalComponents = Constants.API.testReportAdditionalQueryItems
         
-        return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
-    }
-    
     /// Return the user request specific to getting the list of computers
     ///
     /// - parameter account: The account for which the user request should be create
