@@ -35,7 +35,9 @@ class Job: Favoratible{
     var lastUnstableBuild: Build?
     var lastUnsuccessfulBuild: Build?
 
-    var nextbuildNumber: Int?
+    var specialBuilds: [(String, Build?)] = []
+    
+    var nextBuildNumber: Int?
     
     /// Is the job information based on "full version" JSON?
     var isFullVersion = false
@@ -57,8 +59,6 @@ class Job: Favoratible{
         if !minimalVersion{
             addAdditionalFields(from: json)
         }
-        
-
     }
     
     /// Add values for fields in the full job category
@@ -87,7 +87,16 @@ class Job: Favoratible{
         lastUnstableBuild = json["lastUnstableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnstableBuild"] as! [String: AnyObject], minimalVersion: true)
         lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject], minimalVersion: true)
         
-        nextbuildNumber = json["nextBuildNumber"] as? Int
+        nextBuildNumber = json["nextBuildNumber"] as? Int
+        
+        specialBuilds = [
+            ("Last Build", lastBuild),
+            ("Last Successful Build", lastSuccessfulBuild),
+            ("Last Failed Build", lastFailedBuild),
+            ("Last Unsuccessful Build", lastUnsuccessfulBuild),
+            ("Last Completed Build", lastCompletedBuild),
+            ("First Build", firstBuild)
+        ]
         
         isFullVersion = true
     }
