@@ -17,7 +17,7 @@ class JobsTableViewController: UITableViewController{
     var viewPicker: UIPickerView!
     
     let sections = [Constants.Identifiers.jenkinsCell , Constants.Identifiers.jobCell]
-    let jenkinsCells = ["Build Queue", "Jenkins"]
+    let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins", Constants.Identifiers.showJenkinsSegue)]
     
     override func viewDidLoad() {
         loadJobs()
@@ -68,9 +68,18 @@ class JobsTableViewController: UITableViewController{
             dest.job = job
             dest.account = account
         }
+        else if let dest = segue.destination as? BuildQueueTableViewController, segue.identifier == Constants.Identifiers.showBuildQueueSegue{
+            dest.account = account
+        }
     }
     
     //MARK: - Tableview datasource and delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            performSegue(withIdentifier: jenkinsCellSegues[indexPath.row].1, sender: nil)
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = sections[indexPath.section]
@@ -102,12 +111,12 @@ class JobsTableViewController: UITableViewController{
     }
     
     private func prepareCellForJenkins(cell: UITableViewCell, indexPath: IndexPath){
-        cell.textLabel?.text = jenkinsCells[indexPath.row]
+        cell.textLabel?.text = jenkinsCellSegues[indexPath.row].0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
-            case 0: return jenkinsCells.count
+            case 0: return jenkinsCellSegues.count
             case 1: return currentView?.jobs.count ?? 0
             default: return 0
         }
@@ -126,9 +135,9 @@ class JobsTableViewController: UITableViewController{
             
             if UIAccessibilityIsReduceTransparencyEnabled() == false{
                 
-                var effect = UIBlurEffect(style: .light)
-                
+                let effect = UIBlurEffect(style: .light)
                 let effectView = UIVisualEffectView(effect: effect)
+                
                 effectView.frame = viewPicker.bounds
                 effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 
