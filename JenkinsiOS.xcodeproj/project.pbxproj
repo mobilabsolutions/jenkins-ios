@@ -27,6 +27,11 @@
 		DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDA1D9D545900808ED0 /* JobViewController.swift */; };
 		DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */; };
 		DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */; };
+		DC85AE031DABBA6500D20059 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE021DABBA6500D20059 /* FavoritesTableViewController.swift */; };
+		DC85AE051DABCC7D00D20059 /* Equatables.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE041DABCC7D00D20059 /* Equatables.swift */; };
+		DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */; };
+		DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */; };
+		DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE0A1DABDE8700D20059 /* QueueItem.swift */; };
 		DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256A1DA90DD200EB7867 /* UserList.swift */; };
 		DC86256D1DA90DD900EB7867 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256C1DA90DD900EB7867 /* User.swift */; };
 		DC86256F1DA90F2500EB7867 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256E1DA90F2500EB7867 /* Project.swift */; };
@@ -107,6 +112,11 @@
 		DC66CEDA1D9D545900808ED0 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
 		DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildViewController.swift; sourceTree = "<group>"; };
 		DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE021DABBA6500D20059 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE041DABCC7D00D20059 /* Equatables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Equatables.swift; sourceTree = "<group>"; };
+		DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsInformationTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE0A1DABDE8700D20059 /* QueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		DC86256A1DA90DD200EB7867 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		DC86256C1DA90DD900EB7867 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC86256E1DA90F2500EB7867 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -193,6 +203,15 @@
 				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 			);
 			name = Job;
+			sourceTree = "<group>";
+		};
+		DC85AE0C1DABDE9100D20059 /* BuildQueue */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
+				DC85AE0A1DABDE8700D20059 /* QueueItem.swift */,
+			);
+			name = BuildQueue;
 			sourceTree = "<group>";
 		};
 		DC8625691DA90C2C00EB7867 /* Build */ = {
@@ -292,6 +311,7 @@
 				DC99C4071D9572930031DBE4 /* Errors.swift */,
 				DC66CEC41D98069F00808ED0 /* Constants.swift */,
 				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
+				DC85AE041DABCC7D00D20059 /* Equatables.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -315,6 +335,9 @@
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
 				DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */,
 				DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */,
+				DC85AE021DABBA6500D20059 /* FavoritesTableViewController.swift */,
+				DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */,
+				DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -339,7 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				DC8625691DA90C2C00EB7867 /* Build */,
-				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
+				DC85AE0C1DABDE9100D20059 /* BuildQueue */,
 				DC3CCD101DA67908004C4C3D /* Computer */,
 				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
 				DC3CCD111DA67911004C4C3D /* Job */,
@@ -511,6 +534,7 @@
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,
 				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
+				DC85AE031DABBA6500D20059 /* FavoritesTableViewController.swift in Sources */,
 				DC8625721DA9213500EB7867 /* AccountTableViewCell.swift in Sources */,
 				DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */,
 				DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */,
@@ -518,15 +542,18 @@
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
+				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
+				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
+				DC85AE051DABCC7D00D20059 /* Equatables.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
 				DC66CED51D9D40DF00808ED0 /* Author.swift in Sources */,
@@ -538,6 +565,7 @@
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
+				DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 			);
