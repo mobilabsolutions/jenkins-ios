@@ -11,25 +11,33 @@ import UIKit
 class BuildsTableViewController: UITableViewController {
 
     var builds: [Build]?
+    var specialBuilds: [(String, Build)] = []
+    
     var account: Account?
     
     override func viewDidLoad() {
-        completeBuilds()
+        completeAllBuilds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        completeBuilds()
+        completeAllBuilds()
     }
     
-    private func completeBuilds(){
-        if let builds = builds, let account = account{
+    private func completeAllBuilds(){
+        completeBuilds(builds: specialBuilds.map({ $0.1 }), section: 0)
+        if let builds = builds{
+            completeBuilds(builds: builds, section: 1)
+        }
+    }
+    
+    private func completeBuilds(builds: [Build], section: Int){
+        if let account = account{
             for (index, build) in builds.enumerated().filter({$0.1.isFullVersion == false}){
-
                 let userRequest = UserRequest(requestUrl: build.url, account: account)
                 NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (build, error) in
                     //FIXME: Display errors
                     DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        self.tableView.reloadRows(at: [IndexPath(row: index, section: section)], with: .automatic)
                     }
                 })
             }
@@ -40,16 +48,43 @@ class BuildsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return builds?.count ?? 0
+        switch section{
+            case 0: return specialBuilds.count
+            case 1: return builds?.count ?? 0
+            default: return 0
+        }
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section{
+            case 0: return "Special builds"
+            case 1: return "All builds"
+            default: return ""
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)
-        cell.textLabel?.text = builds![indexPath.row].fullDisplayName ?? "#\(builds![indexPath.row].number)"
+        
+        var build: Build!
+        
+        if indexPath.section == 0{
+            build = specialBuilds[indexPath.row].1
+            cell.textLabel?.text = specialBuilds[indexPath.row].0 + " (#\(build.number))"
+        }
+        else if indexPath.section == 1{
+            build = builds![indexPath.row]
+            cell.textLabel?.text = build.fullDisplayName ?? "#\(build.number)"
+        }
+        
+        if let result = build?.result?.lowercased(){
+            cell.imageView?.image = UIImage(named: "\(result)Circle")
+        }
+        
         return cell
     }
 
@@ -59,7 +94,12 @@ class BuildsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(sender)
         if let s = sender as? UITableViewCell, let dest = segue.destination as? BuildViewController, segue.identifier == Constants.Identifiers.showBuildSegue, let indexPath = tableView.indexPath(for: s){
-            dest.build = builds?[indexPath.row]
+            if indexPath.section == 1{
+                dest.build = builds?[indexPath.row]
+            }
+            else{
+                dest.build = specialBuilds[indexPath.row].1
+            }
             dest.account = account
         }
     }
