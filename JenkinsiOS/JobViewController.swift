@@ -19,11 +19,12 @@ class JobViewController: UIViewController {
     @IBOutlet weak var urlLabel: UILabel!
     @IBOutlet weak var colorImageView: UIImageView!
     @IBOutlet weak var descriptionWebView: UIWebView!
+    @IBOutlet weak var healthReportLabel: UILabel!
+    @IBOutlet weak var showBuildsCell: UITableViewCell!
     
     //MARK: - Actions
     
     func build() {
-        
         guard let job = job, let account = account
             else { return }
         
@@ -69,20 +70,43 @@ class JobViewController: UIViewController {
                 guard error == nil
                     else { print(error); return }
                 DispatchQueue.main.async {
-                    // FIXME: Update UI: Add other info for Job
-                    if let description = job.description{
-                        self.descriptionWebView.loadHTMLString(description, baseURL: nil)
+                    let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
+                    self.descriptionWebView.loadHTMLString("<span style=\"font-family: san francisco, helvetica\">" + description + "</span>", baseURL: nil)
+                    self.descriptionWebView.sizeToFit()
+                    
+                    if job.healthReport.count > 0{
+                        self.healthReportLabel.text = job.healthReport.map{ $0.description }.joined(separator: "\n")
+                    }
+                    else {
+                        self.healthReportLabel.text = "No health report"
+                    }
+                    
+                    if let icon = job.healthReport.first?.iconClassName{
+                        self.colorImageView.image = UIImage(named: icon)
                     }
                 }
             })
-            
-            self.descriptionWebView.allowsLinkPreview = true
-            self.descriptionWebView.delegate = self
-            
-            nameLabel.text = job.name
-            urlLabel.text = "\(job.url)"
-            //FIXME: Set image according to color
         }
+    }
+    
+    func setupUI(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(build))
+        
+        descriptionWebView.allowsLinkPreview = true
+        descriptionWebView.delegate = self
+    
+        nameLabel.text = job?.name
+        urlLabel.text = (job?.url).textify()
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
+        showBuildsCell.addGestureRecognizer(tapRecognizer)
+        
+        let imageName = (job == nil || !job!.isFavorite) ? "HeartEmpty" : "HeartFull"
+        navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
+        
+        navigationItem.titleView?.sizeToFit()
+        navigationItem.titleView?.isUserInteractionEnabled = true
+        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
     }
     
     //MARK: - ViewController Navigation
@@ -90,15 +114,25 @@ class JobViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
             dest.builds = job?.builds
+            dest.specialBuilds = job?.specialBuilds.filter{ $0.1 != nil }.map{ ($0.0, $0.1!) } ?? []
             dest.account = account
         }
     }
     
     
+    @objc private func segueToNextViewController(){
+        performSegue(withIdentifier: Constants.Identifiers.showBuildsSegue, sender: nil)
+    }
+    
 }
 
 extension JobViewController: UIWebViewDelegate{
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        
+        if navigationType != .other, let url = request.url{
+            UIApplication.shared.openURL(url)
+        }
+        
         return navigationType == .other
     }
 }
