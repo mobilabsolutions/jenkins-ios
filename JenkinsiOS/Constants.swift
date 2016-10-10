@@ -31,6 +31,8 @@ struct Constants{
         static let showJobSegue = "showJobSegue"
         static let showBuildsSegue = "showBuildsSegue"
         static let showBuildSegue = "showBuildSegue"
+        static let showBuildQueueSegue = "showBuildQueueSegue"
+        static let showJenkinsSegue = "showJenkinsSegue"
     }
     
     struct JSON {
@@ -123,16 +125,5 @@ struct Constants{
             URLQueryItem(name: "depth", value: "2")
         ]
         static let users = "/asynchPeople"
-    }
-    
-    struct Colors{
-        static let jenkinsColors: [JenkinsColor: UIColor] = [
-            JenkinsColor.blue: UIColor.blue,
-            JenkinsColor.red: UIColor.red,
-            JenkinsColor.yellow: UIColor.yellow,
-            JenkinsColor.disabled: UIColor.lightGray,
-            JenkinsColor.aborted: UIColor.darkGray,
-            JenkinsColor.notBuilt: UIColor.orange
-        ]
     }
 }
