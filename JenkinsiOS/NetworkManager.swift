@@ -51,6 +51,35 @@ class NetworkManager{
         }
     }
     
+    /// Get the build queue for the given user request
+    ///
+    /// - parameter userRequest: The user request contaning the build queue url
+    /// - parameter completion:  A closure handling the (optional) build queue and an (optional) error
+    func getBuildQueue(userRequest: UserRequest, completion: @escaping (BuildQueue?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else {
+                    completion(nil, error)
+                    return
+            }
+            guard let data = data
+                else{ completion(nil, NetworkManagerError.noDataFound); return }
+            
+            do{
+                guard let buildQueueJson = data as? [String: AnyObject]
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                
+                guard let buildQueue = BuildQueue(json: buildQueueJson)
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                completion(buildQueue, nil)
+            }
+            catch{
+                completion(nil, error)
+            }
+        }
+    }
+
+    
     /// Complete the information for a given job
     ///
     /// - parameter userRequest: The user request fitting for the given job
@@ -84,6 +113,24 @@ class NetworkManager{
                 else { completion(build, NetworkManagerError.JSONParsingFailed); return }
             build.addAdditionalFields(from: json)
             completion(build, nil)
+        }
+    }
+    
+    /// Get the test results for a given userRequest
+    ///
+    /// - parameter userRequest: The user request containing the test result url
+    /// - parameter completion:  A closure handling the (optional) TestResult and an (optional) Error
+    func getTestResult(userRequest: UserRequest, completion: @escaping (TestResult?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else { completion(nil, error); return }
+            guard let data = data
+                else { completion(nil, NetworkManagerError.noDataFound); return }
+            guard let json = data as? [String: AnyObject]
+                else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
+            guard let testResult = TestResult(json: json)
+                else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
+            completion(testResult, nil)
         }
     }
     
