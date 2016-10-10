@@ -47,9 +47,20 @@ class JobViewController: UIViewController {
     //MARK: - Viewcontroller lifecycl
     
     override func viewDidLoad() {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(build))
-        
+        super.viewDidLoad()
+        setupUI()
+        performRequest()
+    }
+    
+    func like(){
+        if job != nil{
+            job!.isFavorite = !job!.isFavorite
+            let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
+            (navigationItem.titleView as? UIImageView)?.image = UIImage(named: imageName)
+        }
+    }
+    
+    func performRequest(){
         if let account = account, let job = job{
             let userRequest = UserRequest(requestUrl: job.url, account: account)
             
