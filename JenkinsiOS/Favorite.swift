@@ -10,9 +10,9 @@ import Foundation
 
 class Favorite: NSObject, NSCoding{
     
-    enum FavoriteType{
-        case Job
-        case Build
+    enum FavoriteType: String{
+        case Job = "Job"
+        case Build = "Build"
     }
     
     var type: FavoriteType
@@ -24,15 +24,20 @@ class Favorite: NSObject, NSCoding{
     }
     
     required init?(coder aDecoder: NSCoder) {
-        guard let url = aDecoder.decodeObject(forKey: "url") as? URL, let type = aDecoder.decodeObject(forKey: "type") as? FavoriteType
+        guard let url = aDecoder.decodeObject(forKey: "url") as? URL, let type = aDecoder.decodeObject(forKey: "type") as? String
             else { return nil }
         self.url = url
-        self.type = type
+        self.type = FavoriteType(rawValue: type)!
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(url, forKey: "url")
-        aCoder.encode(type, forKey: "type")
+        aCoder.encode(type.rawValue, forKey: "type")
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let fav = object as? Favorite
+            else { return false }
+        return fav.url == self.url && fav.type == self.type
+    }
 }
