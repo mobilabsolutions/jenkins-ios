@@ -21,6 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApplicationUserManager.manager.save()
     }
 
-
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if shortcutItem.type == Constants.Identifiers.favoritesShortcutItemType{
+            let favoritesViewController = getViewController(name: "FavoritesViewController")
+            if let nav = window?.rootViewController as? UINavigationController{
+                nav.pushViewController(favoritesViewController, animated: true)
+            }
+        }
+    }
+    
+    //MARK: - Helpers
+    func getViewController(name: String) -> UIViewController{
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: name)
+    }
+    
 }
 

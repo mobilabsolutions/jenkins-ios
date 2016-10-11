@@ -33,6 +33,8 @@ struct Constants{
         static let showBuildSegue = "showBuildSegue"
         static let showBuildQueueSegue = "showBuildQueueSegue"
         static let showJenkinsSegue = "showJenkinsSegue"
+        
+        static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }
     
     struct JSON {

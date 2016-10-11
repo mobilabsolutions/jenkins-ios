@@ -134,12 +134,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dY9-N6-GYZ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="jenkinsCell" textLabel="WnH-Kt-x5x" style="IBUITableViewCellStyleDefault" id="dY9-N6-GYZ">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dY9-N6-GYZ" id="qbp-xk-nuT">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WnH-Kt-x5x">
+                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -156,7 +165,7 @@
         <!--Job View Controller-->
         <scene sceneID="8u6-TL-cxi">
             <objects>
-                <viewController id="eqO-XF-drE" customClass="JobViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobViewController" id="eqO-XF-drE" customClass="JobViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4lb-JV-cS2"/>
                         <viewControllerLayoutGuide type="bottom" id="pPD-AC-YPJ"/>
@@ -318,7 +327,7 @@
         <!--Build View Controller-->
         <scene sceneID="fGK-aK-sZY">
             <objects>
-                <viewController id="MKQ-1P-qfF" customClass="BuildViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BuildViewController" id="MKQ-1P-qfF" customClass="BuildViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZNM-si-IlU"/>
                         <viewControllerLayoutGuide type="bottom" id="wQp-si-hsW"/>
@@ -642,7 +651,7 @@
                                 <rect key="frame" x="0.0" y="172" width="375" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7jk-kL-31i" id="0a4-zu-Lbx">
-                                    <frame key="frameInset" width="342" height="98"/>
+                                    <frame key="frameInset" width="342" height="97.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tM2-8a-GOa">
@@ -698,21 +707,21 @@
         <!--Favorites Table View Controller-->
         <scene sceneID="g72-cH-0vN">
             <objects>
-                <tableViewController id="QZ5-6A-5MN" customClass="FavoritesTableViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritesViewController" id="QZ5-6A-5MN" customClass="FavoritesTableViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="B1a-aL-IfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoritesCell" textLabel="jiI-WY-Q2G" imageView="mQN-3O-44a" style="IBUITableViewCellStyleDefault" id="eQW-2K-vUt">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="favoritesCell" textLabel="jiI-WY-Q2G" imageView="mQN-3O-44a" style="IBUITableViewCellStyleDefault" id="eQW-2K-vUt">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eQW-2K-vUt" id="m1D-ps-SO6">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jiI-WY-Q2G">
-                                            <frame key="frameInset" minX="46" width="314" height="43.5"/>
+                                            <frame key="frameInset" minX="46" width="294" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
