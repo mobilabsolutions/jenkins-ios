@@ -23,6 +23,10 @@ class FavoritesTableViewController: UITableViewController {
         super.viewDidLoad()
         loadJobs()
         loadBuilds()
+        
+        registerForPreviewing(with: self, sourceView: tableView)
+        
+        title = "Favorites"
     }
     
     //MARK: - Data loading and presentation
@@ -64,11 +68,20 @@ class FavoritesTableViewController: UITableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showJobSegue, let row = sender as? Int, let dest = segue.destination as? JobViewController{
+        if segue.identifier == Constants.Identifiers.showJobSegue, let row = sender as? Int{
+            prepareViewController(viewController: segue.destination, row: row, type: .job)
+        }
+        else if segue.identifier == Constants.Identifiers.showBuildSegue, let row = sender as? Int{
+            prepareViewController(viewController: segue.destination, row: row, type: .build)
+        }
+    }
+    
+    func prepareViewController(viewController: UIViewController, row: Int, type: Favorite.FavoriteType){
+        if type == .job, let dest = viewController as? JobViewController{
             dest.job = jobs[row].job
             dest.account = jobs[row].account
         }
-        else if segue.identifier == Constants.Identifiers.showBuildSegue, let row = sender as? Int, let dest = segue.destination as? BuildViewController{
+        else if type == .build, let dest = viewController as? BuildViewController{
             dest.build = builds[row].build
             dest.account = builds[row].account
         }
@@ -126,16 +139,34 @@ class FavoritesTableViewController: UITableViewController {
         
         return cell
     }
+}
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension FavoritesTableViewController: UIViewControllerPreviewingDelegate{
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
-    */
-
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRow(at: location){
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+            
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            
+            if indexPath.section == 0{
+                guard let viewController = appDelegate?.getViewController(name: "JobViewController")
+                    else { return nil }
+                prepareViewController(viewController: viewController, row: indexPath.row, type: .job)
+                return viewController
+                
+            }
+            else if indexPath.section == 1{
+                guard let viewController = appDelegate?.getViewController(name: "BuildViewController")
+                    else { return nil }
+                prepareViewController(viewController: viewController, row: indexPath.row, type: .build)
+                return viewController
+            }
+            return nil
+        }
+        return nil
+    }
 }
