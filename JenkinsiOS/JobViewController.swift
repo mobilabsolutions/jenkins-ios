@@ -54,8 +54,8 @@ class JobViewController: UIViewController {
     }
     
     func like(){
-        if job != nil{
-            job!.isFavorite = !job!.isFavorite
+        if let account = account, job != nil{
+            job?.toggleFavorite(account: account)
             let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
             (navigationItem.titleView as? UIImageView)?.image = UIImage(named: imageName)
         }
