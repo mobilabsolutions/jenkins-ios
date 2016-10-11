@@ -51,6 +51,57 @@ class NetworkManager{
         }
     }
     
+    /// Get a job from a given user request
+    ///
+    /// - parameter userRequest: The user request containing the job url
+    /// - parameter completion:  A closure handling the (optional) Job and an (optional) error
+    func getJob(userRequest: UserRequest, completion: @escaping (Job?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else {
+                    completion(nil, error)
+                    return
+            }
+            guard let data = data
+                else{ completion(nil, NetworkManagerError.noDataFound); return }
+            
+            do{
+                guard let jobJson = data as? [String: AnyObject]
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                guard let job = Job(json: jobJson, minimalVersion: false)
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                completion(job, nil)
+            }
+            catch{
+                completion(nil, error)
+            }
+        }
+    }
+
+    func getBuild(userRequest: UserRequest, completion: @escaping (Build?, Error?) -> ()){
+        performRequest(userRequest: userRequest, method: .GET) { (data, error) in
+            guard error == nil
+                else {
+                    completion(nil, error)
+                    return
+            }
+            guard let data = data
+                else{ completion(nil, NetworkManagerError.noDataFound); return }
+            
+            do{
+                guard let buildJson = data as? [String: AnyObject]
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                guard let build = Build(json: buildJson, minimalVersion: false)
+                    else { throw ParsingError.DataNotCorrectFormatError }
+                completion(build, nil)
+            }
+            catch{
+                completion(nil, error)
+            }
+        }
+    }
+
+    
     /// Get the build queue for the given user request
     ///
     /// - parameter userRequest: The user request contaning the build queue url
