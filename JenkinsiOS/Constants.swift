@@ -26,6 +26,14 @@ struct Constants{
         static let buildCell = "buildCell"
         static let favoritesCell = "favoritesCell"
         static let jenkinsCell = "jenkinsCell"
+        static let staticBuildInfoCell = "staticBuildInfoCell"
+        static let longBuildInfoCell = "longBuildInfoCell"
+        static let moreInfoBuildCell = "moreInfoBuildCell"
+        static let changeCell = "changeCell"
+        static let testResultCell = "testResultCell"
+        static let computerCell = "computerCell"
+        static let pluginCell = "pluginCell"
+        static let userCell = "userCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -33,6 +41,13 @@ struct Constants{
         static let showBuildSegue = "showBuildSegue"
         static let showBuildQueueSegue = "showBuildQueueSegue"
         static let showJenkinsSegue = "showJenkinsSegue"
+        static let showConsoleOutputSegue = "showConsoleOutputSegue"
+        static let showChangesSegue = "showChangesSegue"
+        static let showTestResultsSegue = "showTestResultsSegue"
+        static let showTestResultSegue = "showTestResultSegue"
+        static let showComputersSegue = "showComputersSegue"
+        static let showUsersSegue = "showUsersSegue"
+        static let showPluginsSegue = "showPluginsSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }
@@ -106,6 +121,10 @@ struct Constants{
         static let project = "project"
         static let user = "user"
         static let users = "users"
+        static let availablePhysicalMemory = "availablePhysicalMemory"
+        static let availableSwapSpace = "availableSwapSpace"
+        static let totalPhysicalMemory = "totalPhysicalMemory"
+        static let totalSwapSpace = "totalSwapSpace"
     }
     
     struct API{
