@@ -16,6 +16,7 @@ class FavoritesTableViewController: UITableViewController {
     var jobs: [(job: Job, account: Account)] = []
     var builds: [(build: Build, account: Account)] = []
     
+    var requestedFavorites: [URL] = []
     
     //MARK: - View controller lifecycle
     
@@ -29,11 +30,22 @@ class FavoritesTableViewController: UITableViewController {
         title = "Favorites"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        jobFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .job}
+        buildFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .build }
+        
+        loadJobs()
+        loadBuilds()
+    }
+    
     //MARK: - Data loading and presentation
     
     func loadJobs(){
         for jobFavorite in jobFavorites{
-            if let account = jobFavorite.account{
+            if let account = jobFavorite.account, !requestedFavorites.contains(jobFavorite.url){
+                requestedFavorites.append(jobFavorite.url)
                 let userRequest = UserRequest(requestUrl: jobFavorite.url, account: account)
                 NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
                     if let job = job{
@@ -50,8 +62,9 @@ class FavoritesTableViewController: UITableViewController {
     
     func loadBuilds(){
         for buildFavorite in buildFavorites{
-            if let account = buildFavorite.account{
+            if let account = buildFavorite.account, !requestedFavorites.contains(buildFavorite.url){
                 let userRequest = UserRequest(requestUrl: buildFavorite.url, account: account)
+                requestedFavorites.append(buildFavorite.url)
                 NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
                     if let build = build{
                         self.builds.append((build: build, account: account))
