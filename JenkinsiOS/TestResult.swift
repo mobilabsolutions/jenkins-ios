@@ -18,13 +18,16 @@ class TestResult{
     var childReports: [ChildReport] = []
     var suites: [Suite] = []
     
-    
     init?(json: [String: AnyObject]){
         failCount = json[Constants.JSON.failCount] as? Int
         skipCount = json[Constants.JSON.skipCount] as? Int
         totalCount = json[Constants.JSON.totalCount] as? Int
         passCount = json[Constants.JSON.passCount] as? Int
         urlName = json[Constants.JSON.urlName] as? String
+        
+        if passCount == nil, let failCount = failCount, let skipCount = skipCount, let totalCount = totalCount{
+            passCount = totalCount - (failCount + skipCount)
+        }
         
         if let childReportsJson = json[Constants.JSON.childReports] as? [[String: AnyObject]]{
             for childReportJson in childReportsJson{
@@ -33,8 +36,7 @@ class TestResult{
                 }
             }
         }
-        
-        if let suitesJson = json[Constants.JSON.suites] as? [[String: AnyObject]]{
+        else if let suitesJson = json[Constants.JSON.suites] as? [[String: AnyObject]]{
             for suiteJson in suitesJson{
                 if let suite = Suite(json: suiteJson){
                     suites.append(suite)
