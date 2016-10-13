@@ -20,12 +20,13 @@ class Computer{
     var numExecutors: Int
     var offline: Bool
     var offlineCauseReason: String?
-    var monitorData: [String: AnyObject]?
+    var temporarilyOffline: Bool?
+    var monitorData: MonitorData?
     
     init?(json: [String: AnyObject]){
         guard let displayName = json["displayName"] as? String, let icon = json["icon"] as? String, let idle = json["idle"] as? Bool
             else { return nil }
-        guard let jnlpAgent = json["jnplAgent"] as? Bool, let launchSupported = json["launchSupported"] as? Bool, let manualLaunchAllowed = json["manualLaunchAllowed"] as? Bool
+        guard let jnlpAgent = json["jnlpAgent"] as? Bool, let launchSupported = json["launchSupported"] as? Bool, let manualLaunchAllowed = json["manualLaunchAllowed"] as? Bool
             else { return nil }
         guard let numExecutors = json["numExecutors"] as? Int, let offline = json["offline"] as? Bool
             else { return nil }
@@ -39,7 +40,11 @@ class Computer{
         self.numExecutors = numExecutors
         self.offline = offline
         
+        temporarilyOffline = json["temporarilyOffline"] as? Bool
         offlineCauseReason = json["offlineCauseReason"] as? String
-        monitorData = json["monitorData"] as? [String: AnyObject]
+        
+        if let monitorDataJson = json["monitorData"] as? [String: AnyObject]{
+            monitorData = MonitorData(json: monitorDataJson)
+        }
     }
 }

@@ -24,7 +24,7 @@ class ComputerList{
         
         (json["computer"] as? [[String: AnyObject]])?.forEach({ (computerJSON) in
             if let computer = Computer(json: computerJSON){
-                computers.append(computer)
+                self.computers.append(computer)
             }
         })
     
