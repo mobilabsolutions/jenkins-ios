@@ -11,87 +11,68 @@ import UIKit
 class UsersTableViewController: UITableViewController {
 
     var account: Account?
+    private var userList: UserList?{
+        didSet{
+            guard let userList = userList
+                else { return }
+            
+            userData = userList.users.map({ (user) -> [(String, String)] in
+                return [
+                    ("Name", user.fullName),
+                    ("Project", user.project?.name ?? "No project")
+                ]
+            })
+        }
+    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private var userData: [[(String, String)]] = []
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    
+    //MARK: - View controller life cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        performRequest()
+    }
+    
+    //MARK: - Data loading
+    private func performRequest(){
+        guard let account = account
+            else { return }
+        
+        NetworkManager.manager.getUsers(userRequest: UserRequest.userRequestForUsers(account: account)) { (userList, error) in
+            DispatchQueue.main.async {
+                if let error = error{
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnDict) in
+                        self.account?.username = returnDict["username"]!
+                        self.account?.password = returnDict["password"]!
+                        
+                        self.performRequest()
+                    })
+                }
+                
+                self.userList = userList
+                self.tableView.reloadData()
+            }
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
+    //MARK: - Tableview delegate and data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return userList?.users.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return userData[section].count
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.userCell, for: indexPath)
+        cell.textLabel?.text = userData[indexPath.section][indexPath.row].0
+        cell.detailTextLabel?.text = userData[indexPath.section][indexPath.row].1
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return userList?.users[section].fullName
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
