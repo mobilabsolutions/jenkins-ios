@@ -8,32 +8,44 @@
 
 import UIKit
 
-class BuildViewController: UIViewController {
+class BuildViewController: UITableViewController {
 
     //MARK: - Instance variables
     
     var build: Build?
     var account: Account?
     
+    class DisplayData{
+        var segueIdentifier: String?
+        var key: String
+        var value: String
+        var cellIdentifier: String
+        
+        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String?){
+            self.key = key
+            self.value = value
+            self.cellIdentifier = cellIdentifier
+            self.segueIdentifier = segueIdentifier
+        }
+    }
+    
+    var displayData: [DisplayData] = []
     
     private var favoriteImage: UIImage?{
         get{
             return (build != nil && build!.isFavorite) ? UIImage(named: "HeartFull") : UIImage(named: "HeartEmpty")
         }
     }
-    //MARK: - Outlets
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var urlLabel: UILabel!
-    @IBOutlet weak var consoleWebView: UIWebView!
     
     //MARK: - View controller lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setUpUI()
-        updateUIContent()
+        updateData()
         performRequests()
     }
 
@@ -53,45 +65,112 @@ class BuildViewController: UIViewController {
         guard let build = build
             else { return }
         
-        let request = URLRequest(url: build.consoleOutputUrl.using(scheme: "https")!)
-        consoleWebView.loadRequest(request)
-        
-        
         if build.isFullVersion == false, let account = account{
             let userRequest = UserRequest(requestUrl: build.url, account: account)
             
             NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
                 //FIXME: Actually display errors
                 DispatchQueue.main.async {
-                    self.updateUIContent()
+                    self.updateData()
                 }
             })
         }
     }
     
-    private func setUpUI(){
-        consoleWebView.allowsLinkPreview = true
-        consoleWebView.delegate = self
-        
+    private func setUpUI(){        
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(toggleLike))
         navigationItem.titleView = UIImageView(image: favoriteImage)
         navigationItem.titleView?.isUserInteractionEnabled = true
         navigationItem.titleView?.addGestureRecognizer(recognizer)
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
     }
     
-    private func updateUIContent(){
-        guard let build = build
-            else { return }
+    private func updateData(){
         
-        nameLabel.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
-        urlLabel.text = "\(build.url)"
+        displayData = [
+            DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Cause", value:
+                (build?.actions?.causes.reduce("",
+                                               { (str, cause) -> String in
+                                                    return str + cause.shortDescription
+                                                }
+                    )).textify(), cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
+            
+            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Changes (\(build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0))", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue),
+            DisplayData(key: "Test Results", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue),
+            DisplayData(key: "Console Output", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue)
+        ]
+        
+        nameLabel.text = build?.fullDisplayName ?? build?.displayName ?? "Build #\((build?.number).textify())"
+        
+        tableView.reloadData()
     }
-}
-
-//MARK: - Webview delegate
-extension BuildViewController: UIWebViewDelegate{
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        // We do not want the user to be able to tap any other links
-        return navigationType == UIWebViewNavigationType.other
+    
+    //MARK: - View controller navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Identifiers.showConsoleOutputSegue, let dest = segue.destination as? ConsoleOutputViewController{
+            dest.url = build?.consoleOutputUrl
+        }
+        else if segue.identifier == Constants.Identifiers.showChangesSegue, let dest = segue.destination as? ChangesTableViewController{
+            dest.changeSetItems = []
+            
+            var commitIds: [String] = []
+            
+            build?.changeSets.forEach({ (changeSet) in
+                for change in changeSet.items{
+                    if let commitId = change.commitId, !commitIds.contains(commitId){
+                        dest.changeSetItems?.append(change)
+                        commitIds.append(commitId)
+                    }
+                }
+            })
+        }
+        else if segue.identifier == Constants.Identifiers.showTestResultsSegue, let dest = segue.destination as? TestResultsTableViewController{
+            dest.build = build
+            dest.account = account
+        }
+    }
+    
+    //MARK: - Table view datasource and delegate
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayData.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: displayData[indexPath.row].cellIdentifier, for: indexPath)
+        
+        if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.staticBuildInfoCell{
+            cell.textLabel?.text = displayData[indexPath.row].key
+            cell.detailTextLabel?.text = displayData[indexPath.row].value
+        }
+        else if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell{
+            cell.textLabel?.text = displayData[indexPath.row].key
+        }
+        else if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.longBuildInfoCell, let longBuildInfoCell = cell as? LongBuildInfoTableViewCell{
+            longBuildInfoCell.titleLabel.text = displayData[indexPath.row].key
+            longBuildInfoCell.infoLabel.text = displayData[indexPath.row].value
+        }
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let segueIdentifier = displayData[indexPath.row].segueIdentifier{
+            performSegue(withIdentifier: segueIdentifier, sender: displayData[indexPath.row])
+        }
     }
 }
