@@ -14,9 +14,15 @@ class ChangeSet{
     
     init(json: [String: AnyObject]){
         kind = json["kind"] as? String
+        
+        var commitIds: [String] = []
+        
         (json["items"] as? [[String: AnyObject]])?.forEach({ (jsonItem) in
             if let item = Item(json: jsonItem){
-                items.append(item)
+                if let commitId = item.commitId, !commitIds.contains(commitId){
+                    items.append(item)
+                    commitIds.append(commitId)
+                }
             }
         })
     }

@@ -74,7 +74,10 @@ class Build: Favoratible, CustomDebugStringConvertible{
         estimatedDuration = json["estimatedDuration"] as? TimeInterval
         
         if let changeSetJson = json["changeSet"] as? [String: AnyObject]{
-            changeSets.append(ChangeSet(json: changeSetJson))
+            let changeSet = ChangeSet(json: changeSetJson)
+            if changeSet.items.count > 0{
+                changeSets.append(changeSet)
+            }
         }
             // It seems, as if Change Sets could also be in an array
         else if let changeSetsJson = json["changeSet"] as? [[String: AnyObject]]{
