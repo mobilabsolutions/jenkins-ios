@@ -38,8 +38,12 @@ class PluginsTableViewController: UITableViewController {
             
             DispatchQueue.main.async {
                 if let error = error{
-                    let action = UIAlertAction(title: "Alright", style: .default, handler: nil)
-                    self.displayError(title: "Error", message: (error as? NetworkManagerError)?.localizedDescription, textFieldConfigurations: [], actions: [action])
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+                        
+                        self.performRequest()
+                    })
                 }
                 self.pluginList = pluginList
                 self.tableView.reloadData()

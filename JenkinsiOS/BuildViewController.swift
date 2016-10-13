@@ -69,8 +69,17 @@ class BuildViewController: UITableViewController {
             let userRequest = UserRequest(requestUrl: build.url, account: account)
             
             NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
-                //FIXME: Actually display errors
                 DispatchQueue.main.async {
+                    
+                    if let error = error{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+                            
+                            self.performRequests()
+                        })
+                    }
+                    
                     self.updateData()
                 }
             })

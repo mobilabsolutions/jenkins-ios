@@ -29,9 +29,21 @@ class JobsTableViewController: UITableViewController{
         guard let account = account
             else { return }
 
-        NetworkManager.manager.getJobs(userRequest: UserRequest.userRequestForJobList(account: account)) { (jobList, error) in
-            //FIXME: Display an error message on error
-            if error == nil && jobList != nil{
+        NetworkManager.manager.getJobs(userRequest: UserRequest.userRequestForJobList(account: account)) { (jobList, error) in            
+            guard error == nil
+                else {
+                    if let error = error{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+                            
+                            self.loadJobs()
+                        })
+                    }
+                    return
+            }
+            
+            if jobList != nil{
                 self.jobs = jobList
                 self.currentView = jobList!.allJobsView
                 

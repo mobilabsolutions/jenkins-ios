@@ -31,7 +31,14 @@ class BuildQueueTableViewController: UITableViewController {
         NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
             guard let queue = queue, error == nil
                 else {
-                    //FIXME: An error message should be displayed here
+                    if let error = error{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+                            
+                            self.performRequest()
+                        })
+                    }
                     return
             }
             self.queue = queue

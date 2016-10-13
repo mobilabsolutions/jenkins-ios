@@ -7,4 +7,6 @@ Run Button: http://www.flaticon.com/free-icon/play-button_109525#term=triangle&p
 Warning Triangle: http://www.flaticon.com/free-icon/warning_109990#term=warning&page=1&position=8
 Warning Circle: http://www.flaticon.com/free-icon/warning_149692#term=warning&page=1&position=9
 Checkmark: http://www.flaticon.com/free-icon/verification-circular-symbol_52003#term=checkmark&page=1&position=29
-
+People: http://www.flaticon.com/free-icon/team_123415#term=users&page=1&position=8
+Computer: http://www.flaticon.com/free-icon/monitor_186225#term=computer&page=1&position=21
+Puzzle: http://www.flaticon.com/free-icon/puzzle_205252#term=puzzle&page=1&position=77

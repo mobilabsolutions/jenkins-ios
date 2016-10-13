@@ -52,7 +52,12 @@ class TestResultsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 
                 if let error = error{
-                    self.displayError(title: "Error", message: (error as? NetworkManagerError)?.localizedDescription, textFieldConfigurations: [], actions: [UIAlertAction(title: "Done", style: .default, handler: nil)])
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+                        
+                        self.loadTestResults()
+                    })
                 }
                 
                 self.testResults = testResult

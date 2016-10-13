@@ -66,9 +66,19 @@ class JobViewController: UIViewController {
             let userRequest = UserRequest(requestUrl: job.url, account: account)
             
             NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (job, error) in
-                //FIXME: Actually present an error message here
                 guard error == nil
-                    else { print(error); return }
+                    else {
+                        if let error = error{
+                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                self.account?.username = returnData["username"]!
+                                self.account?.password = returnData["password"]!
+                                
+                                self.performRequest()
+                            })
+                        }
+                        return
+                }
+                
                 DispatchQueue.main.async {
                     let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
                     self.descriptionWebView.loadHTMLString("<span style=\"font-family: san francisco, helvetica\">" + description + "</span>", baseURL: nil)

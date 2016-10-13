@@ -83,4 +83,65 @@ extension UIViewController{
         
         present(alertController, animated: true, completion: nil)
     }
+    
+    /// Display an error based on a given error
+    ///
+    /// - parameter error:      The error that should be displayed accordingly
+    /// - parameter completion: The completion that is called if the error is a 403 NetworkManagerError.HTTPResponseNoSuccess error
+    func displayNetworkError(error: Error, onReturnWithTextFields completion: (([String: String?]) -> ())?){
+        
+        if let networkManagerError = error as? NetworkManagerError{
+            switch networkManagerError{
+                case .HTTPResponseNoSuccess(let code, _):
+                    if code == 403{
+                        var userNameTextField: UITextField!
+                        var passwordTextField: UITextField!
+                        
+                        
+                        let textFieldConfigurations: [(UITextField) -> ()] = [
+                            {
+                                (textField) -> () in
+                                textField.placeholder = "Username"
+                                userNameTextField = textField
+                            },
+                            {
+                                (textField) -> () in
+                                textField.placeholder = "Password"
+                                passwordTextField = textField
+                            }
+                        ]
+                        
+                        let doneAction = UIAlertAction(title: "Save", style: .default){ (_) -> () in
+                            completion?(["username" : userNameTextField.text, "password" : passwordTextField.text])
+                        }
+                        let cancelAction = UIAlertAction(title: "Discard", style: .cancel, handler: nil)
+                        
+                        let message = "Please provide username and password"
+                        
+                        displayError(title: "Error", message: message, textFieldConfigurations: textFieldConfigurations, actions: [cancelAction, doneAction])
+                    }
+                    else{
+                        let message = "An error occured \(code)"
+                        let cancelAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                        displayError(title: "Error", message: message, textFieldConfigurations: [], actions: [cancelAction])
+                    }
+                
+                case .dataTaskError(let error):
+                    let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                    displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
+    
+                default:
+                    let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                    displayError(title: "Error", message: "An error occurred", textFieldConfigurations: [], actions: [doneAction])
+            }
+        }
+        else{
+            let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+            displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
+        }
+        
+        
+        
+        
+    }
 }

@@ -47,7 +47,17 @@ class FavoritesTableViewController: UITableViewController {
             if let account = jobFavorite.account, !requestedFavorites.contains(jobFavorite.url){
                 requestedFavorites.append(jobFavorite.url)
                 let userRequest = UserRequest(requestUrl: jobFavorite.url, account: account)
-                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
+                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, error) in
+                    
+                    if let error = error{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            account.username = returnData["username"]!
+                            account.password = returnData["password"]!
+                            
+                            self.loadJobs()
+                        })
+                    }
+                    
                     if let job = job{
                         self.jobs.append((job: job, account: account))
                         
@@ -65,7 +75,16 @@ class FavoritesTableViewController: UITableViewController {
             if let account = buildFavorite.account, !requestedFavorites.contains(buildFavorite.url){
                 let userRequest = UserRequest(requestUrl: buildFavorite.url, account: account)
                 requestedFavorites.append(buildFavorite.url)
-                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
+                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, error) in
+                    if let error = error{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            account.username = returnData["username"]!
+                            account.password = returnData["password"]!
+                            
+                            self.loadJobs()
+                        })
+                    }
+                    
                     if let build = build{
                         self.builds.append((build: build, account: account))
                         

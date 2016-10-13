@@ -35,8 +35,19 @@ class BuildsTableViewController: UITableViewController {
             for (index, build) in builds.enumerated().filter({$0.1.isFullVersion == false}){
                 let userRequest = UserRequest(requestUrl: build.url, account: account)
                 NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (build, error) in
-                    //FIXME: Display errors
                     DispatchQueue.main.async {
+                        
+                        guard error == nil
+                            else{
+                                    self.displayNetworkError(error: error!, onReturnWithTextFields: { (returnData) in
+                                        self.account?.username = returnData["username"]!
+                                        self.account?.password = returnData["password"]!
+                            
+                                        self.completeAllBuilds()
+                                    })
+                                return
+                            }
+                        
                         self.tableView.reloadRows(at: [IndexPath(row: index, section: section)], with: .automatic)
                     }
                 })

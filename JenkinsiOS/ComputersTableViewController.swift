@@ -35,11 +35,14 @@ class ComputersTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 
                 if let error = error{
-                    let alertActions = [
-                        UIAlertAction(title: "Done", style: .default, handler: nil)
-                    ]
-                    self.displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: alertActions)
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+                        
+                        self.performRequest()
+                    })
                 }
+
                 self.computerList = computerList
                 self.tableView.reloadData()
             }
