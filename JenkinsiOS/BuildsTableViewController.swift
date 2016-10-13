@@ -92,7 +92,6 @@ class BuildsTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(sender)
         if let s = sender as? UITableViewCell, let dest = segue.destination as? BuildViewController, segue.identifier == Constants.Identifiers.showBuildSegue, let indexPath = tableView.indexPath(for: s){
             if indexPath.section == 1{
                 dest.build = builds?[indexPath.row]

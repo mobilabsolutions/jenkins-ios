@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        
         if shortcutItem.type == Constants.Identifiers.favoritesShortcutItemType{
             let favoritesViewController = getViewController(name: "FavoritesViewController")
             if let nav = window?.rootViewController as? UINavigationController{
