@@ -3,3 +3,8 @@ Empty heart: http://www.flaticon.com/free-icon/like_149217#term=heart&page=1&pos
 Circles: http://www.flaticon.com/free-icon/oval_136963#term=oval&page=1&position=21
 Weather: http://www.flaticon.com/packs/weather-4
 Empty circle: http://www.flaticon.com/free-icon/circle_106796#term=circle%20shape&page=1&position=77
+Run Button: http://www.flaticon.com/free-icon/play-button_109525#term=triangle&page=1&position=9
+Warning Triangle: http://www.flaticon.com/free-icon/warning_109990#term=warning&page=1&position=8
+Warning Circle: http://www.flaticon.com/free-icon/warning_149692#term=warning&page=1&position=9
+Checkmark: http://www.flaticon.com/free-icon/verification-circular-symbol_52003#term=checkmark&page=1&position=29
+

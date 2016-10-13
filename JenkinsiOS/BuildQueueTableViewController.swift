@@ -16,6 +16,10 @@ class BuildQueueTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Build Queue"
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
+        
         performRequest()
     }
 
@@ -51,6 +55,7 @@ class BuildQueueTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)
+        
         cell.textLabel?.text = queue?.items[indexPath.row].task?.name
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.lineBreakMode = .byCharWrapping
@@ -58,6 +63,8 @@ class BuildQueueTableViewController: UITableViewController {
         if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
             cell.imageView?.image = UIImage(named: "\(colorString)Circle")
         }
+        
+        cell.detailTextLabel?.text = queue?.items[indexPath.row].why
         
         return cell
     }

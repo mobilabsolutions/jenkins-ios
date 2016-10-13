@@ -71,6 +71,9 @@ class JobsTableViewController: UITableViewController{
         else if let dest = segue.destination as? BuildQueueTableViewController, segue.identifier == Constants.Identifiers.showBuildQueueSegue{
             dest.account = account
         }
+        else if let dest = segue.destination as? JenkinsInformationTableViewController, segue.identifier == Constants.Identifiers.showJenkinsSegue{
+            dest.account = account
+        }
     }
     
     //MARK: - Tableview datasource and delegate
