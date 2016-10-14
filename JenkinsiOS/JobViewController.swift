@@ -29,19 +29,15 @@ class JobViewController: UIViewController {
             else { return }
         
         try? NetworkManager.manager.performBuild(account: account, job: job, token: "", parameters: nil) { (data, error) in
-            if error != nil{
-                if let networkManagerError = error as? NetworkManagerError{
-                    switch networkManagerError{
-                        case NetworkManagerError.HTTPResponseNoSuccess(let code, _):
-                            if code == 403{
-                                //FIXME: This should show an alert indicating that the user should provide username + password
-                                print("Error 403")
-                            }
-                        default:
-                            return
-                    }
-                }
+            if let error = error{
+                self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                    self.account?.username = returnData["username"]!
+                    self.account?.password = returnData["password"]!
+                    
+                    self.build()
+                })
             }
+            print(data)
         }
     }
     
@@ -117,6 +113,7 @@ class JobViewController: UIViewController {
         navigationItem.titleView?.sizeToFit()
         navigationItem.titleView?.isUserInteractionEnabled = true
         navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
+        
     }
     
     //MARK: - ViewController Navigation
