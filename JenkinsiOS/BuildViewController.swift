@@ -20,12 +20,14 @@ class BuildViewController: UITableViewController {
         var key: String
         var value: String
         var cellIdentifier: String
+        var viewControllerIdentifier: String?
         
-        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String?){
+        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String? = nil, viewControllerIdentifier: String? = nil){
             self.key = key
             self.value = value
             self.cellIdentifier = cellIdentifier
             self.segueIdentifier = segueIdentifier
+            self.viewControllerIdentifier = viewControllerIdentifier
         }
     }
     
@@ -47,6 +49,7 @@ class BuildViewController: UITableViewController {
         setUpUI()
         updateData()
         performRequests()
+        registerForPreviewing(with: self, sourceView: tableView)
     }
 
     
@@ -107,15 +110,15 @@ class BuildViewController: UITableViewController {
                                                 }
                     )).textify(), cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
             
-            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Changes (\(build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0))", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue),
-            DisplayData(key: "Test Results", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue),
-            DisplayData(key: "Console Output", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue)
+            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
+            DisplayData(key: "Changes (\(build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0))", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue, viewControllerIdentifier: "ChangesViewController"),
+            DisplayData(key: "Test Results", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue, viewControllerIdentifier: "TestResultsViewController"),
+            DisplayData(key: "Console Output", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue, viewControllerIdentifier: "ConsoleOutputViewController")
         ]
         
         nameLabel.text = build?.fullDisplayName ?? build?.displayName ?? "Build #\((build?.number).textify())"
@@ -126,26 +129,32 @@ class BuildViewController: UITableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showConsoleOutputSegue, let dest = segue.destination as? ConsoleOutputViewController{
-            dest.url = build?.consoleOutputUrl
+        if let dest = sender as? UIViewController{
+           prepare(viewController: dest)
         }
-        else if segue.identifier == Constants.Identifiers.showChangesSegue, let dest = segue.destination as? ChangesTableViewController{
-            dest.changeSetItems = []
+    }
+    
+    fileprivate func prepare(viewController: UIViewController){
+        if let consoleOutputViewController = viewController as? ConsoleOutputViewController{
+            consoleOutputViewController.url = build?.consoleOutputUrl
+        }
+        else if let changesTableViewController = viewController as? ChangesTableViewController{
+            changesTableViewController.changeSetItems = []
             
             var commitIds: [String] = []
             
             build?.changeSets.forEach({ (changeSet) in
                 for change in changeSet.items{
                     if let commitId = change.commitId, !commitIds.contains(commitId){
-                        dest.changeSetItems?.append(change)
+                        changesTableViewController.changeSetItems?.append(change)
                         commitIds.append(commitId)
                     }
                 }
             })
         }
-        else if segue.identifier == Constants.Identifiers.showTestResultsSegue, let dest = segue.destination as? TestResultsTableViewController{
-            dest.build = build
-            dest.account = account
+        else if let testResultsViewController = viewController as? TestResultsTableViewController{
+            testResultsViewController.build = build
+            testResultsViewController.account = account
         }
     }
     
@@ -181,5 +190,22 @@ class BuildViewController: UITableViewController {
         if let segueIdentifier = displayData[indexPath.row].segueIdentifier{
             performSegue(withIdentifier: segueIdentifier, sender: displayData[indexPath.row])
         }
+    }
+}
+
+extension BuildViewController: UIViewControllerPreviewingDelegate{
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location), let identifier = displayData[indexPath.row].viewControllerIdentifier
+            else { return nil }
+        guard let viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: identifier)
+            else { return nil }
+        
+        prepare(viewController: viewController)
+        
+        return viewController
     }
 }
