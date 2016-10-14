@@ -35,14 +35,23 @@ class TestResultsTableViewController: UITableViewController {
     @IBOutlet weak var skippedTestCountLabel: UILabel!
     @IBOutlet weak var failedTestCountLabel: UILabel!
     
+    private var searchController: UISearchController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addRefreshControl(action: #selector(loadTestResults))
         title = "Test Results"
+        loadTestResults()
     }
     
-    private func loadTestResults(){
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchController?.searchBar.text = ""
+    }
+    
+    //MARK: - Data loading
+    @objc private func loadTestResults(){
         guard let build = build, let account = account
             else { return }
         
@@ -73,11 +82,39 @@ class TestResultsTableViewController: UITableViewController {
                 self.tableView.reloadData()
                 self.setUpSearchController()
                 
-                self.passedTestCountLabel.text = "Passed:\n" + (testResult?.passCount).textify()
-                self.skippedTestCountLabel.text = "Skipped:\n" + (testResult?.skipCount).textify()
-                self.failedTestCountLabel.text = "Failed:\n" + (testResult?.failCount).textify()
+                self.passedTestCountLabel.text = "Passed:\n\((testResult?.passCount).textify())"
+                self.skippedTestCountLabel?.text = "Skipped:\n\((testResult?.skipCount).textify())"
+                self.failedTestCountLabel?.text = "Failed:\n\((testResult?.failCount).textify())"
+                self.refreshControl?.endRefreshing()
             }
         }
+    }
+    
+    private func setUpSearchController(){
+        
+        guard suites.count > 0
+            else { return }
+        
+        var searchData: [Searchable] = []
+            
+        for suite in suites{
+            for testCase in suite.cases{
+                searchData.append(Searchable(searchString: testCase.name ?? testCase.className ?? "Unknown", data: testCase){
+                    self.searchController?.dismiss(animated: true){
+                        self.performSegue(withIdentifier: Constants.Identifiers.showTestResultSegue, sender: testCase)
+                    }
+                })
+            }
+        }
+
+        
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
+        searchResultsController.delegate = self
+        searchResultsController.cellStyle = .subtitle
+        searchController = UISearchController(searchResultsController: searchResultsController)
+        tableView.tableHeaderView = searchController?.searchBar
+        searchController?.searchResultsUpdater = searchResultsController.searcher
+        tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
     }
     
     // MARK: - Table view data source
@@ -158,4 +195,17 @@ class TestResultsTableViewController: UITableViewController {
     }
 }
 
+extension TestResultsTableViewController: SearchResultsControllerDelegate{
+    func setup(cell: UITableViewCell, for searchable: Searchable) {
+        guard let testCase = searchable.data as? Case
+            else { return }
+        
+        cell.detailTextLabel?.text = testCase.duration != nil ? "\(testCase.duration!)ms" : nil
+        cell.textLabel?.text = testCase.name.textify()
+        
+        if let status = testCase.status?.lowercased(), let image = UIImage(named: "\(status)TestCase"){
+            cell.imageView?.withResized(image: image, size: CGSize(width: 20, height: 20))
+            cell.imageView?.contentMode = .scaleAspectFit
+        }
+    }
 }

@@ -15,6 +15,7 @@ class JobsTableViewController: UITableViewController{
     var currentView: View?
     
     var viewPicker: UIPickerView!
+    private var searchController: UISearchController?
     
     let sections = [Constants.Identifiers.jenkinsCell , Constants.Identifiers.jobCell]
     let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins", Constants.Identifiers.showJenkinsSegue)]
@@ -26,6 +27,13 @@ class JobsTableViewController: UITableViewController{
         setUpPicker()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchController?.searchBar.text = ""
+    }
+    
+    
+    //MARK: - Data loading and displaying
     /// Load the jobs from the remote server
     @objc private func loadJobs(){
         guard let account = account
@@ -50,24 +58,34 @@ class JobsTableViewController: UITableViewController{
                     return
             }
             
-            if jobList != nil{
-                self.jobs = jobList
-                self.currentView = jobList!.allJobsView
-                
-                DispatchQueue.main.async {
-                    self.viewPicker.reloadAllComponents()
-                    self.pickerScrollToAllView()
-                    self.tableView.reloadData()
-                }
-                
-            }
-            else{
-                print("Error: \(error)")
+            self.jobs = jobList
+            self.currentView = jobList!.allJobsView
+            
+            DispatchQueue.main.async {
+                self.viewPicker.reloadAllComponents()
+                self.pickerScrollToAllView()
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+                self.setupSearchController()
             }
         }
     }
     
-    func setUpPicker(){
+    private func setupSearchController(){
+        let searchResultsController = SearchResultsTableViewController(searchData: jobs?.allJobsView?.jobs.map({ (job) -> Searchable in
+            return Searchable(searchString: job.name, data: job, action: {
+                self.searchController?.dismiss(animated: true, completion: nil)
+                self.performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
+            })
+        }) ?? [])
+        searchResultsController.delegate = self
+        searchController = UISearchController(searchResultsController: searchResultsController)
+        searchController?.searchResultsUpdater = searchResultsController.searcher
+        tableView.tableHeaderView = searchController?.searchBar
+        tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+    }
+    
+    private func setUpPicker(){
         viewPicker = UIPickerView()
         viewPicker.dataSource = self
         viewPicker.delegate = self
@@ -84,6 +102,10 @@ class JobsTableViewController: UITableViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let jobCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: jobCell), let job = currentView?.jobs[indexPath.row]{
+            dest.job = job
+            dest.account = account
+        }
+        else if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let job = sender as? Job{
             dest.job = job
             dest.account = account
         }
@@ -124,10 +146,16 @@ class JobsTableViewController: UITableViewController{
     }
     
     private func prepareCellForJob(cell: UITableViewCell, indexPath: IndexPath){
-        cell.textLabel?.text = currentView?.jobs[indexPath.row].name
-        cell.detailTextLabel?.text = currentView?.jobs[indexPath.row].description
+        guard let job = currentView?.jobs[indexPath.row]
+            else { return }
+        prepare(cell: cell, for: job)
+    }
+    
+    fileprivate func prepare(cell: UITableViewCell, for job: Job){
+        cell.textLabel?.text = job.name
+        cell.detailTextLabel?.text = job.description
         
-        if let color = currentView?.jobs[indexPath.row].color{
+        if let color = job.color{
             cell.imageView?.image = UIImage(named: color.rawValue + "Circle")
         }
     }
@@ -194,5 +222,13 @@ extension JobsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         currentView = jobs?.views[row]
         tableView.reloadData()
+    }
+}
+
+extension JobsTableViewController: SearchResultsControllerDelegate{
+    func setup(cell: UITableViewCell, for searchable: Searchable) {
+        guard let job = searchable.data as? Job
+            else { return }
+        prepare(cell: cell, for: job)
     }
 }
