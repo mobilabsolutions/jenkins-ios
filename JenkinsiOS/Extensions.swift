@@ -157,9 +157,20 @@ extension UIViewController{
             let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
             displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
         }
-        
-        
-        
-        
+    }
+}
+
+extension UIImageView{
+    /// Set an image view's image to an image, resized by a scale factor
+    ///
+    /// - parameter image: The image that should be resized and set as the view's image
+    /// - parameter size: The size the image should be resized to
+    func withResized(image: UIImage, size: CGSize){
+
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.image = newImage
     }
 }
