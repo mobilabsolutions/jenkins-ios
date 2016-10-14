@@ -39,6 +39,8 @@ extension Favoratible{
             else{
                 ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: self.url, type: type, account: account))
             }
+            
+            ApplicationUserManager.manager.save()
         }
     }
     

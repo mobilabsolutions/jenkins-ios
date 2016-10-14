@@ -24,22 +24,8 @@ class AccountManager{
     ///
     /// - parameter account: The account to add
     func addAccount(account: Account){
-        
         accounts.append(account)
-        
-        if let username = account.username, let password = account.password{
-            SAMKeychain.setPassword(password, forService: "com.mobilabsolutions.jenkins.account", account: username)
-        }
-        
-        var url = Constants.Paths.accountsPath
-        
-        if !FileManager.default.fileExists(atPath: url.path){
-            _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-        }
-        
-        url.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
-        
-        NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
+        save(account: account)
     }
     
     /// Return the full list of accounts
@@ -55,7 +41,7 @@ class AccountManager{
             // the array to a dictionary that maps usernames to passwords
             var returnDict: [String: String]  = [:]
             for entry in arr{
-                returnDict[entry["acct"] as! String] = entry["password"] as? String
+                returnDict[entry["acct"] as! String] = SAMKeychain.password(forService: "com.mobilabsolutions.jenkins.account", account: entry["acct"] as! String)
             }
             return returnDict
         }
@@ -79,6 +65,29 @@ class AccountManager{
             print(error)
         }
         return accounts
+    }
+    
+    func save(){
+        for account in accounts{
+            save(account: account)
+        }
+    }
+    
+    private func save(account: Account){
+        
+        if let username = account.username, let password = account.password{
+            SAMKeychain.setPassword(password, forService: "com.mobilabsolutions.jenkins.account", account: username)
+        }
+        
+        var url = Constants.Paths.accountsPath
+        
+        if !FileManager.default.fileExists(atPath: url.path){
+            _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        url.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        
+        NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
     }
     
     /// Delete a given account persistently

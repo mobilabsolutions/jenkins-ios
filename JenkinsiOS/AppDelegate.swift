@@ -14,13 +14,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        ApplicationUserManager.manager.save()
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         ApplicationUserManager.manager.save()
+        AccountManager.manager.save()
     }
 
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        saveIndefinitely()
+    }
+    
+    private func saveOnce(){
+        ApplicationUserManager.manager.save()
+        AccountManager.manager.save()
+    }
+    
+    private func saveIndefinitely(){
+        saveOnce()
+        let deadline = DispatchTime.now() + .seconds(30)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            self.saveIndefinitely()
+        }
+    }
+    
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         if shortcutItem.type == Constants.Identifiers.favoritesShortcutItemType{
             let favoritesViewController = getViewController(name: "FavoritesViewController")
