@@ -31,6 +31,16 @@ enum NetworkManagerError: Error{
             return "An Error in the NetworkManager occurred"
         }
     }
+    
+    var code: Int{
+        switch self{
+            case .JSONParsingFailed: return -2000
+            case .HTTPResponseNoSuccess(let code, _): return code
+            case .dataTaskError(let error): return error.code
+            case .noDataFound: return -3000
+            case .URLBuildingError: return -4000
+        }
+    }
 }
 
 enum ParsingError: Error{
