@@ -19,9 +19,13 @@ class ApplicationUser: NSObject, NSCoding{
     required init?(coder aDecoder: NSCoder) {
         guard let favoritesData = aDecoder.decodeObject(forKey: "favorites") as? [Data]
             else { return nil }
-        favorites = favoritesData.map({ (data) -> Favorite in
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as! Favorite
-        })
+        favorites = []
+        
+        for favoriteData in favoritesData{
+            if let favorite = NSKeyedUnarchiver.unarchiveObject(with: favoriteData) as? Favorite{
+                favorites.append(favorite)
+            }
+        }
     }
     
     func encode(with aCoder: NSCoder) {
