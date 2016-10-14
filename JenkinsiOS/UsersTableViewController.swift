@@ -29,13 +29,20 @@ class UsersTableViewController: UITableViewController {
 
     
     //MARK: - View controller life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addRefreshControl(action: #selector(performRequest))
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         performRequest()
     }
     
     //MARK: - Data loading
-    private func performRequest(){
+    @objc private func performRequest(){
         guard let account = account
             else { return }
         
@@ -52,6 +59,7 @@ class UsersTableViewController: UITableViewController {
                 
                 self.userList = userList
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
     }

@@ -19,18 +19,20 @@ class JobsTableViewController: UITableViewController{
     let sections = [Constants.Identifiers.jenkinsCell , Constants.Identifiers.jobCell]
     let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins", Constants.Identifiers.showJenkinsSegue)]
     
+    //MARK: - View controller lifecycle
     override func viewDidLoad() {
+        addRefreshControl(action: #selector(loadJobs))
         loadJobs()
         setUpPicker()
     }
     
     /// Load the jobs from the remote server
-    func loadJobs(){
+    @objc private func loadJobs(){
         guard let account = account
             else { return }
-
+        
         NetworkManager.manager.getJobs(userRequest: UserRequest.userRequestForJobList(account: account)) { (jobList, error) in            
-            guard error == nil
+            guard jobList != nil && error == nil
                 else {
                     if let error = error{
                         self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -40,6 +42,11 @@ class JobsTableViewController: UITableViewController{
                             self.loadJobs()
                         })
                     }
+                    
+                    DispatchQueue.main.async {
+                        self.refreshControl?.endRefreshing()
+                    }
+                    
                     return
             }
             

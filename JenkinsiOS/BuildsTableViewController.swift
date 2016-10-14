@@ -16,10 +16,9 @@ class BuildsTableViewController: UITableViewController {
     var account: Account?
     
     override func viewDidLoad() {
-        completeAllBuilds()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidLoad()
+        
+        addRefreshControl(action: #selector(reloadAllBuilds))        
         completeAllBuilds()
     }
     
@@ -31,6 +30,7 @@ class BuildsTableViewController: UITableViewController {
     }
     
     private func completeBuilds(builds: [Build], section: Int){
+
         if let account = account{
             for (index, build) in builds.enumerated().filter({$0.1.isFullVersion == false}){
                 let userRequest = UserRequest(requestUrl: build.url, account: account)
@@ -49,11 +49,21 @@ class BuildsTableViewController: UITableViewController {
                             }
                         
                         self.tableView.reloadRows(at: [IndexPath(row: index, section: section)], with: .automatic)
+                        
+                        if builds.filter({$0.isFullVersion}).isEmpty{
+                            self.refreshControl?.endRefreshing()
+                        }
                     }
                 })
             }
         }
-
+    }
+    
+    @objc private func reloadAllBuilds(){
+        builds?.forEach({ (build) in
+            build.isFullVersion = false
+        })
+        completeAllBuilds()
     }
     
     // MARK: - Table view data source

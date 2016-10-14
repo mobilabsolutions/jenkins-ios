@@ -37,31 +37,41 @@ class TestResultsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadTestResults()
         
+        addRefreshControl(action: #selector(loadTestResults))
         title = "Test Results"
     }
     
     private func loadTestResults(){
         guard let build = build, let account = account
             else { return }
-
+        
         let userRequest = UserRequest(requestUrl: build.url.appendingPathComponent(Constants.API.testReport), account: account)
         
         NetworkManager.manager.getTestResult(userRequest: userRequest) { (testResult, error) in
             DispatchQueue.main.async {
                 
                 if let error = error{
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                        self.account?.username = returnData["username"]!
-                        self.account?.password = returnData["password"]!
-                        
-                        self.loadTestResults()
-                    })
+                    if let networkManagerError = error as? NetworkManagerError, networkManagerError.code == 404{
+                        self.displayError(title: "No Test Results", message: "No test results are available", textFieldConfigurations: [], actions: [
+                                UIAlertAction(title: "Alright", style: .cancel, handler: { (action) in
+                                    self.dismiss(animated: true, completion: nil)
+                                })
+                            ])
+                    }
+                    else{
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+                            
+                            self.loadTestResults()
+                        })
+                    }
                 }
                 
                 self.testResults = testResult
                 self.tableView.reloadData()
+                self.setUpSearchController()
                 
                 self.passedTestCountLabel.text = "Passed:\n" + (testResult?.passCount).textify()
                 self.skippedTestCountLabel.text = "Skipped:\n" + (testResult?.skipCount).textify()
@@ -89,7 +99,10 @@ class TestResultsTableViewController: UITableViewController {
         let testCase = suites[indexPath.section].cases[indexPath.row]
         cell.testNameLabel.text = testCase.name ?? "No name"
         cell.testDurationLabel.text = testCase.duration != nil ? "(\(testCase.duration!)ms)" : "Unknown"
-        cell.testResultImageView.image = testCase.status != nil ? UIImage(named: "\(testCase.status!.lowercased())TestCase") : nil
+        
+        if let status = testCase.status?.lowercased(){
+            cell.testResultImageView.image = UIImage(named: "\(status)TestCase")
+        }
         
         return cell
     }
@@ -133,10 +146,16 @@ class TestResultsTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showTestResultSegue, let dest = segue.destination as? TestResultTableViewController,
-            let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-            dest.testCase = suites[indexPath.section].cases[indexPath.row]
+        if segue.identifier == Constants.Identifiers.showTestResultSegue, let dest = segue.destination as? TestResultTableViewController{
+            if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+                dest.testCase = suites[indexPath.section].cases[indexPath.row]
+            }
+            else if let testCase = sender as? Case{
+                dest.testCase = testCase
+            }
+            
         }
     }
+}
 
 }

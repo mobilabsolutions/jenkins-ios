@@ -48,6 +48,7 @@ struct Constants{
         static let showComputersSegue = "showComputersSegue"
         static let showUsersSegue = "showUsersSegue"
         static let showPluginsSegue = "showPluginsSegue"
+        static let editAccountSegue = "editAccountSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }

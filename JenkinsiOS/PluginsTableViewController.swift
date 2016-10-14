@@ -26,10 +26,11 @@ class PluginsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addRefreshControl(action: #selector(performRequest))
         performRequest()
     }
 
-    private func performRequest(){
+    @objc private func performRequest(){
         
         guard let account = account
             else { return }
@@ -47,6 +48,7 @@ class PluginsTableViewController: UITableViewController {
                 }
                 self.pluginList = pluginList
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
     }

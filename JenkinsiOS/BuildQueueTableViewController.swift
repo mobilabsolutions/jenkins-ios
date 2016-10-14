@@ -20,6 +20,8 @@ class BuildQueueTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
         
+        addRefreshControl(action: #selector(performRequest))
+        
         performRequest()
     }
 
@@ -45,6 +47,7 @@ class BuildQueueTableViewController: UITableViewController {
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
     }

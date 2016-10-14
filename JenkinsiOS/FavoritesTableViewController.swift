@@ -22,6 +22,10 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addRefreshControl(action: #selector(reloadAllFavorites))
+        setupTitleView()
+    
         loadJobs()
         loadBuilds()
         
@@ -47,27 +51,19 @@ class FavoritesTableViewController: UITableViewController {
             if let account = jobFavorite.account, !requestedFavorites.contains(jobFavorite.url){
                 requestedFavorites.append(jobFavorite.url)
                 let userRequest = UserRequest(requestUrl: jobFavorite.url, account: account)
-                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, error) in
-                    
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            account.username = returnData["username"]!
-                            account.password = returnData["password"]!
-                            
-                            self.loadJobs()
-                        })
-                    }
-                    
+                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
                     if let job = job{
                         self.jobs.append((job: job, account: account))
                         
                         DispatchQueue.main.async {
                             self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                            self.conditionallyEndRefreshing()
                         }
                     }
                 })
             }
         }
+        conditionallyEndRefreshing()
     }
     
     func loadBuilds(){
@@ -75,26 +71,42 @@ class FavoritesTableViewController: UITableViewController {
             if let account = buildFavorite.account, !requestedFavorites.contains(buildFavorite.url){
                 let userRequest = UserRequest(requestUrl: buildFavorite.url, account: account)
                 requestedFavorites.append(buildFavorite.url)
-                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, error) in
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            account.username = returnData["username"]!
-                            account.password = returnData["password"]!
-                            
-                            self.loadJobs()
-                        })
-                    }
-                    
+                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
                     if let build = build{
                         self.builds.append((build: build, account: account))
                         
                         DispatchQueue.main.async {
                             self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                            self.conditionallyEndRefreshing()
                         }
                     }
                 })
             }
         }
+        conditionallyEndRefreshing()
+    }
+    
+    @objc private func reloadAllFavorites(){
+        requestedFavorites = []
+        jobs = []
+        builds = []
+        tableView.reloadData()
+        loadJobs()
+        loadBuilds()
+    }
+    
+    private func conditionallyEndRefreshing(){
+        if jobFavorites.count == jobs.count && builds.count == buildFavorites.count{
+            self.refreshControl?.endRefreshing()
+            (navigationItem.titleView as? UIActivityIndicatorView)?.stopAnimating()
+            navigationItem.titleView = nil
+        }
+    }
+    
+    private func setupTitleView(){
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        navigationItem.titleView = activityIndicator
+        activityIndicator.startAnimating()
     }
     
     //MARK: - View controller navigation
