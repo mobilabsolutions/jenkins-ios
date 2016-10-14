@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
+		DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AA1DB0CBFA009CF232 /* Searcher.swift */; };
+		DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AC1DB0CC39009CF232 /* Searchable.swift */; };
+		DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */; };
 		DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */; };
 		DC3CCD0C1DA67229004C4C3D /* PluginList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0B1DA67229004C4C3D /* PluginList.swift */; };
 		DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0D1DA67245004C4C3D /* Plugin.swift */; };
@@ -102,6 +105,9 @@
 
 /* Begin PBXFileReference section */
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
+		DC2045AA1DB0CBFA009CF232 /* Searcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
+		DC2045AC1DB0CC39009CF232 /* Searchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultTableViewCell.swift; sourceTree = "<group>"; };
 		DC3CCD0B1DA67229004C4C3D /* PluginList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginList.swift; sourceTree = "<group>"; };
 		DC3CCD0D1DA67245004C4C3D /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
@@ -342,6 +348,8 @@
 				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
 				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
 				DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */,
+				DC2045AA1DB0CBFA009CF232 /* Searcher.swift */,
+				DC2045AC1DB0CC39009CF232 /* Searchable.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -365,6 +373,7 @@
 				DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */,
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
+				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -548,10 +557,13 @@
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
 				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
+				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
+				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
 				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
 				DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */,
+				DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */,
 				DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */,
 				DC3CCD0C1DA67229004C4C3D /* PluginList.swift in Sources */,
 				DC86256F1DA90F2500EB7867 /* Project.swift in Sources */,
