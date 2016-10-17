@@ -20,6 +20,10 @@ class AccountManager{
         accounts = getAccounts()
     }
     
+    func update(){
+        accounts = getAccounts()
+    }
+    
     /// Add an account to the list of available accounts
     ///
     /// - parameter account: The account to add

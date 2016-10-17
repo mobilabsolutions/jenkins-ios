@@ -30,9 +30,8 @@ class Favorite: NSObject, NSCoding{
             else { return nil }
         self.url = url
         self.type = FavoriteType(rawValue: type)!
-        guard let account = AccountManager.manager.accounts.first(where: {$0.baseUrl == accountUrl})
-            else { return nil }
-        self.account = account
+        AccountManager.manager.update()
+        self.account = AccountManager.manager.accounts.first(where: {$0.baseUrl == accountUrl})
     }
     
     func encode(with aCoder: NSCoder) {
