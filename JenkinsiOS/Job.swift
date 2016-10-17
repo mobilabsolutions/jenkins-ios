@@ -16,7 +16,6 @@ class Job: Favoratible{
     var color: JenkinsColor?
     
     //MARK: - Full version
-    //TODO: Implement all fields
     var description: String?
     
     var buildable: Bool?
@@ -60,7 +59,7 @@ class Job: Favoratible{
             addAdditionalFields(from: json)
         }
     }
-    
+        
     /// Add values for fields in the full job category
     ///
     /// - parameter json: The JSON parsed data from which to get the values for the additional fields

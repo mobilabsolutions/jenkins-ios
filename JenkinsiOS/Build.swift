@@ -16,7 +16,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
     var actions: Actions?
     
     var building: Bool?
-    var description: String?
+    var buildDescription: String?
     
     var displayName: String?
     var fullDisplayName: String?
@@ -42,6 +42,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
     var isFullVersion = false
     
     init?(json: [String: AnyObject], minimalVersion: Bool){
+        
         guard let number = json["number"] as? Int, let urlString = json["url"] as? String, let url = URL(string: urlString)
             else { return nil }
         
@@ -53,6 +54,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
         }
     }
     
+    
     /// Add values for fields in the full job category
     ///
     /// - parameter json: The JSON parsed data from which to get the values for the additional fields
@@ -63,7 +65,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
         }
         
         building = json["building"] as? Bool
-        description = json["description"] as? String
+        buildDescription = json["description"] as? String
         displayName = json["displayName"] as? String
         fullDisplayName = json["fullDisplayName"] as? String
         id = json["id"] as? String
