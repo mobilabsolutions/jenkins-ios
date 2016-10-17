@@ -295,8 +295,12 @@ class NetworkManager{
             request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
         }
         
+        NetworkActivityIndicatorManager.manager.setActivityIndicator(active: true)
+        
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                        
+            
+            NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
+            
             guard let data = data, error == nil
                 else { completion(nil, error); return }
             
