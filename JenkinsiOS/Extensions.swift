@@ -38,6 +38,15 @@ extension Optional{
     }
 }
 
+extension Dictionary{
+    init(elements: [(Key, Value)]){
+        self.init()
+        for (key, value) in elements{
+            self[key] = value
+        }
+    }
+}
+
 extension TimeInterval{
     
     /// Convert a TimeInterval to a string describing it
