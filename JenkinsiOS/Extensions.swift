@@ -39,6 +39,11 @@ extension Optional{
 }
 
 extension Dictionary{
+    /// Instantiate a Dictionary from an array of tuples
+    ///
+    /// - parameter elements: The array of tuples that the Dictionary should be initialised from
+    ///
+    /// - returns: An initialised Dictionary object
     init(elements: [(Key, Value)]){
         self.init()
         for (key, value) in elements{

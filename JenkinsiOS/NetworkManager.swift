@@ -78,6 +78,10 @@ class NetworkManager{
         }
     }
 
+    /// Get a build from a given user request
+    ///
+    /// - parameter userRequest: The user request containing the build url
+    /// - parameter completion:  A closure handling the (optional) Build and an (optional) error
     func getBuild(userRequest: UserRequest, completion: @escaping (Build?, Error?) -> ()){
         performRequest(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil

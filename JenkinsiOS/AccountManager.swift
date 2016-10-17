@@ -20,6 +20,7 @@ class AccountManager{
         accounts = getAccounts()
     }
     
+    /// Update the array of accounts
     func update(){
         accounts = getAccounts()
     }
@@ -52,6 +53,13 @@ class AccountManager{
         }
     }
     
+    /// Get all accounts for a given path
+    ///
+    /// - parameter path: The path in which the accounts are persisted
+    ///
+    /// - throws: A FileManager error
+    ///
+    /// - returns: An array containing all existing accounts
     private func getAccounts(path: URL) throws -> [Account]{
         var accounts: [Account] = []
     
@@ -85,12 +93,16 @@ class AccountManager{
         return accounts
     }
     
+    /// Persist all accounts to disk
     func save(){
         for account in accounts{
             save(account: account)
         }
     }
     
+    /// Persist a given account
+    ///
+    /// - parameter account: The account that should be saved
     private func save(account: Account){
         
         let query = SAMKeychainQuery()
