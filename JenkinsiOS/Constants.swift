@@ -17,7 +17,20 @@ struct Constants{
     
     struct Paths{
         static let userPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("User")
+        static let sharedUserPath = PersistenceUtils.getSharedDirectory()?.appendingPathComponent("Storage").appendingPathComponent("User")
         static let accountsPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("Account")
+        static let sharedAccountsPath = PersistenceUtils.getSharedDirectory()?.appendingPathComponent("Storage").appendingPathComponent("Account")
+    }
+    
+    struct Config{
+        static var keychainAccessGroup: String?{
+            guard let dict = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Config", ofType: "plist")!)
+                else { return nil }
+            guard let prefix = dict.value(forKey: "App ID Prefix") as? String, let identifier = dict.value(forKey: "Shared Keychain Identifier") as? String
+                else { return nil }
+            return "\(prefix).\(identifier)"
+            
+        }
     }
     
     struct Identifiers{

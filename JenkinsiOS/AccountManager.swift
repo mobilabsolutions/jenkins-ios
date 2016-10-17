@@ -32,38 +32,52 @@ class AccountManager{
     ///
     /// - returns: The list of user added accounts
     private func getAccounts() -> [Account]{
-        
-        var accounts: [Account] = []
-        
-        // The accounts that are available in our Keychain service. Relevant data here: account, password
-        let keychainAccounts = SAMKeychain.accounts(forService: "com.mobilabsolutions.jenkins.account").flatMap { (arr) -> [String: String] in
-            // Only the username and password are relevant here, therefore, we flat map
-            // the array to a dictionary that maps usernames to passwords
-            var returnDict: [String: String]  = [:]
-            for entry in arr{
-                returnDict[entry["acct"] as! String] = SAMKeychain.password(forService: "com.mobilabsolutions.jenkins.account", account: entry["acct"] as! String)
-            }
-            return returnDict
-        }
-        
-        let url = Constants.Paths.accountsPath
-        
         do{
-            let urls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-            for fileUrl in urls{
-                if let account = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) as? Account{
-                    
-                    if let username = account.username{
-                        account.password = keychainAccounts?[username]
-                    }
-                    
-                    accounts.append(account)
-                }
-            }
+            #if !IS_EXTENSION
+                return try getAccounts(path: Constants.Paths.accountsPath)
+            #else
+                guard let path = Constants.Paths.sharedAccountsPath
+                    else { return [] }
+                NSKeyedUnarchiver.setClass(Account.self, forClassName: "JenkinsiOS.Account")
+                return try getAccounts(path: path)
+            #endif
         }
         catch{
             print(error)
+            return []
         }
+    }
+    
+    private func getAccounts(path: URL) throws -> [Account]{
+        var accounts: [Account] = []
+    
+        let query = SAMKeychainQuery()
+        query.service = "com.mobilabsolutions.jenkins.account"
+        query.accessGroup = Constants.Config.keychainAccessGroup
+
+        // The accounts that are available in our Keychain service. Relevant data here: account, password        
+        let elements = try? query.fetchAll().map { (arr) -> (String, String?) in
+            // Only the username and password are relevant here, therefore, we flat map
+            // the array to a dictionary that maps usernames to passwords
+            query.account = arr["acct"] as? String
+            try? query.fetch()
+            return (arr["acct"] as! String, query.password)
+        }
+        
+        let keychainAccounts = elements != nil ? Dictionary(elements: elements!) : [:]
+        
+        let urls = try FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+        for fileUrl in urls{
+            if let account = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) as? Account{
+                
+                if let username = account.username, let password = keychainAccounts[username]{
+                    account.password = password
+                }
+                
+                accounts.append(account)
+            }
+        }
+        
         return accounts
     }
     
@@ -75,9 +89,13 @@ class AccountManager{
     
     private func save(account: Account){
         
-        if let username = account.username, let password = account.password{
-            SAMKeychain.setPassword(password, forService: "com.mobilabsolutions.jenkins.account", account: username)
-        }
+        let query = SAMKeychainQuery()
+        query.account = account.username
+        query.password = account.password
+        query.service = "com.mobilabsolutions.jenkins.account"
+        query.accessGroup = Constants.Config.keychainAccessGroup
+        
+        try? query.save()
         
         var url = Constants.Paths.accountsPath
         
@@ -88,6 +106,12 @@ class AccountManager{
         url.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
         
         NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
+        guard let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+            else { return }
+        
+        _ = try? FileManager.default.createDirectory(at: Constants.Paths.sharedAccountsPath!, withIntermediateDirectories: true, attributes: [:])
+        
+        NSKeyedArchiver.archiveRootObject(account, toFile: sharedUrl.path)
     }
     
     /// Delete a given account persistently
@@ -96,11 +120,17 @@ class AccountManager{
     func deleteAccount(account: Account) throws{
         
         let url = Constants.Paths.accountsPath.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        let sharedUrl = Constants.Paths.sharedAccountsPath!.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
         
         try FileManager.default.removeItem(at: url)
+        try FileManager.default.removeItem(at: sharedUrl)
         
         if let username = account.username{
-            SAMKeychain.deletePassword(forService: "com.mobilabsolutions.jenkins.account", account: username)
+            let query = SAMKeychainQuery()
+            query.account = username
+            query.service = "com.mobilabsolutions.jenkins.account"
+            query.accessGroup = Constants.Config.keychainAccessGroup
+            try query.deleteItem()
         }
         
         accounts = getAccounts()
