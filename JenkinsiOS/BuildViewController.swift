@@ -99,7 +99,7 @@ class BuildViewController: UITableViewController {
         tableView.estimatedRowHeight = 50
     }
     
-    private func updateData(){
+    func updateData(){
         
         displayData = [
             DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
@@ -129,9 +129,7 @@ class BuildViewController: UITableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = sender as? UIViewController{
-           prepare(viewController: dest)
-        }
+           prepare(viewController: segue.destination)
     }
     
     fileprivate func prepare(viewController: UIViewController){

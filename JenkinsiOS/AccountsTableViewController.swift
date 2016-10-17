@@ -22,6 +22,11 @@ class AccountsTableViewController: UITableViewController {
         registerForPreviewing(with: self, sourceView: tableView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

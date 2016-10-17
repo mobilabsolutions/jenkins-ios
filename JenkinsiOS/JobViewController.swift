@@ -58,7 +58,7 @@ class JobViewController: UIViewController {
     }
     
     func performRequest(){
-        if let account = account, let job = job{
+        if let account = account, let job = job, job.isFullVersion == false{
             let userRequest = UserRequest(requestUrl: job.url, account: account)
             
             NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (job, error) in
@@ -76,33 +76,17 @@ class JobViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
-                    self.descriptionWebView.loadHTMLString("<span style=\"font-family: san francisco, helvetica\">" + description + "</span>", baseURL: nil)
-                    self.descriptionWebView.sizeToFit()
-                    
-                    if job.healthReport.count > 0{
-                        self.healthReportLabel.text = job.healthReport.map{ $0.description }.joined(separator: "\n")
-                    }
-                    else {
-                        self.healthReportLabel.text = "No health report"
-                    }
-                    
-                    if let icon = job.healthReport.first?.iconClassName{
-                        self.colorImageView.image = UIImage(named: icon)
-                    }
+                    self.updateUI()
                 }
             })
         }
     }
     
-    func setupUI(){
+    private func setupUI(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(build))
         
         descriptionWebView.allowsLinkPreview = true
         descriptionWebView.delegate = self
-    
-        nameLabel.text = job?.name
-        urlLabel.text = (job?.url).textify()
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
@@ -114,6 +98,30 @@ class JobViewController: UIViewController {
         navigationItem.titleView?.isUserInteractionEnabled = true
         navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
         
+        updateUI()
+    }
+    
+    func updateUI(){
+        nameLabel.text = job?.name
+        urlLabel.text = (job?.url).textify()
+        
+        guard let job = job
+            else { return }
+        
+        let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
+        self.descriptionWebView.loadHTMLString("<span style=\"font-family: san francisco, helvetica\">" + description + "</span>", baseURL: nil)
+        self.descriptionWebView.sizeToFit()
+        
+        if job.healthReport.count > 0{
+            self.healthReportLabel.text = job.healthReport.map{ $0.description }.joined(separator: "\n")
+        }
+        else {
+            self.healthReportLabel.text = "No health report"
+        }
+        
+        if let icon = job.healthReport.first?.iconClassName{
+            self.colorImageView.image = UIImage(named: icon)
+        }
     }
     
     //MARK: - ViewController Navigation
