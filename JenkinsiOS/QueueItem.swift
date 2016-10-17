@@ -9,19 +9,35 @@
 import Foundation
 
 class QueueItem{
+    /// The actions associated with the queue item
     var actions: Actions?
     
+    /// Whether or not the item is blocked
     var blocked: Bool
+    /// Whether or not the item is buildable
     var buildable: Bool
+    /// The queue item's id
     var id: Int
+    /// How long the queue item has been in the queue
     var inQueueSince: Double
+    /// Parameters that have been added to the queue item
     var params: String
+    /// Whether or not the queue item is stuck
     var stuck: Bool
+    /// A url associated with the queue item
     var url: URL?
+    /// The reason for the item being in the queue
     var why: String
+    /// The task associated with the queue item
     var task: Job?
+    /// When the queue item is buildable
     var buildableStartMilliseconds: Double
     
+    /// Optionally initialise a Queue Item
+    ///
+    /// - parameter json: The json to initialise the queue item from
+    ///
+    /// - returns: A queue item or nil, if the initialization failed
     init?(json: [String: AnyObject]){
         guard let blocked = json[Constants.JSON.blocked] as? Bool,
             let buildable = json[Constants.JSON.buildable] as? Bool,
