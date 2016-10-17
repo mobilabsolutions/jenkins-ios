@@ -10,15 +10,29 @@ import Foundation
 
 class Favorite: NSObject, NSCoding{
     
+    /// An enum describing the type of a favorite
+    ///
+    /// - job:   The favorite is a job
+    /// - build: The favorite is a build
     enum FavoriteType: String{
         case job = "Job"
         case build = "Build"
     }
     
+    /// The type of the Favorite
     var type: FavoriteType
+    /// The url that the favorite is associated with
     var url: URL
+    /// The account that the account is associated with
     var account: Account?
     
+    /// Initialize a Favorite
+    ///
+    /// - parameter url:     The url that the favorite should be associated with
+    /// - parameter type:    The favorite's type
+    /// - parameter account: The account associated with the favorite
+    ///
+    /// - returns: An initialized Favorite object 
     init(url: URL, type: FavoriteType, account: Account?){
         self.type = type
         self.url = url

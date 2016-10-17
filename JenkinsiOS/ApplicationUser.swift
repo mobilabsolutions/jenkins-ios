@@ -10,6 +10,7 @@ import Foundation
 
 class ApplicationUser: NSObject, NSCoding{
 
+    /// The user's favorites
     var favorites: [Favorite] = []
     
     override init() {
@@ -28,6 +29,9 @@ class ApplicationUser: NSObject, NSCoding{
         }
     }
     
+    /// Encode an ApplicationUser object using the given encoder
+    ///
+    /// - parameter aCoder: The encoder to use to encode the ApplicationUser object
     func encode(with aCoder: NSCoder) {
         let favoritesData = favorites.map { (favorite) -> Data in
             return NSKeyedArchiver.archivedData(withRootObject: favorite)

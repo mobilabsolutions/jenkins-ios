@@ -10,9 +10,12 @@ import Foundation
 
 class UserRequest{
 
+    /// The url that defines the request
     var requestUrl: URL
+    /// The account that should be used in this user request
     var account: Account
     
+    /// The url that should be used for api interaction
     var apiURL: URL{
         get{
             var components = URLComponents(url: requestUrl.appendingPathComponent("/api/json"), resolvingAgainstBaseURL: false)
@@ -26,8 +29,16 @@ class UserRequest{
         }
     }
     
+    /// Any additional query items that should be used in the api url
     private var additionalQueryItems: [URLQueryItem]?
     
+    /// Initialiser for a User Request
+    ///
+    /// - parameter requestUrl:           The url that characterizes the request
+    /// - parameter account:              The account that should be used for the account
+    /// - parameter additionalQueryItems: Additional query items that should be used for the request
+    ///
+    /// - returns: <#return value description#>
     init(requestUrl: URL, account: Account, additionalQueryItems: [URLQueryItem]? = nil){
         self.requestUrl = requestUrl.using(scheme: "https", at: account.port)!
         self.account = account
