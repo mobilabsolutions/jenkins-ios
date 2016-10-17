@@ -121,7 +121,13 @@ class BuildViewController: UITableViewController {
             DisplayData(key: "Console Output", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue, viewControllerIdentifier: "ConsoleOutputViewController")
         ]
         
-        nameLabel.text = build?.fullDisplayName ?? build?.displayName ?? "Build #\((build?.number).textify())"
+        
+        nameLabel.text = build?.fullDisplayName ?? build?.displayName
+        
+        // This is not nice and I know it. Unfortunately, the Swift compiler gives up on compiling the above statement and this statement together on one line
+        if nameLabel.text == nil{ nameLabel.text = "Build #" + ((build?.number != nil) ? "\(build!.number)" : "Unknown") }
+        
+        (navigationItem.titleView as? UIImageView)?.image = favoriteImage
         
         tableView.reloadData()
     }

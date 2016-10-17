@@ -124,7 +124,12 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
         else if let build = favoritables[indexPath.section][indexPath.row] as? Build{
             cell.textLabel?.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
-            cell.detailTextLabel?.text = build.duration != nil ? "Duration: \(build.duration!.toString())" : nil
+            
+            if let duration = build.duration{
+                cell.detailTextLabel?.text = build.duration != nil ? "Duration: \(duration.toString())" : nil
+            }
+            
+            print(build.result)
             
             if let result = build.result?.lowercased(){
                 cell.imageView?.image = UIImage(named: result + "Circle")

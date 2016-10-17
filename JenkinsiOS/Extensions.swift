@@ -70,7 +70,7 @@ extension TimeInterval{
             returnString += "\(Int(seconds)) seconds"
         }
         
-        return returnString
+        return returnString.isEmpty ? "Unknown" : returnString
     }
 }
 

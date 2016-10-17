@@ -91,19 +91,19 @@ class JobViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
         
-        let imageName = (job == nil || !job!.isFavorite) ? "HeartEmpty" : "HeartFull"
-        navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
-        
-        navigationItem.titleView?.sizeToFit()
-        navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
-        
         updateUI()
     }
     
     func updateUI(){
         nameLabel.text = job?.name
         urlLabel.text = (job?.url).textify()
+        
+        let imageName = (job == nil || !job!.isFavorite) ? "HeartEmpty" : "HeartFull"
+        navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
+        
+        navigationItem.titleView?.sizeToFit()
+        navigationItem.titleView?.isUserInteractionEnabled = true
+        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
         
         guard let job = job
             else { return }
