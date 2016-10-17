@@ -9,7 +9,9 @@
 import Foundation
 
 class Author{
+    /// The absolute url describing the author
     var absoluteUrl: URL
+    /// The author's full name
     var fullName: String
     
     init?(json: [String: Any]){

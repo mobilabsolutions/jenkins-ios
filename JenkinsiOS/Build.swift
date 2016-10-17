@@ -10,26 +10,40 @@ import Foundation
 
 class Build: Favoratible, CustomDebugStringConvertible{
     
+    /// The build's number
     var number: Int
+    /// The build's url
     var url: URL
     
+    /// The actions associated with the build
     var actions: Actions?
     
+    /// Whether or not the build is currently building
     var building: Bool?
+    /// The build's description
     var buildDescription: String?
     
+    /// The build's short display name
     var displayName: String?
+    /// The build's full display name
     var fullDisplayName: String?
     
+    /// The build's id
     var id: String?
+    /// The build's result (SUCCESS, FAILURE, etc.)
     var result: String?
+    /// Which machine the build was built on
     var builtOn: String?
     
+    /// The duration of the build
     var duration: TimeInterval?
+    /// The estimated duration of the buil
     var estimatedDuration: TimeInterval?
     
+    /// The changes that took place before the build
     var changeSets: [ChangeSet] = []
     
+    /// The url that points to the Build's console output
     var consoleOutputUrl: URL{
         get{
             var components = URLComponents(url: url.appendingPathComponent(Constants.API.consoleOutput), resolvingAgainstBaseURL: true)
@@ -41,6 +55,12 @@ class Build: Favoratible, CustomDebugStringConvertible{
     /// Is the build information based on "full version" JSON?
     var isFullVersion = false
     
+    /// Optionally initialise a build
+    ///
+    /// - parameter json:           The json used for initialization
+    /// - parameter minimalVersion: Whether or not the json actually is a minimal version of all the possible build attributes
+    ///
+    /// - returns: An initialised Build object or nil
     init?(json: [String: AnyObject], minimalVersion: Bool){
         
         guard let number = json["number"] as? Int, let urlString = json["url"] as? String, let url = URL(string: urlString)

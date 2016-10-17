@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The color of a given Job, indicating its status
 enum JenkinsColor: String{
     case blue = "blue"
     case red = "red"
