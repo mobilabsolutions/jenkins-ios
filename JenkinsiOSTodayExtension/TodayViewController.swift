@@ -131,8 +131,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
                 cell.detailTextLabel?.text = build.duration != nil ? "Duration: \(duration.toString())" : nil
             }
             
-            print(build.result)
-            
             if let result = build.result?.lowercased(){
                 cell.imageView?.image = UIImage(named: result + "Circle")
             }
