@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>App ID Prefix</key>
+	<string>YOUR_APP_ID_PREFIX_HERE</string>
+	<key>Shared Keychain Identifier</key>
+	<string>YOUR_SHARED_KEYCHAIN_IDENTIFIER_HERE</string>
+</dict>
+</plist>

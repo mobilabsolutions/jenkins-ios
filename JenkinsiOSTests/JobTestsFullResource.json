@@ -1,0 +1,425 @@
+{
+"_class" : "hudson.maven.MavenModuleSet",
+"actions" : [
+{
+
+},
+{
+
+},
+{
+
+},
+{
+
+},
+null,
+{
+
+},
+{
+
+},
+{
+
+},
+{
+
+},
+{
+"_class" : "hudson.plugins.jobConfigHistory.JobConfigHistoryProjectAction"
+},
+{
+
+},
+{
+"_class" : "nectar.plugins.rbac.roles.Roles"
+},
+{
+
+},
+{
+"_class" : "org.jenkinsci.plugins.testresultsanalyzer.TestResultsAnalyzerAction"
+},
+{
+"_class" : "com.cloudbees.plugins.credentials.ViewCredentialsAction"
+}
+],
+"description" : "<img src=\"http://activemq.apache.org/images/activemq-logo.png\" />\r\n<p>\r\n<a href=\"http://activemq.apache.org\">http://activemq.apache.org</a>",
+"displayName" : "ActiveMQ-Java8",
+"displayNameOrNull" : null,
+"name" : "ActiveMQ-Java8",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/",
+"buildable" : true,
+"builds" : [
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 862,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/862/"
+},
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 861,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/861/"
+},
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 860,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/860/"
+},
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 859,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/859/"
+},
+{
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 842,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/842/"
+}
+],
+"color" : "yellow",
+"firstBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 842,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/842/"
+},
+"healthReport" : [
+{
+"description" : "Test Result: 53 tests failing out of a total of 8,777 tests.",
+"iconClassName" : "icon-health-80plus",
+"iconUrl" : "health-80plus.png",
+"score" : 99
+},
+{
+"description" : "Build stability: No recent builds failed.",
+"iconClassName" : "icon-health-80plus",
+"iconUrl" : "health-80plus.png",
+"score" : 100
+}
+],
+"inQueue" : false,
+"keepDependencies" : false,
+"lastBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+"lastCompletedBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+"lastFailedBuild" : null,
+"lastStableBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 842,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/842/"
+},
+"lastSuccessfulBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+"lastUnstableBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+"lastUnsuccessfulBuild" : {
+"_class" : "hudson.maven.MavenModuleSetBuild",
+"number" : 863,
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/863/"
+},
+"nextBuildNumber" : 864,
+"property" : [
+{
+"_class" : "jenkins.model.BuildDiscarderProperty"
+},
+{
+"_class" : "org.jenkinsci.plugins.mavenrepocleaner.MavenRepoCleanerProperty"
+},
+{
+"_class" : "com.sonyericsson.rebuild.RebuildSettings"
+},
+{
+"_class" : "hudson.plugins.throttleconcurrents.ThrottleJobProperty"
+}
+],
+"queueItem" : null,
+"concurrentBuild" : false,
+"downstreamProjects" : [
+
+],
+"scm" : {
+"_class" : "hudson.plugins.git.GitSCM"
+},
+"upstreamProjects" : [
+
+],
+"modules" : [
+{
+"name" : "org.apache.activemq:activemq-all",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-all/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: All JAR bundle"
+},
+{
+"name" : "org.apache.activemq:activemq-amqp",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-amqp/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: AMQP"
+},
+{
+"name" : "org.apache.activemq:activemq-blueprint",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-blueprint/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Blueprint"
+},
+{
+"name" : "org.apache.activemq:activemq-broker",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-broker/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Broker"
+},
+{
+"name" : "org.apache.activemq:activemq-camel",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-camel/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Camel"
+},
+{
+"name" : "org.apache.activemq:activemq-cf",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-cf/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: ConnectionFactory"
+},
+{
+"name" : "org.apache.activemq:activemq-client",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-client/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Client"
+},
+{
+"name" : "org.apache.activemq:activemq-console",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-console/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Console"
+},
+{
+"name" : "org.apache.activemq:activemq-fileserver",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-fileserver/",
+"color" : "notbuilt",
+"displayName" : "ActiveMQ :: File Server"
+},
+{
+"name" : "org.apache.activemq:activemq-http",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-http/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: HTTP Protocol Support"
+},
+{
+"name" : "org.apache.activemq:activemq-itests-spring31",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-itests-spring31/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Integration Test :: Spring 3.1"
+},
+{
+"name" : "org.apache.activemq:activemq-jaas",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-jaas/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: JAAS"
+},
+{
+"name" : "org.apache.activemq:activemq-jdbc-store",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-jdbc-store/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: JDBC Store"
+},
+{
+"name" : "org.apache.activemq:activemq-jms-pool",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-jms-pool/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Generic JMS Pool"
+},
+{
+"name" : "org.apache.activemq:activemq-kahadb-store",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-kahadb-store/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: KahaDB Store"
+},
+{
+"name" : "org.apache.activemq:activemq-karaf",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-karaf/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Apache Karaf"
+},
+{
+"name" : "org.apache.activemq:activemq-karaf-itest",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-karaf-itest/",
+"color" : "yellow",
+"displayName" : "ActiveMQ :: Karaf Integration Tests"
+},
+{
+"name" : "org.apache.activemq:activemq-leveldb-store",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-leveldb-store/",
+"color" : "yellow",
+"displayName" : "ActiveMQ :: LevelDB Store"
+},
+{
+"name" : "org.apache.activemq:activemq-log4j-appender",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-log4j-appender/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Log4j Appender"
+},
+{
+"name" : "org.apache.activemq:activemq-mqtt",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-mqtt/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: MQTT Protocol"
+},
+{
+"name" : "org.apache.activemq:activemq-openwire-generator",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-openwire-generator/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Openwire Generator"
+},
+{
+"name" : "org.apache.activemq:activemq-openwire-legacy",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-openwire-legacy/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Openwire Legacy Support"
+},
+{
+"name" : "org.apache.activemq:activemq-osgi",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-osgi/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: OSGi bundle"
+},
+{
+"name" : "org.apache.activemq:activemq-parent",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-parent/",
+"color" : "blue",
+"displayName" : "ActiveMQ"
+},
+{
+"name" : "org.apache.activemq:activemq-partition",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-partition/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Partition Management"
+},
+{
+"name" : "org.apache.activemq:activemq-pool",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-pool/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Pool"
+},
+{
+"name" : "org.apache.activemq:activemq-ra",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-ra/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: RA"
+},
+{
+"name" : "org.apache.activemq:activemq-rar",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-rar/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: RAR"
+},
+{
+"name" : "org.apache.activemq:activemq-run",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-run/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Run Jar"
+},
+{
+"name" : "org.apache.activemq:activemq-runtime-config",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-runtime-config/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Runtime Configuration"
+},
+{
+"name" : "org.apache.activemq:activemq-shiro",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-shiro/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Shiro"
+},
+{
+"name" : "org.apache.activemq:activemq-spring",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-spring/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Spring"
+},
+{
+"name" : "org.apache.activemq:activemq-stomp",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-stomp/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: STOMP Protocol"
+},
+{
+"name" : "org.apache.activemq:activemq-unit-tests",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-unit-tests/",
+"color" : "yellow",
+"displayName" : "ActiveMQ :: Unit Tests"
+},
+{
+"name" : "org.apache.activemq:activemq-web",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-web/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Web"
+},
+{
+"name" : "org.apache.activemq:activemq-web-console",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-web-console/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Web Console"
+},
+{
+"name" : "org.apache.activemq:activemq-web-demo",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$activemq-web-demo/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Web Demo"
+},
+{
+"name" : "org.apache.activemq:apache-activemq",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq$apache-activemq/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Assembly"
+},
+{
+"name" : "org.apache.activemq.tooling:activemq-junit",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq.tooling$activemq-junit/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: JUnit Rule"
+},
+{
+"name" : "org.apache.activemq.tooling:activemq-maven-plugin",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq.tooling$activemq-maven-plugin/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: StartUp/Stop Plugin"
+},
+{
+"name" : "org.apache.activemq.tooling:activemq-memtest-maven-plugin",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq.tooling$activemq-memtest-maven-plugin/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Memory Usage Test Plugin"
+},
+{
+"name" : "org.apache.activemq.tooling:activemq-perf-maven-plugin",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq.tooling$activemq-perf-maven-plugin/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Performance Test Plugin"
+},
+{
+"name" : "org.apache.activemq.tooling:activemq-tooling",
+"url" : "https://builds.apache.org/job/ActiveMQ-Java8/org.apache.activemq.tooling$activemq-tooling/",
+"color" : "blue",
+"displayName" : "ActiveMQ :: Tooling"
+}
+]
+}
