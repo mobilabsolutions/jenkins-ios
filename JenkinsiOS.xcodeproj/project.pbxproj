@@ -99,7 +99,6 @@
 		DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3D81D955C900031DBE4 /* Main.storyboard */; };
 		DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DB1D955C900031DBE4 /* Assets.xcassets */; };
 		DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */; };
-		DC99C3EA1D955C910031DBE4 /* JenkinsiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3E91D955C910031DBE4 /* JenkinsiOSTests.swift */; };
 		DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F41D955E1B0031DBE4 /* Job.swift */; };
 		DC99C3F71D9561500031DBE4 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3F61D9561500031DBE4 /* Build.swift */; };
 		DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */; };
@@ -128,6 +127,14 @@
 		DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */; };
 		DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */; };
 		DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A71DAE7580007BCBCC /* MonitorData.swift */; };
+		DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CAB1DB61E2C00028A96 /* JobTests.swift */; };
+		DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */; };
+		DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CAF1DB624A300028A96 /* TestExtensions.swift */; };
+		DCE73CB21DB627BE00028A96 /* JobTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */; };
+		DCE73CB61DB64DE600028A96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB41DB64DE600028A96 /* Fabric.framework */; };
+		DCE73CB71DB64DE600028A96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB41DB64DE600028A96 /* Fabric.framework */; };
+		DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
+		DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,7 +234,6 @@
 		DC99C3DE1D955C900031DBE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC99C3E01D955C900031DBE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC99C3E51D955C910031DBE4 /* JenkinsiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JenkinsiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC99C3E91D955C910031DBE4 /* JenkinsiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JenkinsiOSTests.swift; sourceTree = "<group>"; };
 		DC99C3EB1D955C910031DBE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC99C3F41D955E1B0031DBE4 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		DC99C3F61D9561500031DBE4 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
@@ -256,6 +262,12 @@
 		DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A71DAE7580007BCBCC /* MonitorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorData.swift; sourceTree = "<group>"; };
+		DCE73CAB1DB61E2C00028A96 /* JobTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTests.swift; sourceTree = "<group>"; };
+		DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsMinimalResource.json; sourceTree = "<group>"; };
+		DCE73CAF1DB624A300028A96 /* TestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
+		DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsFullResource.json; sourceTree = "<group>"; };
+		DCE73CB41DB64DE600028A96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DCE73CB51DB64DE600028A96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +277,8 @@
 			files = (
 				DC2045EE1DB12E41009CF232 /* SAMKeychain.framework in Frameworks */,
 				DC2045B71DB12892009CF232 /* NotificationCenter.framework in Frameworks */,
+				DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */,
+				DCE73CB71DB64DE600028A96 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +288,8 @@
 			files = (
 				DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */,
 				DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */,
+				DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */,
+				DCE73CB61DB64DE600028A96 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,8 +426,9 @@
 		DC99C3E81D955C910031DBE4 /* JenkinsiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				DC99C3E91D955C910031DBE4 /* JenkinsiOSTests.swift */,
 				DC99C3EB1D955C910031DBE4 /* Info.plist */,
+				DCE73CB31DB63B7700028A96 /* Job Tests */,
+				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
 			);
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
@@ -486,6 +503,8 @@
 		DCC2E15D1D9D7CA800491B98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE73CB41DB64DE600028A96 /* Fabric.framework */,
+				DCE73CB51DB64DE600028A96 /* Crashlytics.framework */,
 				DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */,
 			);
 			name = Frameworks;
@@ -534,6 +553,16 @@
 				DCC2E17B1DA01A1300491B98 /* ChildReport.swift */,
 			);
 			name = TestResult;
+			sourceTree = "<group>";
+		};
+		DCE73CB31DB63B7700028A96 /* Job Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DCE73CAB1DB61E2C00028A96 /* JobTests.swift */,
+				DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */,
+				DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */,
+			);
+			name = "Job Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -634,6 +663,7 @@
 					DC99C3E41D955C910031DBE4 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = S722Z9XR48;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DC99C3D01D955C8F0031DBE4;
 					};
@@ -685,6 +715,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */,
+				DCE73CB21DB627BE00028A96 /* JobTestsFullResource.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,7 +734,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\n./Fabric.framework/run 847049f2fecf499955a79279ce695b9e97057f33 b66a30f4948041a1504c36b28a1ff07f2a8a8856c27628ab41ce13430cd2c138";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -832,7 +864,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC99C3EA1D955C910031DBE4 /* JenkinsiOSTests.swift in Sources */,
+				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
+				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +921,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/JenkinsiOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
@@ -908,6 +942,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/JenkinsiOS",
 				);
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1022,6 +1057,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/JenkinsiOS",
 				);
 				INFOPLIST_FILE = JenkinsiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1042,6 +1078,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/JenkinsiOS",
 				);
 				INFOPLIST_FILE = JenkinsiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1057,11 +1094,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				INFOPLIST_FILE = JenkinsiOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MobiLab-Solutions.JenkinsiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JenkinsiOS.app/JenkinsiOS";
 			};
@@ -1072,6 +1111,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				INFOPLIST_FILE = JenkinsiOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
