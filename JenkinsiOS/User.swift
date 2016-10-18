@@ -15,6 +15,11 @@ class User{
     var lastChange: Int?
     var project: Project?
     
+    /// Optionally initialize a User
+    ///
+    /// - parameter json: The json from which to initialize the User
+    ///
+    /// - returns: An initialized user object or nil, if the initialization failed
     init?(json: [String: AnyObject]){
         lastChange = json[Constants.JSON.lastChange] as? Int
         
