@@ -9,13 +9,24 @@
 import Foundation
 
 class Result{
+    /// The duration it took for the tests to run
     var duration: Double
+    /// Whether or not the result is empty
     var empty: Bool?
+    /// The number of failed tests for the given Result
     var failCount: Int
+    /// The number of passed tests for the given Result
     var passCount: Int
+    /// The number of skipped tests for the given Result
     var skipCount: Int
+    /// The suites in the given Result
     var suites: [Suite] = []
     
+    /// Optionally initialize a Result
+    ///
+    /// - parameter json: The json from which to initialize the result
+    ///
+    /// - returns: A result object or nil, if initialization failed
     init?(json: [String: AnyObject]){
         guard let duration = json[Constants.JSON.duration] as? Double,
               let failCount = json[Constants.JSON.failCount] as? Int,

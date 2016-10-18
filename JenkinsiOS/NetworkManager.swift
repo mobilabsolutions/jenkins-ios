@@ -183,9 +183,7 @@ class NetworkManager{
                 else { completion(nil, NetworkManagerError.noDataFound); return }
             guard let json = data as? [String: AnyObject]
                 else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
-            guard let testResult = TestResult(json: json)
-                else { completion(nil, NetworkManagerError.JSONParsingFailed); return }
-            completion(testResult, nil)
+            completion(TestResult(json: json), nil)
         }
     }
     
