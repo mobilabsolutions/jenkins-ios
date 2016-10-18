@@ -30,6 +30,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             else { return }
         
         self.favorites = favorites
+        // We even want to display the "empty" cells, as in showing that content is loading
+        tableView.reloadData()
         requestData()
     }
     

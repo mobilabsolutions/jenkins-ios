@@ -376,8 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				DC99C3D31D955C900031DBE4 /* JenkinsiOS */,
-				DC99C3E81D955C910031DBE4 /* JenkinsiOSTests */,
 				DC2045B81DB12892009CF232 /* JenkinsiOSTodayExtension */,
+				DC99C3E81D955C910031DBE4 /* JenkinsiOSTests */,
 				DC99C3D21D955C900031DBE4 /* Products */,
 				DCC2E15E1D9D7CDA00491B98 /* Frameworks */,
 			);
