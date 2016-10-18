@@ -1,0 +1,6 @@
+{
+"_class": "hudson.maven.MavenModuleSet",
+"name": "ActiveMQ-LevelDB-Store",
+"url": "https://builds.apache.org/job/ActiveMQ-LevelDB-Store/",
+"color": "notbuilt"
+}
