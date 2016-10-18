@@ -14,6 +14,11 @@ class HealthReportResult{
     var score: Int
     var iconClassName: String
     
+    /// Optionally initialize a HealthReportResult
+    ///
+    /// - parameter json: The json from which to initialize the HealthReportResult from
+    ///
+    /// - returns: The initialized HealthReportResult or nil, if initialization failed
     init?(json: [String: AnyObject]){
         guard let description = json["description"] as? String,
             let score = json["score"] as? Int,

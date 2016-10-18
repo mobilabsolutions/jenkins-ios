@@ -17,6 +17,11 @@ class View: CustomStringConvertible{
         return "View \"\(name)\""
     }
     
+    /// Optionally initialize a View object
+    ///
+    /// - parameter json: The json from which to initialize the View
+    ///
+    /// - returns: The initialized View object or nil, if initialization failed
     init?(json: [String: AnyObject]){
         guard let name = json[Constants.JSON.name] as? String, let urlString = json[Constants.JSON.url] as? String,
             let url = URL(string: urlString)

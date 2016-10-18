@@ -11,36 +11,61 @@ import Foundation
 class Job: Favoratible{
     
     //MARK: - Minimal Version
+    /// The job's name
     var name: String
+    /// The job's url
     var url: URL
+    /// The job's color indicating its current status
     var color: JenkinsColor?
     
     //MARK: - Full version
+    /// The job's description
     var description: String?
     
+    /// Whether or not the Job is currently buildable
     var buildable: Bool?
+    /// All recently performed builds on the Job
     var builds: [Build]?
     
+    /// The results of health reports in the job
     var healthReport: [HealthReportResult] = []
+    /// Whether or not the Job is currently in a queue
     var inQueue: Bool?
+    /// Whether or not dependencies are kept in the Job
     var keepDependencies: Bool?
     
+    /// The first performed build in the job
     var firstBuild: Build?
+    /// The last build
     var lastBuild: Build?
+    /// The last completed build
     var lastCompletedBuild: Build?
+    /// The last failed build
     var lastFailedBuild: Build?
+    /// The last stable build
     var lastStableBuild: Build?
+    /// The last successful build
     var lastSuccessfulBuild: Build?
+    /// The last unstable build
     var lastUnstableBuild: Build?
+    /// The last unsuccessful build
     var lastUnsuccessfulBuild: Build?
 
+    /// An array of special builds: First, last, last completed, etc.
     var specialBuilds: [(String, Build?)] = []
     
+    /// The number of the next to be performed build
     var nextBuildNumber: Int?
     
     /// Is the job information based on "full version" JSON?
     var isFullVersion = false
     
+    /// Optionally initialize a Job
+    ///
+    /// - parameter json:           The json from which to initialize the job
+    /// - parameter minimalVersion: Whether or not the json represents a minimal version of the job
+    ///
+    /// - returns: The initialized Job object or nil, if initialization failed
     init?(json: [String: AnyObject], minimalVersion: Bool = false){
         guard let name = json[Constants.JSON.name] as? String, let urlString = json[Constants.JSON.url] as? String
             else { return nil }

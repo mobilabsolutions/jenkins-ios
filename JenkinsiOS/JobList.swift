@@ -10,14 +10,25 @@ import Foundation
 
 class JobList: CustomDebugStringConvertible{
     
+    /// The view corresponding to all jobs
     var allJobsView: View?
+    /// The list of all views in the job
     var views: [View] = []
     
+    /// The description of the Job List
     var description: String?
+    /// The description of the executing node
     var nodeDescription: String?
+    /// The current mode in which the job list is executed
     var mode: String?
+    /// The node's name
     var nodeName: String?
     
+    /// Initialize a JobList object
+    ///
+    /// - parameter json: The json from which to initialize the JobList
+    ///
+    /// - returns: An initialized JobList object
     init(json: [String: AnyObject]) throws{
         guard let viewsJson = json[Constants.JSON.views] as? [[String: AnyObject]]
             else { throw ParsingError.KeyMissingError(key: Constants.JSON.views) }
