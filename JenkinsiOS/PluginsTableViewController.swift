@@ -16,13 +16,13 @@ class PluginsTableViewController: UITableViewController {
             guard let pluginList = pluginList
                 else { return }
             
-            pluginData = pluginList.plugins.map({ (plugin) -> [(String, String)] in
+            pluginData = pluginList.plugins.map({ (plugin) -> [(String, String, UIColor)] in
                 return data(for: plugin)
             })
         }
     }
     
-    var pluginData: [[(String, String)]] = []
+    var pluginData: [[(String, String, UIColor)]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,18 +54,22 @@ class PluginsTableViewController: UITableViewController {
         }
     }
 
-    private func data(for plugin: Plugin) -> [(String, String)]{
+    private func data(for plugin: Plugin) -> [(String, String, UIColor)]{
         var data = [
-            ("Name", plugin.longName ?? plugin.shortName),
-            ("Active", "\(plugin.active)"),
-            ("Has Update", "\((plugin.hasUpdate).textify())"),
-            ("Enabled", "\((plugin.enabled).textify())"),
-            ("Version", "\((plugin.version).textify())"),
-            ("Supports Dynamic Load", "\((plugin.supportsDynamicLoad).textify())")
+            ("Name", plugin.longName ?? plugin.shortName, UIColor.clear),
+            ("Active", "\(plugin.active)", UIColor.clear),
+            ("Has Update", "\((plugin.hasUpdate).textify())", UIColor.clear),
+            ("Enabled", "\((plugin.enabled).textify())", UIColor.clear),
+            ("Version", "\((plugin.version).textify())", UIColor.clear),
+            ("Supports Dynamic Load", "\((plugin.supportsDynamicLoad).textify())", UIColor.clear)
         ]
         
+        if plugin.dependencies.count > 0{
+            data.append(("Dependencies", "", UIColor.groupTableViewBackground))
+        }
+        
         for dependency in plugin.dependencies{
-            data.append(("Dependency", "\(dependency.shortName) at v\(dependency.version)"))
+            data.append(("", "\(dependency.shortName) at v\(dependency.version)", UIColor.groupTableViewBackground))
         }
         
         return data
@@ -86,14 +90,11 @@ class PluginsTableViewController: UITableViewController {
         
         cell.textLabel?.text = pluginData[indexPath.section][indexPath.row].0
         cell.detailTextLabel?.text = pluginData[indexPath.section][indexPath.row].1
+        cell.backgroundColor = pluginData[indexPath.section][indexPath.row].2
         
-        if pluginData[indexPath.section][indexPath.row].0 == "Dependency"{
-            cell.backgroundColor = UIColor.groupTableViewBackground
+        if pluginData[indexPath.section][indexPath.row].2 == UIColor.groupTableViewBackground {
             let attributedString = NSAttributedString(string: pluginData[indexPath.section][indexPath.row].0, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
             cell.textLabel?.attributedText = attributedString
-        }
-        else{
-            cell.backgroundColor = UIColor.clear
         }
         
         return cell
