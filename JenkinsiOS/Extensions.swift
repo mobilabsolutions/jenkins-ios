@@ -38,6 +38,19 @@ extension Optional{
     }
 }
 
+extension Double{
+    /// Return a string indicating the number of gigabytes from a Double indicating a number of bytes
+    ///
+    /// - parameter numberFormatter: The numberformatter that should be used
+    ///
+    /// - returns: The string indicating the number of gigabytes
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
+        guard let numberString = numberFormatter.string(from: NSNumber(value: self / (1024 * 1024 * 1024)))
+            else { return "Unknown" }
+        return "\(numberString) GB"
+    }
+}
+
 extension Dictionary{
     /// Instantiate a Dictionary from an array of tuples
     ///

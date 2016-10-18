@@ -27,6 +27,7 @@ class PluginsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addRefreshControl(action: #selector(performRequest))
+        title = "Plugins"
         performRequest()
     }
 

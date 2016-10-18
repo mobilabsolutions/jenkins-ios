@@ -44,6 +44,7 @@ class ComputersTableViewController: UITableViewController {
                 }
 
                 self.computerList = computerList
+                self.title = computerList?.displayName ?? "Computers"
                 self.tableView.reloadData()
             }
         }
@@ -54,17 +55,10 @@ class ComputersTableViewController: UITableViewController {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
-        let gbOfTotalPhysicalMemory = computer.monitorData?.totalPhysicalMemory != nil ?
-            "\(numberFormatter.string(from: NSNumber(value: computer.monitorData!.totalPhysicalMemory! / (1024*1024*1024)))!) GB" : "Unknown"
-        
-        let gbOfAvailablePhysicalMemory = computer.monitorData?.availablePhysicalMemory != nil ?
-            "\(numberFormatter.string(from: NSNumber(value: computer.monitorData!.availablePhysicalMemory! / (1024*1024*1024)))!) GB" : "Unknown"
-        
-        let gbOfTotalSwapMemory = computer.monitorData?.totalSwapSpace != nil ?
-            "\(numberFormatter.string(from: NSNumber(value: computer.monitorData!.totalSwapSpace! / (1024*1024*1024)))!) GB" : "Unknown"
-        
-        let gbOfAvailableSwapMemory = computer.monitorData?.availableSwapSpace != nil ?
-            "\(numberFormatter.string(from: NSNumber(value: computer.monitorData!.availableSwapSpace! / (1024*1024*1024)))!) GB" : "Unknown"
+        let gbOfTotalPhysicalMemory = computer.monitorData?.totalPhysicalMemory?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
+        let gbOfAvailablePhysicalMemory = computer.monitorData?.availablePhysicalMemory?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
+        let gbOfTotalSwapMemory = computer.monitorData?.totalSwapSpace?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
+        let gbOfAvailableSwapMemory = computer.monitorData?.availableSwapSpace?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
 
         
         return [
