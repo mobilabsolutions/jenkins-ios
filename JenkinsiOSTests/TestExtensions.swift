@@ -18,7 +18,7 @@ func AssertNotEmpty<T>(_ value: [T]){
 }
 
 func jsonForResource(name: String, extension fileExtension: String?, type: AnyClass) -> Any?{
-    guard let url = Bundle(for: type).url(forResource: "JobTestsMinimalResource", withExtension: fileExtension)
+    guard let url = Bundle(for: type).url(forResource: name, withExtension: fileExtension)
         else { XCTFail("Bundle URL could not be found"); return nil }
     guard let data = try? Data(contentsOf: url)
         else { XCTFail("Could not get data for resource file"); return nil }
