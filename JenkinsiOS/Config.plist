@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>App ID Prefix</key>
-	<string>YOUR_APP_ID_PREFIX_HERE</string>
+	<string>S722Z9XR48</string>
 	<key>Shared Keychain Identifier</key>
-	<string>YOUR_SHARED_KEYCHAIN_IDENTIFIER_HERE</string>
+	<string>com.mobilabsolutions.jenkins.client.sharedKeychain</string>
 </dict>
 </plist>
