@@ -208,9 +208,16 @@ class BuildViewController: UITableViewController {
             longBuildInfoCell.infoLabel.text = displayData[indexPath.row].value
         }
         
-        cell.accessoryType = displayData[indexPath.row].enabled ? .disclosureIndicator : .none
-        cell.textLabel?.textColor = displayData[indexPath.row].enabled ? UIColor.black : UIColor.lightGray
-        cell.selectionStyle = displayData[indexPath.row].enabled ? .default : .none
+        if displayData[indexPath.row].enabled && displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell{
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.textColor =  UIColor.black
+            cell.selectionStyle =  .default
+        }
+        else{
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+            cell.textLabel?.textColor = (displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell) ? UIColor.lightGray : UIColor.black
+        }
         
         return cell
     }
