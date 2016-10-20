@@ -21,13 +21,15 @@ class BuildViewController: UITableViewController {
         var value: String
         var cellIdentifier: String
         var viewControllerIdentifier: String?
+        var enabled: Bool
         
-        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String? = nil, viewControllerIdentifier: String? = nil){
+        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String? = nil, viewControllerIdentifier: String? = nil , enabled: Bool = true){
             self.key = key
             self.value = value
             self.cellIdentifier = cellIdentifier
             self.segueIdentifier = segueIdentifier
             self.viewControllerIdentifier = viewControllerIdentifier
+            self.enabled = enabled
         }
     }
     
@@ -101,26 +103,41 @@ class BuildViewController: UITableViewController {
     
     func updateData(){
         
+        let changesCount = build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0
+        let artifactsCount = build?.artifacts.count ?? 0
+        
+        let moreInfoBuildCell = Constants.Identifiers.moreInfoBuildCell
+        let staticBuildInfoCell = Constants.Identifiers.staticBuildInfoCell
+        
+        let testResultsVC = "TestResultsViewController"
+        let changesVC = "ChangesViewController"
+        let artifactsVC = "ArtifactsViewController"
+        let consoleOutputVC = "ConsoleOutputViewController"
+        
+        let causeText = (build?.actions?.causes.reduce("",
+                                                       { (str, cause) -> String in
+                                                        return str + cause.shortDescription
+            }
+            )) ?? "Unknown"
+        
         displayData = [
             DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Cause", value:
-                (build?.actions?.causes.reduce("",
-                                               { (str, cause) -> String in
-                                                    return str + cause.shortDescription
-                                                }
-                    )).textify(), cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Cause", value: causeText, cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
+            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: staticBuildInfoCell),
             
-            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: Constants.Identifiers.staticBuildInfoCell),
-            DisplayData(key: "Changes (\(build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0))", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue, viewControllerIdentifier: "ChangesViewController"),
-            DisplayData(key: "Test Results", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue, viewControllerIdentifier: "TestResultsViewController"),
-            DisplayData(key: "Console Output", value: "", cellIdentifier: Constants.Identifiers.moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue, viewControllerIdentifier: "ConsoleOutputViewController")
+            DisplayData(key: "Changes (\(changesCount))", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue, viewControllerIdentifier: changesVC, enabled: changesCount > 0),
+            
+            DisplayData(key: "Test Results", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue, viewControllerIdentifier: testResultsVC),
+            
+            DisplayData(key: "Artifacts (\(artifactsCount))", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showArtifactsSegue, viewControllerIdentifier: artifactsVC, enabled: artifactsCount > 0),
+            
+            DisplayData(key: "Console Output", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue, viewControllerIdentifier: consoleOutputVC)
         ]
-        
         
         nameLabel.text = build?.fullDisplayName ?? build?.displayName
         
@@ -160,6 +177,10 @@ class BuildViewController: UITableViewController {
             testResultsViewController.build = build
             testResultsViewController.account = account
         }
+        else if let artifactsViewController = viewController as? ArtifactsTableViewController{
+            artifactsViewController.build = build
+            artifactsViewController.account = account
+        }
     }
     
     //MARK: - Table view datasource and delegate
@@ -187,11 +208,15 @@ class BuildViewController: UITableViewController {
             longBuildInfoCell.infoLabel.text = displayData[indexPath.row].value
         }
         
+        cell.accessoryType = displayData[indexPath.row].enabled ? .disclosureIndicator : .none
+        cell.textLabel?.textColor = displayData[indexPath.row].enabled ? UIColor.black : UIColor.lightGray
+        cell.selectionStyle = displayData[indexPath.row].enabled ? .default : .none
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let segueIdentifier = displayData[indexPath.row].segueIdentifier{
+        if let segueIdentifier = displayData[indexPath.row].segueIdentifier, displayData[indexPath.row].enabled{
             performSegue(withIdentifier: segueIdentifier, sender: displayData[indexPath.row])
         }
     }

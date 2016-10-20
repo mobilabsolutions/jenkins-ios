@@ -43,6 +43,9 @@ class Build: Favoratible, CustomDebugStringConvertible{
     /// The changes that took place before the build
     var changeSets: [ChangeSet] = []
     
+    /// The artifacts that were produced with the build
+    var artifacts: [Artifact] = []
+    
     /// The url that points to the Build's console output
     var consoleOutputUrl: URL{
         get{
@@ -108,7 +111,16 @@ class Build: Favoratible, CustomDebugStringConvertible{
             })
         }
         
+        if let artifactsJson = json[Constants.JSON.artifacts] as? [[String: AnyObject]]{
+            for artifactJson in artifactsJson{
+                if let artifact = Artifact(json: artifactJson, with: self.url){
+                    artifacts.append(artifact)
+                }
+            }
+        }
+        
         isFullVersion = true
+        
     }
     
     var debugDescription: String{
