@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
+		DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */; };
+		DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */; };
 		DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AA1DB0CBFA009CF232 /* Searcher.swift */; };
 		DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AC1DB0CC39009CF232 /* Searchable.swift */; };
 		DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */; };
@@ -184,6 +186,8 @@
 
 /* Begin PBXFileReference section */
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
+		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
+		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
 		DC2045AA1DB0CBFA009CF232 /* Searcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
 		DC2045AC1DB0CC39009CF232 /* Searchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -387,6 +391,7 @@
 		DC8625731DA9213A00EB7867 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */,
 				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
 				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
 				DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */,
@@ -503,6 +508,7 @@
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
 				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
+				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -711,6 +717,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
@@ -805,6 +812,7 @@
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
 				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
+				DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */,
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
