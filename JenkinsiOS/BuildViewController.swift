@@ -157,7 +157,9 @@ class BuildViewController: UITableViewController {
     
     fileprivate func prepare(viewController: UIViewController){
         if let consoleOutputViewController = viewController as? ConsoleOutputViewController{
-            consoleOutputViewController.url = build?.consoleOutputUrl
+            guard let build = build, let account = account
+                else { return }
+            consoleOutputViewController.request = NetworkManager.manager.getConsoleOutputUserRequest(build: build, account: account)
         }
         else if let changesTableViewController = viewController as? ChangesTableViewController{
             changesTableViewController.changeSetItems = []

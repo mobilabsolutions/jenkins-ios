@@ -11,7 +11,7 @@ import UIKit
 class ConsoleOutputViewController: UIViewController {
 
     @IBOutlet weak var consoleWebView: UIWebView!
-    var url: URL?
+    var request: URLRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +19,9 @@ class ConsoleOutputViewController: UIViewController {
         consoleWebView.allowsLinkPreview = true
         consoleWebView.delegate = self
         
-        guard let usingUrl = url?.using(scheme: "https")
+        guard let request = request
             else { return }
         
-        let request = URLRequest(url: usingUrl)
         consoleWebView.loadRequest(request)
     }
 }

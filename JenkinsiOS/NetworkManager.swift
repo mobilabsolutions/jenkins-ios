@@ -249,6 +249,17 @@ class NetworkManager{
         performRequest(userRequest: request, method: .GET, useAPIURL: false, completion: completion)
     }
     
+    /// Get the user request for getting the console output of a given build
+    ///
+    /// - parameter build:   The build to get the console output for
+    /// - parameter account: The account that should be used
+    ///
+    /// - returns: The url request that gets the console output
+    func getConsoleOutputUserRequest(build: Build, account: Account) -> URLRequest{
+        let userRequest = UserRequest(requestUrl: build.consoleOutputUrl.using(scheme: "https")!, account: account)
+        return urlRequest(for: userRequest, useAPIURL: false, method: .GET)
+    }
+    
     /// Perform a build on a job using jenkins remote access api
     ///
     /// - parameter account:    The user account, which should be used to trigger the build
@@ -261,7 +272,7 @@ class NetworkManager{
         
         components?.queryItems = [
                 URLQueryItem(name: "token", value: token)
-            ]
+        ]
         
         if let parameters = parameters{
             
@@ -318,12 +329,7 @@ class NetworkManager{
     /// - parameter completion:  A completion handler that takes an optional data and an optional error
     private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, completion: @escaping (Data?, Error?) -> ()){
         
-        var request = URLRequest(url: (useAPIURL) ? userRequest.apiURL : userRequest.requestUrl)
-        request.httpMethod = method.rawValue
-        
-        if let username = userRequest.account.username, let password = userRequest.account.password{
-            request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
-        }
+        let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
         
         NetworkActivityIndicatorManager.manager.setActivityIndicator(active: true)
         
@@ -349,6 +355,23 @@ class NetworkManager{
     }
     
     //MARK: - Helper methods
+    
+    /// Create a url request from a given user request
+    ///
+    /// - parameter userRequest: The user request which to transform into a url request
+    /// - parameter useAPIURL:   Whether or not to use the api url for the url request
+    /// - parameter method:      The HTTP method the request should use
+    ///
+    /// - returns: The url request created from the inputted user request
+    func urlRequest(for userRequest: UserRequest, useAPIURL: Bool, method: HTTPMethod) -> URLRequest{
+        var request = URLRequest(url: (useAPIURL) ? userRequest.apiURL : userRequest.requestUrl)
+        request.httpMethod = method.rawValue
+        
+        if let username = userRequest.account.username, let password = userRequest.account.password{
+            request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
+        }
+        return request
+    }
     
     /// Create an HTTP Basic Authentication Header from a given username and password
     ///
