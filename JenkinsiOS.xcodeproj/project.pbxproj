@@ -83,6 +83,8 @@
 		DC6F079A1DB4EE1D00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */; };
 		DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC6F079E1DB502BB00C77FAE /* Config.plist */; };
 		DC6F07A01DB502BB00C77FAE /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC6F079E1DB502BB00C77FAE /* Config.plist */; };
+		DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */; };
+		DC7B2F141DB797930090DD10 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DC85AE031DABBA6500D20059 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE021DABBA6500D20059 /* FavoritesTableViewController.swift */; };
 		DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */; };
 		DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */; };
@@ -135,6 +137,7 @@
 		DCE73CB71DB64DE600028A96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB41DB64DE600028A96 /* Fabric.framework */; };
 		DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
 		DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
+		DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,6 +218,7 @@
 		DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewController.swift; sourceTree = "<group>"; };
 		DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorManager.swift; sourceTree = "<group>"; };
 		DC6F079E1DB502BB00C77FAE /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtifactsTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE021DABBA6500D20059 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsInformationTableViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsFullResource.json; sourceTree = "<group>"; };
 		DCE73CB41DB64DE600028A96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		DCE73CB51DB64DE600028A96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		DCE73CBA1DB678B400028A96 /* Artifact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artifact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +369,7 @@
 				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
 				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
 				DC66CED21D9D408300808ED0 /* Item.swift */,
+				DCE73CBA1DB678B400028A96 /* Artifact.swift */,
 			);
 			name = Build;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
 				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
+				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -750,6 +757,7 @@
 				DC2045CF1DB129D6009CF232 /* HealthReportResult.swift in Sources */,
 				DC2045DE1DB12D7F009CF232 /* Result.swift in Sources */,
 				DC2045CD1DB129C2009CF232 /* Item.swift in Sources */,
+				DC7B2F141DB797930090DD10 /* Artifact.swift in Sources */,
 				DC2045EC1DB12DF0009CF232 /* AccountManager.swift in Sources */,
 				DC2045C71DB129B4009CF232 /* NetworkManager.swift in Sources */,
 				DC6F079A1DB4EE1D00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
@@ -830,6 +838,8 @@
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
+				DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */,
+				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
 				DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,

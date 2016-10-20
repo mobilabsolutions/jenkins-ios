@@ -47,6 +47,7 @@ struct Constants{
         static let computerCell = "computerCell"
         static let pluginCell = "pluginCell"
         static let userCell = "userCell"
+        static let artifactsCell = "artifactsCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -62,6 +63,7 @@ struct Constants{
         static let showUsersSegue = "showUsersSegue"
         static let showPluginsSegue = "showPluginsSegue"
         static let editAccountSegue = "editAccountSegue"
+        static let showArtifactsSegue = "showArtifactsSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }
@@ -139,6 +141,9 @@ struct Constants{
         static let availableSwapSpace = "availableSwapSpace"
         static let totalPhysicalMemory = "totalPhysicalMemory"
         static let totalSwapSpace = "totalSwapSpace"
+        static let artifacts = "artifacts"
+        static let fileName = "fileName"
+        static let relativePath = "relativePath"
     }
     
     struct API{
@@ -160,5 +165,6 @@ struct Constants{
             URLQueryItem(name: "depth", value: "2")
         ]
         static let users = "/asynchPeople"
+        static let artifact = "/artifact"
     }
 }
