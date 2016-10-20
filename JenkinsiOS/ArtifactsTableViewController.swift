@@ -43,8 +43,9 @@ class ArtifactsTableViewController: UITableViewController {
                         })
                         return
                 }
-                
-                completion(data)
+                self.dismiss(animated: true, completion: { 
+                    completion(data)
+                })
             }
         }
 
@@ -69,6 +70,17 @@ class ArtifactsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let modalInfoViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
+        modalInfoViewController.modalPresentationStyle = .overCurrentContext
+        modalInfoViewController.modalTransitionStyle = .crossDissolve
+        present(modalInfoViewController, animated: true, completion: nil)
+        
+        let indicator = UIActivityIndicatorView()
+        indicator.activityIndicatorViewStyle = .gray
+        modalInfoViewController.with(title: "Loading Artifact", detailView: indicator)
+        indicator.startAnimating()
+        
         downloadArtifact(artifact: artifacts[indexPath.row]) { (data) in
             guard let data = data
                 else { return }
