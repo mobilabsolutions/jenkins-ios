@@ -144,6 +144,12 @@ struct Constants{
         static let artifacts = "artifacts"
         static let fileName = "fileName"
         static let relativePath = "relativePath"
+        static let crumb = "crumb"
+        static let crumbRequestField = "crumbRequestField"
+    }
+    
+    struct Networking{
+        static let successCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226]
     }
     
     struct API{
@@ -166,5 +172,6 @@ struct Constants{
         ]
         static let users = "/asynchPeople"
         static let artifact = "/artifact"
+        static let crumbIssuer = "/crumbIssuer"
     }
 }

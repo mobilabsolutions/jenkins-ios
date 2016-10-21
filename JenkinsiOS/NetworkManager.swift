@@ -267,12 +267,26 @@ class NetworkManager{
     /// - parameter token:      The user's token that is set up in the job configuration
     /// - parameter parameters: The build's parameters
     /// - parameter completion: A closure handling the returned data and an (optional) error
-    func performBuild(account: Account, job: Job, token: String, parameters: [String: AnyObject]?, completion: ((AnyObject?, Error?) -> ())?) throws{
-        var components = URLComponents(url: job.url.appendingPathComponent("/build"), resolvingAgainstBaseURL: true)
+    func performBuild(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: ((AnyObject?, Error?) -> ())?) throws{
+        configureBuildRequest(account: account, job: job, token: token, parameters: parameters) { (request, error) in
+            guard let userRequest = request, error == nil
+                else { completion?(nil, error); return }
+            self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (data, error) in
+                completion?(data as AnyObject, error)
+            }
+        }
+    }
+    
+    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: @escaping (UserRequest?, Error?) -> ()){
+        var components = URLComponents(url: job.url.appendingPathComponent("build", isDirectory: true), resolvingAgainstBaseURL: true)
         
         components?.queryItems = [
-                URLQueryItem(name: "token", value: token)
+            URLQueryItem(name: "cause", value: "Caused by Jenkins for iOS")
         ]
+        
+        if let token = token{
+            components?.queryItems?.append(URLQueryItem(name: "token", value: token))
+        }
         
         if let parameters = parameters{
             
@@ -283,21 +297,25 @@ class NetworkManager{
             components?.queryItems?.append(URLQueryItem(name: "parameter", value: keyValuePairs.joined(separator: ",")))
         }
         
-        guard let url = components?.url
-            else { completion?(nil, NetworkManagerError.URLBuildingError); return }
-        
-        let userRequest = UserRequest(requestUrl: url, account: account)
-        performRequestForJson(userRequest: userRequest, method: .POST) { (data, error) in
-            if error != nil{
-                completion?(nil, error)
-                return
+        getCrumb(account: account) { (item) in
+            if let queryItem = item{
+                components?.queryItems?.append(queryItem)
             }
-            else if data == nil{
-                completion?(nil, NetworkManagerError.noDataFound)
-                return
-            }
+            guard let url = components?.url
+                else { completion(nil, NetworkManagerError.URLBuildingError); return }
             
-            completion?(data as AnyObject, nil)
+            completion(UserRequest(requestUrl: url, account: account), nil)
+        }
+    }
+    
+    private func getCrumb(account: Account, completion: @escaping (URLQueryItem?) -> ()){
+        let request = UserRequest(requestUrl: account.baseUrl.appendingPathComponent(Constants.API.crumbIssuer), account: account)
+        performRequestForJson(userRequest: request, method: .GET) { (data, error) in
+            guard let json = data as? [String: String]
+                else { completion(nil); return }
+            guard let crumb = json[Constants.JSON.crumb], let requestField = json[Constants.JSON.crumbRequestField]
+                else { completion(nil); return }
+            completion(URLQueryItem(name: requestField, value: crumb))
         }
     }
     
@@ -341,7 +359,7 @@ class NetworkManager{
                 else { completion(nil, error); return }
             
             if let httpResponse = response as? HTTPURLResponse{
-                guard httpResponse.statusCode == 200
+                guard Constants.Networking.successCodes.contains(httpResponse.statusCode)
                     else {
                         completion(nil, NetworkManagerError.HTTPResponseNoSuccess(code: httpResponse.statusCode, message: httpResponse.description))
                         return

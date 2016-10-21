@@ -28,16 +28,52 @@ class JobViewController: UIViewController {
         guard let job = job, let account = account
             else { return }
         
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: "", parameters: nil) { (data, error) in
+        if account.password == nil || account.username == nil{
+            var tokenTextField: UITextField!
+            
+            displayError(title: "Please Input a token", message: "To start a build without username or password, a token is required", textFieldConfigurations: [{ (textField) in
+                textField.placeholder = "Token"
+                tokenTextField = textField
+                }], actions: [
+                    UIAlertAction(title: "Use", style: .default, handler: { (_) in
+                        self.performBuild(job: job, account: account, token: tokenTextField.text)
+                    }),
+                    UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                ])
+        }
+        else{
+            performBuild(job: job, account: account, token: nil)
+        }
+    }
+    
+    private func performBuild(job: Job, account: Account, token: String?){
+        
+        let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
+        present(modalViewController, animated: true)
+        modalViewController.withActivityIndicator(title: "Loading")
+        
+        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
             if let error = error{
-                self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                    self.account?.username = returnData["username"]!
-                    self.account?.password = returnData["password"]!
-                    
-                    self.build()
+                modalViewController.dismiss(animated: true, completion: { 
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+                        
+                        self.build()
+                    })
                 })
+                
             }
-            print(data)
+            else{
+                DispatchQueue.main.async {
+                    let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
+                    successImageView.contentMode = .scaleAspectFit
+                    modalViewController.with(title: "Success", detailView: successImageView)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(500), execute: {
+                        modalViewController.dismiss(animated: true, completion: nil)
+                    })
+                }
+            }
         }
     }
     

@@ -24,8 +24,21 @@ class ModalInformationViewController: UIViewController {
         self.view.isOpaque = true
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.modalTransitionStyle = .crossDissolve
+        self.modalPresentationStyle = .overCurrentContext
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     func with(title: String?, detailView: UIView?){
         titleLabel.text = title
+        centerView.subviews.forEach{
+            $0.removeFromSuperview()
+        }
         guard let detailView = detailView
             else { return }
         detailView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,5 +47,13 @@ class ModalInformationViewController: UIViewController {
         detailView.leftAnchor.constraint(equalTo: centerView.leftAnchor).isActive = true
         detailView.rightAnchor.constraint(equalTo: centerView.rightAnchor).isActive = true
         detailView.bottomAnchor.constraint(equalTo: centerView.bottomAnchor).isActive = true
+    }
+    
+    func withActivityIndicator(title: String?){
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.startAnimating()
+        activityIndicator.activityIndicatorViewStyle = .gray
+        
+        self.with(title: title, detailView: activityIndicator)
     }
 }
