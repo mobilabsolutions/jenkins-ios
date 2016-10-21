@@ -56,7 +56,7 @@ class FavoritesTableViewController: UITableViewController {
                         self.jobs.append((job: job, account: account))
                         
                         DispatchQueue.main.async {
-                            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                            self.tableView.reloadData()
                             self.conditionallyEndRefreshing()
                         }
                     }
@@ -76,7 +76,7 @@ class FavoritesTableViewController: UITableViewController {
                         self.builds.append((build: build, account: account))
                         
                         DispatchQueue.main.async {
-                            self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                            self.tableView.reloadData()
                             self.conditionallyEndRefreshing()
                         }
                     }

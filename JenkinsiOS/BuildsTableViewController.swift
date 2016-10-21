@@ -50,7 +50,7 @@ class BuildsTableViewController: UITableViewController {
                         
                         self.tableView.reloadRows(at: [IndexPath(row: index, section: section)], with: .automatic)
                         
-                        if builds.filter({$0.isFullVersion}).isEmpty{
+                        if builds.filter({!$0.isFullVersion}).isEmpty{
                             self.refreshControl?.endRefreshing()
                         }
                     }

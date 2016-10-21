@@ -20,6 +20,7 @@ class UserRequest{
         get{
             var components = URLComponents(url: requestUrl.appendingPathComponent("/api/json"), resolvingAgainstBaseURL: false)
             components?.queryItems = [URLQueryItem(name: "pretty", value: "false")]
+            components?.port = account.port
             
             if let additionalQueryItems = additionalQueryItems{
                 components?.queryItems?.append(contentsOf: additionalQueryItems)

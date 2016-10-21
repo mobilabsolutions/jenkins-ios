@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModalInformationViewController" customModule="JenkinsiOS" customModuleProvider="target">
+            <connections>
+                <outlet property="centerView" destination="65q-Dg-QRt" id="g9l-Qc-8Jb"/>
+                <outlet property="containerView" destination="LZQ-cp-s9o" id="sh7-t9-J12"/>
+                <outlet property="titleLabel" destination="7m7-Wr-fgg" id="VCg-Mq-eES"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZQ-cp-s9o">
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7m7-Wr-fgg">
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65q-Dg-QRt">
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="6UO-TF-S6Z"/>
+                        <constraint firstAttribute="bottom" secondItem="65q-Dg-QRt" secondAttribute="bottom" constant="61.5" id="7ic-1R-cGA"/>
+                        <constraint firstItem="7m7-Wr-fgg" firstAttribute="centerX" secondItem="LZQ-cp-s9o" secondAttribute="centerX" id="AIw-hx-EHr"/>
+                        <constraint firstAttribute="width" constant="250" id="Bh3-N5-vZf"/>
+                        <constraint firstItem="65q-Dg-QRt" firstAttribute="leading" secondItem="LZQ-cp-s9o" secondAttribute="leading" constant="5" id="C7Y-mz-641"/>
+                        <constraint firstItem="65q-Dg-QRt" firstAttribute="top" secondItem="7m7-Wr-fgg" secondAttribute="bottom" constant="20.5" id="GCF-Fk-YpB"/>
+                        <constraint firstAttribute="trailing" secondItem="7m7-Wr-fgg" secondAttribute="trailing" constant="20" id="YPg-Pe-AiW"/>
+                        <constraint firstAttribute="trailing" secondItem="65q-Dg-QRt" secondAttribute="trailing" constant="5" id="fhh-BG-msL"/>
+                        <constraint firstItem="7m7-Wr-fgg" firstAttribute="top" secondItem="LZQ-cp-s9o" secondAttribute="top" constant="20" id="rCa-id-0cX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="LZQ-cp-s9o" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eC1-um-ijz"/>
+                <constraint firstItem="LZQ-cp-s9o" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="vdU-jY-w6J"/>
+            </constraints>
+            <point key="canvasLocation" x="-25.5" y="-141.5"/>
+        </view>
+    </objects>
+</document>

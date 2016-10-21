@@ -82,6 +82,7 @@ class AddAccountTableViewController: UITableViewController {
             addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
             usernameTextField.text = ""
             apiKeyTextField.text = ""
+            portTextField.placeholder = "\(Constants.Defaults.defaultPort)"
         }
 
         // The add button should not be enabled when there is no text in the mandatory textfields
