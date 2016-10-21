@@ -11,6 +11,41 @@ import UIKit
 class JenkinsInformationTableViewController: UITableViewController {
 
     var account: Account?
+    var actions: [JenkinsAction] = [.safeRestart, .restart, .quietDown, .cancelQuietDown]
+    
+    func performAction(action: JenkinsAction){
+        
+        guard let account = account
+            else { return }
+        
+        NetworkManager.manager.perform(action: action, on: account) { (error) in
+            DispatchQueue.main.async {
+                if let error = error{
+                    
+                    if let networkManagerError = error as? NetworkManagerError, case let .HTTPResponseNoSuccess(code, _) = networkManagerError, Constants.Networking.successCodes.contains(code) || code == 503{
+                        self.displayError(title: "Success", message: "The action was completed", textFieldConfigurations: [], actions: [
+                                UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                            ])
+                    }
+                    else {
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (data) in
+                            self.account?.password = data["password"]!
+                            self.account?.username = data["username"]!
+                            self.performAction(action: action)
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Table view delegate and datasource
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let account = account, indexPath.section == 1
+            else { return }
+        performAction(action: actions[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     // MARK: - Navigation
 

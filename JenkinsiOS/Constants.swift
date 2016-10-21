@@ -173,5 +173,10 @@ struct Constants{
         static let users = "/asynchPeople"
         static let artifact = "/artifact"
         static let crumbIssuer = "/crumbIssuer"
+        
+        static let quietDown = "/quietDown"
+        static let cancelQuietDown = "/cancelQuietDown"
+        static let restart = "/restart"
+        static let safeRestart = "/safeRestart"
     }
 }
