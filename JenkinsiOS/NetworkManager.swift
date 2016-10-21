@@ -260,6 +260,29 @@ class NetworkManager{
         return urlRequest(for: userRequest, useAPIURL: false, method: .GET)
     }
     
+    /// Perform an action on the given jenkins instance
+    ///
+    /// - parameter action:     The action that should be performed
+    /// - parameter account:    The account the action should be performed on
+    /// - parameter completion: A closure handling an optional error
+    func perform(action: JenkinsAction, on account: Account, completion: @escaping (Error?) -> ()){
+        var components = URLComponents(url: account.baseUrl.appendingPathComponent(action.apiConstant()), resolvingAgainstBaseURL: false)
+        getCrumb(account: account) { (item) in
+            if let queryItem = item{
+                components?.queryItems = [ queryItem ]
+            }
+            
+            guard let url = components?.url
+                else { return }
+            
+            let userRequest = UserRequest(requestUrl: url, account: account)
+            self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (_, error) in
+                completion(error)
+            }
+        }
+
+    }
+    
     /// Perform a build on a job using jenkins remote access api
     ///
     /// - parameter account:    The user account, which should be used to trigger the build
