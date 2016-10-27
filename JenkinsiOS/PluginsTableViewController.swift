@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PluginsTableViewController: UITableViewController {
+class PluginsTableViewController: RefreshingTableViewController {
 
     var account: Account?
     var pluginList: PluginList?{
@@ -26,8 +26,11 @@ class PluginsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addRefreshControl(action: #selector(performRequest))
         title = "Plugins"
+        performRequest()
+    }
+
+    override func refresh(){
         performRequest()
     }
 

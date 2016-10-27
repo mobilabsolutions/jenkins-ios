@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobsTableViewController: UITableViewController{
+class JobsTableViewController: RefreshingTableViewController{
     
     var account: Account?
     var jobs: JobList?
@@ -22,7 +22,7 @@ class JobsTableViewController: UITableViewController{
     
     //MARK: - View controller lifecycle
     override func viewDidLoad() {
-        addRefreshControl(action: #selector(loadJobs))
+        super.viewDidLoad()
         loadJobs()
         setUpPicker()
     }
@@ -32,7 +32,10 @@ class JobsTableViewController: UITableViewController{
         searchController?.searchBar.text = ""
     }
     
-    
+    override func refresh(){
+        loadJobs()
+    }
+
     //MARK: - Data loading and displaying
     /// Load the jobs from the remote server
     @objc private func loadJobs(){

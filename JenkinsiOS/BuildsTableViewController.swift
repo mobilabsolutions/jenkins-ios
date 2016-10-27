@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BuildsTableViewController: UITableViewController {
+class BuildsTableViewController: RefreshingTableViewController {
 
     var builds: [Build]?
     var specialBuilds: [(String, Build)] = []
@@ -17,11 +17,13 @@ class BuildsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addRefreshControl(action: #selector(reloadAllBuilds))        
         completeAllBuilds()
     }
-    
+
+    override func refresh(){
+        reloadAllBuilds()
+    }
+
     private func completeAllBuilds(){
         completeBuilds(builds: specialBuilds.map({ $0.1 }), section: 0)
         if let builds = builds{

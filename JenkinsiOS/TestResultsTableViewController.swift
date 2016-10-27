@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestResultsTableViewController: UITableViewController {
+class TestResultsTableViewController: RefreshingTableViewController {
 
     var testResults: TestResult?{
         didSet{
@@ -39,8 +39,6 @@ class TestResultsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addRefreshControl(action: #selector(loadTestResults))
         title = "Test Results"
         loadTestResults()
     }
@@ -49,7 +47,11 @@ class TestResultsTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         searchController?.searchBar.text = ""
     }
-    
+
+    override func refresh(){
+        loadTestResults()
+    }
+
     //MARK: - Data loading
     @objc private func loadTestResults(){
         guard let build = build, let account = account
