@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
 		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
 		DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */; };
@@ -189,6 +190,7 @@
 
 /* Begin PBXFileReference section */
 		BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshingTableViewController.swift; sourceTree = "<group>"; };
+		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
 		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
@@ -317,6 +319,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC91B001290BB58CDC43E6F6 /* Build Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BC91BD8AB3DC9032CF20688B /* BuildTest.swift */,
+			);
+			path = "Build Tests";
+			sourceTree = "<group>";
+		};
 		DC2045B81DB12892009CF232 /* JenkinsiOSTodayExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +455,7 @@
 				DC99C3EB1D955C910031DBE4 /* Info.plist */,
 				DCE73CB31DB63B7700028A96 /* Job Tests */,
 				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
+				BC91B001290BB58CDC43E6F6 /* Build Tests */,
 			);
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
@@ -894,6 +905,7 @@
 			files = (
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
+				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
