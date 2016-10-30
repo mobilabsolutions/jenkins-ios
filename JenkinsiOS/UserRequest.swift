@@ -78,13 +78,13 @@ extension UserRequest{
     /// - parameter account: The account for which the user request should be create
     ///
     /// - returns: The fitting user request object
-    static func userRequestForJobList(account: Account) -> UserRequest{
-        let url = account.baseUrl
+    static func userRequestForJobList(account: Account, requestUrl: URL? = nil) -> UserRequest{
+        let url = requestUrl ?? account.baseUrl
         let additionalComponents = Constants.API.jobListAdditionalQueryItems
         
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
-        
+    
     /// Return the user request specific to getting the list of computers
     ///
     /// - parameter account: The account for which the user request should be create
