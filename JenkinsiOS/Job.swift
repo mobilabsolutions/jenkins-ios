@@ -75,6 +75,9 @@ class Job: Favoratible{
         if let stringColor = json["color"] as? String{
             self.color = JenkinsColor(rawValue: stringColor)
         }
+        else{
+            self.color = JenkinsColor.folder
+        }
         
         self.url = url
         self.name = name
