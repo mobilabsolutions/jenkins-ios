@@ -11,7 +11,7 @@ import Foundation
 class View: CustomStringConvertible{
     var name: String
     var url: URL
-    var jobs: [Job] = []
+    var jobResults: [JobListResult] = []
     
     var description: String{
         return "View \"\(name)\""
@@ -31,8 +31,8 @@ class View: CustomStringConvertible{
         
         if let jobsJson = json[Constants.JSON.jobs] as? [[String: AnyObject]]{
             for jobJson in jobsJson{
-                if let job = Job(json: jobJson, minimalVersion: true){
-                    jobs.append(job)
+                if let job = JobListResult(json: jobJson){
+                    jobResults.append(job)
                 }
             }
         }

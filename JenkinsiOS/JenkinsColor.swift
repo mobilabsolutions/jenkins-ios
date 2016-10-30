@@ -23,4 +23,6 @@ enum JenkinsColor: String{
     case abortedAnimated = "aborted_anime"
     case disabledAnimated = "disabled_anime"
     case notBuiltAnimated = "notbuilt_anime"
+
+    case folder = "folder"
 }
