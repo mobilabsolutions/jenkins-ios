@@ -24,10 +24,28 @@ class JobViewController: UIViewController {
     
     //MARK: - Actions
     
-    func build() {
+    func triggerBuild() {
+        guard let job = job
+            else { return }
+        
+        if job.parameters.isEmpty{
+            buildWithoutParameters()
+        }
+        else{
+            prepareForBuildWithParameters()
+        }
+    }
+    
+    private func prepareForBuildWithParameters(){
+        performSegue(withIdentifier: Constants.Identifiers.showParametersSegue, sender: nil)
+    }
+    
+    private func buildWithoutParameters(){
         guard let job = job, let account = account
             else { return }
         
+        let modalViewController = presentModalInformationViewController()
+
         if account.password == nil || account.username == nil{
             var tokenTextField: UITextField!
             
@@ -36,30 +54,42 @@ class JobViewController: UIViewController {
                 tokenTextField = textField
                 }], actions: [
                     UIAlertAction(title: "Use", style: .default, handler: { (_) in
-                        self.performBuild(job: job, account: account, token: tokenTextField.text)
+                        self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
+                            self.completionForBuild()(modalViewController, $0, $1)
+                        }
                     }),
                     UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 ])
         }
         else{
-            performBuild(job: job, account: account, token: nil)
+            performBuild(job: job, account: account, token: nil, parameters: nil){
+                self.completionForBuild()(modalViewController, $0, $1)
+            }
         }
     }
     
-    private func performBuild(job: Job, account: Account, token: String?){
-        
-        let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
-        present(modalViewController, animated: true)
-        modalViewController.withActivityIndicator(title: "Loading")
-        
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
+    private func presentModalInformationViewController() -> ModalInformationViewController?{
+        if self.isViewLoaded && view.window != nil{
+            let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
+            present(modalViewController, animated: true)
+            modalViewController.withActivityIndicator(title: "Loading")
+            return modalViewController
+        }
+        return nil
+    }
+    
+    private func completionForBuild() -> (ModalInformationViewController?, AnyObject?, Error?) ->(){
+        return {
+            
+            modalViewController, data, error in
+            
             if let error = error{
-                modalViewController.dismiss(animated: true, completion: { 
+                modalViewController?.dismiss(animated: true, completion: {
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
                         self.account?.username = returnData["username"]!
                         self.account?.password = returnData["password"]!
                         
-                        self.build()
+                        self.triggerBuild()
                     })
                 })
                 
@@ -68,12 +98,29 @@ class JobViewController: UIViewController {
                 DispatchQueue.main.async {
                     let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
                     successImageView.contentMode = .scaleAspectFit
-                    modalViewController.with(title: "Success", detailView: successImageView)
+                    modalViewController?.with(title: "Success", detailView: successImageView)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(500), execute: {
-                        modalViewController.dismiss(animated: true, completion: nil)
+                        modalViewController?.dismiss(animated: true, completion: nil)
                     })
                 }
             }
+
+        }
+    }
+    
+    fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
+        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+    }
+    
+    //MARK: - Refreshing
+    
+    func updateData(completion: @escaping (Error?) -> ()){
+        if let account = account, let job = job{
+            let userRequest = UserRequest(requestUrl: job.url, account: account)
+            
+            NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (_, error) in
+                completion(error)
+            })
         }
     }
     
@@ -94,32 +141,27 @@ class JobViewController: UIViewController {
     }
     
     func performRequest(){
-        if let account = account, let job = job, job.isFullVersion == false{
-            let userRequest = UserRequest(requestUrl: job.url, account: account)
-            
-            NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (job, error) in
+        updateData { (error) in
+            DispatchQueue.main.async {
                 guard error == nil
                     else {
                         if let error = error{
                             self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                                self.account?.username = returnData["username"]!
-                                self.account?.password = returnData["password"]!
-                                
+                                self.updateAccount(data: returnData)
                                 self.performRequest()
                             })
                         }
                         return
                 }
-                
-                DispatchQueue.main.async {
-                    self.updateUI()
-                }
-            })
+                self.updateUI()
+            }
+
         }
     }
     
     private func setupUI(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(build))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(triggerBuild))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         descriptionWebView.allowsLinkPreview = true
         descriptionWebView.delegate = self
@@ -158,21 +200,33 @@ class JobViewController: UIViewController {
         if let icon = job.healthReport.first?.iconClassName{
             self.colorImageView.image = UIImage(named: icon)
         }
+        
+        navigationItem.rightBarButtonItem?.isEnabled = job.isFullVersion
     }
     
     //MARK: - ViewController Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            dest.builds = job?.builds
-            dest.specialBuilds = job?.specialBuilds.filter{ $0.1 != nil }.map{ ($0.0, $0.1!) } ?? []
+            dest.builds = job?.builds ?? []
+            dest.specialBuilds = specialBuilds() ?? []
             dest.account = account
+            dest.dataSource = self
+        }
+        else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
+            dest.parameters = job?.parameters ?? []
+            dest.delegate = self
         }
     }
     
     
     @objc private func segueToNextViewController(){
         performSegue(withIdentifier: Constants.Identifiers.showBuildsSegue, sender: nil)
+    }
+    
+    //MARK: - Helpers
+    fileprivate func specialBuilds() -> [(String, Build)]?{
+        return job?.specialBuilds.filter{ $0.1 != nil }.map{ ($0.0, $0.1!) }
     }
     
 }
@@ -185,5 +239,36 @@ extension JobViewController: UIWebViewDelegate{
         }
         
         return navigationType == .other
+    }
+}
+
+extension JobViewController: ParametersViewControllerDelegate{
+    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> ()) {
+        
+        guard let job = job, let account = account
+            else { completion(BuildError.notEnoughDataError); return }
+        
+        
+        performBuild(job: job, account: account, token: nil, parameters: parameters){
+            _, error in
+            completion(error)
+        }
+    }
+    
+    func updateAccount(data: [String : String?]) {
+        self.account?.username = data["username"]!
+        self.account?.password = data["password"]!
+    }
+}
+
+extension JobViewController: BuildsTableViewControllerDataSource{
+    func loadBuilds(completion: @escaping ([Build]?, [(String, Build)]?) -> ()){
+        updateData { (error) in
+            DispatchQueue.main.async {
+                guard error == nil
+                    else { completion(nil, nil); return }
+                completion(self.job?.builds, self.specialBuilds())
+            }
+        }
     }
 }
