@@ -60,6 +60,9 @@ class Job: Favoratible{
     /// Is the job information based on "full version" JSON?
     var isFullVersion = false
     
+    /// The job's build parameters, if any
+    var parameters: [Parameter] = []
+    
     /// Optionally initialize a Job
     ///
     /// - parameter json:           The json from which to initialize the job
@@ -99,10 +102,11 @@ class Job: Favoratible{
         
         description = json["description"] as? String
         buildable = json["buildable"] as? Bool
-        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: true) }.filter{ $0 != nil }.map{ $0! } ?? []
-        healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! } ?? []
         inQueue = json["inQueue"] as? Bool
         keepDependencies =  json["keepDependencies"] as? Bool
+        
+        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: true) }.filter{ $0 != nil }.map{ $0! } ?? []
+        healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! } ?? []
         
         // Get the interesting builds from the json data and, if they can be converted to a dictionary, try to initialize a Build from them
         firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject], minimalVersion: true)
@@ -124,6 +128,22 @@ class Job: Favoratible{
             ("Last Completed Build", lastCompletedBuild),
             ("First Build", firstBuild)
         ]
+        
+        // Parse all the parameters
+        parameters = []
+        
+        if let properties = json[Constants.JSON.property] as? [[String: Any]], let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]]{
+            for parameterJson in parametersJson{
+                guard let parameter = Parameter(json: parameterJson)
+                    else { continue }
+                
+                if parameter.type == .run{
+                    parameter.additionalData = builds.map({ "\(name) #\($0.number)" }) as AnyObject?
+                }
+                
+                parameters.append(parameter)
+            }
+        }
         
         isFullVersion = true
     }

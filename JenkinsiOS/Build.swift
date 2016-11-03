@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Build: Favoratible, CustomDebugStringConvertible{
+class Build: Favoratible, CustomStringConvertible{
     
     /// The build's number
     var number: Int
@@ -46,6 +46,8 @@ class Build: Favoratible, CustomDebugStringConvertible{
     /// The artifacts that were produced with the build
     var artifacts: [Artifact] = []
     
+    var description: String = "Build"
+    
     /// The url that points to the Build's console output
     var consoleOutputUrl: URL{
         get{
@@ -71,6 +73,8 @@ class Build: Favoratible, CustomDebugStringConvertible{
         
         self.number = number
         self.url = url
+        
+        self.description += " #\(number)"
         
         if !minimalVersion{
             addAdditionalFields(from: json)
@@ -104,7 +108,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
                 changeSets.append(changeSet)
             }
         }
-            // It seems, as if Change Sets could also be in an array
+        // It seems, as if Change Sets could also be in an array
         else if let changeSetsJson = json["changeSet"] as? [[String: AnyObject]]{
             changeSets = changeSetsJson.map({ (dict) -> ChangeSet in
                 return ChangeSet(json: dict)
@@ -121,9 +125,5 @@ class Build: Favoratible, CustomDebugStringConvertible{
         
         isFullVersion = true
         
-    }
-    
-    var debugDescription: String{
-        return "Build #\(number) at \(url)"
     }
 }
