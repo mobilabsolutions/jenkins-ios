@@ -9,7 +9,7 @@
 @testable import JenkinsiOS
 import XCTest
 
-class JobTests: XCTestCase {
+class JobTests: ModelTestCase {
     
     /// Test that a Job initializes properly from a minimal version json file
     func testMinimalVersionInitializesProperly(){

@@ -1,0 +1,8 @@
+language: objective-c
+xcode_project: JenkinsiOS.xcodeproj
+xcode_scheme: JenkinsiOSTests
+osx_image: xcode8
+xcode_sdk: iphonesimulator10.0
+
+script:
+- xcodebuild clean build test -project JenkinsiOS.xcodeproj -scheme JenkinsiOSTests  -destination "platform=iOS Simulator,name=iPhone 7" -json

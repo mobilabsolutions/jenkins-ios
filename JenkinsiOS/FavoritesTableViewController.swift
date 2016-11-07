@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoritesTableViewController: UITableViewController {
+class FavoritesTableViewController: RefreshingTableViewController {
     
     var jobFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .job}
     var buildFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .build }
@@ -22,8 +22,7 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addRefreshControl(action: #selector(reloadAllFavorites))
+
         setupTitleView()
     
         loadJobs()
@@ -32,6 +31,10 @@ class FavoritesTableViewController: UITableViewController {
         registerForPreviewing(with: self, sourceView: tableView)
         
         title = "Favorites"
+    }
+
+    override func refresh(){
+        reloadAllFavorites()
     }
     
     override func viewDidAppear(_ animated: Bool) {

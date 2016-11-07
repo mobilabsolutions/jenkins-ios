@@ -8,21 +8,34 @@
 
 import UIKit
 
-class JobsTableViewController: UITableViewController{
+class JobsTableViewController: RefreshingTableViewController{
     
     var account: Account?
+    var userRequest: UserRequest?
+    
     var jobs: JobList?
     var currentView: View?
     
     var viewPicker: UIPickerView!
     private var searchController: UISearchController?
     
-    let sections = [Constants.Identifiers.jenkinsCell , Constants.Identifiers.jobCell]
+    /// The identifier and number of rows for a given section and a row in that section. Based on the current JobListResults
+    lazy var sections: [(Int?, [JobListResult]?) -> (identifier: String, rows: Int)] = [{_ in (Constants.Identifiers.jenkinsCell, self.jenkinsCellSegues.count)} , {
+        row, jobResults in
+            guard let row = row, let jobResult = jobResults?[row]
+                else { return ("", jobResults?.count ?? 0) }
+        
+            switch jobResult{
+                case .job: return (Constants.Identifiers.jobCell, jobResults?.count ?? 0)
+                case .folder: return (Constants.Identifiers.folderCell, jobResults?.count ?? 0)
+            }
+        }]
+
     let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins", Constants.Identifiers.showJenkinsSegue)]
     
     //MARK: - View controller lifecycle
     override func viewDidLoad() {
-        addRefreshControl(action: #selector(loadJobs))
+        super.viewDidLoad()
         loadJobs()
         setUpPicker()
     }
@@ -32,14 +45,19 @@ class JobsTableViewController: UITableViewController{
         searchController?.searchBar.text = ""
     }
     
-    
+    override func refresh(){
+        loadJobs()
+    }
+
     //MARK: - Data loading and displaying
     /// Load the jobs from the remote server
     @objc private func loadJobs(){
         guard let account = account
             else { return }
         
-        NetworkManager.manager.getJobs(userRequest: UserRequest.userRequestForJobList(account: account)) { (jobList, error) in            
+        userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
+        
+        NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
             guard jobList != nil && error == nil
                 else {
                     if let error = error{
@@ -72,8 +90,8 @@ class JobsTableViewController: UITableViewController{
     }
     
     private func setupSearchController(){
-        let searchResultsController = SearchResultsTableViewController(searchData: jobs?.allJobsView?.jobs.map({ (job) -> Searchable in
-            return Searchable(searchString: job.name, data: job, action: {
+        let searchResultsController = SearchResultsTableViewController(searchData: jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
+            return Searchable(searchString: job.name, data: job as AnyObject, action: {
                 self.searchController?.dismiss(animated: true, completion: nil)
                 self.performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
             })
@@ -101,7 +119,14 @@ class JobsTableViewController: UITableViewController{
     //MARK: - Viewcontroller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let jobCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: jobCell), let job = currentView?.jobs[indexPath.row]{
+        
+        if let dest = segue.destination as? JobViewController,
+            segue.identifier == Constants.Identifiers.showJobSegue,
+            let jobCell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: jobCell),
+            let jobResult = currentView?.jobResults[indexPath.row],
+            case let JobListResult.job(job) = jobResult{
+            
             dest.job = job
             dest.account = account
         }
@@ -115,18 +140,29 @@ class JobsTableViewController: UITableViewController{
         else if let dest = segue.destination as? JenkinsInformationTableViewController, segue.identifier == Constants.Identifiers.showJenkinsSegue{
             dest.account = account
         }
+        else if let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showFolderSegue,
+                let cell = sender as? UITableViewCell,
+                let path = tableView.indexPath(for: cell),
+                let jobResult = currentView?.jobResults[path.row],
+                case let JobListResult.folder(folder) = jobResult,
+                let account = account{
+            
+            dest.account = account
+            dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
+            dest.sections = [sections.lazy.last!]
+        }
     }
     
     //MARK: - Tableview datasource and delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
+        if sections[indexPath.section](indexPath.row, currentView?.jobResults).identifier == Constants.Identifiers.jenkinsCell{
             performSegue(withIdentifier: jenkinsCellSegues[indexPath.row].1, sender: nil)
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = sections[indexPath.section]
+        let identifier = sections[indexPath.section](indexPath.row, self.currentView?.jobResults).identifier
         return prepareCellWithIdentifier(identifier: identifier, indexPath: indexPath)
     }
     
@@ -135,8 +171,8 @@ class JobsTableViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
         switch identifier{
-            case Constants.Identifiers.jobCell:
-                prepareCellForJob(cell: cell, indexPath: indexPath)
+            case Constants.Identifiers.jobCell, Constants.Identifiers.folderCell:
+                prepareCellForJobListResult(cell: cell, indexPath: indexPath)
             case Constants.Identifiers.jenkinsCell:
                 prepareCellForJenkins(cell: cell, indexPath: indexPath)
             default: return cell
@@ -145,17 +181,17 @@ class JobsTableViewController: UITableViewController{
         return cell
     }
     
-    private func prepareCellForJob(cell: UITableViewCell, indexPath: IndexPath){
-        guard let job = currentView?.jobs[indexPath.row]
+    private func prepareCellForJobListResult(cell: UITableViewCell, indexPath: IndexPath){
+        guard let jobResult = currentView?.jobResults[indexPath.row]
             else { return }
-        prepare(cell: cell, for: job)
+        prepare(cell: cell, for: jobResult)
     }
     
-    fileprivate func prepare(cell: UITableViewCell, for job: Job){
-        cell.textLabel?.text = job.name
-        cell.detailTextLabel?.text = job.description
+    fileprivate func prepare(cell: UITableViewCell, for jobResult: JobListResult){
+        cell.textLabel?.text = jobResult.name
+        cell.detailTextLabel?.text = jobResult.description
         
-        if let color = job.color{
+        if let color = jobResult.color{
             cell.imageView?.image = UIImage(named: color.rawValue + "Circle")
         }
     }
@@ -165,11 +201,7 @@ class JobsTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section{
-            case 0: return jenkinsCellSegues.count
-            case 1: return currentView?.jobs.count ?? 0
-            default: return 0
-        }
+        return sections[section](nil, currentView?.jobResults).rows
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -227,8 +259,8 @@ extension JobsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate{
 
 extension JobsTableViewController: SearchResultsControllerDelegate{
     func setup(cell: UITableViewCell, for searchable: Searchable) {
-        guard let job = searchable.data as? Job
+        guard let jobListResult = searchable.data as? JobListResult
             else { return }
-        prepare(cell: cell, for: job)
+        prepare(cell: cell, for: jobListResult)
     }
 }

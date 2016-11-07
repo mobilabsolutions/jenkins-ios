@@ -8,7 +8,7 @@
 
 import Foundation
 
-class JobList: CustomDebugStringConvertible{
+class JobList{
     
     /// The view corresponding to all jobs
     var allJobsView: View?
@@ -48,15 +48,5 @@ class JobList: CustomDebugStringConvertible{
         mode = json[Constants.JSON.mode] as? String
         nodeName = json[Constants.JSON.nodeName] as? String
         
-    }
-    
-    var debugDescription: String{
-        return "{\n" + (allJobsView?.jobs.reduce("", { (result, job) -> String in
-            return "\(result) Name: \(job.name), Description: \(job.description) \n"
-        }) ?? "No all view")
-            + (views.reduce("Views: ", { (result, view) -> String in
-                return "\(result)\(view)\n"
-        }))
-            + "}"
     }
 }

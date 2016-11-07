@@ -36,6 +36,7 @@ struct Constants{
     struct Identifiers{
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
+        static let folderCell = "folderCell"
         static let buildCell = "buildCell"
         static let favoritesCell = "favoritesCell"
         static let jenkinsCell = "jenkinsCell"
@@ -64,6 +65,7 @@ struct Constants{
         static let showPluginsSegue = "showPluginsSegue"
         static let editAccountSegue = "editAccountSegue"
         static let showArtifactsSegue = "showArtifactsSegue"
+        static let showFolderSegue = "showFolderSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }

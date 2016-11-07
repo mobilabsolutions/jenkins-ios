@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UsersTableViewController: UITableViewController {
+class UsersTableViewController: RefreshingTableViewController {
 
     var account: Account?
     private var userList: UserList?{
@@ -29,18 +29,16 @@ class UsersTableViewController: UITableViewController {
 
     
     //MARK: - View controller life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addRefreshControl(action: #selector(performRequest))
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         performRequest()
     }
-    
+
+    override func refresh(){
+        performRequest()
+    }
+
     //MARK: - Data loading
     @objc private func performRequest(){
         guard let account = account

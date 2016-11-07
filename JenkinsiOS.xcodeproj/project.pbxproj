@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
+		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
 		DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */; };
 		DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */; };
@@ -95,6 +97,10 @@
 		DC86256D1DA90DD900EB7867 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256C1DA90DD900EB7867 /* User.swift */; };
 		DC86256F1DA90F2500EB7867 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256E1DA90F2500EB7867 /* Project.swift */; };
 		DC8625721DA9213500EB7867 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */; };
+		DC8B5C611DC252B800A01D6E /* ModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */; };
+		DC8B5C631DC2537700A01D6E /* BuildTestsMinimalResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */; };
+		DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C641DC2694800A01D6E /* JobListResult.swift */; };
+		DC8B5C661DC26AA300A01D6E /* JobListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C641DC2694800A01D6E /* JobListResult.swift */; };
 		DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */; };
 		DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */; };
 		DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */; };
@@ -187,6 +193,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshingTableViewController.swift; sourceTree = "<group>"; };
+		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
 		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
@@ -233,6 +241,9 @@
 		DC86256C1DA90DD900EB7867 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC86256E1DA90F2500EB7867 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTestCase.swift; sourceTree = "<group>"; };
+		DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsMinimalResource.json; sourceTree = "<group>"; };
+		DC8B5C641DC2694800A01D6E /* JobListResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobListResult.swift; sourceTree = "<group>"; };
 		DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutputViewController.swift; sourceTree = "<group>"; };
 		DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesTableViewController.swift; sourceTree = "<group>"; };
 		DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +326,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC91B001290BB58CDC43E6F6 /* Build Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BC91BD8AB3DC9032CF20688B /* BuildTest.swift */,
+				DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */,
+			);
+			path = "Build Tests";
+			sourceTree = "<group>";
+		};
 		DC2045B81DB12892009CF232 /* JenkinsiOSTodayExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +374,7 @@
 				DC66CECE1D98273A00808ED0 /* View.swift */,
 				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
 				DC99C4051D95719C0031DBE4 /* JobList.swift */,
+				DC8B5C641DC2694800A01D6E /* JobListResult.swift */,
 			);
 			name = Job;
 			sourceTree = "<group>";
@@ -443,6 +464,8 @@
 				DC99C3EB1D955C910031DBE4 /* Info.plist */,
 				DCE73CB31DB63B7700028A96 /* Job Tests */,
 				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
+				BC91B001290BB58CDC43E6F6 /* Build Tests */,
+				DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */,
 			);
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
@@ -513,6 +536,7 @@
 				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
 				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
+				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -733,6 +757,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC8B5C631DC2537700A01D6E /* BuildTestsMinimalResource.json in Resources */,
 				DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */,
 				DCE73CB21DB627BE00028A96 /* JobTestsFullResource.json in Resources */,
 			);
@@ -763,6 +788,7 @@
 			files = (
 				DC2045D61DB12A8E009CF232 /* Constants.swift in Sources */,
 				DC2045DD1DB12D7F009CF232 /* Child.swift in Sources */,
+				DC8B5C661DC26AA300A01D6E /* JobListResult.swift in Sources */,
 				DC2045DC1DB12D7F009CF232 /* TestResult.swift in Sources */,
 				DC2045C91DB129C2009CF232 /* Actions.swift in Sources */,
 				DC2045CF1DB129D6009CF232 /* HealthReportResult.swift in Sources */,
@@ -851,6 +877,7 @@
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */,
+				DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */,
 				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
@@ -881,6 +908,7 @@
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
+				BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,6 +918,8 @@
 			files = (
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
+				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,
+				DC8B5C611DC252B800A01D6E /* ModelTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1077,6 +1107,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JenkinsiOS/JenkinsiOS.entitlements;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

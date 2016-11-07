@@ -119,10 +119,10 @@ class AccountManager{
             _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
         
-        url.appendPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        url.appendPathComponent(encodedUrlPath(for: account.baseUrl)!)
         
         NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
-        guard let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        guard let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(encodedUrlPath(for: account.baseUrl)!)
             else { return }
         
         _ = try? FileManager.default.createDirectory(at: Constants.Paths.sharedAccountsPath!, withIntermediateDirectories: true, attributes: [:])
@@ -136,7 +136,7 @@ class AccountManager{
     func deleteAccount(account: Account) throws{
         
         let url = Constants.Paths.accountsPath.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
-        let sharedUrl = Constants.Paths.sharedAccountsPath!.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
+        let sharedUrl = Constants.Paths.sharedAccountsPath!.appendingPathComponent(encodedUrlPath(for: account.baseUrl)!)
         
         try FileManager.default.removeItem(at: url)
         try FileManager.default.removeItem(at: sharedUrl)
@@ -150,5 +150,11 @@ class AccountManager{
         }
         
         accounts = getAccounts()
+    }
+    
+    //MARK: - Helpers
+    
+    private func encodedUrlPath(for url: URL) -> String?{
+        return url.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
     }
 }

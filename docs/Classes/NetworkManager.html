@@ -14,7 +14,7 @@
     <a title="NetworkManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (52% documented)</p>
+        <p><a href="../index.html"> Docs</a> (48% documented)</p>
         <p class="header-right"><a href="https://github.com/mobilabsolutions/jenkins-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -45,6 +45,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ApplicationUserManager.html">ApplicationUserManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Artifact.html">Artifact</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Author.html">Author</a>
@@ -157,7 +160,13 @@
             <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/JenkinsAction.html">JenkinsAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/JenkinsColor.html">JenkinsColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JobListResult.html">JobListResult</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/NetworkManagerError.html">NetworkManagerError</a>
@@ -184,9 +193,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIImageView.html">UIImageView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Extensions/UITableViewController.html">UITableViewController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIViewController.html">UIViewController</a>
@@ -224,6 +230,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Constants/JSON.html">– JSON</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Constants/Networking.html">– Networking</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Constants/API.html">– API</a>
@@ -945,9 +954,220 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager12performBuildFzT7accountCS_7Account3jobCS_3Job5tokenSS10parametersGSqGVs10DictionarySSPs9AnyObject___10completionGSqFTGSqPS4___GSqPs5Error___T___T_"></a>
+                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager16downloadArtifactFT8artifactCS_8Artifact7accountCS_7Account10completionFTGSqV10Foundation4Data_GSqPs5Error___T__T_"></a>
+                    <a name="//apple_ref/swift/Method/downloadArtifact(artifact:account:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager16downloadArtifactFT8artifactCS_8Artifact7accountCS_7Account10completionFTGSqV10Foundation4Data_GSqPs5Error___T__T_">downloadArtifact(artifact:account:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Download a given artifact</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">downloadArtifact</span><span class="p">(</span><span class="nv">artifact</span><span class="p">:</span> <span class="kt"><a href="../Classes/Artifact.html">Artifact</a></span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="kt"><a href="../Classes/Account.html">Account</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">Data</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()))</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artifact</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The artifact that should be downloaded</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The account the artifact is associated with</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure handling the (optionally) returned data as well as an (optional) error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager27getConsoleOutputUserRequestFT5buildCS_5Build7accountCS_7Account_V10Foundation10URLRequest"></a>
+                    <a name="//apple_ref/swift/Method/getConsoleOutputUserRequest(build:account:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager27getConsoleOutputUserRequestFT5buildCS_5Build7accountCS_7Account_V10Foundation10URLRequest">getConsoleOutputUserRequest(build:account:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the user request for getting the console output of a given build</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">getConsoleOutputUserRequest</span><span class="p">(</span><span class="nv">build</span><span class="p">:</span> <span class="kt"><a href="../Classes/Build.html">Build</a></span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="kt"><a href="../Classes/Account.html">Account</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>build</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The build to get the console output for</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The account that should be used</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The url request that gets the console output</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager7performFT6actionOS_13JenkinsAction2onCS_7Account10completionFGSqPs5Error__T__T_"></a>
+                    <a name="//apple_ref/swift/Method/perform(action:on:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager7performFT6actionOS_13JenkinsAction2onCS_7Account10completionFGSqPs5Error__T__T_">perform(action:on:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Perform an action on the given jenkins instance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">perform</span><span class="p">(</span><span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Enums/JenkinsAction.html">JenkinsAction</a></span><span class="p">,</span> <span class="n">on</span> <span class="nv">account</span><span class="p">:</span> <span class="kt"><a href="../Classes/Account.html">Account</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>action</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action that should be performed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The account the action should be performed on</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure handling an optional error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager12performBuildFzT7accountCS_7Account3jobCS_3Job5tokenGSqSS_10parametersGSqGVs10DictionarySSPs9AnyObject___10completionGSqFTGSqPS4___GSqPs5Error___T___T_"></a>
                     <a name="//apple_ref/swift/Method/performBuild(account:job:token:parameters:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager12performBuildFzT7accountCS_7Account3jobCS_3Job5tokenSS10parametersGSqGVs10DictionarySSPs9AnyObject___10completionGSqFTGSqPS4___GSqPs5Error___T___T_">performBuild(account:job:token:parameters:completion:)</a>
+                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager12performBuildFzT7accountCS_7Account3jobCS_3Job5tokenGSqSS_10parametersGSqGVs10DictionarySSPs9AnyObject___10completionGSqFTGSqPS4___GSqPs5Error___T___T_">performBuild(account:job:token:parameters:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -962,7 +1182,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performBuild</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt"><a href="../Classes/Account.html">Account</a></span><span class="p">,</span> <span class="nv">job</span><span class="p">:</span> <span class="kt"><a href="../Classes/Job.html">Job</a></span><span class="p">,</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">AnyObject</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performBuild</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt"><a href="../Classes/Account.html">Account</a></span><span class="p">,</span> <span class="nv">job</span><span class="p">:</span> <span class="kt"><a href="../Classes/Job.html">Job</a></span><span class="p">,</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">AnyObject</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())?)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -1043,10 +1263,99 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Helper%20methods"></a>
+                <a name="//apple_ref/swift/Section/Helper methods" class="dashAnchor"></a>
+                <a href="#/Helper%20methods">
+                  <h3 class="section-name">Helper methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24JenkinsiOSTodayExtension14NetworkManager10urlRequestFT3forCS_11UserRequest9useAPIURLSb6methodOS0_10HTTPMethod_V10Foundation10URLRequest"></a>
+                    <a name="//apple_ref/swift/Method/urlRequest(for:useAPIURL:method:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24JenkinsiOSTodayExtension14NetworkManager10urlRequestFT3forCS_11UserRequest9useAPIURLSb6methodOS0_10HTTPMethod_V10Foundation10URLRequest">urlRequest(for:useAPIURL:method:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a url request from a given user request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">urlRequest</span><span class="p">(</span><span class="k">for</span> <span class="nv">userRequest</span><span class="p">:</span> <span class="kt"><a href="../Classes/UserRequest.html">UserRequest</a></span><span class="p">,</span> <span class="nv">useAPIURL</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">method</span><span class="p">:</span> <span class="kt"><a href="../Classes/NetworkManager/HTTPMethod.html">HTTPMethod</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user request which to transform into a url request</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>useAPIURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether or not to use the api url for the url request</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method the request should use</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The url request created from the inputted user request</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://mobilabsolutions.com" target="_blank" rel="external">MobilabSolutions</a>. All rights reserved. (Last updated: 2016-10-18)</p>
+          <p>&copy; 2016 <a class="link" href="http://mobilabsolutions.com" target="_blank" rel="external">MobilabSolutions</a>. All rights reserved. (Last updated: 2016-10-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

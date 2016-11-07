@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BuildQueueTableViewController: UITableViewController {
+class BuildQueueTableViewController: RefreshingTableViewController {
 
     var queue: BuildQueue?
     var account: Account?
@@ -19,9 +19,11 @@ class BuildQueueTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
-        
-        addRefreshControl(action: #selector(performRequest))
-        
+
+        performRequest()
+    }
+
+    override func refresh(){
         performRequest()
     }
 
