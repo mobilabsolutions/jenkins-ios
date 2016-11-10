@@ -148,6 +148,8 @@
 		DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
 		DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
 		DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
+		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
+		DCFB9CD21DD4C44700C07D8E /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFB9CD11DD4C44700C07D8E /* NetworkManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +293,8 @@
 		DCE73CB41DB64DE600028A96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		DCE73CB51DB64DE600028A96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DCE73CBA1DB678B400028A96 /* Artifact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artifact.swift; sourceTree = "<group>"; };
+		DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsFullResource.json; sourceTree = "<group>"; };
+		DCFB9CD11DD4C44700C07D8E /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +335,7 @@
 			children = (
 				BC91BD8AB3DC9032CF20688B /* BuildTest.swift */,
 				DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */,
+				DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */,
 			);
 			path = "Build Tests";
 			sourceTree = "<group>";
@@ -461,11 +466,12 @@
 		DC99C3E81D955C910031DBE4 /* JenkinsiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				BC91B001290BB58CDC43E6F6 /* Build Tests */,
 				DC99C3EB1D955C910031DBE4 /* Info.plist */,
 				DCE73CB31DB63B7700028A96 /* Job Tests */,
-				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
-				BC91B001290BB58CDC43E6F6 /* Build Tests */,
 				DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */,
+				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
+				DCFB9CD11DD4C44700C07D8E /* NetworkManagerTests.swift */,
 			);
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
@@ -758,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC8B5C631DC2537700A01D6E /* BuildTestsMinimalResource.json in Resources */,
+				DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */,
 				DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */,
 				DCE73CB21DB627BE00028A96 /* JobTestsFullResource.json in Resources */,
 			);
@@ -916,6 +923,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCFB9CD21DD4C44700C07D8E /* NetworkManagerTests.swift in Sources */,
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
 				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,

@@ -11,16 +11,28 @@ class BuildTest: ModelTestCase {
     func testMinimalInitializesProperly(){
         guard let json = jsonForResource(name: "BuildTestsMinimalResource", extension: "json", type: type(of: self)) as? [String: AnyObject]
             else { XCTFail("Could not properly get JSON"); return }
-        let build = Build(json: json, minimalVersion: true)
-        
-        XCTAssertEqual(build?.number, 122)
-        XCTAssertEqual(build?.url, URL(string: "https://builds.apache.org/job/Accumulo-1.8/122/"))
-        
-        //Most attributes should be nil
-        XCTAssertNil(build?.buildDescription)
-        XCTAssertNil(build?.building)
-        XCTAssertNil(build?.actions)
-        XCTAssertNil(build?.builtOn)
+        guard let build = Build(json: json, minimalVersion: true)
+            else { XCTFail("Build should not be nil"); return }
+        assureValuesAreExpected(values: [
+            (build.number, json["number"]),
+            (build.url, URL(string: json["url"] as! String)),
+            (build.buildDescription, nil),
+            (build.building, nil),
+            (build.actions, nil),
+            (build.builtOn, nil)
+        ])
     }
 
+    func testFullVersionInitializesProperly(){
+        guard let json = jsonForResource(name: "BuildTestsFullResource", extension: "json", type: type(of: self)) as? [String: AnyObject]
+            else { XCTFail("Could not properly get JSON"); return }
+        guard let build = Build(json: json, minimalVersion: false)
+            else { XCTFail("Build should not be nil"); return }
+        
+        assureValuesAreExpected(values: [
+                (build.number, json["number"]),
+                (build.url, URL(string: json["url"] as! String))
+        ])
+    }
+    
 }
