@@ -53,19 +53,18 @@ class JobViewController: UIViewController {
         modalViewController.withActivityIndicator(title: "Loading")
         
         try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
-            if let error = error{
-                modalViewController.dismiss(animated: true, completion: { 
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                        self.account?.username = returnData["username"]!
-                        self.account?.password = returnData["password"]!
-                        
-                        self.build()
+            DispatchQueue.main.async {
+                if let error = error{
+                    modalViewController.dismiss(animated: true, completion: { 
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+                            
+                            self.build()
+                        })
                     })
-                })
-                
-            }
-            else{
-                DispatchQueue.main.async {
+                }
+                else{
                     let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
                     successImageView.contentMode = .scaleAspectFit
                     modalViewController.with(title: "Success", detailView: successImageView)
@@ -81,8 +80,12 @@ class JobViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         performRequest()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupUI()
     }
     
     func like(){
@@ -98,20 +101,20 @@ class JobViewController: UIViewController {
             let userRequest = UserRequest(requestUrl: job.url, account: account)
             
             NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (job, error) in
-                guard error == nil
-                    else {
-                        if let error = error{
-                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                                self.account?.username = returnData["username"]!
-                                self.account?.password = returnData["password"]!
-                                
-                                self.performRequest()
-                            })
-                        }
-                        return
-                }
-                
                 DispatchQueue.main.async {
+                    guard error == nil
+                        else {
+                            if let error = error{
+                                self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                    self.account?.username = returnData["username"]!
+                                    self.account?.password = returnData["password"]!
+                                    
+                                    self.performRequest()
+                                })
+                            }
+                            return
+                    }
+                    
                     self.updateUI()
                 }
             })
@@ -135,7 +138,13 @@ class JobViewController: UIViewController {
         urlLabel.text = (job?.url).textify()
         
         let imageName = (job == nil || !job!.isFavorite) ? "HeartEmpty" : "HeartFull"
-        navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
+        
+        if let titleView = navigationItem.titleView as? UIImageView{
+            titleView.image = UIImage(named: imageName)
+        }
+        else{
+            navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
+        }
         
         navigationItem.titleView?.sizeToFit()
         navigationItem.titleView?.isUserInteractionEnabled = true
