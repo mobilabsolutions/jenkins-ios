@@ -300,6 +300,14 @@ class NetworkManager{
         }
     }
     
+    /// Configure the request for triggering a given build
+    ///
+    /// - Parameters:
+    ///   - account: The account on which to trigger the build
+    ///   - job: The job which to trigger
+    ///   - token: An optional security token that is passed with the url
+    ///   - parameters: The parameters that the build should be triggered with
+    ///   - completion: A closure handing the userrequest to the calling entity
     private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: @escaping (UserRequest?, Error?) -> ()){
         var components = URLComponents(url: job.url.appendingPathComponent("build", isDirectory: true), resolvingAgainstBaseURL: true)
         
@@ -331,6 +339,11 @@ class NetworkManager{
         }
     }
     
+    /// Get the crumb for a given account for authentication
+    ///
+    /// - Parameters:
+    ///   - account: The account to get the crumb for
+    ///   - completion: A closure handling the (optionally) returned crumb as a URLQueryItem
     private func getCrumb(account: Account, completion: @escaping (URLQueryItem?) -> ()){
         let request = UserRequest(requestUrl: account.baseUrl.appendingPathComponent(Constants.API.crumbIssuer), account: account)
         performRequestForJson(userRequest: request, method: .GET) { (data, error) in
