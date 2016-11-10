@@ -14,7 +14,6 @@ class Parameter: Hashable, Equatable{
     var description: String
     var name: String
     
-    var defaultParameterValue: Any?
     var defaultParameterString: String?
     
     var additionalData: AnyObject?
@@ -29,9 +28,11 @@ class Parameter: Hashable, Equatable{
         self.name = name
         self.description = description
         
-        if let defaultParameter = json[Constants.JSON.defaultParameterValue] as? [String: Any]{
-            defaultParameterValue = defaultParameter[Constants.JSON.value] as? String
-            defaultParameterString = defaultParameter[Constants.JSON.value] as? String
+        if let defaultParameter = json[Constants.JSON.defaultParameterValue] as? [String: Any], let value = defaultParameter[Constants.JSON.value]{
+            defaultParameterString = "\(value)"
+        }
+        else{
+            defaultParameterString = type.backupDefaultString()
         }
         
         if let additionalDataString = type.additionalDataString(){

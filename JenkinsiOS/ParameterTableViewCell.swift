@@ -83,7 +83,8 @@ class ParameterTableViewCell: UITableViewCell {
     
     private func switchView() -> UISwitch{
         let switchView = UISwitch()
-        switchView.isOn = (parameter?.defaultParameterValue as? Bool) ?? false
+        
+        switchView.isOn = (parameter?.defaultParameterString != nil ? Bool(parameter!.defaultParameterString!) : nil) ?? false
         switchView.addTarget(self, action: #selector(didEdit), for: .valueChanged)
             
         return switchView
