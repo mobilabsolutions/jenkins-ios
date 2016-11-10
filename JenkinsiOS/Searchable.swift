@@ -33,5 +33,4 @@ class Searchable{
         self.action = action
         self.lowerCasedSearchString = searchString.lowercased()
     }
-    
 }

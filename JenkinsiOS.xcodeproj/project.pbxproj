@@ -66,6 +66,8 @@
 		DC3CCD0C1DA67229004C4C3D /* PluginList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0B1DA67229004C4C3D /* PluginList.swift */; };
 		DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0D1DA67245004C4C3D /* Plugin.swift */; };
 		DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD121DA6791D004C4C3D /* Dependency.swift */; };
+		DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */; };
+		DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */; };
 		DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEBE1D97FD9000808ED0 /* Account.swift */; };
 		DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */; };
 		DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */; };
@@ -215,6 +217,8 @@
 		DC3CCD0B1DA67229004C4C3D /* PluginList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginList.swift; sourceTree = "<group>"; };
 		DC3CCD0D1DA67245004C4C3D /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		DC3CCD121DA6791D004C4C3D /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchableTests.swift; sourceTree = "<group>"; };
+		DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherTests.swift; sourceTree = "<group>"; };
 		DC66CEBE1D97FD9000808ED0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
 		DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +388,35 @@
 			name = Job;
 			sourceTree = "<group>";
 		};
+		DC4CBA221DD4D81600E54245 /* Model Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */,
+				DCE73CB31DB63B7700028A96 /* Job Tests */,
+				BC91B001290BB58CDC43E6F6 /* Build Tests */,
+			);
+			name = "Model Tests";
+			sourceTree = "<group>";
+		};
+		DC4CBA231DD4D82600E54245 /* Services Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DCFB9CD11DD4C44700C07D8E /* NetworkManagerTests.swift */,
+				DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */,
+				DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */,
+			);
+			name = "Services Tests";
+			sourceTree = "<group>";
+		};
+		DC4CBA241DD4D83A00E54245 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3EB1D955C910031DBE4 /* Info.plist */,
+				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 		DC85AE0C1DABDE9100D20059 /* BuildQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,12 +499,9 @@
 		DC99C3E81D955C910031DBE4 /* JenkinsiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				BC91B001290BB58CDC43E6F6 /* Build Tests */,
-				DC99C3EB1D955C910031DBE4 /* Info.plist */,
-				DCE73CB31DB63B7700028A96 /* Job Tests */,
-				DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */,
-				DCE73CAF1DB624A300028A96 /* TestExtensions.swift */,
-				DCFB9CD11DD4C44700C07D8E /* NetworkManagerTests.swift */,
+				DC4CBA221DD4D81600E54245 /* Model Tests */,
+				DC4CBA231DD4D82600E54245 /* Services Tests */,
+				DC4CBA241DD4D83A00E54245 /* Other */,
 			);
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
@@ -928,6 +958,8 @@
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
 				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,
 				DC8B5C611DC252B800A01D6E /* ModelTestCase.swift in Sources */,
+				DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */,
+				DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
