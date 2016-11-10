@@ -24,7 +24,7 @@ class ParametersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        parameterValues = parameters.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
+        parameterValues = parameters.filter{ $0.type != .unknown }.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 130

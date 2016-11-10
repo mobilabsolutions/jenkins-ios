@@ -138,7 +138,7 @@ class Job: Favoratible{
                     else { continue }
                 
                 if parameter.type == .run{
-                    parameter.additionalData = builds.map({ "\(name) #\($0.number)" }) as AnyObject?
+                    parameter.additionalData = builds.map({ "\(name)#\($0.number)" }) as AnyObject?
                 }
                 
                 parameters.append(parameter)
