@@ -9,7 +9,7 @@
 import Foundation
 
 class Account: NSObject, NSCoding{
-    
+
     /// The account's name
     var displayName: String?
     /// The account's base url
@@ -56,5 +56,15 @@ class Account: NSObject, NSCoding{
         aCoder.encode(port, forKey: "port")
         aCoder.encode(username, forKey: "username")
         aCoder.encode(displayName, forKey: "displayName")
+    }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let otherAccount = object as? Account
+            else { return false }
+        return (displayName == otherAccount.displayName)
+                && (baseUrl == otherAccount.baseUrl)
+                && (username == otherAccount.username)
+                && (password == otherAccount.password)
+                && (port == otherAccount.port)
     }
 }
