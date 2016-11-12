@@ -63,7 +63,7 @@ class AccountManagerTests: XCTestCase {
         _ = addGenericAccounts()
         AccountManager.manager.accounts.first!.username = "OtherUsernameThanBefore"
         AccountManager.manager.save()
-        
+
         AccountManager.manager.accounts = []
         AccountManager.manager.update()
         XCTAssertEqual(AccountManager.manager.accounts.first!.username, "OtherUsernameThanBefore")

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */; };
 		BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */; };
 		BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */; };
 		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
@@ -206,6 +207,7 @@
 		BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagerTests.swift; sourceTree = "<group>"; };
 		BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
+		BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManagerTests.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
 		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */,
 				DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */,
 				BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */,
+				BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */,
 			);
 			name = "Services Tests";
 			sourceTree = "<group>";
@@ -988,6 +991,7 @@
 				DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */,
 				BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */,
 				BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */,
+				BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
