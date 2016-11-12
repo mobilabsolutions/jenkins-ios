@@ -57,6 +57,6 @@ class Favorite: NSObject, NSCoding{
     override func isEqual(_ object: Any?) -> Bool {
         guard let fav = object as? Favorite
             else { return false }
-        return fav.url == self.url && fav.type == self.type
+        return (fav.url == self.url) && (fav.type == self.type)
     }
 }

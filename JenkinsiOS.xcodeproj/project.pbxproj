@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */; };
 		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
 		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
@@ -70,6 +71,7 @@
 		DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */; };
 		DC595DFD1DD75344000FEA9F /* UserRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */; };
 		DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */; };
+		DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */; };
 		DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEBE1D97FD9000808ED0 /* Account.swift */; };
 		DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */; };
 		DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */; };
@@ -200,6 +202,7 @@
 
 /* Begin PBXFileReference section */
 		BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshingTableViewController.swift; sourceTree = "<group>"; };
+		BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +226,7 @@
 		DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherTests.swift; sourceTree = "<group>"; };
 		DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestTests.swift; sourceTree = "<group>"; };
 		DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
+		DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserTests.swift; sourceTree = "<group>"; };
 		DC66CEBE1D97FD9000808ED0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
 		DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewController.swift; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 			children = (
 				DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */,
 				DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */,
+				DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */,
+				BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */,
 			);
 			name = "App Specific";
 			sourceTree = "<group>";
@@ -970,12 +976,14 @@
 				DCFB9CD21DD4C44700C07D8E /* NetworkManagerTests.swift in Sources */,
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
+				DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */,
 				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,
 				DC595DFD1DD75344000FEA9F /* UserRequestTests.swift in Sources */,
 				DC8B5C611DC252B800A01D6E /* ModelTestCase.swift in Sources */,
 				DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */,
 				DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */,
 				DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */,
+				BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,5 +25,4 @@ class ModelTestCase: XCTestCase {
             else { XCTFail("Could not get json in correct format"); return nil }
         return json
     }
-    
 }
