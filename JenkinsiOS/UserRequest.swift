@@ -39,7 +39,7 @@ class UserRequest{
     /// - parameter account:              The account that should be used for the account
     /// - parameter additionalQueryItems: Additional query items that should be used for the request
     ///
-    /// - returns: <#return value description#>
+    /// - returns: The initialized user request
     init(requestUrl: URL, account: Account, additionalQueryItems: [URLQueryItem]? = nil){
         self.requestUrl = requestUrl.using(scheme: "https", at: account.port)!
         self.account = account
