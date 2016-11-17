@@ -43,6 +43,10 @@ class ModalInformationViewController: UIViewController {
             else { return }
         detailView.translatesAutoresizingMaskIntoConstraints = false
         centerView.addSubview(detailView)
+        addConstraintsTo(detailView: detailView)
+    }
+    
+    private func addConstraintsTo(detailView: UIView){
         detailView.topAnchor.constraint(equalTo: centerView.topAnchor).isActive = true
         detailView.leftAnchor.constraint(equalTo: centerView.leftAnchor).isActive = true
         detailView.rightAnchor.constraint(equalTo: centerView.rightAnchor).isActive = true

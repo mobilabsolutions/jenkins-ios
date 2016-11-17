@@ -33,14 +33,7 @@ class ArtifactsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 guard let data = data, error == nil
                     else {
-                        self.displayNetworkError(error: error!, onReturnWithTextFields: { (dict) in
-                            guard let username = dict["username"], let password = dict["password"]
-                                else { return }
-                            self.account?.username = username
-                            self.account?.password = password
-                            
-                            self.downloadArtifact(artifact: artifact, completion: completion)
-                        })
+                        self.showErrorMessage(for: error!, with: artifact, completion: completion)
                         return
                 }
                 self.dismiss(animated: true, completion: { 
@@ -48,6 +41,17 @@ class ArtifactsTableViewController: UITableViewController {
                 })
             }
         }
+    }
+    
+    private func showErrorMessage(for error: Error, with artifact: Artifact, completion: @escaping (Data?) -> ()){
+        self.displayNetworkError(error: error, onReturnWithTextFields: { (dict) in
+            guard let username = dict["username"], let password = dict["password"]
+                else { return }
+            self.account?.username = username
+            self.account?.password = password
+            
+            self.downloadArtifact(artifact: artifact, completion: completion)
+        })
 
     }
     
@@ -71,33 +75,54 @@ class ArtifactsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        showModalInformationViewController()
+        
+        let artifact = artifacts[indexPath.row]
+        
+        downloadArtifact(artifact: artifact) { (data) in
+            guard let data = data
+                else { return }
+            let composer = self.mailComposer(for: artifact, with: data)
+            
+            self.present(composer, animated: true, completion: nil)
+        }
+    }
+    
+    private func mailComposer(for artifact: Artifact, with data: Data) -> MFMailComposeViewController{
+        let composer = MFMailComposeViewController()
+        
+        var subject = "Artifact \(artifact.filename)"
+        if let build = self.build{
+            subject += " from Build \(build.fullDisplayName ?? build.displayName ?? "#\(build.number)")"
+        }
+        composer.setSubject(subject)
+        composer.setMessageBody("Sent using Jenkins iOS", isHTML: false)
+        composer.addAttachmentData(data, mimeType: "", fileName: artifact.filename)
+        
+        composer.mailComposeDelegate = self
+        
+        return composer
+    }
+    
+    private func showModalInformationViewController(){
+        let modalInfoViewController = createModalInformationViewController()
+        present(modalInfoViewController, animated: true, completion: nil)
+        addIndicator(to: modalInfoViewController)
+    }
+    
+    private func createModalInformationViewController() -> ModalInformationViewController{
         let modalInfoViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
         modalInfoViewController.modalPresentationStyle = .overCurrentContext
         modalInfoViewController.modalTransitionStyle = .crossDissolve
-        present(modalInfoViewController, animated: true, completion: nil)
         
+        return modalInfoViewController
+    }
+    
+    private func addIndicator(to modalInfoViewController: ModalInformationViewController){
         let indicator = UIActivityIndicatorView()
         indicator.activityIndicatorViewStyle = .gray
         modalInfoViewController.with(title: "Loading Artifact", detailView: indicator)
         indicator.startAnimating()
-        
-        downloadArtifact(artifact: artifacts[indexPath.row]) { (data) in
-            guard let data = data
-                else { return }
-            let composer = MFMailComposeViewController()
-            
-            var subject = "Artifact \(self.artifacts[indexPath.row].filename)"
-            if let build = self.build{
-                subject += " from Build \(build.fullDisplayName ?? build.displayName ?? "#\(build.number)")"
-            }
-            composer.setSubject(subject)
-            composer.setMessageBody("Sent using Jenkins iOS", isHTML: false)
-            composer.addAttachmentData(data, mimeType: "", fileName: self.artifacts[indexPath.row].filename)
-            
-            composer.mailComposeDelegate = self
-            
-            self.present(composer, animated: true, completion: nil)
-        }
     }
 }
 

@@ -181,19 +181,10 @@ class TestResultsTableViewController: RefreshingTableViewController {
         let label = UILabel()
         
         if !UIAccessibilityIsReduceTransparencyEnabled(){
-            
-            let effect = UIBlurEffect(style: .light)
-            let effectView = UIVisualEffectView(effect: effect)
-            
-            effectView.frame = view.bounds
-            effectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            
-            view.addSubview(effectView)
+            addVisualEffectView(to: view)
         }
         
-        label.attributedText = NSAttributedString(string: suites[section].name ?? "No name", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
-        label.numberOfLines = 0
-        label.sizeToFit()
+        setUpHeaderLabel(label: label, for: suites[section])
         
         label.frame = view.bounds
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -201,14 +192,33 @@ class TestResultsTableViewController: RefreshingTableViewController {
         view.backgroundColor = UIColor.clear
         
         view.addSubview(label)
+        addConstraints(to: label, in: view)
         
+        return view
+    }
+    
+    private func addVisualEffectView(to headerView: UIView){
+        let effect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: effect)
+        
+        effectView.frame = view.bounds
+        effectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
+        headerView.addSubview(effectView)
+    }
+    
+    private func addConstraints(to label: UILabel, in view: UIView){
         label.layoutMarginsGuide.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 20).isActive = true
         label.layoutMarginsGuide.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: 20).isActive = true
         label.layoutMarginsGuide.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         label.layoutMarginsGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         label.layoutMarginsGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        return view
+    }
+    
+    private func setUpHeaderLabel(label: UILabel, for suite: Suite){
+        label.attributedText = NSAttributedString(string: suites[section].name ?? "No name", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
+        label.numberOfLines = 0
+        label.sizeToFit()
     }
     
     // MARK: - Navigation
