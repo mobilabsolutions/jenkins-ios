@@ -17,7 +17,6 @@ class SearchResultsTableViewController: UITableViewController {
     
     fileprivate var displayingData: [Searchable] = []
     
-    
     init(searchData: [Searchable]){
         super.init(style: .plain)
         self.searchData = searchData
@@ -54,7 +53,7 @@ class SearchResultsTableViewController: UITableViewController {
     
 }
 
-extension SearchResultsTableViewController: SearcherDelegate{
+extension SearchResultsTableViewController: SearcherDelegate{    
     func updatedData(data: [Searchable]) {
         displayingData = data
         tableView.reloadData()

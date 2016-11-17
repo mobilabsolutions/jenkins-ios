@@ -109,14 +109,44 @@ class TestResultsTableViewController: RefreshingTableViewController {
             }
         }
 
-        
         let searchResultsController = SearchResultsTableViewController(searchData: searchData)
         searchResultsController.delegate = self
         searchResultsController.cellStyle = .subtitle
         searchController = UISearchController(searchResultsController: searchResultsController)
         tableView.tableHeaderView = searchController?.searchBar
+        
+        searchController?.searchBar.scopeButtonTitles = TestResultScope.getScopeStrings()
         searchController?.searchResultsUpdater = searchResultsController.searcher
+        searchController?.searchBar.delegate = searchResultsController.searcher
+        
+        searchResultsController.searcher?.additionalSearchCondition = {
+            (searchable, scopeString) -> Bool in
+            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
+                else { return true }
+            return scope.equals(status: status)
+        }
+        
+        searchResultsController.searcher?.includeAllOnEmptySearchString = true
+        
         tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+    }
+    
+    private enum TestResultScope: String{
+        case all = "All"
+        case passed = "Passed"
+        case skipped = "Skipped"
+        case failed = "Failed"
+        
+        static func getScopeStrings() -> [String]{
+            return [TestResultScope.all, .passed, .skipped, .failed].map{ $0.rawValue }
+        }
+        
+        func equals(status: Case.Status) -> Bool{
+            guard self != .all
+                else { return true }
+            
+            return Case.Status(rawValue: self.rawValue.uppercased()) == status
+        }
     }
     
     // MARK: - Table view data source
@@ -139,7 +169,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         cell.testNameLabel.text = testCase.name ?? "No name"
         cell.testDurationLabel.text = testCase.duration != nil ? "(\(testCase.duration!)ms)" : "Unknown"
         
-        if let status = testCase.status?.lowercased(){
+        if let status = testCase.status?.rawValue.lowercased(){
             cell.testResultImageView.image = UIImage(named: "\(status)TestCase")
         }
         
@@ -205,7 +235,7 @@ extension TestResultsTableViewController: SearchResultsControllerDelegate{
         cell.detailTextLabel?.text = testCase.duration != nil ? "\(testCase.duration!)ms" : nil
         cell.textLabel?.text = testCase.name.textify()
         
-        if let status = testCase.status?.lowercased(), let image = UIImage(named: "\(status)TestCase"){
+        if let status = testCase.status?.rawValue.lowercased(), let image = UIImage(named: "\(status)TestCase"){
             cell.imageView?.withResized(image: image, size: CGSize(width: 20, height: 20))
             cell.imageView?.contentMode = .scaleAspectFit
         }
