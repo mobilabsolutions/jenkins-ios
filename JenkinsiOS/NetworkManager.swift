@@ -8,10 +8,18 @@
 
 import Foundation
 
-class NetworkManager{
+class NetworkManager: NSObject{
     
     static let manager = NetworkManager()
-    
+
+    private var session: URLSession!
+    fileprivate var accounts: [URLSessionTask: Account] = [:]
+
+    private override init(){
+        super.init()
+        session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+    }
+
     //MARK: - Enumerations
         
     /// An enum describing the available http methods
@@ -386,8 +394,8 @@ class NetworkManager{
         let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
         
         NetworkActivityIndicatorManager.manager.setActivityIndicator(active: true)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+        let task = session.dataTask(with: request) { (data, response, error) in
             
             NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
             
@@ -404,7 +412,9 @@ class NetworkManager{
             
             completion(data, error)
         }
-        
+
+        accounts[task] = userRequest.account
+
         task.resume()
     }
     
@@ -438,5 +448,24 @@ class NetworkManager{
         return [
             "Authorization" : "Basic " + "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
         ]
+    }
+}
+
+extension NetworkManager: URLSessionTaskDelegate{
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        guard let account = accounts[task], account.trustAllCertificates == true
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        // An empty credential
+        let credential = URLCredential(user: "", password: "", persistence: .none)
+        completionHandler(.useCredential, credential)
+    }
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+        accounts[task] = nil
     }
 }

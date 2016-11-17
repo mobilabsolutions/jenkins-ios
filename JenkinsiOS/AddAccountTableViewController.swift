@@ -22,8 +22,9 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet weak var apiKeyTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    
+    @IBOutlet weak var schemeControl: UISegmentedControl!
+    @IBOutlet weak var trustAllCertificatesSwitch: UISwitch!
+
     //MARK: - Actions
     
     @IBAction func cancel(_ sender: AnyObject) {
@@ -40,7 +41,8 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     private func createAccount() -> Account?{
-        guard let url = URL(string: "https://" + urlTextField.text!)
+        
+        guard let url = createAccountURL()
             else { return nil }
         
         let port = Int(portTextField.text!) ?? Constants.Defaults.defaultPort
@@ -48,8 +50,15 @@ class AddAccountTableViewController: UITableViewController {
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
         
         let displayName = nameTextField.text != "" ? nameTextField.text : nil
-        
-        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName)
+        let trustAllCertificates = trustAllCertificatesSwitch.isOn
+
+        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName,
+                trustAllCertificates: trustAllCertificates)
+    }
+    
+    private func createAccountURL() -> URL?{
+        let schemeString = schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) ?? "https://"
+        return URL(string: schemeString + urlTextField.text!)
     }
     
     func saveAccount(){
@@ -60,7 +69,8 @@ class AddAccountTableViewController: UITableViewController {
         account?.password = newAccount.password
         account?.username = newAccount.username
         account?.port = newAccount.port
-        
+        account?.trustAllCertificates = newAccount.trustAllCertificates
+
         AccountManager.manager.save()
         dismiss(animated: true, completion: nil)
     }
@@ -77,6 +87,7 @@ class AddAccountTableViewController: UITableViewController {
             apiKeyTextField.text = account.password ?? ""
             urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
             nameTextField.text = account.displayName ?? ""
+            trustAllCertificatesSwitch.isOn = account.trustAllCertificates
         }
         else{
             addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
