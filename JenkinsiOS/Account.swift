@@ -21,9 +21,9 @@ class Account: NSObject, NSCoding{
     /// The port that should be used for any request
     var port: Int?
     /// Whether or not the requests made for that account should trust all certificates
-    var trustAllCertificates: Bool = false
+    var trustAllCertificates: Bool
 
-    /// Initialiser for Account
+    /// Initializer for Account
     ///
     /// - parameter baseUrl:     The account's base url
     /// - parameter username:    The username that should be used for any request

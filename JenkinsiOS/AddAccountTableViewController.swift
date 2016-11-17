@@ -24,6 +24,7 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var schemeControl: UISegmentedControl!
     @IBOutlet weak var trustAllCertificatesSwitch: UISwitch!
+    @IBOutlet weak var trustAllCertificatesWarning: UILabel!
 
     //MARK: - Actions
     
@@ -100,7 +101,12 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
-        // For username and password textfields, set the default value to nil
+        
+        toggleTrustAllCertificates(trustAllCertificatesSwitch)
+    }
+    
+    @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
+        trustAllCertificatesWarning.isHidden = !sender.isOn
     }
     
     //MARK: - Textfield methods
