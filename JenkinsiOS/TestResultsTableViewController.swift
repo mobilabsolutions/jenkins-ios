@@ -34,6 +34,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     @IBOutlet weak var passedTestCountLabel: UILabel!
     @IBOutlet weak var skippedTestCountLabel: UILabel!
     @IBOutlet weak var failedTestCountLabel: UILabel!
+    @IBOutlet weak var searchBarContainer: UIView!
     
     private var searchController: UISearchController?
     
@@ -97,38 +98,60 @@ class TestResultsTableViewController: RefreshingTableViewController {
         guard suites.count > 0
             else { return }
         
-        var searchData: [Searchable] = []
-            
-        for suite in suites{
-            for testCase in suite.cases{
-                searchData.append(Searchable(searchString: testCase.name ?? testCase.className ?? "Unknown", data: testCase){
-                    self.searchController?.dismiss(animated: true){
-                        self.performSegue(withIdentifier: Constants.Identifiers.showTestResultSegue, sender: testCase)
-                    }
-                })
-            }
-        }
+        let searchData = getSearchData()
 
         let searchResultsController = SearchResultsTableViewController(searchData: searchData)
-        searchResultsController.delegate = self
-        searchResultsController.cellStyle = .subtitle
+        
+        setupSearchResultsController(controller: searchResultsController)
+        
         searchController = UISearchController(searchResultsController: searchResultsController)
-        tableView.tableHeaderView = searchController?.searchBar
+        searchBarContainer.addSubview(searchController!.searchBar)
         
-        searchController?.searchBar.scopeButtonTitles = TestResultScope.getScopeStrings()
-        searchController?.searchResultsUpdater = searchResultsController.searcher
-        searchController?.searchBar.delegate = searchResultsController.searcher
+        setupSearchController(controller: searchController, with: searchResultsController)
+    }
+    
+    private func setupSearchController(controller: UISearchController?, with searchResultsController: SearchResultsTableViewController){
+        controller?.searchBar.isUserInteractionEnabled = true
         
-        searchResultsController.searcher?.additionalSearchCondition = {
+        controller?.searchBar.scopeButtonTitles = TestResultScope.getScopeStrings()
+        controller?.searchResultsUpdater = searchResultsController.searcher
+        controller?.searchBar.delegate = searchResultsController.searcher
+    }
+    
+    private func setupSearchResultsController(controller: SearchResultsTableViewController){
+        controller.delegate = self
+        controller.cellStyle = .subtitle
+        controller.searcher?.includeAllOnEmptySearchString = true
+        controller.searcher?.additionalSearchCondition = getAdditionalSearchCondition()
+    }
+    
+    private func getAdditionalSearchCondition() -> ((Searchable, String?) -> Bool){
+        return {
             (searchable, scopeString) -> Bool in
             guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
                 else { return true }
             return scope.equals(status: status)
         }
+    }
+    
+    private func getSearchData() -> [Searchable]{
+        var searchData: [Searchable] = []
         
-        searchResultsController.searcher?.includeAllOnEmptySearchString = true
+        for suite in suites{
+            for testCase in suite.cases{
+                searchData.append(searchable(for: testCase))
+            }
+        }
         
-        tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+        return searchData
+    }
+    
+    private func searchable(for testCase: Case) -> Searchable {
+        return Searchable(searchString: testCase.name ?? testCase.className ?? "Unknown", data: testCase){
+            self.searchController?.dismiss(animated: true){
+                self.performSegue(withIdentifier: Constants.Identifiers.showTestResultSegue, sender: testCase)
+            }
+        }
     }
     
     private enum TestResultScope: String{
@@ -201,7 +224,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         let effect = UIBlurEffect(style: .light)
         let effectView = UIVisualEffectView(effect: effect)
         
-        effectView.frame = view.bounds
+        effectView.frame = headerView.bounds
         effectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         headerView.addSubview(effectView)

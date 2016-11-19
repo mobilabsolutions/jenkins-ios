@@ -41,7 +41,7 @@ class Searcher: NSObject{
     func searchAndFilter(searchString: String, scope: String? = nil) -> [Searchable]{
         let searchString = searchString.lowercased()
         
-        if includeAllOnEmptySearchString{
+        if includeAllOnEmptySearchString && searchString.isEmpty{
             return searchableData.filter({ (searchable) -> Bool in
                 return additionalSearchCondition?(searchable, scope) ?? true
             })
