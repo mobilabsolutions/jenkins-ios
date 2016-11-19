@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountsTableViewController: UITableViewController {
+class AccountsTableViewController: BaseTableViewController {
     
     let headers = ["Favorites", "Accounts"]
     
@@ -16,10 +16,13 @@ class AccountsTableViewController: UITableViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
         navigationItem.leftBarButtonItem = editButtonItem
         registerForPreviewing(with: self, sourceView: tableView)
+        
+        emptyTableViewText = "No accounts have been created yet."
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,8 +85,12 @@ class AccountsTableViewController: UITableViewController {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return headers.count
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return AccountManager.manager.accounts.count == 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

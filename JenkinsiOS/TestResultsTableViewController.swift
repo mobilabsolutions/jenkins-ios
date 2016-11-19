@@ -41,6 +41,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Test Results"
+        emptyTableViewText = "Loading Test Results"
         loadTestResults()
     }
     
@@ -65,11 +66,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
                 
                 if let error = error{
                     if let networkManagerError = error as? NetworkManagerError, networkManagerError.code == 404{
-                        self.displayError(title: "No Test Results", message: "No test results are available", textFieldConfigurations: [], actions: [
-                                UIAlertAction(title: "Alright", style: .cancel, handler: { (action) in
-                                    self.dismiss(animated: true, completion: nil)
-                                })
-                            ])
+                        self.emptyTableViewText = "No test results available"
                     }
                     else{
                         self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -174,7 +171,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return suites.count
     }
 

@@ -27,6 +27,7 @@ class PluginsTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Plugins"
+        emptyTableViewText = "Loading Plugins"
         performRequest()
     }
 
@@ -53,6 +54,7 @@ class PluginsTableViewController: RefreshingTableViewController {
                 self.pluginList = pluginList
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
+                self.emptyTableViewText = "There do not seem to be any Plugins"
             }
         }
     }
@@ -80,7 +82,7 @@ class PluginsTableViewController: RefreshingTableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return pluginList?.plugins.count ?? 0
     }
 

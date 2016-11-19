@@ -16,6 +16,7 @@ class BuildQueueTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Build Queue"
+        emptyTableViewText = "Loading Build Queue"
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
@@ -54,9 +55,8 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    // MARK: - Table view data source    
+    override func numberOfSections() -> Int {
         return 1
     }
 

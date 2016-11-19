@@ -145,7 +145,7 @@ class FavoritesTableViewController: RefreshingTableViewController {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return 2
     }
 

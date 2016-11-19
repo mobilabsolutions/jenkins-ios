@@ -63,7 +63,8 @@ class UsersTableViewController: RefreshingTableViewController {
     }
 
     //MARK: - Tableview delegate and data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+    override func numberOfSections() -> Int {
         return userList?.users.count ?? 0
     }
     

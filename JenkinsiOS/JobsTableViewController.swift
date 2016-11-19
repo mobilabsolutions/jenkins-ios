@@ -38,6 +38,8 @@ class JobsTableViewController: RefreshingTableViewController{
         super.viewDidLoad()
         loadJobs()
         setUpPicker()
+        
+        emptyTableViewText = "Loading Jobs"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,6 +152,7 @@ class JobsTableViewController: RefreshingTableViewController{
             dest.account = account
             dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
             dest.sections = [sections.lazy.last!]
+            dest.title = folder.name
         }
     }
     
@@ -204,8 +207,12 @@ class JobsTableViewController: RefreshingTableViewController{
         return sections[section](nil, currentView?.jobResults).rows
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return sections.count
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return sections.last!(nil, currentView?.jobResults).rows == 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -143,6 +143,7 @@
 		DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1771DA0198F00491B98 /* Suite.swift */; };
 		DCC2E17A1DA0199900491B98 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1791DA0199900491B98 /* Case.swift */; };
 		DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E17B1DA01A1300491B98 /* ChildReport.swift */; };
+		DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */; };
 		DCDB97A21DAE6E9A007BCBCC /* ComputersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */; };
 		DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */; };
 		DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */; };
@@ -298,6 +299,7 @@
 		DCC2E1771DA0198F00491B98 /* Suite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
 		DCC2E1791DA0199900491B98 /* Case.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
 		DCC2E17B1DA01A1300491B98 /* ChildReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildReport.swift; sourceTree = "<group>"; };
+		DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputersTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
 				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
 				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
+				DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -734,7 +737,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "MobiLab Solutions";
 				TargetAttributes = {
 					DC2045B41DB12890009CF232 = {
@@ -912,6 +915,7 @@
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
 				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
+				DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */,
 				DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */,
 				DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */,
 				DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */,
@@ -1098,6 +1102,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1148,6 +1153,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
