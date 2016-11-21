@@ -290,7 +290,7 @@ class NetworkManager{
     /// - parameter token:      The user's token that is set up in the job configuration
     /// - parameter parameters: The build's parameters
     /// - parameter completion: A closure handling the returned data and an (optional) error
-    func performBuild(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: ((AnyObject?, Error?) -> ())?) throws{
+    func performBuild(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: ((AnyObject?, Error?) -> ())?) throws{
         configureBuildRequest(account: account, job: job, token: token, parameters: parameters) { (request, error) in
             guard let userRequest = request, error == nil
                 else { completion?(nil, error); return }
@@ -300,6 +300,7 @@ class NetworkManager{
         }
     }
     
+    
     /// Configure the request for triggering a given build
     ///
     /// - Parameters:
@@ -308,8 +309,11 @@ class NetworkManager{
     ///   - token: An optional security token that is passed with the url
     ///   - parameters: The parameters that the build should be triggered with
     ///   - completion: A closure handing the userrequest to the calling entity
-    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: @escaping (UserRequest?, Error?) -> ()){
-        var components = URLComponents(url: job.url.appendingPathComponent("build", isDirectory: true), resolvingAgainstBaseURL: true)
+    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: @escaping (UserRequest?, Error?) -> ()){
+        
+        let buildDirectory = parameters == nil || parameters!.isEmpty ? "build" : "buildWithParameters"
+        
+        var components = URLComponents(url: job.url.appendingPathComponent(buildDirectory, isDirectory: true), resolvingAgainstBaseURL: true)
         
         components?.queryItems = [
             URLQueryItem(name: "cause", value: "Caused by Jenkins for iOS")
@@ -320,12 +324,11 @@ class NetworkManager{
         }
         
         if let parameters = parameters{
+            let parameterQueryItems = parameters.map{
+                URLQueryItem(name: $0.parameter.name, value: $0.value)
+            }
             
-            let keyValuePairs = parameters.flatMap({ (key: String, value: AnyObject) -> String in
-                return "\(key):\(value)"
-            })
-            
-            components?.queryItems?.append(URLQueryItem(name: "parameter", value: keyValuePairs.joined(separator: ",")))
+            components?.queryItems?.append(contentsOf: parameterQueryItems)
         }
         
         getCrumb(account: account) { (item) in
@@ -338,6 +341,7 @@ class NetworkManager{
             completion(UserRequest(requestUrl: url, account: account), nil)
         }
     }
+    
     
     /// Get the crumb for a given account for authentication
     ///

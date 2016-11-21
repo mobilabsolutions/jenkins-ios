@@ -13,6 +13,19 @@
 		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
 		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
+		DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
+		DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
+		DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */; };
+		DC169FD11DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */; };
+		DC169FD21DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */; };
+		DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */; };
+		DC169FD61DE3401D0015A499 /* ParameterTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */; };
+		DC169FD91DE340340015A499 /* ParameterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD71DE340340015A499 /* ParameterType.swift */; };
+		DC169FDA1DE340340015A499 /* ParameterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD71DE340340015A499 /* ParameterType.swift */; };
+		DC169FDB1DE340340015A499 /* ParameterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD81DE340340015A499 /* ParameterValue.swift */; };
+		DC169FDC1DE340340015A499 /* ParameterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD81DE340340015A499 /* ParameterValue.swift */; };
+		DC169FDE1DE341230015A499 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FDD1DE341230015A499 /* BigButton.swift */; };
+		DC169FE01DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */; };
 		DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */; };
 		DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */; };
 		DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AA1DB0CBFA009CF232 /* Searcher.swift */; };
@@ -210,6 +223,15 @@
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManagerTests.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
+		DC169FCA1DE33FFD0015A499 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
+		DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
+		DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersViewControllerDelegate.swift; sourceTree = "<group>"; };
+		DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterTableViewCell.swift; sourceTree = "<group>"; };
+		DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterTableViewCellDelegate.swift; sourceTree = "<group>"; };
+		DC169FD71DE340340015A499 /* ParameterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterType.swift; sourceTree = "<group>"; };
+		DC169FD81DE340340015A499 /* ParameterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterValue.swift; sourceTree = "<group>"; };
+		DC169FDD1DE341230015A499 /* BigButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
+		DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewControllerDataSource.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
 		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
 		DC2045AA1DB0CBFA009CF232 /* Searcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
@@ -393,6 +415,9 @@
 		DC3CCD111DA67911004C4C3D /* Job */ = {
 			isa = PBXGroup;
 			children = (
+				DC169FD71DE340340015A499 /* ParameterType.swift */,
+				DC169FD81DE340340015A499 /* ParameterValue.swift */,
+				DC169FCA1DE33FFD0015A499 /* Parameter.swift */,
 				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
 				DC66CECE1D98273A00808ED0 /* View.swift */,
 				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
@@ -481,6 +506,9 @@
 		DC8625731DA9213A00EB7867 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DC169FDD1DE341230015A499 /* BigButton.swift */,
+				DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */,
+				DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */,
 				DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */,
 				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
 				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
@@ -583,8 +611,11 @@
 			children = (
 				DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */,
 				DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */,
+				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
+				DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */,
 				DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */,
 				DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */,
+				DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */,
 				DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */,
 				DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */,
 				DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */,
@@ -593,15 +624,15 @@
 				DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */,
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
+				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
+				DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */,
+				DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */,
 				DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */,
+				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
+				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
 				DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */,
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
-				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
-				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
-				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
-				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
-				DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -866,6 +897,7 @@
 				DC6F079A1DB4EE1D00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				DC2045D81DB12D4E009CF232 /* View.swift in Sources */,
 				DC2045E01DB12D7F009CF232 /* Case.swift in Sources */,
+				DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DC2045DF1DB12D7F009CF232 /* Suite.swift in Sources */,
 				DC2045E31DB12D95009CF232 /* Computer.swift in Sources */,
 				DC2045E11DB12D7F009CF232 /* ChildReport.swift in Sources */,
@@ -874,6 +906,7 @@
 				DC2045BA1DB12892009CF232 /* TodayViewController.swift in Sources */,
 				DC2045CC1DB129C2009CF232 /* ChangeSet.swift in Sources */,
 				DC2045EF1DB12E67009CF232 /* ApplicationUserManager.swift in Sources */,
+				DC169FD21DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */,
 				DC2045E41DB12D95009CF232 /* ComputerList.swift in Sources */,
 				DC2045C81DB129C2009CF232 /* Author.swift in Sources */,
 				DC2045D31DB129EC009CF232 /* UserRequest.swift in Sources */,
@@ -886,6 +919,7 @@
 				DC2045D71DB12D4A009CF232 /* JobList.swift in Sources */,
 				DC2045F01DB12E98009CF232 /* ApplicationUser.swift in Sources */,
 				DC2045C61DB129AB009CF232 /* PersistenceUtils.swift in Sources */,
+				DC169FDA1DE340340015A499 /* ParameterType.swift in Sources */,
 				DC2045E81DB12DB2009CF232 /* Dependency.swift in Sources */,
 				DC2045D91DB12D59009CF232 /* Errors.swift in Sources */,
 				DC2045E91DB12DB6009CF232 /* UserList.swift in Sources */,
@@ -897,6 +931,7 @@
 				DC2045D11DB129E0009CF232 /* Favoratible.swift in Sources */,
 				DC2045E61DB12DB2009CF232 /* PluginList.swift in Sources */,
 				DC2045E71DB12DB2009CF232 /* Plugin.swift in Sources */,
+				DC169FDC1DE340340015A499 /* ParameterValue.swift in Sources */,
 				DC2045D21DB129E6009CF232 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -908,6 +943,7 @@
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
+				DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
 				DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */,
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
@@ -929,6 +965,7 @@
 				DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */,
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,
 				DC9CE6791DBA138000624742 /* JenkinsAction.swift in Sources */,
+				DC169FDB1DE340340015A499 /* ParameterValue.swift in Sources */,
 				DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */,
 				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
@@ -938,27 +975,33 @@
 				DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */,
 				DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
+				DC169FD61DE3401D0015A499 /* ParameterTableViewCellDelegate.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
 				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
+				DC169FD11DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */,
 				DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */,
 				DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */,
 				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
+				DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */,
 				DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
+				DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
+				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
 				DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
+				DC169FD91DE340340015A499 /* ParameterType.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
@@ -970,6 +1013,7 @@
 				DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */,
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
+				DC169FE01DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift in Sources */,
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
 				DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,

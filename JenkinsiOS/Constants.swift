@@ -33,6 +33,10 @@ struct Constants{
         }
     }
     
+    struct UI{
+        static let bigButtonColor = UIColor(red: 125/255, green: 151/255, blue: 255/255, alpha: 1.0)
+    }
+    
     struct Identifiers{
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
@@ -49,6 +53,7 @@ struct Constants{
         static let pluginCell = "pluginCell"
         static let userCell = "userCell"
         static let artifactsCell = "artifactsCell"
+        static let parameterCell = "parameterCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -66,6 +71,7 @@ struct Constants{
         static let editAccountSegue = "editAccountSegue"
         static let showArtifactsSegue = "showArtifactsSegue"
         static let showFolderSegue = "showFolderSegue"
+        static let showParametersSegue = "showParametersSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }
@@ -148,6 +154,13 @@ struct Constants{
         static let relativePath = "relativePath"
         static let crumb = "crumb"
         static let crumbRequestField = "crumbRequestField"
+        static let type = "type"
+        static let defaultParameterValue = "defaultParameterValue"
+        static let value = "value"
+        static let parameterDefinitions = "parameterDefinitions"
+        static let property = "property"
+        static let choices = "choices"
+        static let projectName = "projectName"
     }
     
     struct Networking{

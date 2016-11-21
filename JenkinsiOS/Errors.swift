@@ -43,6 +43,16 @@ enum NetworkManagerError: Error{
     }
 }
 
+enum BuildError: Error{
+    case notEnoughDataError
+    
+    var localizedDescription: String{
+        switch self{
+        case .notEnoughDataError: return "Not enough data"
+        }
+    }
+}
+
 enum ParsingError: Error{
     case DataNotCorrectFormatError
     case KeyMissingError(key: String)
