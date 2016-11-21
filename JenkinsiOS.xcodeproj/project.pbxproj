@@ -26,6 +26,7 @@
 		DC169FDC1DE340340015A499 /* ParameterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD81DE340340015A499 /* ParameterValue.swift */; };
 		DC169FDE1DE341230015A499 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FDD1DE341230015A499 /* BigButton.swift */; };
 		DC169FE01DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */; };
+		DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FE11DE358950015A499 /* PasswordTextField.swift */; };
 		DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */; };
 		DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */; };
 		DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045AA1DB0CBFA009CF232 /* Searcher.swift */; };
@@ -232,6 +233,7 @@
 		DC169FD81DE340340015A499 /* ParameterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterValue.swift; sourceTree = "<group>"; };
 		DC169FDD1DE341230015A499 /* BigButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewControllerDataSource.swift; sourceTree = "<group>"; };
+		DC169FE11DE358950015A499 /* PasswordTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewController.swift; sourceTree = "<group>"; };
 		DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalInformationViewController.xib; sourceTree = "<group>"; };
 		DC2045AA1DB0CBFA009CF232 /* Searcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
 				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
 				DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */,
+				DC169FE11DE358950015A499 /* PasswordTextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
+				DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */,
 				DC66CED51D9D40DF00808ED0 /* Author.swift in Sources */,
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
