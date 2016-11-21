@@ -40,6 +40,7 @@ class JobsTableViewController: RefreshingTableViewController{
         setUpPicker()
         
         emptyTableViewText = "Loading Jobs"
+        title = title ?? account?.displayName ?? "Jobs"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,17 +93,27 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     private func setupSearchController(){
-        let searchResultsController = SearchResultsTableViewController(searchData: jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
-            return Searchable(searchString: job.name, data: job as AnyObject, action: {
-                self.searchController?.dismiss(animated: true, completion: nil)
-                self.performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
-            })
-        }) ?? [])
+        
+        let searchData = getSearchData()
+        
+        guard !searchData.isEmpty
+            else { return }
+        
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
         searchResultsController.delegate = self
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController?.searchResultsUpdater = searchResultsController.searcher
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+    }
+    
+    private func getSearchData() -> [Searchable]{
+        return jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
+            return Searchable(searchString: job.name, data: job as AnyObject, action: {
+                self.searchController?.dismiss(animated: true, completion: nil)
+                self.performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
+            })
+        }) ?? []
     }
     
     private func setUpPicker(){
