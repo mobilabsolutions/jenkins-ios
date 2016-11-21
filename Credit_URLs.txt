@@ -10,3 +10,4 @@ Checkmark: http://www.flaticon.com/free-icon/verification-circular-symbol_52003#
 People: http://www.flaticon.com/free-icon/team_123415#term=users&page=1&position=8
 Computer: http://www.flaticon.com/free-icon/monitor_186225#term=computer&page=1&position=21
 Puzzle: http://www.flaticon.com/free-icon/puzzle_205252#term=puzzle&page=1&position=77
+Sad face: http://www.flaticon.com/free-icon/sad_156003#term=sad&page=2&position=31

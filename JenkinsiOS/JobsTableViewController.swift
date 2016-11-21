@@ -60,30 +60,30 @@ class JobsTableViewController: RefreshingTableViewController{
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
         
         NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
-            guard jobList != nil && error == nil
-                else {
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                            
-                            self.loadJobs()
-                        })
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.refreshControl?.endRefreshing()
-                    }
-                    
-                    return
-            }
-            
-            self.jobs = jobList
-            self.currentView = jobList!.allJobsView
             
             DispatchQueue.main.async {
+                guard jobList != nil && error == nil
+                    else {
+                        if let error = error{
+                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                self.account?.username = returnData["username"]!
+                                self.account?.password = returnData["password"]!
+                                
+                                self.loadJobs()
+                            })
+                        }
+                        
+                        self.refreshControl?.endRefreshing()
+                        return
+                }
+                
+                self.jobs = jobList
+                self.currentView = jobList!.allJobsView
+                
                 self.viewPicker.reloadAllComponents()
                 self.pickerScrollToAllView()
+                self.emptyTableViewImage = UIImage(named: "sadFace")
+                self.emptyTableViewText = "There does not seem to be anything here"
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
