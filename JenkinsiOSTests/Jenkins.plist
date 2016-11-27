@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>URL</key>
-	<string>YOUR_JENKINS_URL_HERE</string>
+	<string>https://builds.apache.org</string>
 	<key>Username</key>
-	<string>YOUR JENKINS USERNAME HERE</string>
+	<string></string>
 	<key>API-Key</key>
-	<string>YOUR JENKINS API-KEY HERE</string>
+	<string></string>
 	<key>Port</key>
 	<integer>443</integer>
 </dict>

@@ -8,7 +8,7 @@
 @testable import JenkinsiOS
 import XCTest
 
-class NetworkManagerTests: XCTestCase {
+class NetworkManagerAuxiliaryTests: XCTestCase {
     
     func testUrlRequestAreCorrectlyCreatedWithAPIUrl(){
         let userRequest = getGenericUserRequest()
