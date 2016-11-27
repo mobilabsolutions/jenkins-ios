@@ -41,7 +41,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Test Results"
-        emptyTableViewText = "Loading Test Results"
+        emptyTableView(for: .loading)
         loadTestResults()
     }
     
@@ -54,10 +54,29 @@ class TestResultsTableViewController: RefreshingTableViewController {
         loadTestResults()
     }
 
+    private func clearUI(){
+        tableView.tableHeaderView?.isHidden = true
+    }
+    
+    private func fillUI(){
+        
+        tableView.tableHeaderView?.isHidden = false
+        
+        tableView.reloadData()
+        setUpSearchController()
+        
+        passedTestCountLabel.text = "Passed:\n\((testResults?.passCount).textify())"
+        skippedTestCountLabel?.text = "Skipped:\n\((testResults?.skipCount).textify())"
+        failedTestCountLabel?.text = "Failed:\n\((testResults?.failCount).textify())"
+        refreshControl?.endRefreshing()
+    }
+    
     //MARK: - Data loading
     @objc private func loadTestResults(){
         guard let build = build, let account = account
             else { return }
+        
+        clearUI()
         
         let userRequest = UserRequest(requestUrl: build.url.appendingPathComponent(Constants.API.testReport), account: account)
         
@@ -66,7 +85,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
                 
                 if let error = error{
                     if let networkManagerError = error as? NetworkManagerError, networkManagerError.code == 404{
-                        self.emptyTableViewText = "No test results available"
+                        self.emptyTableView(for: .noData)
                     }
                     else{
                         self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -75,17 +94,13 @@ class TestResultsTableViewController: RefreshingTableViewController {
                             
                             self.loadTestResults()
                         })
+                        self.emptyTableView(for: .error)
                     }
                 }
                 
                 self.testResults = testResult
-                self.tableView.reloadData()
-                self.setUpSearchController()
-                
-                self.passedTestCountLabel.text = "Passed:\n\((testResult?.passCount).textify())"
-                self.skippedTestCountLabel?.text = "Skipped:\n\((testResult?.skipCount).textify())"
-                self.failedTestCountLabel?.text = "Failed:\n\((testResult?.failCount).textify())"
-                self.refreshControl?.endRefreshing()
+                self.fillUI()
+                self.emptyTableView(for: .noData)
             }
         }
     }

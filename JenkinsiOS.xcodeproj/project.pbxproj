@@ -150,6 +150,7 @@
 		DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
 		DC9BAE381DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
 		DC9BAE391DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
+		DC9BAE3D1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */; };
 		DC9CE6791DBA138000624742 /* JenkinsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9CE6781DBA138000624742 /* JenkinsAction.swift */; };
 		DC9CE67A1DBA1AFA00624742 /* JenkinsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9CE6781DBA138000624742 /* JenkinsAction.swift */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
@@ -324,6 +325,7 @@
 		DC9BAE311DEAE780008AE942 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		DC9BAE331DEAED6E008AE942 /* JenkinsTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JenkinsTest.plist; sourceTree = "<group>"; };
 		DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPrinter.swift; sourceTree = "<group>"; };
+		DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewControllerExtensions.swift; sourceTree = "<group>"; };
 		DC9CE6781DBA138000624742 /* JenkinsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsAction.swift; sourceTree = "<group>"; };
 		DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = ../Carthage/Build/iOS/SAMKeychain.framework; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -654,6 +656,7 @@
 				DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */,
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
+				DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1004,6 +1007,7 @@
 				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
 				DC85AE031DABBA6500D20059 /* FavoritesTableViewController.swift in Sources */,
+				DC9BAE3D1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift in Sources */,
 				DC8625721DA9213500EB7867 /* AccountTableViewCell.swift in Sources */,
 				DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */,
 				DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */,

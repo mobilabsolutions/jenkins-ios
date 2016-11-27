@@ -27,7 +27,7 @@ class PluginsTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Plugins"
-        emptyTableViewText = "Loading Plugins"
+        emptyTableView(for: .loading)
         performRequest()
     }
 
@@ -43,18 +43,22 @@ class PluginsTableViewController: RefreshingTableViewController {
         NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { (pluginList, error) in
             
             DispatchQueue.main.async {
-                if let error = error{
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                        self.account?.username = returnData["username"]!
-                        self.account?.password = returnData["password"]!
+                guard error == nil
+                    else {
+                        self.displayNetworkError(error: error!, onReturnWithTextFields: { (returnData) in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
                         
-                        self.performRequest()
-                    })
+                            self.performRequest()
+                        })
+                        self.emptyTableView(for: .error)
+                        return
                 }
+                
                 self.pluginList = pluginList
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
-                self.emptyTableViewText = "There do not seem to be any Plugins"
+                self.emptyTableView(for: .noData)
             }
         }
     }

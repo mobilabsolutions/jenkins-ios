@@ -39,7 +39,7 @@ class JobsTableViewController: RefreshingTableViewController{
         loadJobs()
         setUpPicker()
         
-        emptyTableViewText = "Loading Jobs"
+        emptyTableView(for: .loading)
         title = title ?? account?.displayName ?? "Jobs"
     }
     
@@ -63,6 +63,7 @@ class JobsTableViewController: RefreshingTableViewController{
         NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
             
             DispatchQueue.main.async {
+                
                 guard jobList != nil && error == nil
                     else {
                         if let error = error{
@@ -72,6 +73,8 @@ class JobsTableViewController: RefreshingTableViewController{
                                 
                                 self.loadJobs()
                             })
+                            
+                            self.emptyTableView(for: .error)
                         }
                         
                         self.refreshControl?.endRefreshing()
@@ -83,8 +86,7 @@ class JobsTableViewController: RefreshingTableViewController{
                 
                 self.viewPicker.reloadAllComponents()
                 self.pickerScrollToAllView()
-                self.emptyTableViewImage = UIImage(named: "sadFace")
-                self.emptyTableViewText = "There does not seem to be anything here"
+                self.emptyTableView(for: .noData)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
@@ -227,7 +229,7 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1{
+        if section == 1 && jobs != nil{
             let viewPickerSuperView = UIView()
             
             viewPicker.frame = viewPickerSuperView.bounds
@@ -252,7 +254,7 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 100 : 0
+        return section == 1 && jobs != nil ? 100 : 0
     }
 }
 

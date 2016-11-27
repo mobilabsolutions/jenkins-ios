@@ -11,12 +11,32 @@ import UIKit
 @IBDesignable class BaseTableViewController: UITableViewController {
     
     /// The text that should be displayed if the table view is empty
-    @IBInspectable var emptyTableViewText: String?
+    @IBInspectable var emptyTableViewText: String?{
+        didSet{
+            emptyTableViewLabel?.text = emptyTableViewText
+        }
+    }
     /// The image that should be displayed if the table view is empty
-    @IBInspectable var emptyTableViewImage: UIImage?
+    @IBInspectable var emptyTableViewImages: [UIImage] = []{
+        didSet{
+            setImageForEmptyTableViewImageView(view: emptyTableViewImageView)
+        }
+    }
     
     /// The view that the text and image should be displayed in, if the table view is empty
     var viewForEmptyMessage: UIView?
+    
+    /// Whether or not the image should rotate
+    var emptyTableViewImageViewShouldRotate: Bool = false{
+        didSet{
+            if emptyTableViewImageViewShouldRotate{
+                addAnimations(to: emptyTableViewImageView)
+            }
+            else{
+                emptyTableViewImageView?.layer.removeAnimation(forKey: "Rotation")
+            }
+        }
+    }
     
     private var emptyTableViewImageView: UIImageView?
     private var emptyTableViewLabel: UILabel?
@@ -95,10 +115,48 @@ import UIKit
     
     private func addEmptyTableViewImage(in view: UIView, relativeTo label: UIView){
         let imageView = getImageViewForEmptyTableView()
-        imageView.image = emptyTableViewImage
+        setImageForEmptyTableViewImageView(view: imageView)
+        addAnimations(to: imageView)
         
         view.addSubview(imageView)
         addConstraintsToEmptyTableView(imageView: imageView, in: view, relativeTo: label)
+    }
+    
+    private func addAnimations(to view: UIView?){
+        if emptyTableViewImageViewShouldRotate{
+            view?.layer.add(getRotatingAnimation(), forKey: "Rotation")
+        }
+    }
+    
+    private func getRotatingAnimation() -> CAAnimation{
+        let animation = CABasicAnimation(keyPath: "transform")
+
+        var rotation = CATransform3DMakeRotation(CGFloat(M_PI), 0.1, 1, 0.1)
+        rotation.m34 = 1.0/800.0
+
+        animation.toValue = rotation
+        animation.duration = 3.0
+        animation.autoreverses = true
+        
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        animation.repeatCount = .infinity
+        
+        return animation
+    }
+    
+    private func setImageForEmptyTableViewImageView(view: UIImageView?){
+        
+        view?.stopAnimating()
+        
+        if emptyTableViewImages.count > 1{
+            view?.animationImages = emptyTableViewImages
+            view?.animationDuration = 0.4 * Double(emptyTableViewImages.count)
+            view?.startAnimating()
+        }
+        else{
+            view?.image = emptyTableViewImages.first
+        }
     }
     
     private func addConstraintsToEmptyTableView(imageView: UIView, in view: UIView, relativeTo label: UIView){

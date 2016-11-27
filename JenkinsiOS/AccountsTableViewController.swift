@@ -23,7 +23,7 @@ class AccountsTableViewController: BaseTableViewController {
         registerForPreviewing(with: self, sourceView: tableView)
         
         emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the +"
-        emptyTableViewImage = UIImage(named: "sadFace")
+        emptyTableViewImages = [ UIImage(named: "sadFace")! ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
