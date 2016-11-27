@@ -41,16 +41,18 @@ class ModalInformationViewController: UIViewController {
         }
         guard let detailView = detailView
             else { return }
-        detailView.translatesAutoresizingMaskIntoConstraints = false
+        
         centerView.addSubview(detailView)
         addConstraintsTo(detailView: detailView)
     }
     
     private func addConstraintsTo(detailView: UIView){
-        detailView.topAnchor.constraint(equalTo: centerView.topAnchor).isActive = true
-        detailView.leftAnchor.constraint(equalTo: centerView.leftAnchor).isActive = true
-        detailView.rightAnchor.constraint(equalTo: centerView.rightAnchor).isActive = true
-        detailView.bottomAnchor.constraint(equalTo: centerView.bottomAnchor).isActive = true
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        
+        detailView.widthAnchor.constraint(lessThanOrEqualTo: centerView.widthAnchor).isActive = true
+        detailView.heightAnchor.constraint(lessThanOrEqualTo: centerView.heightAnchor).isActive = true
+        detailView.centerXAnchor.constraint(equalTo: centerView.centerXAnchor).isActive = true
+        detailView.centerYAnchor.constraint(equalTo: centerView.centerYAnchor).isActive = true
     }
     
     func withActivityIndicator(title: String?){
