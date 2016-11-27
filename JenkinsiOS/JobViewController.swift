@@ -47,25 +47,32 @@ class JobViewController: UIViewController {
         let modalViewController = presentModalInformationViewController()
 
         if account.password == nil || account.username == nil{
-            var tokenTextField: UITextField!
-
-            displayError(title: "Please Input a token", message: "To start a build without username or password, a token is required", textFieldConfigurations: [{ (textField) in
-                textField.placeholder = "Token"
-                tokenTextField = textField
-                }], actions: [
-                    UIAlertAction(title: "Use", style: .default, handler: { (_) in
-                        self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
-                            self.completionForBuild()(modalViewController, $0, $1)
-                        }
-                    }),
-                    UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                ])
+            
+            modalViewController?.dismiss(animated: true, completion: { 
+                self.displayInputTokenError(for: job, with: account, modalViewController: modalViewController)
+            })
         }
         else{
             performBuild(job: job, account: account, token: nil, parameters: nil){
                 self.completionForBuild()(modalViewController, $0, $1)
             }
         }
+    }
+    
+    private func displayInputTokenError(for job: Job, with account: Account, modalViewController: ModalInformationViewController?){
+        var tokenTextField: UITextField!
+        displayError(title: "Please Input a token", message: "To start a build without username or password, a token is required", textFieldConfigurations: [{ (textField) in
+            textField.placeholder = "Token"
+            tokenTextField = textField
+            }], actions: [
+                UIAlertAction(title: "Use", style: .default, handler: { (_) in
+                    self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
+                        self.completionForBuild()(modalViewController, $0, $1)
+                    }
+                }),
+                UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            ])
+
     }
     
     private func presentModalInformationViewController() -> ModalInformationViewController?{
@@ -84,18 +91,28 @@ class JobViewController: UIViewController {
             modalViewController, data, error in
 
             if let error = error{
-                modalViewController?.dismiss(animated: true, completion: {
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                        self.account?.username = returnData["username"]!
-                        self.account?.password = returnData["password"]!
-
-                        self.triggerBuild()
+                
+                if modalViewController?.isBeingPresented == true{
+                    modalViewController?.dismiss(animated: true, completion: {
+                        self.displayError(error: error)
                     })
-                })
+                }
+                else{
+                    self.displayError(error: error)
+                }
             }
         }
     }
 
+    private func displayError(error: Error){
+        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+            self.account?.username = returnData["username"]!
+            self.account?.password = returnData["password"]!
+            
+            self.triggerBuild()
+        })
+    }
+    
     private func performBuild(job: Job, account: Account, token: String?){
 
         let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
