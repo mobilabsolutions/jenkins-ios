@@ -8,20 +8,29 @@
 
 import UIKit
 
-class BaseTableViewController: UITableViewController {
+@IBDesignable class BaseTableViewController: UITableViewController {
     
-    var emptyTableViewText: String?
-    var emptyTableViewImage: UIImage?
+    /// The text that should be displayed if the table view is empty
+    @IBInspectable var emptyTableViewText: String?
+    /// The image that should be displayed if the table view is empty
+    @IBInspectable var emptyTableViewImage: UIImage?
     
+    /// The view that the text and image should be displayed in, if the table view is empty
     var viewForEmptyMessage: UIView?
     
     private var emptyTableViewImageView: UIImageView?
     private var emptyTableViewLabel: UILabel?
     
+    /// How many sections there are in the given table view
+    ///
+    /// - Returns: The number of sections in this table view
     func numberOfSections() -> Int{
         return 0
     }
     
+    /// The tableview's state of emptiness
+    ///
+    /// - Returns: Whether or not the table view is currently defined as empty
     func tableViewIsEmpty() -> Bool{
         return numberOfSections() == 0
     }
@@ -143,5 +152,10 @@ class BaseTableViewController: UITableViewController {
     
     private func setTableViewSeparatorStyle(for empty: Bool){
         tableView.separatorStyle = empty ? .none : .singleLine
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        setUpTableView(empty: true)
     }
 }
