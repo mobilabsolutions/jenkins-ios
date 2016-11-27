@@ -50,6 +50,7 @@ class JobsTableViewController: RefreshingTableViewController{
     
     override func refresh(){
         loadJobs()
+        emptyTableView(for: .loading)
     }
 
     //MARK: - Data loading and displaying

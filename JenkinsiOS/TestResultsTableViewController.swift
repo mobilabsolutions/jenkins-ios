@@ -52,6 +52,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
 
     override func refresh(){
         loadTestResults()
+        emptyTableView(for: .loading)
     }
 
     private func clearUI(){
@@ -59,8 +60,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     }
     
     private func fillUI(){
-        
-        tableView.tableHeaderView?.isHidden = false
+        tableView.tableHeaderView?.isHidden = (testResults == nil)
         
         tableView.reloadData()
         setUpSearchController()
