@@ -10,9 +10,9 @@ import XCTest
 
 class JenkinsAccountReader{
     
-    static func getAccount(for classType: AnyClass) -> Account?{
+    static func getAccount(for classType: AnyClass, with resourceName: String = "Jenkins") -> Account?{
         
-        guard let resourceUrl = Bundle(for: classType).url(forResource: "Jenkins", withExtension: "plist")
+        guard let resourceUrl = Bundle(for: classType).url(forResource: resourceName, withExtension: "plist")
             else { return nil }
         
         guard let dict = NSDictionary(contentsOf: resourceUrl)

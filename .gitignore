@@ -92,3 +92,4 @@ fastlane/test_output
 *.iws
 
 JenkinsiOS/Config.plist
+JenkinsiOSTests/Jenkins.plist

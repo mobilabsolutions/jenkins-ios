@@ -11,8 +11,8 @@ import XCTest
 class JenkinsAccountReaderTests: XCTestCase {
     
     func testParsesAccountCorrectly() {
-        let account = JenkinsAccountReader.getAccount(for: type(of: self))
-        
+        let account = JenkinsAccountReader.getAccount(for: type(of: self), with: "JenkinsTest")
+                
         XCTAssertNotNil(account)
         XCTAssertEqual(account?.baseUrl, URL(string: "YOUR_JENKINS_URL_HERE"))
         XCTAssertEqual(account?.username, "YOUR JENKINS USERNAME HERE")
