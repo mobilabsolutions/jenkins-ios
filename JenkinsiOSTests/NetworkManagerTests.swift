@@ -15,6 +15,7 @@ class NetworkManagerTests: XCTestCase {
     
     override func setUp() {
         account = JenkinsAccountReader.getAccount(for: type(of: self))
+        printWarning()
     }
     
     func testGetsJobsCorrectly(){
@@ -68,4 +69,15 @@ class NetworkManagerTests: XCTestCase {
         XCTAssertNotNil(job.color)
         XCTAssert(job.isFullVersion == isFullVersion)
     }
+    
+    private func printWarning(){
+        let warningString = "*** This test depends on a few factors. You need a network connection and the Jenkins.plist file to contain meaningful data. A failing test therefore does not mean the code is broken ***".colorized(with: ANSIColor.yellow)
+        print(warningString)
+    }
 }
+
+
+
+
+
+

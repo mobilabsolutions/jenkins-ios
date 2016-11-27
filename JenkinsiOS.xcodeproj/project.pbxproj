@@ -147,6 +147,9 @@
 		DC9BAE301DEAE266008AE942 /* JenkinsAccountReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE2F1DEAE266008AE942 /* JenkinsAccountReaderTests.swift */; };
 		DC9BAE321DEAE781008AE942 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE311DEAE780008AE942 /* NetworkManagerTests.swift */; };
 		DC9BAE341DEAED6E008AE942 /* JenkinsTest.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC9BAE331DEAED6E008AE942 /* JenkinsTest.plist */; };
+		DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
+		DC9BAE381DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
+		DC9BAE391DEAF6FE008AE942 /* ColorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */; };
 		DC9CE6791DBA138000624742 /* JenkinsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9CE6781DBA138000624742 /* JenkinsAction.swift */; };
 		DC9CE67A1DBA1AFA00624742 /* JenkinsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9CE6781DBA138000624742 /* JenkinsAction.swift */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
@@ -320,6 +323,7 @@
 		DC9BAE2F1DEAE266008AE942 /* JenkinsAccountReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsAccountReaderTests.swift; sourceTree = "<group>"; };
 		DC9BAE311DEAE780008AE942 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		DC9BAE331DEAED6E008AE942 /* JenkinsTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JenkinsTest.plist; sourceTree = "<group>"; };
+		DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPrinter.swift; sourceTree = "<group>"; };
 		DC9CE6781DBA138000624742 /* JenkinsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsAction.swift; sourceTree = "<group>"; };
 		DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = ../Carthage/Build/iOS/SAMKeychain.framework; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -604,6 +608,7 @@
 				DC66CEC41D98069F00808ED0 /* Constants.swift */,
 				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
 				DC6F079E1DB502BB00C77FAE /* Config.plist */,
+				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 				DC2045D31DB129EC009CF232 /* UserRequest.swift in Sources */,
 				DC2045CB1DB129C2009CF232 /* Cause.swift in Sources */,
 				DC9CE67A1DBA1AFA00624742 /* JenkinsAction.swift in Sources */,
+				DC9BAE391DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DC2045D01DB129DC009CF232 /* Favorite.swift in Sources */,
 				DC2045EA1DB12DB6009CF232 /* User.swift in Sources */,
 				DC2045DB1DB12D64009CF232 /* QueueItem.swift in Sources */,
@@ -1038,6 +1044,7 @@
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
+				DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */,
 				DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */,
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,
@@ -1068,6 +1075,7 @@
 				DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */,
 				DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */,
 				BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */,
+				DC9BAE381DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DC9BAE321DEAE781008AE942 /* NetworkManagerTests.swift in Sources */,
 				DC9BAE301DEAE266008AE942 /* JenkinsAccountReaderTests.swift in Sources */,
 				BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */,
