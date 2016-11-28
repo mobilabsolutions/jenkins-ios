@@ -30,7 +30,7 @@ extension BaseTableViewController{
             else { return }
         
         emptyTableViewImages = [ image ]
-        emptyTableViewImageViewShouldRotate = true
+        emptyTableViewImageViewIsForLoading = true
     }
     
     private func emptyTableViewForNoData(text: String){
@@ -39,7 +39,7 @@ extension BaseTableViewController{
         guard let image = UIImage(named: "sadFace")
             else { return }
         
-        emptyTableViewImageViewShouldRotate = false
+        emptyTableViewImageViewIsForLoading = false
         emptyTableViewImages = [ image ]
     }
 }

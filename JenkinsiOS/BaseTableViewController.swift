@@ -27,13 +27,14 @@ import UIKit
     var viewForEmptyMessage: UIView?
     
     /// Whether or not the image should rotate
-    var emptyTableViewImageViewShouldRotate: Bool = false{
+    @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false{
         didSet{
-            if emptyTableViewImageViewShouldRotate{
-                addAnimations(to: emptyTableViewImageView)
+            if emptyTableViewImageViewIsForLoading{
+                emptyTableViewImageView = LoadingIndicatorImageView(images: emptyTableViewImages)
             }
             else{
-                emptyTableViewImageView?.layer.removeAnimation(forKey: "Rotation")
+                emptyTableViewImageView = UIImageView()
+                setUpTableView(empty: tableViewIsEmpty())
             }
         }
     }
@@ -116,33 +117,9 @@ import UIKit
     private func addEmptyTableViewImage(in view: UIView, relativeTo label: UIView){
         let imageView = getImageViewForEmptyTableView()
         setImageForEmptyTableViewImageView(view: imageView)
-        addAnimations(to: imageView)
         
         view.addSubview(imageView)
         addConstraintsToEmptyTableView(imageView: imageView, in: view, relativeTo: label)
-    }
-    
-    private func addAnimations(to view: UIView?){
-        if emptyTableViewImageViewShouldRotate{
-            view?.layer.add(getRotatingAnimation(), forKey: "Rotation")
-        }
-    }
-    
-    private func getRotatingAnimation() -> CAAnimation{
-        let animation = CABasicAnimation(keyPath: "transform")
-
-        var rotation = CATransform3DMakeRotation(CGFloat(M_PI), 0.1, 1, 0.1)
-        rotation.m34 = 1.0/800.0
-
-        animation.toValue = rotation
-        animation.duration = 3.0
-        animation.autoreverses = true
-        
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        
-        animation.repeatCount = .infinity
-        
-        return animation
     }
     
     private func setImageForEmptyTableViewImageView(view: UIImageView?){

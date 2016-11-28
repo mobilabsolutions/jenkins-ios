@@ -168,6 +168,7 @@
 		DCC2E17A1DA0199900491B98 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1791DA0199900491B98 /* Case.swift */; };
 		DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E17B1DA01A1300491B98 /* ChildReport.swift */; };
 		DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */; };
+		DCD196471DEC822300940C75 /* LoadingIndicatorImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */; };
 		DCDB97A21DAE6E9A007BCBCC /* ComputersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */; };
 		DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */; };
 		DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */; };
@@ -341,6 +342,7 @@
 		DCC2E1791DA0199900491B98 /* Case.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
 		DCC2E17B1DA01A1300491B98 /* ChildReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildReport.swift; sourceTree = "<group>"; };
 		DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorImageView.swift; sourceTree = "<group>"; };
 		DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputersTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
 				DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */,
+				DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1036,6 +1039,7 @@
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
+				DCD196471DEC822300940C75 /* LoadingIndicatorImageView.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
 				DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,

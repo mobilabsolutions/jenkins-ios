@@ -644,7 +644,6 @@
                     </tableView>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="emptyTableViewText" value="There does not seem to be anything here"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="emptyTableViewImage" value="sadFace"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6au-dI-FSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -825,7 +824,6 @@
                     </tableView>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="emptyTableViewText" value="There does not seem to be anything here."/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="emptyTableViewImage" value="sadFace"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRs-5U-m0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1591,7 +1589,6 @@
         <image name="computers" width="16" height="16"/>
         <image name="emptyCircle" width="16" height="16"/>
         <image name="plugins" width="16" height="16"/>
-        <image name="sadFace" width="16" height="16"/>
         <image name="users" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>

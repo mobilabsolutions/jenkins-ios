@@ -17,7 +17,7 @@ class ChangesTableViewController: BaseTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         title = "Changes"
-        emptyTableViewText = "There do not seem to be any Changes here"
+        emptyTableView(for: .noData, customString: "There don't seem to be any changes here")
     }
     
     // MARK: - Table view data source
