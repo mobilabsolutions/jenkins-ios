@@ -13,6 +13,8 @@ class Artifact{
     var filename: String
     var url: URL
     
+    var size: Int64?
+    
     init?(json: [String: AnyObject], with buildUrl: URL){
         guard let filename = json["fileName"] as? String,
               let relativePath = json["relativePath"] as? String

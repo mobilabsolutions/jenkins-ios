@@ -14,22 +14,41 @@ class ArtifactsTableViewController: UITableViewController {
     var account: Account?
     var build: Build?
 
+    private var currentDownloadTask: URLSessionTaskController?
     private var artifacts: [Artifact] = []
+    
+    private var numberFormatter = NumberFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Artifacts"
         
+        numberFormatter.numberStyle = .decimal
+        
         guard let build = build
             else { return }
         
         self.artifacts = build.artifacts
+        updateArtifactSizes()
     }
-
+    
+    private func updateArtifactSizes(){
+        self.artifacts.forEach { (artifact) in
+            guard let account = self.account
+                else { return }
+            _ = NetworkManager.manager.setSizeForArtifact(artifact: artifact, account: account){
+                _, _ in
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
     private func downloadArtifact(artifact: Artifact, completion: @escaping (Data?) -> ()){
         guard let account = account
             else { return }
-        NetworkManager.manager.downloadArtifact(artifact: artifact, account: account) { (data, error) in
+        self.currentDownloadTask = NetworkManager.manager.downloadArtifact(artifact: artifact, account: account) { (data, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil
                     else {
@@ -70,6 +89,13 @@ class ArtifactsTableViewController: UITableViewController {
 
         cell.textLabel?.text = artifacts[indexPath.row].filename
         
+        if let size = artifacts[indexPath.row].size{
+            cell.detailTextLabel?.text = "Size: " + size.bytesToGigabytesString(numberFormatter: numberFormatter)
+        }
+        else{
+            cell.detailTextLabel?.text = "Size: Loading..."
+        }
+        
         return cell
     }
 
@@ -106,8 +132,9 @@ class ArtifactsTableViewController: UITableViewController {
     
     private func showModalInformationViewController(){
         let modalInfoViewController = createModalInformationViewController()
+        modalInfoViewController.delegate = self
         present(modalInfoViewController, animated: true, completion: nil)
-        addIndicator(to: modalInfoViewController)
+        modalInfoViewController.withLoadingIndicator(title: "Loading Artifact...")
     }
     
     private func createModalInformationViewController() -> ModalInformationViewController{
@@ -118,16 +145,19 @@ class ArtifactsTableViewController: UITableViewController {
         return modalInfoViewController
     }
     
-    private func addIndicator(to modalInfoViewController: ModalInformationViewController){
-        let indicator = UIActivityIndicatorView()
-        indicator.activityIndicatorViewStyle = .gray
-        modalInfoViewController.with(title: "Loading Artifact", detailView: indicator)
-        indicator.startAnimating()
+    fileprivate func dismissDownload(){
+        currentDownloadTask?.suspendTask()
     }
 }
 
 extension ArtifactsTableViewController: MFMailComposeViewControllerDelegate{
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ArtifactsTableViewController: ModalInformationViewControllerDelegate{
+    func didDismiss() {
+        self.dismissDownload()
     }
 }
