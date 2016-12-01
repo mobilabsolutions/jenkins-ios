@@ -27,7 +27,9 @@ class LoadingIndicatorImageView: UIImageView {
     
     convenience init(images: [UIImage]){
         self.init(image: images.first)
-        set(animatingImages: images)
+        if images.count > 0{
+            set(animatingImages: images)
+        }
     }
     
     private func set(animatingImages: [UIImage]){

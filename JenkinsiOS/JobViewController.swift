@@ -78,8 +78,12 @@ class JobViewController: UIViewController {
     private func presentModalInformationViewController() -> ModalInformationViewController?{
         if self.isViewLoaded && view.window != nil{
             let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
+            
             present(modalViewController, animated: true)
-            modalViewController.withActivityIndicator(title: "Loading")
+            
+            modalViewController.withLoadingIndicator(title: "Loading")
+            modalViewController.dismissOnTap = false
+            
             return modalViewController
         }
         return nil
@@ -154,7 +158,7 @@ class JobViewController: UIViewController {
         if let account = account, let job = job{
             let userRequest = UserRequest(requestUrl: job.url, account: account)
 
-            NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (_, error) in
+            _ = NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (_, error) in
                 completion(error)
             })
         }

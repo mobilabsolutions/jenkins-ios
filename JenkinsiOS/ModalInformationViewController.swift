@@ -14,6 +14,10 @@ class ModalInformationViewController: UIViewController {
     @IBOutlet weak var centerView: UIView!
     @IBOutlet weak var containerView: UIView!
     
+    var dismissOnTap: Bool = true
+    
+    var delegate: ModalInformationViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.containerView.layer.cornerRadius = 20
@@ -22,6 +26,9 @@ class ModalInformationViewController: UIViewController {
         self.containerView.isOpaque = true
         self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.1)
         self.view.isOpaque = true
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(registeredTapOutside))
+        self.view.addGestureRecognizer(gestureRecognizer)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -55,11 +62,16 @@ class ModalInformationViewController: UIViewController {
         detailView.centerYAnchor.constraint(equalTo: centerView.centerYAnchor).isActive = true
     }
     
-    func withActivityIndicator(title: String?){
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.startAnimating()
-        activityIndicator.activityIndicatorViewStyle = .gray
-        
-        self.with(title: title, detailView: activityIndicator)
+    func withLoadingIndicator(title: String?){
+        let loadingIndicator = LoadingIndicatorImageView(image: nil)        
+        self.with(title: title, detailView: loadingIndicator)
+    }
+    
+    @objc private func registeredTapOutside(){
+        if dismissOnTap{
+            self.dismiss(animated: true){
+                self.delegate?.didDismiss()
+            }
+        }
     }
 }

@@ -29,6 +29,11 @@ import UIKit
     /// Whether or not the image should rotate
     @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false{
         didSet{
+            
+            // Did anything change?
+            guard emptyTableViewImageViewIsForLoading != oldValue
+                else { return }
+            
             if emptyTableViewImageViewIsForLoading{
                 emptyTableViewImageView = LoadingIndicatorImageView(images: emptyTableViewImages)
             }
