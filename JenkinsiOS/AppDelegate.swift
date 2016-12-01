@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     else { return vc }
                 
                 let userRequest = UserRequest(requestUrl: favorite.url, account: account)
-                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
+                _ = NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
                     vc.job = job
                     
                     DispatchQueue.main.async {
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     else { return vc }
                 
                 let userRequest = UserRequest(requestUrl: favorite.url, account: account)
-                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
+                _ = NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
                     vc.build = build
                     DispatchQueue.main.async {
                         vc.updateData()

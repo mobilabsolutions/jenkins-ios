@@ -117,7 +117,7 @@ class JobViewController: UIViewController {
 
         let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
         present(modalViewController, animated: true)
-        modalViewController.withActivityIndicator(title: "Loading")
+        modalViewController.withLoadingIndicator(title: "Loading")
 
         try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
             DispatchQueue.main.async {

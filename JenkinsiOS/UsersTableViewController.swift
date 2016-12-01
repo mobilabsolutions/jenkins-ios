@@ -44,7 +44,7 @@ class UsersTableViewController: RefreshingTableViewController {
         guard let account = account
             else { return }
         
-        NetworkManager.manager.getUsers(userRequest: UserRequest.userRequestForUsers(account: account)) { (userList, error) in
+        _ = NetworkManager.manager.getUsers(userRequest: UserRequest.userRequestForUsers(account: account)) { (userList, error) in
             DispatchQueue.main.async {
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnDict) in

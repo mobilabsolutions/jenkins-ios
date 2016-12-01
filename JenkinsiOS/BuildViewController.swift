@@ -73,7 +73,7 @@ class BuildViewController: UITableViewController {
         if build.isFullVersion == false, let account = account{
             let userRequest = UserRequest(requestUrl: build.url, account: account)
             
-            NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
+            _ = NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
                 DispatchQueue.main.async {
                     
                     if let error = error{
@@ -116,7 +116,7 @@ class BuildViewController: UITableViewController {
         
         let causeText = (build?.actions?.causes.reduce("",
                                                        { (str, cause) -> String in
-                                                        return str + cause.shortDescription
+                                                        return str + cause.shortDescription + "\n"
             }
             )) ?? "Unknown"
         

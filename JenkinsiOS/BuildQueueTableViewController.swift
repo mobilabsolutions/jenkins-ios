@@ -33,7 +33,7 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         guard let account = account
             else { return }
         
-        NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
+        _ = NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
             guard let queue = queue, error == nil
                 else {
                     if let error = error{

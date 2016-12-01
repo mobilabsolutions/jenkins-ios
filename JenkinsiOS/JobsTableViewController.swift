@@ -61,7 +61,7 @@ class JobsTableViewController: RefreshingTableViewController{
         
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
         
-        NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
+        _ = NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
             
             DispatchQueue.main.async {
                 

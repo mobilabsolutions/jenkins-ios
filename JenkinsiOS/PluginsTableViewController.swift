@@ -40,7 +40,7 @@ class PluginsTableViewController: RefreshingTableViewController {
         guard let account = account
             else { return }
         
-        NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { (pluginList, error) in
+        _ = NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { (pluginList, error) in
             
             DispatchQueue.main.async {
                 guard error == nil

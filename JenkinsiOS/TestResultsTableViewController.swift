@@ -80,7 +80,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         
         let userRequest = UserRequest(requestUrl: build.url.appendingPathComponent(Constants.API.testReport), account: account)
         
-        NetworkManager.manager.getTestResult(userRequest: userRequest) { (testResult, error) in
+        _ = NetworkManager.manager.getTestResult(userRequest: userRequest) { (testResult, error) in
             DispatchQueue.main.async {
                 
                 if let error = error{
