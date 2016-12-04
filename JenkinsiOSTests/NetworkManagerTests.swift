@@ -40,13 +40,13 @@ class NetworkManagerTests: XCTestCase {
             testExpectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5.0){
+        waitForExpectations(timeout: 60.0){
             error in
             
-            print("Test Timed out")
+            print("Test Timed out".colorized(with: ANSIColor.red))
             
             if let e = error{
-                print("Timed out with error: " + e.localizedDescription)
+                print(("Timed out with error: " + e.localizedDescription).colorized(with: ANSIColor.red))
             }
         }
     }
