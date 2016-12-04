@@ -67,7 +67,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             else { return }
         
         let request = UserRequest(requestUrl: favorite.url, account: account)
-        NetworkManager.manager.getJob(userRequest: request, completion: { (job, _) in
+        _ = NetworkManager.manager.getJob(userRequest: request, completion: { (job, _) in
             if let job = job{
                 self.favoritables[0].append(job)
                 DispatchQueue.main.async {
@@ -82,7 +82,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             else { return }
         
         let request = UserRequest(requestUrl: favorite.url, account: account)
-        NetworkManager.manager.getBuild(userRequest: request) { (build, _) in
+        _ = NetworkManager.manager.getBuild(userRequest: request) { (build, _) in
             guard let build = build
                 else { return }
             

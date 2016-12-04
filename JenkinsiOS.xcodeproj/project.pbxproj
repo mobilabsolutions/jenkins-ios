@@ -85,6 +85,11 @@
 		DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD121DA6791D004C4C3D /* Dependency.swift */; };
 		DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */; };
 		DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */; };
+		DC4D21B11DF4299A0023B4EA /* StarRatingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */; };
+		DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */; };
+		DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC56A5081DF09452000D1A15 /* ReviewReminderViewController.xib */; };
+		DC56A50E1DF0A0EA000D1A15 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */; };
+		DC56A5101DF0A0FE000D1A15 /* StarRatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */; };
 		DC595DFD1DD75344000FEA9F /* UserRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */; };
 		DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */; };
 		DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */; };
@@ -105,6 +110,7 @@
 		DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDA1D9D545900808ED0 /* JobViewController.swift */; };
 		DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */; };
 		DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */; };
+		DC6DB1941DF09283005548A3 /* ReviewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6DB1931DF09283005548A3 /* ReviewHandler.swift */; };
 		DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */; };
 		DC6F079A1DB4EE1D00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */; };
 		DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC6F079E1DB502BB00C77FAE /* Config.plist */; };
@@ -266,6 +272,11 @@
 		DC3CCD121DA6791D004C4C3D /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		DC4CBA251DD4DA1100E54245 /* SearchableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchableTests.swift; sourceTree = "<group>"; };
 		DC4CBA271DD4DB8800E54245 /* SearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherTests.swift; sourceTree = "<group>"; };
+		DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingViewDelegate.swift; sourceTree = "<group>"; };
+		DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewReminderViewController.swift; sourceTree = "<group>"; };
+		DC56A5081DF09452000D1A15 /* ReviewReminderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewReminderViewController.xib; sourceTree = "<group>"; };
+		DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingView.xib; sourceTree = "<group>"; };
 		DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestTests.swift; sourceTree = "<group>"; };
 		DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserTests.swift; sourceTree = "<group>"; };
@@ -286,6 +297,7 @@
 		DC66CEDA1D9D545900808ED0 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
 		DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildViewController.swift; sourceTree = "<group>"; };
 		DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsTableViewController.swift; sourceTree = "<group>"; };
+		DC6DB1931DF09283005548A3 /* ReviewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHandler.swift; sourceTree = "<group>"; };
 		DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorManager.swift; sourceTree = "<group>"; };
 		DC6F079E1DB502BB00C77FAE /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtifactsTableViewController.swift; sourceTree = "<group>"; };
@@ -538,10 +550,14 @@
 				DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */,
 				DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */,
 				DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */,
+				DC56A5081DF09452000D1A15 /* ReviewReminderViewController.xib */,
 				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
 				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
 				DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */,
 				DC169FE11DE358950015A499 /* PasswordTextField.swift */,
+				DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */,
+				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
+				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -633,6 +649,7 @@
 				DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */,
 				DC9CE6781DBA138000624742 /* JenkinsAction.swift */,
 				DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */,
+				DC6DB1931DF09283005548A3 /* ReviewHandler.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -667,6 +684,7 @@
 				DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */,
 				DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */,
 				DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */,
+				DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -887,9 +905,11 @@
 			files = (
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
+				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
 				DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */,
+				DC56A5101DF0A0FE000D1A15 /* StarRatingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,6 +1008,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC4D21B11DF4299A0023B4EA /* StarRatingViewDelegate.swift in Sources */,
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
@@ -1014,6 +1035,7 @@
 				DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */,
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,
 				DCCF35591DF0741B00432EB6 /* URLSessionTaskController.swift in Sources */,
+				DC56A50E1DF0A0EA000D1A15 /* StarRatingView.swift in Sources */,
 				DC9CE6791DBA138000624742 /* JenkinsAction.swift in Sources */,
 				DC169FDB1DE340340015A499 /* ParameterValue.swift in Sources */,
 				DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */,
@@ -1044,6 +1066,7 @@
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
+				DC6DB1941DF09283005548A3 /* ReviewHandler.swift in Sources */,
 				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
 				DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
@@ -1055,6 +1078,7 @@
 				DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				DC169FD91DE340340015A499 /* ParameterType.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
+				DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
 				DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */,

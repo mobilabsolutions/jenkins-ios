@@ -13,6 +13,12 @@ class ApplicationUser: NSObject, NSCoding{
     /// The user's favorites
     var favorites: [Favorite] = []
     
+    /// The number of times the user has opened the app
+    var timesOpenedApp = 0
+    
+    /// Whether or not
+    var canceledReviewReminder = false
+    
     override init() {
         super.init()
     }
@@ -27,6 +33,9 @@ class ApplicationUser: NSObject, NSCoding{
                 favorites.append(favorite)
             }
         }
+        
+        canceledReviewReminder = aDecoder.decodeBool(forKey: "canceledReviewReminder") 
+        timesOpenedApp = aDecoder.decodeInteger(forKey: "timesOpenedApp") 
     }
     
     /// Encode an ApplicationUser object using the given encoder
@@ -37,6 +46,8 @@ class ApplicationUser: NSObject, NSCoding{
             return NSKeyedArchiver.archivedData(withRootObject: favorite)
         }
         aCoder.encode(favoritesData, forKey: "favorites")
+        aCoder.encode(canceledReviewReminder, forKey: "canceledReviewReminder")
+        aCoder.encode(timesOpenedApp, forKey: "timesOpenedApp")
     }
     
 }

@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidFinishLaunching(_ application: UIApplication) {
         Fabric.with([Crashlytics.self])
         saveIndefinitely()
+        handleReviewReminder()
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -103,6 +104,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deadline = DispatchTime.now() + .seconds(30)
         DispatchQueue.main.asyncAfter(deadline: deadline) {
             self.saveIndefinitely()
+        }
+    }
+    
+    private func handleReviewReminder(){
+        
+        guard let navViewController = window?.rootViewController as? UINavigationController,
+            let topController = navViewController.topViewController
+            else { return }
+    
+        let reviewHandler = ReviewHandler(presentOn: topController)
+        
+        if(reviewHandler.mayAskForReview()){
+            reviewHandler.askForReview()
         }
     }
     
