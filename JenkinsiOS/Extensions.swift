@@ -120,10 +120,10 @@ extension TimeInterval{
         if Int(hours) > 0{
             returnString += "\(Int(hours)) hours "
         }
-        if Int(minutes) > 0{
+        if Int(minutes) > 0 {
             returnString += "\(Int(minutes)) minutes "
         }
-        if Int(seconds) > 0{
+        if Int(seconds) > 0 && !(Int(hours) > 0 && Int(minutes) > 0) {
             returnString += "\(Int(seconds)) seconds"
         }
         
