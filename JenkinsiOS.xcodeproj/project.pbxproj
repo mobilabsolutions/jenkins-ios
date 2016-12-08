@@ -80,6 +80,10 @@
 		DC2045F21DB132C2009CF232 /* DataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045F11DB132C2009CF232 /* DataRetriever.swift */; };
 		DC2045F41DB13F2F009CF232 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC99C3DB1D955C900031DBE4 /* Assets.xcassets */; };
 		DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */; };
+		DC2CB8A51DF9B63500661806 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2CB8A41DF9B63500661806 /* AboutViewController.swift */; };
+		DC2CB8A71DF9B73100661806 /* AboutText in Resources */ = {isa = PBXBuildFile; fileRef = DC2CB8A61DF9B73100661806 /* AboutText */; };
+		DC2CB8A91DF9B75000661806 /* CreditsText in Resources */ = {isa = PBXBuildFile; fileRef = DC2CB8A81DF9B75000661806 /* CreditsText */; };
+		DC2CB8AB1DF9B82000661806 /* AboutInformationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2CB8AA1DF9B82000661806 /* AboutInformationManager.swift */; };
 		DC3CCD0C1DA67229004C4C3D /* PluginList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0B1DA67229004C4C3D /* PluginList.swift */; };
 		DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD0D1DA67245004C4C3D /* Plugin.swift */; };
 		DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3CCD121DA6791D004C4C3D /* Dependency.swift */; };
@@ -267,6 +271,10 @@
 		DC2045F11DB132C2009CF232 /* DataRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRetriever.swift; sourceTree = "<group>"; };
 		DC2045F31DB1371C009CF232 /* JenkinsiOSTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JenkinsiOSTodayExtension.entitlements; sourceTree = "<group>"; };
 		DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultTableViewCell.swift; sourceTree = "<group>"; };
+		DC2CB8A41DF9B63500661806 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		DC2CB8A61DF9B73100661806 /* AboutText */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AboutText; sourceTree = "<group>"; };
+		DC2CB8A81DF9B75000661806 /* CreditsText */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreditsText; sourceTree = "<group>"; };
+		DC2CB8AA1DF9B82000661806 /* AboutInformationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutInformationManager.swift; sourceTree = "<group>"; };
 		DC3CCD0B1DA67229004C4C3D /* PluginList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginList.swift; sourceTree = "<group>"; };
 		DC3CCD0D1DA67245004C4C3D /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		DC3CCD121DA6791D004C4C3D /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
@@ -634,6 +642,8 @@
 				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
 				DC6F079E1DB502BB00C77FAE /* Config.plist */,
 				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
+				DC2CB8A61DF9B73100661806 /* AboutText */,
+				DC2CB8A81DF9B75000661806 /* CreditsText */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -641,6 +651,7 @@
 		DC99C3FD1D9562330031DBE4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				DC2CB8AA1DF9B82000661806 /* AboutInformationManager.swift */,
 				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
 				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
 				DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */,
@@ -657,6 +668,7 @@
 		DC99C3FE1D9562440031DBE4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DC2CB8A41DF9B63500661806 /* AboutViewController.swift */,
 				DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */,
 				DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */,
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
@@ -904,11 +916,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
+				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
 				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
 				DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */,
+				DC2CB8A91DF9B75000661806 /* CreditsText in Resources */,
 				DC56A5101DF0A0FE000D1A15 /* StarRatingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1032,6 +1046,7 @@
 				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
 				DC66CECF1D98273A00808ED0 /* View.swift in Sources */,
+				DC2CB8A51DF9B63500661806 /* AboutViewController.swift in Sources */,
 				DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */,
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,
 				DCCF35591DF0741B00432EB6 /* URLSessionTaskController.swift in Sources */,
@@ -1087,6 +1102,7 @@
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
 				DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
+				DC2CB8AB1DF9B82000661806 /* AboutInformationManager.swift in Sources */,
 				DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */,
 				DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */,
 				DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */,

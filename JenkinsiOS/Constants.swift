@@ -73,7 +73,7 @@ struct Constants{
         static let showFolderSegue = "showFolderSegue"
         static let showParametersSegue = "showParametersSegue"
         static let didAddAccountSegue = "didAddAccountSegue"
-        
+        static let showInformationSegue = "showInformationSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
     }

@@ -24,11 +24,19 @@ class AccountsTableViewController: BaseTableViewController {
         
         emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the +"
         emptyTableViewImages = [ UIImage(named: "sadFace")! ]
+        
+        toolbarItems = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(image: UIImage(named: "information"), style: .plain, target: self, action: #selector(showInformationViewController)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        ]
+        toolbarItems?[1].tintColor = UIColor.lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        navigationController?.isToolbarHidden = false
     }
     
     //MARK: - View controller navigation
@@ -40,6 +48,8 @@ class AccountsTableViewController: BaseTableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
+        
+        navigationController?.isToolbarHidden = true
     }
     
     fileprivate func prepare(viewController: UIViewController, indexPath: IndexPath){
@@ -53,6 +63,10 @@ class AccountsTableViewController: BaseTableViewController {
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
         tableView.reloadData()
+    }
+    
+    @objc private func showInformationViewController(){
+        performSegue(withIdentifier: Constants.Identifiers.showInformationSegue, sender: nil)
     }
     
     //MARK: - Tableview datasource and delegate
