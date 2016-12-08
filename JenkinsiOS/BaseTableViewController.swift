@@ -158,7 +158,7 @@ import UIKit
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: 20).isActive = true
+        label.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: 70).isActive = true
         
         label.sizeToFit()
     }

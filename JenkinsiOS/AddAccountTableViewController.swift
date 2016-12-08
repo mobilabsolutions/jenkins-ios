@@ -36,7 +36,7 @@ class AddAccountTableViewController: UITableViewController {
         
         AccountManager.manager.addAccount(account: account)
         ApplicationUserManager.manager.save()
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
     }
     
     private func createAccount() -> Account?{

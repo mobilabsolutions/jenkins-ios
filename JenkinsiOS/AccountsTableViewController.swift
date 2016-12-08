@@ -51,6 +51,10 @@ class AccountsTableViewController: BaseTableViewController {
         }
     }
     
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+        tableView.reloadData()
+    }
+    
     //MARK: - Tableview datasource and delegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
