@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         Fabric.with([Crashlytics.self])
+        ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
         handleReviewReminder()
     }

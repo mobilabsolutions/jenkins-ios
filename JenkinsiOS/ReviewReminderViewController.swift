@@ -13,6 +13,7 @@ protocol ReviewReminderViewControllerDelegate{
     func review()
     func feedback(feedback: String)
     func minimumNumberOfStarsForReview() -> Int
+    func postponeReminder()
 }
 
 class ReviewReminderViewController: UIViewController {
@@ -188,7 +189,9 @@ class ReviewReminderViewController: UIViewController {
         guard locationRelativeToContainer.x < 0.0 || locationRelativeToContainer.y < 0.0
             else { return }
         
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true){
+            self.delegate?.postponeReminder()
+        }
     }
     
     func setReviewButtonEnabledIfNecessary(){

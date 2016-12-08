@@ -51,6 +51,11 @@ class ReviewHandler: NSObject{
         }
     }
     
+    func postponeReviewReminder(){
+        user.timesOpenedApp = 0
+        ApplicationUserManager.manager.save()
+    }
+    
     func endReviewReminder(){
         user.canceledReviewReminder = true
         ApplicationUserManager.manager.save()
@@ -101,5 +106,9 @@ extension ReviewHandler: ReviewReminderViewControllerDelegate{
     
     func minimumNumberOfStarsForReview() -> Int{
         return 4
+    }
+    
+    func postponeReminder(){
+        postponeReviewReminder()
     }
 }
