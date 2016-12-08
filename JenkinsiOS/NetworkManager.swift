@@ -417,6 +417,7 @@ class NetworkManager{
             
             NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
             
+            // Ignore errors that result from cancellation
             if let urlError = error as? URLError{
                 guard urlError.code != .cancelled
                     else { return }

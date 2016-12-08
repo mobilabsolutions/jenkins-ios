@@ -60,7 +60,7 @@ class LoadingIndicatorImageView: UIImageView {
         self.contentMode = .scaleAspectFit
         self.alpha = 0.5
         
-        self.startAnimating()
+        self.startAnimation()
     }
     
     private func addRotatingAnimation(){
