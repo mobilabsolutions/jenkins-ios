@@ -631,19 +631,19 @@
 		DC99C3F91D9561710031DBE4 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				DCC2E15D1D9D7CA800491B98 /* Frameworks */,
-				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
-				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
-				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
-				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
-				DC99C3E01D955C900031DBE4 /* Info.plist */,
-				DC99C4071D9572930031DBE4 /* Errors.swift */,
-				DC66CEC41D98069F00808ED0 /* Constants.swift */,
-				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
-				DC6F079E1DB502BB00C77FAE /* Config.plist */,
-				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
 				DC2CB8A61DF9B73100661806 /* AboutText */,
+				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
+				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
+				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
+				DC6F079E1DB502BB00C77FAE /* Config.plist */,
+				DC66CEC41D98069F00808ED0 /* Constants.swift */,
 				DC2CB8A81DF9B75000661806 /* CreditsText */,
+				DC99C4071D9572930031DBE4 /* Errors.swift */,
+				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
+				DCC2E15D1D9D7CA800491B98 /* Frameworks */,
+				DC99C3E01D955C900031DBE4 /* Info.plist */,
+				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
+				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
 			);
 			name = Other;
 			sourceTree = "<group>";
