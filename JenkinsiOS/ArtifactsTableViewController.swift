@@ -131,20 +131,11 @@ class ArtifactsTableViewController: UITableViewController {
     }
     
     private func showModalInformationViewController(){
-        let modalInfoViewController = createModalInformationViewController()
+        let modalInfoViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading Artifact...")
         modalInfoViewController.delegate = self
-        present(modalInfoViewController, animated: true, completion: nil)
-        modalInfoViewController.withLoadingIndicator(title: "Loading Artifact...")
+        navigationController?.present(modalInfoViewController, animated: true, completion: nil)
     }
-    
-    private func createModalInformationViewController() -> ModalInformationViewController{
-        let modalInfoViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
-        modalInfoViewController.modalPresentationStyle = .overCurrentContext
-        modalInfoViewController.modalTransitionStyle = .crossDissolve
         
-        return modalInfoViewController
-    }
-    
     fileprivate func dismissDownload(){
         currentDownloadTask?.suspendTask()
     }

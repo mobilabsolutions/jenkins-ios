@@ -10,6 +10,8 @@ import UIKit
 
 class LoadingIndicatorImageView: UIImageView {
     
+    var isAnimationRunning: Bool = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup(with: UIImage(named: "Jenkins_Loader"))
@@ -32,6 +34,21 @@ class LoadingIndicatorImageView: UIImageView {
         }
     }
     
+    
+    func startAnimation() {
+        if !isAnimationRunning{
+            addRotatingAnimation()
+            isAnimationRunning = true
+        }
+    }
+    
+    func stopAnimation() {
+        if isAnimationRunning{
+            removeRotatingAnimation()
+            isAnimationRunning = false
+        }
+    }
+    
     private func set(animatingImages: [UIImage]){
         self.animationImages = animatingImages
         self.animationDuration = Double(animatingImages.count) * 0.2
@@ -43,11 +60,15 @@ class LoadingIndicatorImageView: UIImageView {
         self.contentMode = .scaleAspectFit
         self.alpha = 0.5
         
-        self.addRotatingAnimation()
+        self.startAnimating()
     }
     
     private func addRotatingAnimation(){
         self.layer.add(getRotatingAnimation(), forKey: "Rotation")
+    }
+    
+    private func removeRotatingAnimation(){
+        self.layer.removeAnimation(forKey: "Rotation")
     }
     
     private func getRotatingAnimation() -> CAAnimation{

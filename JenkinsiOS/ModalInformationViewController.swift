@@ -11,25 +11,33 @@ import UIKit
 class ModalInformationViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var centerView: UIView!
+    @IBOutlet weak var centerView: UIView?
     @IBOutlet weak var containerView: UIView!
     
     var dismissOnTap: Bool = true
     
     var delegate: ModalInformationViewControllerDelegate?
     
+    private var viewTitle: String?
+    private var detailView: UIView?
+    
+    //MARK: - View Controller life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.containerView.layer.cornerRadius = 20
-        self.containerView.clipsToBounds = true
-        self.containerView.alpha = 1.0
-        self.containerView.isOpaque = true
-        self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.1)
-        self.view.isOpaque = true
-        
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(registeredTapOutside))
-        self.view.addGestureRecognizer(gestureRecognizer)
+
+        titleLabel.text = viewTitle
+        addGestureRecognizer()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addDetailView()
+        setBackgroundTransparent()
+    }
+    
+    //MARK: - Initializers
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -41,19 +49,29 @@ class ModalInformationViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    func with(title: String?, detailView: UIView?){
-        titleLabel.text = title
-        centerView.subviews.forEach{
-            $0.removeFromSuperview()
-        }
-        guard let detailView = detailView
-            else { return }
-        
-        centerView.addSubview(detailView)
-        addConstraintsTo(detailView: detailView)
+    convenience init(title: String?, detailView: UIView?){
+        self.init(nibName: "ModalInformationViewController", bundle: Bundle.main)
+        set(title: title, detailView: detailView)
     }
     
+    static func withLoadingIndicator(title: String?) -> ModalInformationViewController{
+        return ModalInformationViewController(title: title, detailView: LoadingIndicatorImageView(image: nil))
+    }
+    
+    func set(title: String?, detailView: UIView?){
+        self.viewTitle = title
+        self.detailView = detailView
+        
+        addDetailView()
+    }
+    
+    // MARK: View helper methods
+    
     private func addConstraintsTo(detailView: UIView){
+        
+        guard let centerView = centerView
+            else { return }
+        
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
         detailView.widthAnchor.constraint(lessThanOrEqualTo: centerView.widthAnchor).isActive = true
@@ -62,16 +80,48 @@ class ModalInformationViewController: UIViewController {
         detailView.centerYAnchor.constraint(equalTo: centerView.centerYAnchor).isActive = true
     }
     
-    func withLoadingIndicator(title: String?){
-        let loadingIndicator = LoadingIndicatorImageView(image: nil)        
-        self.with(title: title, detailView: loadingIndicator)
-    }
-    
-    @objc private func registeredTapOutside(){
-        if dismissOnTap{
+    @objc private func registeredTapOutside(gestureRecognizer: UIGestureRecognizer){
+        if dismissOnTap && isOutsideContainerView(point: gestureRecognizer.location(in: self.view)){
             self.dismiss(animated: true){
                 self.delegate?.didDismiss()
             }
         }
     }
+    
+    private func isOutsideContainerView(point: CGPoint) -> Bool{
+        return !self.containerView.frame.contains(point)
+    }
+    
+    private func setBackgroundTransparent(){
+        self.containerView.layer.cornerRadius = 20
+        self.containerView.clipsToBounds = true
+        self.containerView.alpha = 1.0
+        self.containerView.isOpaque = true
+        self.view.backgroundColor = UIColor(white: 0.1, alpha: 0.1)
+        self.view.isOpaque = false
+    }
+    
+    private func addGestureRecognizer(){
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(registeredTapOutside))
+        self.view.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    private func addDetailView(){
+
+        centerView?.subviews.forEach{
+            $0.removeFromSuperview()
+        }
+        
+        guard let detailView = detailView
+            else { return }
+        
+        centerView?.addSubview(detailView)
+        addConstraintsTo(detailView: detailView)
+        
+        if let loadingView = detailView as? LoadingIndicatorImageView{
+            loadingView.stopAnimation()
+            loadingView.startAnimation()
+        }
+    }
+
 }

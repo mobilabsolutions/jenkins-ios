@@ -77,11 +77,9 @@ class JobViewController: UIViewController {
     
     private func presentModalInformationViewController() -> ModalInformationViewController?{
         if self.isViewLoaded && view.window != nil{
-            let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
-            
+            let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
             present(modalViewController, animated: true)
             
-            modalViewController.withLoadingIndicator(title: "Loading")
             modalViewController.dismissOnTap = false
             
             return modalViewController
@@ -119,9 +117,8 @@ class JobViewController: UIViewController {
     
     private func performBuild(job: Job, account: Account, token: String?){
 
-        let modalViewController = ModalInformationViewController(nibName: "ModalInformationViewController", bundle: Bundle.main)
+        let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
         present(modalViewController, animated: true)
-        modalViewController.withLoadingIndicator(title: "Loading")
 
         try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
             DispatchQueue.main.async {
@@ -138,7 +135,7 @@ class JobViewController: UIViewController {
                 else{
                     let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
                     successImageView.contentMode = .scaleAspectFit
-                    modalViewController.with(title: "Success", detailView: successImageView)
+                    modalViewController.set(title: "Success", detailView: successImageView)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(500), execute: {
                         modalViewController.dismiss(animated: true, completion: nil)
                     })
