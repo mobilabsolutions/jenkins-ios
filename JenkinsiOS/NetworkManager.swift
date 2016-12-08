@@ -254,6 +254,13 @@ class NetworkManager{
         }
     }
     
+    /// Set the file size for a given artifact
+    ///
+    /// - Parameters:
+    ///   - artifact: The artifact whose file size should be set
+    ///   - account: The account that should be used for the artifact
+    ///   - completion: A closure handling the updated artifact and an optional error
+    /// - Returns: A URLSessionTaskController instance representing the current task
     func setSizeForArtifact(artifact: Artifact, account: Account, completion: ((Artifact, Error?) -> ())?) -> URLSessionTaskController{
         
         let userRequest = UserRequest(requestUrl: artifact.url, account: account)
@@ -409,6 +416,11 @@ class NetworkManager{
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
+            
+            if let urlError = error as? URLError{
+                guard urlError.code != .cancelled
+                    else { return }
+            }
             
             guard let data = data, error == nil
                 else { completion(nil, error, response); return }

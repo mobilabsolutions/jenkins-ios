@@ -137,7 +137,7 @@ class ArtifactsTableViewController: UITableViewController {
     }
         
     fileprivate func dismissDownload(){
-        currentDownloadTask?.suspendTask()
+        currentDownloadTask?.cancelTask()
     }
 }
 

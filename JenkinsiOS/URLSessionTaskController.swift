@@ -25,6 +25,11 @@ class URLSessionTaskController{
     }
     
     func cancelTask(){
+        
+        if task.state == .running{
+            suspendTask()
+        }
+        
         task.cancel()
         delegate?.didCancel?(task: task)
     }
