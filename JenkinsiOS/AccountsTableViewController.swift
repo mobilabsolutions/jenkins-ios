@@ -27,10 +27,9 @@ class AccountsTableViewController: BaseTableViewController {
         
         toolbarItems = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(image: UIImage(named: "information"), style: .plain, target: self, action: #selector(showInformationViewController)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddAccountViewController)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         ]
-        toolbarItems?[1].tintColor = UIColor.lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,8 +67,12 @@ class AccountsTableViewController: BaseTableViewController {
         tableView.reloadData()
     }
     
-    @objc private func showInformationViewController(){
+    @IBAction func showInformationViewController(){
         performSegue(withIdentifier: Constants.Identifiers.showInformationSegue, sender: nil)
+    }
+    
+    func showAddAccountViewController(){
+        performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nil)
     }
     
     //MARK: - Tableview datasource and delegate

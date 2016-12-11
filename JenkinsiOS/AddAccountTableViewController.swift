@@ -16,6 +16,8 @@ class AddAccountTableViewController: UITableViewController {
     
     //MARK: - Outlets
     
+    @IBOutlet var titleLabel: UILabel!
+    
     @IBOutlet weak var addAccountButton: UIButton!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -71,25 +73,36 @@ class AddAccountTableViewController: UITableViewController {
 
         // Write all known data into the text fields
         if let account = account{
-            addAccountButton.setTitle("Save", for: .normal)
-            addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
-            usernameTextField.text = account.username ?? ""
-            apiKeyTextField.text = account.password ?? ""
-            urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
-            nameTextField.text = account.displayName ?? ""
+            prepareUI(for: account)
         }
         else{
-            addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
-            usernameTextField.text = ""
-            apiKeyTextField.text = ""
-            portTextField.placeholder = "\(Constants.Defaults.defaultPort)"
+            prepareUIWithoutAccount()
         }
 
         // The add button should not be enabled when there is no text in the mandatory textfields
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
-        // For username and password textfields, set the default value to nil
+
+    }
+    
+    
+    private func prepareUI(for account: Account){
+        addAccountButton.setTitle("Save", for: .normal)
+        addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
+        usernameTextField.text = account.username ?? ""
+        apiKeyTextField.text = account.password ?? ""
+        urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
+        nameTextField.text = account.displayName ?? ""
+        titleLabel.text = "Edit Account"
+    }
+    
+    private func prepareUIWithoutAccount(){
+        addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
+        usernameTextField.text = ""
+        apiKeyTextField.text = ""
+        portTextField.placeholder = "\(Constants.Defaults.defaultPort)"
+        titleLabel.text = "Add account"
     }
     
     //MARK: - Textfield methods
