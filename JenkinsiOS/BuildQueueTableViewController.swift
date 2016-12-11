@@ -33,22 +33,26 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         guard let account = account
             else { return }
         
+        emptyTableView(for: .loading)
+        
         _ = NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
-            guard let queue = queue, error == nil
-                else {
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                            
-                            self.performRequest()
-                        })
-                    }
-                    return
-            }
-            self.queue = queue
-            
             DispatchQueue.main.async {
+                guard let queue = queue, error == nil
+                    else {
+                        if let error = error{
+                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                self.account?.username = returnData["username"]!
+                                self.account?.password = returnData["password"]!
+                                
+                                self.performRequest()
+                            })
+                            self.emptyTableView(for: .error)
+                        }
+                        return
+                }
+                
+                self.queue = queue
+                self.emptyTableView(for: .noData)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
@@ -56,6 +60,11 @@ class BuildQueueTableViewController: RefreshingTableViewController {
     }
 
     // MARK: - Table view data source    
+    
+    override func tableViewIsEmpty() -> Bool {
+        return queue == nil || queue?.items.count == 0
+    }
+    
     override func numberOfSections() -> Int {
         return 1
     }
@@ -63,7 +72,6 @@ class BuildQueueTableViewController: RefreshingTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return queue?.items.count ?? 0
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)

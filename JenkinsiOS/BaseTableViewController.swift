@@ -35,7 +35,8 @@ import UIKit
                 else { return }
             
             if emptyTableViewImageViewIsForLoading{
-                emptyTableViewImageView = LoadingIndicatorImageView(images: emptyTableViewImages)
+                let loadingIndicatorView = LoadingIndicatorImageView(images: emptyTableViewImages)
+                emptyTableViewImageView = loadingIndicatorView
             }
             else{
                 emptyTableViewImageView = UIImageView()
@@ -46,6 +47,16 @@ import UIKit
     
     private var emptyTableViewImageView: UIImageView?
     private var emptyTableViewLabel: UILabel?
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let loadingIndicator = emptyTableViewImageView as? LoadingIndicatorImageView{
+            loadingIndicator.stopAnimation()
+            loadingIndicator.startAnimation()
+        }
+    }
     
     /// How many sections there are in the given table view
     ///
@@ -114,6 +125,9 @@ import UIKit
     private func addEmptyTableViewText(in view: UIView){
         let label = getLabelForEmptyTableView()
         label.text = emptyTableViewText
+        label.textColor = .darkGray
+        
+        label.font = UIFont(name: "Bangla Sangam MN", size: UIFont.labelFontSize)
         
         view.addSubview(label)
         addConstraintsToEmptyTableView(label: label, in: view)
