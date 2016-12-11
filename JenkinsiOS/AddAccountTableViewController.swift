@@ -24,8 +24,10 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet weak var apiKeyTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    
+    @IBOutlet weak var schemeControl: UISegmentedControl!
+    @IBOutlet weak var trustAllCertificatesSwitch: UISwitch!
+    @IBOutlet weak var trustAllCertificatesWarning: UILabel!
+
     //MARK: - Actions
     
     @IBAction func cancel(_ sender: AnyObject) {
@@ -42,7 +44,8 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     private func createAccount() -> Account?{
-        guard let url = URL(string: "https://" + urlTextField.text!)
+        
+        guard let url = createAccountURL()
             else { return nil }
         
         let port = Int(portTextField.text!) ?? Constants.Defaults.defaultPort
@@ -50,8 +53,15 @@ class AddAccountTableViewController: UITableViewController {
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
         
         let displayName = nameTextField.text != "" ? nameTextField.text : nil
-        
-        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName)
+        let trustAllCertificates = trustAllCertificatesSwitch.isOn
+
+        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName,
+                trustAllCertificates: trustAllCertificates)
+    }
+    
+    private func createAccountURL() -> URL?{
+        let schemeString = schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) ?? "https://"
+        return URL(string: schemeString + urlTextField.text!)
     }
     
     func saveAccount(){
@@ -62,7 +72,8 @@ class AddAccountTableViewController: UITableViewController {
         account?.password = newAccount.password
         account?.username = newAccount.username
         account?.port = newAccount.port
-        
+        account?.trustAllCertificates = newAccount.trustAllCertificates
+
         AccountManager.manager.save()
         dismiss(animated: true, completion: nil)
     }

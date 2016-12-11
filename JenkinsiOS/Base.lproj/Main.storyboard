@@ -1289,24 +1289,24 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FI2-mN-g6w">
-                                                    <rect key="frame" x="124.5" y="12" width="55.5" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y5C-Ag-fWe">
+                                                    <rect key="frame" x="55" y="8" width="119" height="29"/>
+                                                    <segments>
+                                                        <segment title="https://"/>
+                                                        <segment title="http://"/>
+                                                    </segments>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XAf-rR-ubo" firstAttribute="leading" secondItem="n12-cN-lbR" secondAttribute="trailing" constant="8" id="2Hf-xf-RFV"/>
                                                 <constraint firstItem="n12-cN-lbR" firstAttribute="leading" secondItem="rtW-m9-dQz" secondAttribute="leadingMargin" id="4Fn-4a-GTC"/>
                                                 <constraint firstItem="XAf-rR-ubo" firstAttribute="trailing" secondItem="rtW-m9-dQz" secondAttribute="trailingMargin" id="7Kw-dB-jXS"/>
+                                                <constraint firstItem="XAf-rR-ubo" firstAttribute="leading" secondItem="Y5C-Ag-fWe" secondAttribute="trailing" constant="8" id="DgN-zm-BI0"/>
+                                                <constraint firstItem="Y5C-Ag-fWe" firstAttribute="centerY" secondItem="XAf-rR-ubo" secondAttribute="centerY" id="Rxz-bH-Rw5"/>
                                                 <constraint firstItem="n12-cN-lbR" firstAttribute="centerY" secondItem="rtW-m9-dQz" secondAttribute="centerY" id="bR2-GM-C92"/>
-                                                <constraint firstItem="XAf-rR-ubo" firstAttribute="leading" secondItem="FI2-mN-g6w" secondAttribute="trailing" constant="2" id="dyv-aH-KT6"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="XAf-rR-ubo" secondAttribute="bottom" constant="-1" id="jTj-bT-Luc"/>
                                                 <constraint firstItem="XAf-rR-ubo" firstAttribute="centerY" secondItem="rtW-m9-dQz" secondAttribute="centerY" id="kkX-KP-X31"/>
                                                 <constraint firstItem="n12-cN-lbR" firstAttribute="height" secondItem="XAf-rR-ubo" secondAttribute="height" id="oWh-jS-NZL"/>
-                                                <constraint firstItem="FI2-mN-g6w" firstAttribute="top" secondItem="rtW-m9-dQz" secondAttribute="topMargin" constant="4" id="rV2-ZO-uBg"/>
-                                                <constraint firstItem="FI2-mN-g6w" firstAttribute="centerY" secondItem="XAf-rR-ubo" secondAttribute="centerY" id="uhL-It-FCS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1413,6 +1413,54 @@
                                                 <constraint firstItem="lFj-6t-QtX" firstAttribute="centerY" secondItem="po2-HK-KIH" secondAttribute="centerY" id="twc-6R-sFd"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="lFj-6t-QtX" secondAttribute="bottom" constant="-1" id="wKc-Vq-Me1"/>
                                                 <constraint firstItem="8nx-c0-40u" firstAttribute="leading" secondItem="po2-HK-KIH" secondAttribute="leadingMargin" id="zaW-Qa-mwj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Trust All Certificates" id="ZG5-te-0yu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="83" id="JrP-gw-urw">
+                                        <rect key="frame" x="0.0" y="389" width="375" height="83"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JrP-gw-urw" id="WE4-8M-AkY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trust All Certificates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugR-jC-GoY">
+                                                    <rect key="frame" x="8" y="31" width="166" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="166" id="IXA-Ac-2Ek"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bP5-Jo-UMd">
+                                                    <rect key="frame" x="318" y="26" width="51" height="31"/>
+                                                    <color key="onTintColor" red="1" green="0.16063058035714287" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="toggleTrustAllCertificates:" destination="rU8-cw-u7t" eventType="valueChanged" id="US9-uB-gMZ"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warning! Trusting all certificates may be a security risk." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYd-J8-g7E">
+                                                    <rect key="frame" x="8" y="54.5" width="359" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="1" green="0.1606305804" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="CYd-J8-g7E" secondAttribute="leading" id="06h-aT-GlY"/>
+                                                <constraint firstItem="ugR-jC-GoY" firstAttribute="centerY" secondItem="WE4-8M-AkY" secondAttribute="centerY" id="0ue-PF-hFd"/>
+                                                <constraint firstItem="ugR-jC-GoY" firstAttribute="leading" secondItem="WE4-8M-AkY" secondAttribute="leadingMargin" id="GSC-OQ-UoL"/>
+                                                <constraint firstItem="bP5-Jo-UMd" firstAttribute="centerY" secondItem="ugR-jC-GoY" secondAttribute="centerY" id="KjA-HU-O6G"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="CYd-J8-g7E" secondAttribute="trailing" id="UXT-Yj-kuf"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="CYd-J8-g7E" secondAttribute="leading" id="b8v-EK-Dfh"/>
+                                                <constraint firstItem="CYd-J8-g7E" firstAttribute="top" secondItem="ugR-jC-GoY" secondAttribute="bottom" constant="2.5" id="fng-Sr-zvz"/>
+                                                <constraint firstItem="bP5-Jo-UMd" firstAttribute="centerY" secondItem="WE4-8M-AkY" secondAttribute="centerY" id="h7w-jd-XL7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bP5-Jo-UMd" secondAttribute="trailing" id="thX-Yi-mwR"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="CYd-J8-g7E" secondAttribute="bottom" constant="-2" id="w5X-TZ-Xq3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1589,7 +1637,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsWhenKeyboardAppears="YES" id="kx5-WF-0Mf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QwA-xi-yHa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QwA-xi-yHa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

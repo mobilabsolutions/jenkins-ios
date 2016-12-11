@@ -8,10 +8,18 @@
 
 import Foundation
 
-class NetworkManager{
+class NetworkManager: NSObject{
     
     static let manager = NetworkManager()
-    
+
+    private var session: URLSession!
+    fileprivate var accounts: [URLSessionTask: Account] = [:]
+
+    private override init(){
+        super.init()
+        session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+    }
+
     //MARK: - Enumerations
         
     /// An enum describing the available http methods
