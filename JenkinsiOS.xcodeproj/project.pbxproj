@@ -437,6 +437,18 @@
 			path = JenkinsiOSTodayExtension;
 			sourceTree = "<group>";
 		};
+		DC2A47281DFD731A0094D79B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CB8A61DF9B73100661806 /* AboutText */,
+				DC2CB8A81DF9B75000661806 /* CreditsText */,
+				DC6F079E1DB502BB00C77FAE /* Config.plist */,
+				DC99C3E01D955C900031DBE4 /* Info.plist */,
+				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		DC3CCD0F1DA67900004C4C3D /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,19 +643,15 @@
 		DC99C3F91D9561710031DBE4 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				DC2CB8A61DF9B73100661806 /* AboutText */,
 				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
-				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
 				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
-				DC6F079E1DB502BB00C77FAE /* Config.plist */,
 				DC66CEC41D98069F00808ED0 /* Constants.swift */,
-				DC2CB8A81DF9B75000661806 /* CreditsText */,
 				DC99C4071D9572930031DBE4 /* Errors.swift */,
 				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
 				DCC2E15D1D9D7CA800491B98 /* Frameworks */,
-				DC99C3E01D955C900031DBE4 /* Info.plist */,
 				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
 				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
+				DC2A47281DFD731A0094D79B /* Resources */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1340,6 +1348,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1361,6 +1370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

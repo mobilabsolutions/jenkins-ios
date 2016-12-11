@@ -1193,6 +1193,9 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNy-Nq-3Xr">
                                     <rect key="frame" x="8" y="25" width="50.5" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50.5" id="KEy-hp-gO2"/>
+                                    </constraints>
                                     <state key="normal" title="Cancel"/>
                                     <connections>
                                         <action selector="cancel:" destination="rU8-cw-u7t" eventType="touchUpInside" id="8rx-bi-TJY"/>
@@ -1207,7 +1210,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="ixu-nQ-sZL" firstAttribute="leading" secondItem="aNy-Nq-3Xr" secondAttribute="trailing" constant="77.5" id="6k8-xL-Fsm"/>
+                                <constraint firstItem="ixu-nQ-sZL" firstAttribute="leading" relation="lessThanOrEqual" secondItem="aNy-Nq-3Xr" secondAttribute="trailing" constant="77" id="6k8-xL-Fsm"/>
                                 <constraint firstAttribute="bottom" secondItem="aNy-Nq-3Xr" secondAttribute="bottom" id="9aU-uD-4pq"/>
                                 <constraint firstItem="aNy-Nq-3Xr" firstAttribute="leading" secondItem="qMK-IX-0wD" secondAttribute="leading" constant="8" id="CT8-Cv-HGg"/>
                                 <constraint firstItem="aNy-Nq-3Xr" firstAttribute="centerY" secondItem="ixu-nQ-sZL" secondAttribute="centerY" id="FED-Ry-ucD"/>
