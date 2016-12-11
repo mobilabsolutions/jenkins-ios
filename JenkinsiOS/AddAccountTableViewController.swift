@@ -115,6 +115,31 @@ class AddAccountTableViewController: UITableViewController {
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
         
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
+        addKeyboardHandling()
+    }
+    
+    private func addKeyboardHandling(){
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil){
+            notification in
+            guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+                else { return }
+            
+            guard let footerViewRect = self.tableView.tableFooterView?.frame
+                else { return }
+            
+            let inset =  keyboardRect.minY - footerViewRect.minY
+            
+            self.tableView.contentInset.top = (inset > 0) ? -inset - 20 : 0
+        }
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tableView.addGestureRecognizer(recognizer)
+    }
+    
+    @objc private func dismissKeyboard(){
+        tableView.endEditing(true)
     }
     
     @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
