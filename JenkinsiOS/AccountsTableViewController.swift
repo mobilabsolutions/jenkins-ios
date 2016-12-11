@@ -39,6 +39,11 @@ class AccountsTableViewController: BaseTableViewController {
         navigationController?.isToolbarHidden = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isToolbarHidden = true
+    }
+    
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -48,8 +53,6 @@ class AccountsTableViewController: BaseTableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
-        
-        navigationController?.isToolbarHidden = true
     }
     
     fileprivate func prepare(viewController: UIViewController, indexPath: IndexPath){
@@ -155,6 +158,8 @@ class AccountsTableViewController: BaseTableViewController {
 
 extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        // Ugly hack to ensure that a presented popover will not be presented once pushed
+        viewControllerToCommit.dismiss(animated: true, completion: nil)
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
