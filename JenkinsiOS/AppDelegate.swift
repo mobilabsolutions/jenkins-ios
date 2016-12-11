@@ -32,6 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleReviewReminder()
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication){
+        (window?.rootViewController as? UINavigationController)?.setNavigationBarHidden(false, animated: true)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
