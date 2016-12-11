@@ -421,7 +421,7 @@ class NetworkManager: NSObject{
         
         let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             
             NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
             
@@ -444,11 +444,14 @@ class NetworkManager: NSObject{
             
             completion(data, error, response)
         }
+
+        accounts[task] = userRequest.account
         
         let controller = URLSessionTaskController(task: task, delegate: self)
         controller.resumeTask()
         
         return controller
+
     }
     
     //MARK: - Helper methods
@@ -481,6 +484,25 @@ class NetworkManager: NSObject{
         return [
             "Authorization" : "Basic " + "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
         ]
+    }
+}
+
+extension NetworkManager: URLSessionTaskDelegate{
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        guard let account = accounts[task], account.trustAllCertificates == true
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        // An empty credential
+        let credential = URLCredential(user: "", password: "", persistence: .none)
+        completionHandler(.useCredential, credential)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+        accounts[task] = nil
     }
 }
 

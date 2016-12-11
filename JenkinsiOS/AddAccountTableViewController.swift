@@ -67,14 +67,33 @@ class AddAccountTableViewController: UITableViewController {
     func saveAccount(){
         guard let newAccount = createAccount()
             else { return }
-        account?.baseUrl = newAccount.baseUrl
+        
+        var didDeleteOldAccount = false
+        
+        if let account = account, newAccount.baseUrl != account.baseUrl {
+            do{
+                try AccountManager.manager.deleteAccount(account: account)
+                didDeleteOldAccount = true
+            }
+            catch{
+                print(error)
+            }
+        }
+        
         account?.displayName = newAccount.displayName
         account?.password = newAccount.password
         account?.username = newAccount.username
         account?.port = newAccount.port
         account?.trustAllCertificates = newAccount.trustAllCertificates
-
-        AccountManager.manager.save()
+        account?.baseUrl = newAccount.baseUrl
+        
+        if didDeleteOldAccount, let account = account{
+            AccountManager.manager.addAccount(account: account)
+        }
+        else{
+            AccountManager.manager.save()
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -94,9 +113,13 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
-
+        
+        toggleTrustAllCertificates(trustAllCertificatesSwitch)
     }
     
+    @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
+        trustAllCertificatesWarning.isHidden = !sender.isOn
+    }
     
     private func prepareUI(for account: Account){
         addAccountButton.setTitle("Save", for: .normal)
@@ -106,6 +129,7 @@ class AddAccountTableViewController: UITableViewController {
         urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
         nameTextField.text = account.displayName ?? ""
         titleLabel.text = "Edit Account"
+        trustAllCertificatesSwitch.isOn = account.trustAllCertificates
     }
     
     private func prepareUIWithoutAccount(){

@@ -17,6 +17,14 @@ import UIKit
     
     @IBInspectable var buttonInset: (x: Int, y: Int) = (10, 7)
     
+    override var text: String?{
+        didSet{
+            if oldValue == "" || oldValue == nil{
+                setButtonImage()
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -35,12 +43,12 @@ import UIKit
     private func addSubViews(){
         
         let button = UIButton(type: .custom)
-        button.setImage(imageForSecureTextState(), for: .normal)
-        setButtonImage()
-        
+
         self.leftView = button
         self.toggleSecureTextButton = button
         self.leftViewMode = .always
+
+        setButtonImage()
         
         button.addTarget(self, action: #selector(toggleIsSecureTextEntry), for: .touchUpInside)
         self.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
