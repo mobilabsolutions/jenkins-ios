@@ -29,7 +29,7 @@ class AccountManager{
     ///
     /// - parameter account: The account to add
     func addAccount(account: Account){
-        accounts.append(account)
+        accounts.insert(account, at: 0)
         save(account: account)
     }
     

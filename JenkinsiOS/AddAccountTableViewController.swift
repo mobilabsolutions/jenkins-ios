@@ -154,6 +154,7 @@ class AddAccountTableViewController: UITableViewController {
         urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
         nameTextField.text = account.displayName ?? ""
         titleLabel.text = "Edit Account"
+        schemeControl.selectedSegmentIndex = account.baseUrl.scheme == "http" ? 1 : 0
         trustAllCertificatesSwitch.isOn = account.trustAllCertificates
     }
     
