@@ -66,6 +66,9 @@ class ReviewReminderViewController: UIViewController {
         addKeyboardHandling()
         
         feedbackTextView.delegate = self
+        
+        reviewButton.titleLabel?.minimumScaleFactor = 0.5
+        reviewButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     private func addKeyboardHandling(){

@@ -227,3 +227,16 @@ extension UIImageView{
         self.image = newImage
     }
 }
+
+extension UILabel{
+    func updateFontName(to name: String){
+        let fontName =  self.font.isBold ? (name + "-Bold") : name + "-Regular"
+        self.font = UIFont(name: fontName, size: self.font.pointSize)
+    }
+}
+
+extension UIFont{
+    var isBold: Bool{
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
+    }
+}

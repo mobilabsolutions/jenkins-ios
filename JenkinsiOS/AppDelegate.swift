@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
         handleReviewReminder()
+        
+        let appearanceManager = AppearanceManager()
+        appearanceManager.setGlobalAppearance()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication){

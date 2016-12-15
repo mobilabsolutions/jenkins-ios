@@ -35,6 +35,7 @@ struct Constants{
     
     struct UI{
         static let bigButtonColor = UIColor(red: 125/255, green: 151/255, blue: 255/255, alpha: 1.0)
+        static let defaultLabelFont = "SourceSansPro"
     }
     
     struct Identifiers{
