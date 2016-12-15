@@ -61,12 +61,15 @@ class AccountManagerTests: XCTestCase {
 
     func testSavesProperly(){
         _ = addGenericAccounts()
+
+        let url = AccountManager.manager.accounts.first!.baseUrl
         AccountManager.manager.accounts.first!.username = "OtherUsernameThanBefore"
         AccountManager.manager.save()
 
         AccountManager.manager.accounts = []
         AccountManager.manager.update()
-        XCTAssertEqual(AccountManager.manager.accounts.first!.username, "OtherUsernameThanBefore")
+        let changed = AccountManager.manager.accounts.first{ $0.baseUrl == url }?.username == "OtherUsernameThanBefore"
+        XCTAssertTrue(changed, "The username should have changed")
     }
 
     private func addGenericAccounts() -> [Account]{

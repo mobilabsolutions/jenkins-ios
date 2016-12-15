@@ -15,6 +15,8 @@ class BuildViewController: UITableViewController {
     var build: Build?
     var account: Account?
     
+    var viewWillAppearCalled = false
+    
     class DisplayData{
         var segueIdentifier: String?
         var key: String
@@ -54,6 +56,10 @@ class BuildViewController: UITableViewController {
         registerForPreviewing(with: self, sourceView: tableView)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearCalled = true
+    }
     
     //MARK: - Actions
     

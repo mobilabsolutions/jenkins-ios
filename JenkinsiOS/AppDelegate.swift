@@ -57,8 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             else { return false }
         
         if let nav = window?.rootViewController as? UINavigationController{
-            nav.pushViewController(getViewController(name: "FavoritesViewController"), animated: true)
-            nav.pushViewController(viewController(for: type, with: favorite), animated: true)
+            nav.popToRootViewController(animated: false)
+            nav.pushViewController(getViewController(name: "FavoritesViewController"), animated: false)
+            nav.pushViewController(viewController(for: type, with: favorite), animated: false)
         }
         
         return true
@@ -78,7 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     vc.job = job
                     
                     DispatchQueue.main.async {
-                        vc.updateUI()
+                        if vc.viewWillAppearCalled {
+                            vc.updateUI()
+                        }
                     }
                     
                 })
@@ -94,7 +97,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 _ = NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
                     vc.build = build
                     DispatchQueue.main.async {
-                        vc.updateData()
+                        if vc.viewWillAppearCalled{
+                            vc.updateData()
+                        }
                     }
                 })
                 

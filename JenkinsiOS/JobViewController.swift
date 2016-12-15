@@ -22,6 +22,8 @@ class JobViewController: UIViewController {
     @IBOutlet weak var healthReportLabel: UILabel!
     @IBOutlet weak var showBuildsCell: UITableViewCell!
 
+    var viewWillAppearCalled = false
+    
     //MARK: - Actions
 
     func triggerBuild() {
@@ -171,6 +173,7 @@ class JobViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupUI()
+        viewWillAppearCalled = true
     }
 
     func like(){
@@ -194,7 +197,9 @@ class JobViewController: UIViewController {
                         }
                         return
                 }
-                self.updateUI()
+                if self.viewWillAppearCalled{
+                    self.updateUI()
+                }
             }
         }
     }
