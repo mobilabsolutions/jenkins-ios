@@ -209,9 +209,25 @@ class JobViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
 
+        
         updateUI()
+        
+        guard job?.healthReport.first == nil
+            else { return }
+        addLoadingIndicator()
     }
-
+    
+    private func addLoadingIndicator(){
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        colorImageView.addSubview(indicator)
+        
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.centerXAnchor.constraint(equalTo: colorImageView.centerXAnchor).isActive = true
+        indicator.centerYAnchor.constraint(equalTo: colorImageView.centerYAnchor).isActive = true
+        
+        indicator.startAnimating()
+    }
+    
     func updateUI(){
         nameLabel.text = job?.name
         urlLabel.text = (job?.url).textify()
@@ -233,7 +249,7 @@ class JobViewController: UIViewController {
             else { return }
 
         let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
-        self.descriptionWebView.loadHTMLString("<span style=\"font-family: san francisco, helvetica\">" + description + "</span>", baseURL: nil)
+        self.descriptionWebView.loadHTMLString("<span style=\"font-family:'Source Sans Pro', helvetica\">" + description + "</span>", baseURL: nil)
         self.descriptionWebView.sizeToFit()
 
         if job.healthReport.count > 0{
@@ -245,6 +261,10 @@ class JobViewController: UIViewController {
 
         if let icon = job.healthReport.first?.iconClassName{
             self.colorImageView.image = UIImage(named: icon)
+        }
+        
+        if let indicator = colorImageView.subviews.first as? UIActivityIndicatorView, job.healthReport.first != nil{
+            indicator.stopAnimating()
         }
 
         navigationItem.rightBarButtonItem?.isEnabled = job.isFullVersion

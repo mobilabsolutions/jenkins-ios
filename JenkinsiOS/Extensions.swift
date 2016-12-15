@@ -38,6 +38,12 @@ extension Optional{
     }
 }
 
+extension Bool{
+    var humanReadableString: String{
+        return self ? "Yes" : "No"
+    }
+}
+
 extension Double{
     /// Return a string indicating the number of gigabytes from a Double indicating a number of bytes
     ///
