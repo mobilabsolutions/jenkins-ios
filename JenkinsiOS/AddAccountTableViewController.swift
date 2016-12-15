@@ -119,6 +119,9 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     private func addKeyboardHandling(){
+        
+        var movedBy: CGFloat = 0.0
+        
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil){
             notification in
             guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
@@ -129,7 +132,13 @@ class AddAccountTableViewController: UITableViewController {
             
             let inset =  keyboardRect.minY - footerViewRect.minY
             
-            self.tableView.contentInset.top = (inset > 0) ? -inset - 20 : 0
+            movedBy = -inset - 20
+            
+            self.tableView.contentInset.top = (inset > 0) ? movedBy : 0
+        }
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { (notification) in
+            self.tableView.contentInset.top = -movedBy
         }
         
         tableView.keyboardDismissMode = .onDrag
