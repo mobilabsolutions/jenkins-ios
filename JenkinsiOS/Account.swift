@@ -66,11 +66,6 @@ class Account: NSObject, NSCoding{
     override func isEqual(_ object: Any?) -> Bool {
         guard let otherAccount = object as? Account
             else { return false }
-        return (displayName == otherAccount.displayName)
-                && (baseUrl == otherAccount.baseUrl)
-                && (username == otherAccount.username)
-                && (password == otherAccount.password)
-                && (port == otherAccount.port)
-                && (trustAllCertificates == otherAccount.trustAllCertificates)
+        return baseUrl == otherAccount.baseUrl
     }
 }

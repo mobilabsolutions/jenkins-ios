@@ -28,7 +28,11 @@ class AccountManager{
     /// Add an account to the list of available accounts
     ///
     /// - parameter account: The account to add
-    func addAccount(account: Account){
+    func addAccount(account: Account) throws {
+        
+        guard !accounts.contains(account)
+            else { throw AccountManagerError.accountAlreadyExists }
+        
         accounts.append(account)
         save(account: account)
     }

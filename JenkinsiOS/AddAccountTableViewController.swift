@@ -37,10 +37,26 @@ class AddAccountTableViewController: UITableViewController {
     func addAccount(){
         guard let account = createAccount()
             else { return }
+        let success = addAccountWith(account: account)
+        if success{
+            performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
+        }
+    }
+    
+    private func addAccountWith(account: Account) -> Bool{
+        do{
+            try AccountManager.manager.addAccount(account: account)
+            ApplicationUserManager.manager.save()
+            return true
+        }
+        catch let error as AccountManagerError{
+            displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [
+                    UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                ])
+        }
+        catch{ print("An error occurred: \(error)") }
         
-        AccountManager.manager.addAccount(account: account)
-        ApplicationUserManager.manager.save()
-        performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
+        return false
     }
     
     private func createAccount() -> Account?{
@@ -88,7 +104,11 @@ class AddAccountTableViewController: UITableViewController {
         account?.baseUrl = newAccount.baseUrl
         
         if didDeleteOldAccount, let account = account{
-            AccountManager.manager.addAccount(account: account)
+            let success = addAccountWith(account: account)
+            
+            if !success{
+                return
+            }
         }
         else{
             AccountManager.manager.save()

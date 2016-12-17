@@ -26,7 +26,7 @@ class AccountManagerTests: XCTestCase {
 
         removedAccounts.forEach{
             account in
-            AccountManager.manager.addAccount(account: account)
+            _ = try? AccountManager.manager.addAccount(account: account)
         }
 
         removedAccounts = []
@@ -79,7 +79,7 @@ class AccountManagerTests: XCTestCase {
         ]
 
         accounts.forEach {
-            AccountManager.manager.addAccount(account: $0)
+            _ = try? AccountManager.manager.addAccount(account: $0)
         }
 
         return accounts
