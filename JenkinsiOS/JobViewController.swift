@@ -49,7 +49,6 @@ class JobViewController: UIViewController {
         let modalViewController = presentModalInformationViewController()
 
         if account.password == nil || account.username == nil{
-            
             modalViewController?.dismiss(animated: true, completion: { 
                 self.displayInputTokenError(for: job, with: account, modalViewController: modalViewController)
             })
@@ -63,10 +62,13 @@ class JobViewController: UIViewController {
     
     private func displayInputTokenError(for job: Job, with account: Account, modalViewController: ModalInformationViewController?){
         var tokenTextField: UITextField!
-        displayError(title: "Please Input a token", message: "To start a build without username or password, a token is required", textFieldConfigurations: [{ (textField) in
+        displayError(title: "Please Input a token",
+                     message: "To start a build without username or password, a token is required",
+                     textFieldConfigurations: [{ (textField) in
             textField.placeholder = "Token"
             tokenTextField = textField
-            }], actions: [
+            }],
+                     actions: [
                 UIAlertAction(title: "Use", style: .default, handler: { (_) in
                     self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
                         self.completionForBuild()(modalViewController, $0, $1)

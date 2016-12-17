@@ -133,6 +133,7 @@
 		DC8B5C631DC2537700A01D6E /* BuildTestsMinimalResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */; };
 		DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C641DC2694800A01D6E /* JobListResult.swift */; };
 		DC8B5C661DC26AA300A01D6E /* JobListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C641DC2694800A01D6E /* JobListResult.swift */; };
+		DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8C83821E054D540071EC50 /* NavigationController.swift */; };
 		DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */; };
 		DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */; };
 		DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */; };
@@ -334,6 +335,7 @@
 		DC8B5C601DC252B800A01D6E /* ModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTestCase.swift; sourceTree = "<group>"; };
 		DC8B5C621DC2537700A01D6E /* BuildTestsMinimalResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsMinimalResource.json; sourceTree = "<group>"; };
 		DC8B5C641DC2694800A01D6E /* JobListResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobListResult.swift; sourceTree = "<group>"; };
+		DC8C83821E054D540071EC50 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutputViewController.swift; sourceTree = "<group>"; };
 		DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesTableViewController.swift; sourceTree = "<group>"; };
 		DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -711,6 +713,7 @@
 				DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */,
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
 				DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */,
+				DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */,
 				DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */,
 				DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */,
 				DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */,
@@ -722,19 +725,19 @@
 				DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */,
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
+				DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */,
 				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
+				DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */,
+				DC8C83821E054D540071EC50 /* NavigationController.swift */,
 				DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */,
 				DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */,
 				DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */,
 				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
+				DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */,
 				DC2045AE1DB0D2AD009CF232 /* SearchResultsTableViewController.swift */,
 				DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */,
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
-				DC9BAE3C1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift */,
-				DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */,
-				DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */,
-				DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */,
 				DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
+				DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */,
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
