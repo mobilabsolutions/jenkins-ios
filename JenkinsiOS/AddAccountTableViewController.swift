@@ -85,6 +85,7 @@ class AddAccountTableViewController: UITableViewController {
             else { return }
         
         var didDeleteOldAccount = false
+        let oldAccount = account?.copy() as! Account?
         
         if let account = account, newAccount.baseUrl != account.baseUrl {
             do{
@@ -107,6 +108,9 @@ class AddAccountTableViewController: UITableViewController {
             let success = addAccountWith(account: account)
             
             if !success{
+                if let oldAccount = oldAccount{
+                    _ = try? AccountManager.manager.addAccount(account: oldAccount)
+                }
                 return
             }
         }

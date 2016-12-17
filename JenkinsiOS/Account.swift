@@ -68,4 +68,8 @@ class Account: NSObject, NSCoding{
             else { return false }
         return baseUrl == otherAccount.baseUrl
     }
+    
+    override func copy() -> Any {
+        return Account(baseUrl: baseUrl, username: username, password: password, port: port, displayName: displayName, trustAllCertificates: trustAllCertificates)
+    }
 }
