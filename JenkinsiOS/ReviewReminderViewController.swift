@@ -34,6 +34,8 @@ class ReviewReminderViewController: UIViewController {
     
     var delegate: ReviewReminderViewControllerDelegate?
     
+    var feedbackPlaceholderText = "Please give us some feedback to improve the app..."
+    
     init(){
         super.init(nibName: "ReviewReminderViewController", bundle: Bundle.main)
         self.modalTransitionStyle = .crossDissolve
@@ -228,12 +230,14 @@ extension ReviewReminderViewController: StarRatingViewDelegate{
         if count >= (delegate?.minimumNumberOfStarsForReview() ?? 4){
             reviewButton.setTitle("Review", for: .normal)
             reviewDescriptionLabel.text = "We're glad that you are enjoying the app.\nPlease consider leaving a review."
+            feedbackTextView.resignFirstResponder()
             setHeightConstraint(height: .normal)
         }
         else{
             reviewButton.setTitle("Send feedback", for: .normal)
             reviewDescriptionLabel.text = "What can we improve to create a better experience for you?\nPlease consider giving us some feedback."
             setHeightConstraint(height: .expanded)
+            optionallySetFeedbackPlaceholder()
         }
         reviewDescriptionLabel.textAlignment = .left
         setReviewButtonEnabledIfNecessary()
@@ -256,5 +260,12 @@ extension ReviewReminderViewController: UITextViewDelegate{
 
     func textViewDidChange(_ textView: UITextView) {
         setReviewButtonEnabledIfNecessary()
+    }
+    
+    func optionallySetFeedbackPlaceholder(){
+        guard feedbackTextView.text == nil || feedbackTextView.text == ""
+            else { return }
+        feedbackTextView.textColor = .lightGray
+        feedbackTextView.text = feedbackPlaceholderText
     }
 }
