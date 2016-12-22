@@ -74,17 +74,15 @@ class BuildQueueTableViewController: RefreshingTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath) as! BuildQueueTableViewCell
         
-        cell.textLabel?.text = queue?.items[indexPath.row].task?.name
-        cell.textLabel?.numberOfLines = 1
-        cell.textLabel?.lineBreakMode = .byTruncatingTail
+        cell.nameLabel.text = queue?.items[indexPath.row].task?.name
         
         if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
-            cell.imageView?.image = UIImage(named: "\(colorString)Circle")
+            cell.itemImageView?.image = UIImage(named: "\(colorString)Circle")
         }
         
-        cell.detailTextLabel?.text = queue?.items[indexPath.row].why
+        cell.detailLabel?.text = queue?.items[indexPath.row].why
         
         return cell
     }

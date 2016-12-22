@@ -167,6 +167,7 @@
 		DC9D79EA1DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */; };
 		DCA206E51DF0767C00FBDDD7 /* URLSessionTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */; };
 		DCAD24BA1E0BF6B200FAF0CF /* BuildProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */; };
+		DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
 		DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
 		DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -370,6 +371,7 @@
 		DC9CE6781DBA138000624742 /* JenkinsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsAction.swift; sourceTree = "<group>"; };
 		DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewControllerDelegate.swift; sourceTree = "<group>"; };
 		DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildProvidable.swift; sourceTree = "<group>"; };
+		DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
 		DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = ../Carthage/Build/iOS/SAMKeychain.framework; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DCC2E1641D9FF2BA00491B98 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */,
 				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
 				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
+				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1155,6 +1158,7 @@
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
 				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
+				DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				DC169FD11DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */,
 				DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */,
