@@ -22,8 +22,8 @@ class AccountsTableViewController: BaseTableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         registerForPreviewing(with: self, sourceView: tableView)
         
-        emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the +"
-        emptyTableViewImages = [ UIImage(named: "sadFace")! ]
+        emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the + below"
+        emptyTableViewImages = [ UIImage(named: "plus")! ]
         
         toolbarItems = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
