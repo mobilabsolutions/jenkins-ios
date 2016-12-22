@@ -52,6 +52,7 @@ class AccountsTableViewController: BaseTableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
+        navigationController?.isToolbarHidden = true
     }
     
     fileprivate func prepare(viewController: UIViewController, indexPath: IndexPath){
