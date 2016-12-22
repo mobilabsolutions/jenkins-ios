@@ -291,8 +291,8 @@ class JobViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
             dest.account = account
+            dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
             dest.dataSource = self
             dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
             self.buildProvidable = dest

@@ -18,11 +18,6 @@ class BuildsTableViewController: RefreshingTableViewController, BuildProvidable 
     var dataSource: BuildsTableViewControllerDataSource?
     var account: Account?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-
     override func refresh(){
         dataSource?.loadBuilds(completion: { (builds, specialBuilds) in
             self.builds = builds ?? self.builds
