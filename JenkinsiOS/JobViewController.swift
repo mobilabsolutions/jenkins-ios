@@ -23,6 +23,7 @@ class JobViewController: UIViewController {
     @IBOutlet weak var showBuildsCell: UITableViewCell!
 
     var viewWillAppearCalled = false
+    var buildProvidable: BuildProvidable? = nil
     
     //MARK: - Actions
 
@@ -199,6 +200,10 @@ class JobViewController: UIViewController {
                         }
                         return
                 }
+                
+                self.buildProvidable?.setBuilds(builds: self.job?.builds ?? [], specialBuilds: self.specialBuilds() ?? [])
+                self.buildProvidable?.buildsAlreadyLoaded = true
+                
                 if self.viewWillAppearCalled{
                     self.updateUI()
                 }
@@ -216,11 +221,10 @@ class JobViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
 
-        
         updateUI()
         
         guard job?.healthReport.first == nil
-            else { return }
+            else { stopIndicator(); return }
         addLoadingIndicator()
     }
     
@@ -270,21 +274,28 @@ class JobViewController: UIViewController {
             self.colorImageView.image = UIImage(named: icon)
         }
         
-        if let indicator = colorImageView.subviews.first as? UIActivityIndicatorView, job.healthReport.first != nil{
-            indicator.stopAnimating()
+        if job.healthReport.first != nil{
+            stopIndicator()
         }
 
         navigationItem.rightBarButtonItem?.isEnabled = job.isFullVersion
     }
 
+    private func stopIndicator(){
+        if let indicator = colorImageView.subviews.first as? UIActivityIndicatorView{
+            indicator.stopAnimating()
+        }
+    }
+    
     //MARK: - ViewController Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            dest.builds = job?.builds ?? []
-            dest.specialBuilds = specialBuilds() ?? []
+            dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
             dest.account = account
             dest.dataSource = self
+            dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
+            self.buildProvidable = dest
         }
         else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
             dest.parameters = job?.parameters ?? []
