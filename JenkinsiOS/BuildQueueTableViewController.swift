@@ -19,7 +19,7 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         emptyTableViewText = "Loading Build Queue"
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = 70
 
         performRequest()
     }
@@ -77,8 +77,8 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)
         
         cell.textLabel?.text = queue?.items[indexPath.row].task?.name
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = .byCharWrapping
+        cell.textLabel?.numberOfLines = 1
+        cell.textLabel?.lineBreakMode = .byTruncatingTail
         
         if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
             cell.imageView?.image = UIImage(named: "\(colorString)Circle")
