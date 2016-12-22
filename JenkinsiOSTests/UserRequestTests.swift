@@ -23,7 +23,7 @@ class UserRequestTests: ModelTestCase {
         
         assureValuesAreExpected(values: [
             (userRequest.apiURL, URL(string: "https://www.test-url.test:8080/api/json?pretty=false")!),
-            (userRequest.requestUrl, url.using(scheme: "http", at: 8080)),
+            (userRequest.requestUrl, url.using(scheme: "https", at: 8080)),
             (userRequest.account, account)
         ])
     }
@@ -95,6 +95,6 @@ class UserRequestTests: ModelTestCase {
     }
     
     private func getGenericURL() -> URL{
-        return URL(string: "http://www.test-url.test")!
+        return URL(string: "https://www.test-url.test")!
     }
 }
