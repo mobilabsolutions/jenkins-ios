@@ -19,7 +19,7 @@ extension URL{
     func using(scheme: String, at port: Int? = nil) -> URL?{
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         components?.port = port
-        components?.scheme = "https"
+        components?.scheme = scheme
         return components?.url
     }
 }

@@ -64,7 +64,7 @@ class AddAccountTableViewController: UITableViewController {
         guard let url = createAccountURL()
             else { return nil }
         
-        let port = Int(portTextField.text!) ?? Constants.Defaults.defaultPort
+        let port = Int(portTextField.text!)
         let username = usernameTextField.text != "" ? usernameTextField.text : nil
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
         
@@ -186,6 +186,7 @@ class AddAccountTableViewController: UITableViewController {
         apiKeyTextField.text = account.password ?? ""
         urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
         nameTextField.text = account.displayName ?? ""
+        portTextField.text = account.port != nil ? "\(account.port!)" : ""
         titleLabel.text = "Edit Account"
         schemeControl.selectedSegmentIndex = account.baseUrl.scheme == "http" ? 1 : 0
         trustAllCertificatesSwitch.isOn = account.trustAllCertificates
@@ -195,7 +196,7 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
         usernameTextField.text = ""
         apiKeyTextField.text = ""
-        portTextField.placeholder = "\(Constants.Defaults.defaultPort)"
+        portTextField.placeholder = "Port"
         titleLabel.text = "Add account"
     }
     
