@@ -34,10 +34,10 @@
                     <rect key="frame" x="56" y="234" width="263" height="200"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l41-6z-rXN">
-                            <rect key="frame" x="5" y="63" width="252" height="83"/>
+                            <rect key="frame" x="20" y="63" width="223" height="83"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9i-wm-rMb" customClass="StarRatingView" customModule="JenkinsiOS" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="252" height="83"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="223" height="83"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="HeartEmpty"/>
@@ -87,7 +87,7 @@
                                 <action selector="review:" destination="-1" eventType="touchUpInside" id="qDA-FR-PLa"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please rate your experience" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-uG-L1R">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please rate your experience" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-uG-L1R">
                             <rect key="frame" x="20" y="34" width="223" height="21"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -97,14 +97,14 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="l41-6z-rXN" firstAttribute="top" secondItem="mfd-uG-L1R" secondAttribute="bottom" constant="8" symbolic="YES" id="4dy-Qs-vVt"/>
-                        <constraint firstItem="l41-6z-rXN" firstAttribute="leading" secondItem="4er-SA-eF1" secondAttribute="leading" constant="5" id="4k8-zs-kIB"/>
+                        <constraint firstItem="l41-6z-rXN" firstAttribute="leading" secondItem="4er-SA-eF1" secondAttribute="leading" constant="20" symbolic="YES" id="4k8-zs-kIB"/>
                         <constraint firstItem="D5j-Ae-I1c" firstAttribute="top" secondItem="exM-qD-1bG" secondAttribute="bottom" constant="8" symbolic="YES" id="EzY-KO-svH"/>
                         <constraint firstItem="EG4-0z-4Rt" firstAttribute="leading" secondItem="4er-SA-eF1" secondAttribute="leading" constant="20" symbolic="YES" id="FP0-IV-ise"/>
                         <constraint firstItem="EG4-0z-4Rt" firstAttribute="top" secondItem="4er-SA-eF1" secondAttribute="topMargin" id="KOo-k4-B7c"/>
                         <constraint firstItem="exM-qD-1bG" firstAttribute="top" secondItem="l41-6z-rXN" secondAttribute="bottom" constant="8" symbolic="YES" id="MOR-ln-12i"/>
                         <constraint firstItem="EG4-0z-4Rt" firstAttribute="centerX" secondItem="4er-SA-eF1" secondAttribute="centerX" id="Olh-zP-KJv"/>
                         <constraint firstItem="NID-D2-a5d" firstAttribute="top" secondItem="D5j-Ae-I1c" secondAttribute="top" id="Thy-Xh-zAT"/>
-                        <constraint firstAttribute="trailing" secondItem="l41-6z-rXN" secondAttribute="trailing" constant="6" id="U7O-d1-oUS"/>
+                        <constraint firstAttribute="trailing" secondItem="l41-6z-rXN" secondAttribute="trailing" constant="20" symbolic="YES" id="U7O-d1-oUS"/>
                         <constraint firstItem="mfd-uG-L1R" firstAttribute="centerX" secondItem="4er-SA-eF1" secondAttribute="centerX" id="Vvl-7D-XIA"/>
                         <constraint firstItem="D5j-Ae-I1c" firstAttribute="width" secondItem="NID-D2-a5d" secondAttribute="width" id="YKu-eF-7N4"/>
                         <constraint firstAttribute="trailing" secondItem="EG4-0z-4Rt" secondAttribute="trailing" constant="20" symbolic="YES" id="YZG-Vn-jYb"/>
@@ -112,7 +112,6 @@
                         <constraint firstItem="D5j-Ae-I1c" firstAttribute="bottom" secondItem="4er-SA-eF1" secondAttribute="bottomMargin" id="Zf5-zw-jl5"/>
                         <constraint firstAttribute="trailing" secondItem="NID-D2-a5d" secondAttribute="trailing" constant="8" id="aF3-cH-wed"/>
                         <constraint firstItem="D5j-Ae-I1c" firstAttribute="bottom" secondItem="NID-D2-a5d" secondAttribute="bottom" id="bpA-uu-MuD"/>
-                        <constraint firstItem="l41-6z-rXN" firstAttribute="top" secondItem="EG4-0z-4Rt" secondAttribute="bottom" constant="34" id="bze-UB-Kbk"/>
                         <constraint firstItem="D5j-Ae-I1c" firstAttribute="leading" secondItem="4er-SA-eF1" secondAttribute="leading" id="eaJ-aA-m1L"/>
                         <constraint firstAttribute="trailing" secondItem="exM-qD-1bG" secondAttribute="trailing" constant="11.5" id="gET-Ng-Ffd"/>
                         <constraint firstItem="mfd-uG-L1R" firstAttribute="leading" secondItem="4er-SA-eF1" secondAttribute="leading" constant="20" symbolic="YES" id="j2E-0c-DJc"/>

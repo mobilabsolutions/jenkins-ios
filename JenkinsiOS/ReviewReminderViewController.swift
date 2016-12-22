@@ -48,7 +48,10 @@ class ReviewReminderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupUI()
+    }
+    
+    private func setupUI(){
         makeViewSeeThrough()
         
         if let starRatingView = self.centerView.subviews.first as? StarRatingView{
@@ -69,8 +72,12 @@ class ReviewReminderViewController: UIViewController {
         
         feedbackTextView.delegate = self
         
+        feedbackTextView.layer.borderColor = #colorLiteral(red: 0.9306202061, green: 0.9306202061, blue: 0.9306202061, alpha: 1).cgColor
+        feedbackTextView.layer.borderWidth = 0.7
+        
         reviewButton.titleLabel?.minimumScaleFactor = 0.5
         reviewButton.titleLabel?.adjustsFontSizeToFitWidth = true
+
     }
     
     private func addKeyboardHandling(){
