@@ -68,6 +68,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         passedTestCountLabel.text = "Passed:\n\((testResults?.passCount).textify())"
         skippedTestCountLabel?.text = "Skipped:\n\((testResults?.skipCount).textify())"
         failedTestCountLabel?.text = "Failed:\n\((testResults?.failCount).textify())"
+        
         refreshControl?.endRefreshing()
     }
     
@@ -141,7 +142,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         return {
             (searchable, scopeString) -> Bool in
             guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
-                else { return true }
+                else { return false }
             return scope.equals(status: status)
         }
     }
@@ -206,6 +207,9 @@ class TestResultsTableViewController: RefreshingTableViewController {
         
         if let status = testCase.status?.rawValue.lowercased(){
             cell.testResultImageView.image = UIImage(named: "\(status)TestCase")
+        }
+        else{
+            cell.testResultImageView.image = UIImage(named: "failedTestCase")
         }
         
         return cell
