@@ -16,9 +16,10 @@ class BuildQueueTableViewController: RefreshingTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Build Queue"
+        emptyTableViewText = "Loading Build Queue"
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = 70
 
         performRequest()
     }
@@ -32,51 +33,56 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         guard let account = account
             else { return }
         
-        NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
-            guard let queue = queue, error == nil
-                else {
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                            
-                            self.performRequest()
-                        })
-                    }
-                    return
-            }
-            self.queue = queue
-            
+        emptyTableView(for: .loading)
+        
+        _ = NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
             DispatchQueue.main.async {
+                guard let queue = queue, error == nil
+                    else {
+                        if let error = error{
+                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                self.account?.username = returnData["username"]!
+                                self.account?.password = returnData["password"]!
+                                
+                                self.performRequest()
+                            })
+                            self.emptyTableView(for: .error)
+                        }
+                        return
+                }
+                
+                self.queue = queue
+                self.emptyTableView(for: .noData)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    // MARK: - Table view data source    
+    
+    override func tableViewIsEmpty() -> Bool {
+        return queue == nil || queue?.items.count == 0
+    }
+    
+    override func numberOfSections() -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return queue?.items.count ?? 0
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath) as! BuildQueueTableViewCell
         
-        cell.textLabel?.text = queue?.items[indexPath.row].task?.name
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = .byCharWrapping
+        cell.nameLabel.text = queue?.items[indexPath.row].task?.name
         
         if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
-            cell.imageView?.image = UIImage(named: "\(colorString)Circle")
+            cell.itemImageView?.image = UIImage(named: "\(colorString)Circle")
         }
         
-        cell.detailTextLabel?.text = queue?.items[indexPath.row].why
+        cell.detailLabel?.text = queue?.items[indexPath.row].why
         
         return cell
     }

@@ -34,12 +34,14 @@ class TestResultsTableViewController: RefreshingTableViewController {
     @IBOutlet weak var passedTestCountLabel: UILabel!
     @IBOutlet weak var skippedTestCountLabel: UILabel!
     @IBOutlet weak var failedTestCountLabel: UILabel!
+    @IBOutlet weak var searchBarContainer: UIView!
     
     private var searchController: UISearchController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Test Results"
+        emptyTableView(for: .loading)
         loadTestResults()
     }
     
@@ -50,25 +52,41 @@ class TestResultsTableViewController: RefreshingTableViewController {
 
     override func refresh(){
         loadTestResults()
+        emptyTableView(for: .loading)
     }
 
+    private func clearUI(){
+        tableView.tableHeaderView?.isHidden = true
+    }
+    
+    private func fillUI(){
+        tableView.tableHeaderView?.isHidden = (testResults == nil)
+        
+        tableView.reloadData()
+        setUpSearchController()
+        
+        passedTestCountLabel.text = "Passed:\n\((testResults?.passCount).textify())"
+        skippedTestCountLabel?.text = "Skipped:\n\((testResults?.skipCount).textify())"
+        failedTestCountLabel?.text = "Failed:\n\((testResults?.failCount).textify())"
+        
+        refreshControl?.endRefreshing()
+    }
+    
     //MARK: - Data loading
     @objc private func loadTestResults(){
         guard let build = build, let account = account
             else { return }
         
+        clearUI()
+        
         let userRequest = UserRequest(requestUrl: build.url.appendingPathComponent(Constants.API.testReport), account: account)
         
-        NetworkManager.manager.getTestResult(userRequest: userRequest) { (testResult, error) in
+        _ = NetworkManager.manager.getTestResult(userRequest: userRequest) { (testResult, error) in
             DispatchQueue.main.async {
                 
                 if let error = error{
                     if let networkManagerError = error as? NetworkManagerError, networkManagerError.code == 404{
-                        self.displayError(title: "No Test Results", message: "No test results are available", textFieldConfigurations: [], actions: [
-                                UIAlertAction(title: "Alright", style: .cancel, handler: { (action) in
-                                    self.dismiss(animated: true, completion: nil)
-                                })
-                            ])
+                        self.emptyTableView(for: .noData)
                     }
                     else{
                         self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -77,17 +95,13 @@ class TestResultsTableViewController: RefreshingTableViewController {
                             
                             self.loadTestResults()
                         })
+                        self.emptyTableView(for: .error)
                     }
                 }
                 
                 self.testResults = testResult
-                self.tableView.reloadData()
-                self.setUpSearchController()
-                
-                self.passedTestCountLabel.text = "Passed:\n\((testResult?.passCount).textify())"
-                self.skippedTestCountLabel?.text = "Skipped:\n\((testResult?.skipCount).textify())"
-                self.failedTestCountLabel?.text = "Failed:\n\((testResult?.failCount).textify())"
-                self.refreshControl?.endRefreshing()
+                self.fillUI()
+                self.emptyTableView(for: .noData)
             }
         }
     }
@@ -97,31 +111,83 @@ class TestResultsTableViewController: RefreshingTableViewController {
         guard suites.count > 0
             else { return }
         
+        let searchData = getSearchData()
+
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
+        
+        setupSearchResultsController(controller: searchResultsController)
+        
+        searchController = UISearchController(searchResultsController: searchResultsController)
+        searchBarContainer.addSubview(searchController!.searchBar)
+        
+        setupSearchController(controller: searchController, with: searchResultsController)
+    }
+    
+    private func setupSearchController(controller: UISearchController?, with searchResultsController: SearchResultsTableViewController){
+        controller?.searchBar.isUserInteractionEnabled = true
+        
+        controller?.searchBar.scopeButtonTitles = TestResultScope.getScopeStrings()
+        controller?.searchResultsUpdater = searchResultsController.searcher
+        controller?.searchBar.delegate = searchResultsController.searcher
+    }
+    
+    private func setupSearchResultsController(controller: SearchResultsTableViewController){
+        controller.delegate = self
+        controller.cellStyle = .subtitle
+        controller.searcher?.includeAllOnEmptySearchString = true
+        controller.searcher?.additionalSearchCondition = getAdditionalSearchCondition()
+    }
+    
+    private func getAdditionalSearchCondition() -> ((Searchable, String?) -> Bool){
+        return {
+            (searchable, scopeString) -> Bool in
+            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
+                else { return false }
+            return scope.equals(status: status)
+        }
+    }
+    
+    private func getSearchData() -> [Searchable]{
         var searchData: [Searchable] = []
-            
+        
         for suite in suites{
             for testCase in suite.cases{
-                searchData.append(Searchable(searchString: testCase.name ?? testCase.className ?? "Unknown", data: testCase){
-                    self.searchController?.dismiss(animated: true){
-                        self.performSegue(withIdentifier: Constants.Identifiers.showTestResultSegue, sender: testCase)
-                    }
-                })
+                searchData.append(searchable(for: testCase))
             }
         }
-
         
-        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
-        searchResultsController.delegate = self
-        searchResultsController.cellStyle = .subtitle
-        searchController = UISearchController(searchResultsController: searchResultsController)
-        tableView.tableHeaderView = searchController?.searchBar
-        searchController?.searchResultsUpdater = searchResultsController.searcher
-        tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+        return searchData
+    }
+    
+    private func searchable(for testCase: Case) -> Searchable {
+        return Searchable(searchString: testCase.name ?? testCase.className ?? "Unknown", data: testCase){
+            self.searchController?.dismiss(animated: true){
+                self.performSegue(withIdentifier: Constants.Identifiers.showTestResultSegue, sender: testCase)
+            }
+        }
+    }
+    
+    private enum TestResultScope: String{
+        case all = "All"
+        case passed = "Passed"
+        case skipped = "Skipped"
+        case failed = "Failed"
+        
+        static func getScopeStrings() -> [String]{
+            return [TestResultScope.all, .passed, .skipped, .failed].map{ $0.rawValue }
+        }
+        
+        func equals(status: Case.Status) -> Bool{
+            guard self != .all
+                else { return true }
+            
+            return Case.Status(rawValue: self.rawValue.uppercased()) == status
+        }
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return suites.count
     }
 
@@ -139,8 +205,11 @@ class TestResultsTableViewController: RefreshingTableViewController {
         cell.testNameLabel.text = testCase.name ?? "No name"
         cell.testDurationLabel.text = testCase.duration != nil ? "(\(testCase.duration!)ms)" : "Unknown"
         
-        if let status = testCase.status?.lowercased(){
+        if let status = testCase.status?.rawValue.lowercased(){
             cell.testResultImageView.image = UIImage(named: "\(status)TestCase")
+        }
+        else{
+            cell.testResultImageView.image = UIImage(named: "failedTestCase")
         }
         
         return cell
@@ -151,19 +220,10 @@ class TestResultsTableViewController: RefreshingTableViewController {
         let label = UILabel()
         
         if !UIAccessibilityIsReduceTransparencyEnabled(){
-            
-            let effect = UIBlurEffect(style: .light)
-            let effectView = UIVisualEffectView(effect: effect)
-            
-            effectView.frame = view.bounds
-            effectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            
-            view.addSubview(effectView)
+            addVisualEffectView(to: view)
         }
         
-        label.attributedText = NSAttributedString(string: suites[section].name ?? "No name", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
-        label.numberOfLines = 0
-        label.sizeToFit()
+        setUpHeaderLabel(label: label, for: suites[section])
         
         label.frame = view.bounds
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -171,14 +231,33 @@ class TestResultsTableViewController: RefreshingTableViewController {
         view.backgroundColor = UIColor.clear
         
         view.addSubview(label)
+        addConstraints(to: label, in: view)
         
+        return view
+    }
+    
+    private func addVisualEffectView(to headerView: UIView){
+        let effect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: effect)
+        
+        effectView.frame = headerView.bounds
+        effectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
+        headerView.addSubview(effectView)
+    }
+    
+    private func addConstraints(to label: UILabel, in view: UIView){
         label.layoutMarginsGuide.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 20).isActive = true
         label.layoutMarginsGuide.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: 20).isActive = true
         label.layoutMarginsGuide.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         label.layoutMarginsGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         label.layoutMarginsGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        return view
+    }
+    
+    private func setUpHeaderLabel(label: UILabel, for suite: Suite){
+        label.attributedText = NSAttributedString(string: suite.name ?? "No name", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
+        label.numberOfLines = 0
+        label.sizeToFit()
     }
     
     // MARK: - Navigation
@@ -205,7 +284,7 @@ extension TestResultsTableViewController: SearchResultsControllerDelegate{
         cell.detailTextLabel?.text = testCase.duration != nil ? "\(testCase.duration!)ms" : nil
         cell.textLabel?.text = testCase.name.textify()
         
-        if let status = testCase.status?.lowercased(), let image = UIImage(named: "\(status)TestCase"){
+        if let status = testCase.status?.rawValue.lowercased(), let image = UIImage(named: "\(status)TestCase"){
             cell.imageView?.withResized(image: image, size: CGSize(width: 20, height: 20))
             cell.imageView?.contentMode = .scaleAspectFit
         }

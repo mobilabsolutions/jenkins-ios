@@ -9,6 +9,14 @@
 import Foundation
 
 class Case{
+    
+    enum Status: String{
+        case passed = "PASSED"
+        case skipped = "SKIPPED"
+        case failed = "FAILED"
+    }
+    
+    
     /// The age of the test case
     var age: Int?
     /// The name of the class to which the test case belongs
@@ -28,7 +36,7 @@ class Case{
     /// Why the case was skipped, if so
     var skippedMessage: String?
     /// The case's status
-    var status: String?
+    var status: Status?
     /// The stdout output that the case produced
     var stdout: String?
     /// The stderr output that the case produced
@@ -51,9 +59,12 @@ class Case{
         name = json[Constants.JSON.name] as? String
         skipped = json[Constants.JSON.skipped] as? Bool
         skippedMessage = json[Constants.JSON.skippedMessage] as? String
-        status = json[Constants.JSON.status] as? String
         stdout = json[Constants.JSON.stdout] as? String
         stderr = json[Constants.JSON.stderr] as? String
+        
+        if let statusString = json[Constants.JSON.status] as? String{
+            status = Status(rawValue: statusString)
+        }
         
         if let reportUrlString = json[Constants.JSON.reportUrl] as? String{
             reportUrl = URL(string: reportUrlString)

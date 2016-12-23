@@ -38,6 +38,9 @@ class JobsTableViewController: RefreshingTableViewController{
         super.viewDidLoad()
         loadJobs()
         setUpPicker()
+        
+        emptyTableView(for: .loading)
+        title = title ?? account?.displayName ?? "Jobs"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +50,7 @@ class JobsTableViewController: RefreshingTableViewController{
     
     override func refresh(){
         loadJobs()
+        emptyTableView(for: .loading)
     }
 
     //MARK: - Data loading and displaying
@@ -57,31 +61,33 @@ class JobsTableViewController: RefreshingTableViewController{
         
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
         
-        NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
-            guard jobList != nil && error == nil
-                else {
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                            
-                            self.loadJobs()
-                        })
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.refreshControl?.endRefreshing()
-                    }
-                    
-                    return
-            }
-            
-            self.jobs = jobList
-            self.currentView = jobList!.allJobsView
+        _ = NetworkManager.manager.getJobs(userRequest: userRequest!) { (jobList, error) in
             
             DispatchQueue.main.async {
+                
+                guard jobList != nil && error == nil
+                    else {
+                        if let error = error{
+                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                                self.account?.username = returnData["username"]!
+                                self.account?.password = returnData["password"]!
+                                
+                                self.loadJobs()
+                            })
+                            
+                            self.emptyTableView(for: .error)
+                        }
+                        
+                        self.refreshControl?.endRefreshing()
+                        return
+                }
+                
+                self.jobs = jobList
+                self.currentView = jobList!.allJobsView
+                
                 self.viewPicker.reloadAllComponents()
                 self.pickerScrollToAllView()
+                self.emptyTableView(for: .noData)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
@@ -90,17 +96,37 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     private func setupSearchController(){
-        let searchResultsController = SearchResultsTableViewController(searchData: jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
-            return Searchable(searchString: job.name, data: job as AnyObject, action: {
-                self.searchController?.dismiss(animated: true, completion: nil)
-                self.performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
-            })
-        }) ?? [])
+        
+        let searchData = getSearchData()
+        
+        guard !searchData.isEmpty
+            else { return }
+        
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
         searchResultsController.delegate = self
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController?.searchResultsUpdater = searchResultsController.searcher
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+    }
+    
+    private func getSearchData() -> [Searchable]{
+        return jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
+            return Searchable(searchString: job.name, data: job as AnyObject, action: {
+                self.searchController?.dismiss(animated: true, completion: nil)
+                
+                let identifier: String!
+                
+                switch job{
+                    case .folder(_):
+                        identifier = Constants.Identifiers.showFolderSegue
+                    case .job(_):
+                        identifier = Constants.Identifiers.showJobSegue
+                }
+                
+                self.performSegue(withIdentifier: identifier, sender: job)
+            })
+        }) ?? []
     }
     
     private func setUpPicker(){
@@ -120,19 +146,15 @@ class JobsTableViewController: RefreshingTableViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let dest = segue.destination as? JobViewController,
-            segue.identifier == Constants.Identifiers.showJobSegue,
+        if  segue.identifier == Constants.Identifiers.showJobSegue,
             let jobCell = sender as? UITableViewCell,
             let indexPath = tableView.indexPath(for: jobCell),
-            let jobResult = currentView?.jobResults[indexPath.row],
-            case let JobListResult.job(job) = jobResult{
+            let jobResult = currentView?.jobResults[indexPath.row]{
             
-            dest.job = job
-            dest.account = account
+            prepare(vc: segue.destination, for: jobResult)
         }
-        else if let dest = segue.destination as? JobViewController, segue.identifier == Constants.Identifiers.showJobSegue, let job = sender as? Job{
-            dest.job = job
-            dest.account = account
+        else if segue.identifier == Constants.Identifiers.showJobSegue, let jobResult = sender as? JobListResult{
+            prepare(vc: segue.destination, for: jobResult)
         }
         else if let dest = segue.destination as? BuildQueueTableViewController, segue.identifier == Constants.Identifiers.showBuildQueueSegue{
             dest.account = account
@@ -140,17 +162,43 @@ class JobsTableViewController: RefreshingTableViewController{
         else if let dest = segue.destination as? JenkinsInformationTableViewController, segue.identifier == Constants.Identifiers.showJenkinsSegue{
             dest.account = account
         }
-        else if let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showFolderSegue,
+        else if segue.identifier == Constants.Identifiers.showFolderSegue,
                 let cell = sender as? UITableViewCell,
                 let path = tableView.indexPath(for: cell),
-                let jobResult = currentView?.jobResults[path.row],
-                case let JobListResult.folder(folder) = jobResult,
-                let account = account{
+                let jobResult = currentView?.jobResults[path.row]{
             
-            dest.account = account
-            dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
-            dest.sections = [sections.lazy.last!]
+            prepare(vc: segue.destination, for: jobResult)
         }
+        else if segue.identifier == Constants.Identifiers.showFolderSegue, let jobResult = sender as? JobListResult{
+            prepare(vc: segue.destination, for: jobResult)
+        }
+    }
+    
+    private func prepare(vc: UIViewController, for jobListResult: JobListResult){
+        switch jobListResult {
+        case .folder(let folder):
+            prepare(vc: vc, forFolder: folder)
+        case .job(let job):
+            prepare(vc: vc, forJob: job)
+        }
+    }
+    
+    private func prepare(vc: UIViewController, forJob job: Job){
+        guard let dest = vc as? JobViewController
+            else { return }
+        
+        dest.job = job
+        dest.account = account
+    }
+    
+    private func prepare(vc: UIViewController, forFolder folder: Job){
+        guard let dest = vc as? JobsTableViewController, let account = self.account
+            else { return }
+        
+        dest.account = account
+        dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
+        dest.sections = [sections.lazy.last!]
+        dest.title = folder.name
     }
     
     //MARK: - Tableview datasource and delegate
@@ -204,12 +252,16 @@ class JobsTableViewController: RefreshingTableViewController{
         return sections[section](nil, currentView?.jobResults).rows
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return sections.count
     }
     
+    override func tableViewIsEmpty() -> Bool {
+        return sections.last!(nil, currentView?.jobResults).rows == 0
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1{
+        if section == 1 && jobs != nil{
             let viewPickerSuperView = UIView()
             
             viewPicker.frame = viewPickerSuperView.bounds
@@ -234,7 +286,7 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 100 : 0
+        return section == 1 && jobs != nil ? 100 : 0
     }
 }
 

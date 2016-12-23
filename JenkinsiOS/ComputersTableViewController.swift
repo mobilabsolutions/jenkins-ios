@@ -31,7 +31,7 @@ class ComputersTableViewController: UITableViewController {
     private func performRequest(){
         guard let account = account
             else { return }
-         NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
+         _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
                 
                 if let error = error{

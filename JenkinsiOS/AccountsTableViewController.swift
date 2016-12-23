@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountsTableViewController: UITableViewController {
+class AccountsTableViewController: BaseTableViewController {
     
     let headers = ["Favorites", "Accounts"]
     
@@ -16,15 +16,31 @@ class AccountsTableViewController: UITableViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
         navigationItem.leftBarButtonItem = editButtonItem
         registerForPreviewing(with: self, sourceView: tableView)
+        
+        emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the + below"
+        emptyTableViewImages = [ UIImage(named: "plus")! ]
+        
+        toolbarItems = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddAccountViewController)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        navigationController?.isToolbarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isToolbarHidden = true
     }
     
     //MARK: - View controller navigation
@@ -36,6 +52,7 @@ class AccountsTableViewController: UITableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
+        navigationController?.isToolbarHidden = true
     }
     
     fileprivate func prepare(viewController: UIViewController, indexPath: IndexPath){
@@ -45,6 +62,18 @@ class AccountsTableViewController: UITableViewController {
         else if let jobsViewController = viewController as? JobsTableViewController{
             jobsViewController.account = AccountManager.manager.accounts[indexPath.row]
         }
+    }
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+        tableView.reloadData()
+    }
+    
+    @IBAction func showInformationViewController(){
+        performSegue(withIdentifier: Constants.Identifiers.showInformationSegue, sender: nil)
+    }
+    
+    func showAddAccountViewController(){
+        performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nil)
     }
     
     //MARK: - Tableview datasource and delegate
@@ -82,8 +111,12 @@ class AccountsTableViewController: UITableViewController {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return headers.count
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return AccountManager.manager.accounts.count == 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -129,6 +162,8 @@ class AccountsTableViewController: UITableViewController {
 
 extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        // Ugly hack to ensure that a presented popover will not be presented once pushed
+        viewControllerToCommit.dismiss(animated: true, completion: nil)
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     

@@ -28,7 +28,11 @@ class AccountManager{
     /// Add an account to the list of available accounts
     ///
     /// - parameter account: The account to add
-    func addAccount(account: Account){
+    func addAccount(account: Account) throws {
+        
+        guard !accounts.contains(account)
+            else { throw AccountManagerError.accountAlreadyExists }
+        
         accounts.append(account)
         save(account: account)
     }
@@ -70,7 +74,7 @@ class AccountManager{
         // The accounts that are available in our Keychain service. Relevant data here: account, password        
         let elements = try? query.fetchAll().map { (arr) -> (String, String?) in
             // Only the username and password are relevant here, therefore, we flat map
-            // the array to a dictionary that maps usernames to passwords
+            // the array to a dictionary that maps user names to passwords
             query.account = arr["acct"] as? String
             try? query.fetch()
             return (arr["acct"] as! String, query.password)

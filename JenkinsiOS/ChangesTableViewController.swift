@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangesTableViewController: UITableViewController {
+class ChangesTableViewController: BaseTableViewController {
 
     var changeSetItems: [Item]?
 
@@ -17,12 +17,17 @@ class ChangesTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         title = "Changes"
+        emptyTableView(for: .noData, customString: "There don't seem to be any changes here")
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return changeSetItems?.count ?? 0
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return (changeSetItems?.count ?? 0) == 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

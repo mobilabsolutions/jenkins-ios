@@ -18,19 +18,22 @@ class FavoritesTableViewController: RefreshingTableViewController {
     
     var requestedFavorites: [URL] = []
     
+    private var failedRequests: [Favorite] = []
+    
     //MARK: - View controller lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTitleView()
-    
+        
         loadJobs()
         loadBuilds()
         
         registerForPreviewing(with: self, sourceView: tableView)
         
         title = "Favorites"
+        emptyTableView(for: .noData)
     }
 
     override func refresh(){
@@ -54,19 +57,21 @@ class FavoritesTableViewController: RefreshingTableViewController {
             if let account = jobFavorite.account, !requestedFavorites.contains(jobFavorite.url){
                 requestedFavorites.append(jobFavorite.url)
                 let userRequest = UserRequest(requestUrl: jobFavorite.url, account: account)
-                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
-                    if let job = job{
-                        self.jobs.append((job: job, account: account))
-                        
-                        DispatchQueue.main.async {
+                _ = NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
+                    DispatchQueue.main.async {
+                        if let job = job{
+                            self.jobs.append((job: job, account: account))
                             self.tableView.reloadData()
-                            self.conditionallyEndRefreshing()
                         }
+                        else{
+                            self.failedRequests.append(jobFavorite)
+                        }
+                        self.conditionallyEndRefreshing()
                     }
                 })
             }
         }
-        conditionallyEndRefreshing()
+        self.conditionallyEndRefreshing()
     }
     
     func loadBuilds(){
@@ -74,14 +79,16 @@ class FavoritesTableViewController: RefreshingTableViewController {
             if let account = buildFavorite.account, !requestedFavorites.contains(buildFavorite.url){
                 let userRequest = UserRequest(requestUrl: buildFavorite.url, account: account)
                 requestedFavorites.append(buildFavorite.url)
-                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
-                    if let build = build{
-                        self.builds.append((build: build, account: account))
-                        
-                        DispatchQueue.main.async {
+                _ = NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
+                    DispatchQueue.main.async {
+                        if let build = build{
+                            self.builds.append((build: build, account: account))
                             self.tableView.reloadData()
-                            self.conditionallyEndRefreshing()
                         }
+                        else{
+                            self.failedRequests.append(buildFavorite)
+                        }
+                        self.conditionallyEndRefreshing()
                     }
                 })
             }
@@ -93,13 +100,17 @@ class FavoritesTableViewController: RefreshingTableViewController {
         requestedFavorites = []
         jobs = []
         builds = []
+        failedRequests = []
         tableView.reloadData()
         loadJobs()
         loadBuilds()
     }
     
     private func conditionallyEndRefreshing(){
-        if jobFavorites.count == jobs.count && builds.count == buildFavorites.count{
+        
+        let loadedCount = jobs.count + builds.count + failedRequests.count
+        
+        if loadedCount >= ApplicationUserManager.manager.applicationUser.favorites.count {
             self.refreshControl?.endRefreshing()
             (navigationItem.titleView as? UIActivityIndicatorView)?.stopAnimating()
             navigationItem.titleView = nil
@@ -110,6 +121,10 @@ class FavoritesTableViewController: RefreshingTableViewController {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         navigationItem.titleView = activityIndicator
         activityIndicator.startAnimating()
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return ApplicationUserManager.manager.applicationUser.favorites.count == 0
     }
     
     //MARK: - View controller navigation
@@ -145,7 +160,7 @@ class FavoritesTableViewController: RefreshingTableViewController {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections() -> Int {
         return 2
     }
 
@@ -159,8 +174,8 @@ class FavoritesTableViewController: RefreshingTableViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section{
-            case 0: return "Jobs"
-            case 1: return "Builds"
+            case 0: return jobs.count > 0 ? "Jobs" : nil
+            case 1: return builds.count > 0 ? "Builds" : nil
             default: return nil
         }
     }

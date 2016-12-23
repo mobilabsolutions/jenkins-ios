@@ -43,6 +43,27 @@ enum NetworkManagerError: Error{
     }
 }
 
+enum BuildError: Error{
+    case notEnoughDataError
+    
+    var localizedDescription: String{
+        switch self{
+        case .notEnoughDataError: return "Not enough data"
+        }
+    }
+}
+
+enum AccountManagerError: Error{
+    case accountAlreadyExists
+    
+    var localizedDescription: String{
+        switch self{
+            case .accountAlreadyExists:
+                return "An account with that url already exists"
+        }
+    }
+}
+
 enum ParsingError: Error{
     case DataNotCorrectFormatError
     case KeyMissingError(key: String)

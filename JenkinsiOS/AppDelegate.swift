@@ -27,7 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         Fabric.with([Crashlytics.self])
+        ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
+        handleReviewReminder()
+        
+        let appearanceManager = AppearanceManager()
+        appearanceManager.setGlobalAppearance()
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication){
+        (window?.rootViewController as? UINavigationController)?.setNavigationBarHidden(false, animated: true)
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -48,8 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             else { return false }
         
         if let nav = window?.rootViewController as? UINavigationController{
-            nav.pushViewController(getViewController(name: "FavoritesViewController"), animated: true)
-            nav.pushViewController(viewController(for: type, with: favorite), animated: true)
+            nav.popToRootViewController(animated: false)
+            nav.pushViewController(getViewController(name: "FavoritesViewController"), animated: false)
+            nav.pushViewController(viewController(for: type, with: favorite), animated: false)
         }
         
         return true
@@ -65,11 +75,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     else { return vc }
                 
                 let userRequest = UserRequest(requestUrl: favorite.url, account: account)
-                NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
+                _ = NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
                     vc.job = job
                     
                     DispatchQueue.main.async {
-                        vc.updateUI()
+                        if vc.viewWillAppearCalled {
+                            vc.updateUI()
+                        }
                     }
                     
                 })
@@ -82,10 +94,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     else { return vc }
                 
                 let userRequest = UserRequest(requestUrl: favorite.url, account: account)
-                NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
+                _ = NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
                     vc.build = build
                     DispatchQueue.main.async {
-                        vc.updateData()
+                        if vc.viewWillAppearCalled{
+                            vc.updateData()
+                        }
                     }
                 })
                 
@@ -103,6 +117,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deadline = DispatchTime.now() + .seconds(30)
         DispatchQueue.main.asyncAfter(deadline: deadline) {
             self.saveIndefinitely()
+        }
+    }
+    
+    private func handleReviewReminder(){
+        
+        guard let navViewController = window?.rootViewController as? UINavigationController,
+            let topController = navViewController.topViewController
+            else { return }
+    
+        let reviewHandler = ReviewHandler(presentOn: topController)
+        
+        if(reviewHandler.mayAskForReview()){
+            reviewHandler.askForReview()
         }
     }
     

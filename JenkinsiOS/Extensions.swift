@@ -19,7 +19,7 @@ extension URL{
     func using(scheme: String, at port: Int? = nil) -> URL?{
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         components?.port = port
-        components?.scheme = "https"
+        components?.scheme = scheme
         return components?.url
     }
 }
@@ -38,6 +38,12 @@ extension Optional{
     }
 }
 
+extension Bool{
+    var humanReadableString: String{
+        return self ? "Yes" : "No"
+    }
+}
+
 extension Double{
     /// Return a string indicating the number of gigabytes from a Double indicating a number of bytes
     ///
@@ -45,9 +51,48 @@ extension Double{
     ///
     /// - returns: The string indicating the number of gigabytes
     func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
-        guard let numberString = numberFormatter.string(from: NSNumber(value: self / (1024 * 1024 * 1024)))
-            else { return "Unknown" }
-        return "\(numberString) GB"
+        return NSNumber(value: self).bytesToGigabytesString(numberFormatter: numberFormatter)
+    }
+}
+
+extension Int64{
+    /// Return a string indicating the number of gigabytes from an Int64 indicating a number of bytes
+    ///
+    /// - parameter numberFormatter: The numberformatter that should be used
+    ///
+    /// - returns: The string indicating the number of gigabytes
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
+        return NSNumber(value: self).bytesToGigabytesString(numberFormatter: numberFormatter)
+    }
+}
+
+extension NSNumber{
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
+        
+        func numberString(from number: Double) -> String?{
+            guard number >= 0.0, let str = numberFormatter.string(from: NSNumber(value: number))
+                else { return nil }
+            return str
+        }
+        
+        func numberString(str: String?, with suffix: String) -> String{
+            guard let str = str
+                else { return "Unknown" }
+            return "\(str) \(suffix)"
+        }
+        
+        if Double(self.int64Value / (1024 * 1024 * 1024)) > 0.5{
+            return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024 * 1024))), with: "GB")
+        }
+        else if Double(self.int64Value / (1024 * 1024)) > 0.5{
+            return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024))), with: "MB")
+        }
+        else if Double(self.int64Value / (1024)) > 0.5{
+            return numberString(str: numberString(from: Double(self.int64Value / (1024))), with: "KB")
+        }
+        else{
+            return numberString(str: numberString(from: self.doubleValue), with: "B")
+        }
     }
 }
 
@@ -81,10 +126,10 @@ extension TimeInterval{
         if Int(hours) > 0{
             returnString += "\(Int(hours)) hours "
         }
-        if Int(minutes) > 0{
+        if Int(minutes) > 0 {
             returnString += "\(Int(minutes)) minutes "
         }
-        if Int(seconds) > 0{
+        if Int(seconds) > 0 && !(Int(hours) > 0 && Int(minutes) > 0) {
             returnString += "\(Int(seconds)) seconds"
         }
         
@@ -186,5 +231,18 @@ extension UIImageView{
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.image = newImage
+    }
+}
+
+extension UILabel{
+    func updateFontName(to name: String){
+        let fontName =  self.font.isBold ? (name + "-Bold") : name + "-Regular"
+        self.font = UIFont(name: fontName, size: self.font.pointSize)
+    }
+}
+
+extension UIFont{
+    var isBold: Bool{
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
 }

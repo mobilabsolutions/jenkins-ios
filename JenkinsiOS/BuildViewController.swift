@@ -15,6 +15,8 @@ class BuildViewController: UITableViewController {
     var build: Build?
     var account: Account?
     
+    var viewWillAppearCalled = false
+    
     class DisplayData{
         var segueIdentifier: String?
         var key: String
@@ -54,6 +56,10 @@ class BuildViewController: UITableViewController {
         registerForPreviewing(with: self, sourceView: tableView)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearCalled = true
+    }
     
     //MARK: - Actions
     
@@ -73,7 +79,7 @@ class BuildViewController: UITableViewController {
         if build.isFullVersion == false, let account = account{
             let userRequest = UserRequest(requestUrl: build.url, account: account)
             
-            NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
+            _ = NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
                 DispatchQueue.main.async {
                     
                     if let error = error{
@@ -114,21 +120,45 @@ class BuildViewController: UITableViewController {
         let artifactsVC = "ArtifactsViewController"
         let consoleOutputVC = "ConsoleOutputViewController"
         
+        let resultString: String!
+        let idString: String!
+        let timeIntervalString: String!
+        let estimatedTimeIntervalString: String!
+        let buildingString: String!
+        let builtOnString: String!
+        
+        if let build = build{
+            resultString = build.result ?? "Unknown"
+            idString = build.id ?? "Unknown"
+            timeIntervalString = build.duration?.toString() ?? "Unknown"
+            estimatedTimeIntervalString = build.estimatedDuration?.toString() ?? "Unknown"
+            buildingString = build.building != nil ? build.building!.humanReadableString : "Unknown"
+            builtOnString = build.builtOn ?? "Unknown"
+        }
+        else{
+            resultString = "Loading result..."
+            idString = "Loading ID..."
+            timeIntervalString = "Loading time interval..."
+            estimatedTimeIntervalString = "Loading time interval..."
+            buildingString = "Loading information..."
+            builtOnString = "Loading information..."
+        }
+        
         let causeText = (build?.actions?.causes.reduce("",
                                                        { (str, cause) -> String in
-                                                        return str + cause.shortDescription
+                                                        return str + cause.shortDescription + "\n"
             }
             )) ?? "Unknown"
         
         displayData = [
             DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
             DisplayData(key: "Cause", value: causeText, cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Result", value: build?.result ?? "Loading result...", cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "ID", value: build?.id ?? "Loading ID...", cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Duration", value: build?.duration?.toString() ?? "Loading time interval...", cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Estimated", value: build?.estimatedDuration?.toString() ?? "Loading time interval...", cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Building", value: build?.building != nil ? "\(build!.building!)" : "Unknown", cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Built On", value: build?.builtOn ?? "Unknown", cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Result", value: resultString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "ID", value: idString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Duration", value: timeIntervalString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Estimated", value: estimatedTimeIntervalString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Building", value: buildingString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Built On", value: builtOnString, cellIdentifier: staticBuildInfoCell),
             
             DisplayData(key: "Changes (\(changesCount))", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue, viewControllerIdentifier: changesVC, enabled: changesCount > 0),
             

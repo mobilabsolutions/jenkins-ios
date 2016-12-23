@@ -16,14 +16,18 @@ class AddAccountTableViewController: UITableViewController {
     
     //MARK: - Outlets
     
+    @IBOutlet var titleLabel: UILabel!
+    
     @IBOutlet weak var addAccountButton: UIButton!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var apiKeyTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    
+    @IBOutlet weak var schemeControl: UISegmentedControl!
+    @IBOutlet weak var trustAllCertificatesSwitch: UISwitch!
+    @IBOutlet weak var trustAllCertificatesWarning: UILabel!
+
     //MARK: - Actions
     
     @IBAction func cancel(_ sender: AnyObject) {
@@ -33,35 +37,87 @@ class AddAccountTableViewController: UITableViewController {
     func addAccount(){
         guard let account = createAccount()
             else { return }
+        let success = addAccountWith(account: account)
+        if success{
+            performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
+        }
+    }
+    
+    private func addAccountWith(account: Account) -> Bool{
+        do{
+            try AccountManager.manager.addAccount(account: account)
+            ApplicationUserManager.manager.save()
+            return true
+        }
+        catch let error as AccountManagerError{
+            displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [
+                    UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                ])
+        }
+        catch{ print("An error occurred: \(error)") }
         
-        AccountManager.manager.addAccount(account: account)
-        ApplicationUserManager.manager.save()
-        dismiss(animated: true, completion: nil)
+        return false
     }
     
     private func createAccount() -> Account?{
-        guard let url = URL(string: "https://" + urlTextField.text!)
+        
+        guard let url = createAccountURL()
             else { return nil }
         
-        let port = Int(portTextField.text!) ?? Constants.Defaults.defaultPort
+        let port = Int(portTextField.text!)
         let username = usernameTextField.text != "" ? usernameTextField.text : nil
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
         
         let displayName = nameTextField.text != "" ? nameTextField.text : nil
-        
-        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName)
+        let trustAllCertificates = trustAllCertificatesSwitch.isOn
+
+        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName,
+                trustAllCertificates: trustAllCertificates)
+    }
+    
+    private func createAccountURL() -> URL?{
+        let schemeString = schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) ?? "https://"
+        return URL(string: schemeString + urlTextField.text!)
     }
     
     func saveAccount(){
         guard let newAccount = createAccount()
             else { return }
-        account?.baseUrl = newAccount.baseUrl
+        
+        var didDeleteOldAccount = false
+        let oldAccount = account?.copy() as! Account?
+        
+        if let account = account, newAccount.baseUrl != account.baseUrl {
+            do{
+                try AccountManager.manager.deleteAccount(account: account)
+                didDeleteOldAccount = true
+            }
+            catch{
+                print(error)
+            }
+        }
+        
         account?.displayName = newAccount.displayName
         account?.password = newAccount.password
         account?.username = newAccount.username
         account?.port = newAccount.port
+        account?.trustAllCertificates = newAccount.trustAllCertificates
+        account?.baseUrl = newAccount.baseUrl
         
-        AccountManager.manager.save()
+        if didDeleteOldAccount, let account = account{
+            let success = addAccountWith(account: account)
+            
+            if !success{
+                if let oldAccount = oldAccount{
+                    _ = try? AccountManager.manager.addAccount(account: oldAccount)
+                }
+                return
+            }
+        }
+        else{
+            AccountManager.manager.save()
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -71,25 +127,77 @@ class AddAccountTableViewController: UITableViewController {
 
         // Write all known data into the text fields
         if let account = account{
-            addAccountButton.setTitle("Save", for: .normal)
-            addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
-            usernameTextField.text = account.username ?? ""
-            apiKeyTextField.text = account.password ?? ""
-            urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
-            nameTextField.text = account.displayName ?? ""
+            prepareUI(for: account)
         }
         else{
-            addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
-            usernameTextField.text = ""
-            apiKeyTextField.text = ""
-            portTextField.placeholder = "\(Constants.Defaults.defaultPort)"
+            prepareUIWithoutAccount()
         }
 
         // The add button should not be enabled when there is no text in the mandatory textfields
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
-        // For username and password textfields, set the default value to nil
+        
+        toggleTrustAllCertificates(trustAllCertificatesSwitch)
+        addKeyboardHandling()
+    }
+    
+    private func addKeyboardHandling(){
+        
+        var movedBy: CGFloat = 0.0
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil){
+            notification in
+            guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+                else { return }
+            
+            guard let footerViewRect = self.tableView.tableFooterView?.frame
+                else { return }
+            
+            let inset =  keyboardRect.minY - footerViewRect.minY
+            
+            movedBy = -inset - 20
+            
+            self.tableView.contentInset.top = (inset > 0) ? movedBy : 0
+        }
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { (notification) in
+            self.tableView.contentInset.top = -movedBy
+        }
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tableView.addGestureRecognizer(recognizer)
+    }
+    
+    @objc private func dismissKeyboard(){
+        tableView.endEditing(true)
+    }
+    
+    @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
+        trustAllCertificatesWarning.isHidden = !sender.isOn
+    }
+    
+    private func prepareUI(for account: Account){
+        addAccountButton.setTitle("Save", for: .normal)
+        addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
+        usernameTextField.text = account.username ?? ""
+        apiKeyTextField.text = account.password ?? ""
+        urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
+        nameTextField.text = account.displayName ?? ""
+        portTextField.text = account.port != nil ? "\(account.port!)" : ""
+        titleLabel.text = "Edit Account"
+        schemeControl.selectedSegmentIndex = account.baseUrl.scheme == "http" ? 1 : 0
+        trustAllCertificatesSwitch.isOn = account.trustAllCertificates
+    }
+    
+    private func prepareUIWithoutAccount(){
+        addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
+        usernameTextField.text = ""
+        apiKeyTextField.text = ""
+        portTextField.placeholder = "Port"
+        titleLabel.text = "Add account"
     }
     
     //MARK: - Textfield methods

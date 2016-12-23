@@ -9,7 +9,7 @@
 import Foundation
 
 class Account: NSObject, NSCoding{
-    
+
     /// The account's name
     var displayName: String?
     /// The account's base url
@@ -20,8 +20,10 @@ class Account: NSObject, NSCoding{
     var password: String?
     /// The port that should be used for any request
     var port: Int?
-        
-    /// Initialiser for Account
+    /// Whether or not the requests made for that account should trust all certificates
+    var trustAllCertificates: Bool
+
+    /// Initializer for Account
     ///
     /// - parameter baseUrl:     The account's base url
     /// - parameter username:    The username that should be used for any request
@@ -30,12 +32,13 @@ class Account: NSObject, NSCoding{
     /// - parameter displayName: The account's name
     ///
     /// - returns: An initialised Account object
-    init(baseUrl: URL, username: String?, password: String?, port: Int?, displayName: String?){
+    init(baseUrl: URL, username: String?, password: String?, port: Int?, displayName: String?, trustAllCertificates: Bool = false){
         self.displayName = displayName
         self.baseUrl = baseUrl
         self.username = username
         self.password = password
         self.port = port
+        self.trustAllCertificates = trustAllCertificates
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,6 +49,7 @@ class Account: NSObject, NSCoding{
         port = aDecoder.decodeObject(forKey: "port") as? Int
         username = aDecoder.decodeObject(forKey: "username") as? String
         displayName = aDecoder.decodeObject(forKey: "displayName") as? String
+        trustAllCertificates = aDecoder.decodeBool(forKey: "trustAllCertificates")
     }
     
     /// Encode an account object
@@ -56,5 +60,16 @@ class Account: NSObject, NSCoding{
         aCoder.encode(port, forKey: "port")
         aCoder.encode(username, forKey: "username")
         aCoder.encode(displayName, forKey: "displayName")
+        aCoder.encode(trustAllCertificates, forKey: "trustAllCertificates")
+    }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let otherAccount = object as? Account
+            else { return false }
+        return baseUrl == otherAccount.baseUrl
+    }
+    
+    override func copy() -> Any {
+        return Account(baseUrl: baseUrl, username: username, password: password, port: port, displayName: displayName, trustAllCertificates: trustAllCertificates)
     }
 }

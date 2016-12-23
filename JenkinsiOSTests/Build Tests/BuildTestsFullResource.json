@@ -1,0 +1,64 @@
+{
+    "_class": "hudson.model.FreeStyleBuild",
+    "actions": [
+                {
+                "_class": "hudson.model.ParametersAction",
+                "parameters": [
+                               {
+                               "_class": "hudson.model.BooleanParameterValue",
+                               "name": "Test",
+                               "value": true
+                               },
+                               {
+                               "_class": "hudson.model.StringParameterValue",
+                               "name": "Test_Auswahl",
+                               "value": "Auswahl 1"
+                               },
+                               {
+                               "_class": "hudson.model.StringParameterValue",
+                               "name": "TextParam",
+                               "value": "TextParam"
+                               },
+                               {
+                               "_class": "hudson.model.StringParameterValue",
+                               "name": "TextBox",
+                               "value": "Hello, I am Robert"
+                               }
+                               ]
+                },
+                {
+                "_class": "hudson.model.CauseAction",
+                "causes": [
+                           {
+                           "_class": "hudson.model.Cause$UserIdCause",
+                           "shortDescription": "Started by user Robert Rabe",
+                           "userId": "robert",
+                           "userName": "Robert Rabe"
+                           }
+                           ]
+                },
+                {}
+                ],
+    "artifacts": [],
+    "building": false,
+    "description": null,
+    "displayName": "#19",
+    "duration": 11,
+    "estimatedDuration": 11,
+    "executor": null,
+    "fullDisplayName": "Folder 1 » Test 1 #19",
+    "id": "19",
+    "keepLog": false,
+    "number": 19,
+    "queueId": 30,
+    "result": "FAILURE",
+    "timestamp": 1477931782626,
+    "url": "https://jenkins.mblb.net/job/Folder%201/job/Test%201/19/",
+    "builtOn": "",
+    "changeSet": {
+        "_class": "hudson.scm.EmptyChangeLogSet",
+        "items": [],
+        "kind": null
+    },
+    "culprits": []
+}

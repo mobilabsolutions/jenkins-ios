@@ -8,19 +8,29 @@
 
 import Foundation
 
-class NetworkManager{
+class NetworkManager: NSObject{
     
     static let manager = NetworkManager()
-    
+
+    private var session: URLSession!
+    fileprivate var accounts: [URLSessionTask: Account] = [:]
+
+    private override init(){
+        super.init()
+        session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+    }
+
     //MARK: - Enumerations
         
     /// An enum describing the available http methods
     ///
     /// - GET:  Standard HTTP GET Method
     /// - POST: Standard HTTP POST Method
+    /// - HEAD: Standard HTTP HEAD Method
     enum HTTPMethod: String{
         case GET = "GET"
         case POST = "POST"
+        case HEAD = "HEAD"
     }
     
     //MARK: - Networking abstractions
@@ -29,8 +39,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request object including a base url (where base is a specific, however not yet API-ified url), password and username
     /// - parameter completion: A closure that handles the (optional) job list and the (optional) Error
-    func getJobs(userRequest: UserRequest, completion: @escaping (JobList?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getJobs(userRequest: UserRequest, completion: @escaping (JobList?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else {
                     completion(nil, error)
@@ -55,8 +65,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request containing the job url
     /// - parameter completion:  A closure handling the (optional) Job and an (optional) error
-    func getJob(userRequest: UserRequest, completion: @escaping (Job?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getJob(userRequest: UserRequest, completion: @escaping (Job?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else {
                     completion(nil, error)
@@ -82,8 +92,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request containing the build url
     /// - parameter completion:  A closure handling the (optional) Build and an (optional) error
-    func getBuild(userRequest: UserRequest, completion: @escaping (Build?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getBuild(userRequest: UserRequest, completion: @escaping (Build?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else {
                     completion(nil, error)
@@ -110,8 +120,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request contaning the build queue url
     /// - parameter completion:  A closure handling the (optional) build queue and an (optional) error
-    func getBuildQueue(userRequest: UserRequest, completion: @escaping (BuildQueue?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getBuildQueue(userRequest: UserRequest, completion: @escaping (BuildQueue?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else {
                     completion(nil, error)
@@ -140,8 +150,8 @@ class NetworkManager{
     /// - parameter userRequest: The user request fitting for the given job
     /// - parameter job:         The job whose fields should be completed
     /// - parameter completion:  A closure that handles the job and an (optional) error
-    func completeJobInformation(userRequest: UserRequest, job: Job, completion: @escaping (Job, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func completeJobInformation(userRequest: UserRequest, job: Job, completion: @escaping (Job, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(job, error); return }
             guard let data = data
@@ -158,8 +168,8 @@ class NetworkManager{
     /// - parameter userRequest: The user request fitting for the current build
     /// - parameter build:       The build whose fields should be completed
     /// - parameter completion:  A closure handling the build and an (optional) error
-    func completeBuildInformation(userRequest: UserRequest, build: Build, completion: @escaping (Build, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func completeBuildInformation(userRequest: UserRequest, build: Build, completion: @escaping (Build, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(build, error); return }
             guard let data = data
@@ -175,8 +185,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request containing the test result url
     /// - parameter completion:  A closure handling the (optional) TestResult and an (optional) Error
-    func getTestResult(userRequest: UserRequest, completion: @escaping (TestResult?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getTestResult(userRequest: UserRequest, completion: @escaping (TestResult?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(nil, error); return }
             guard let data = data
@@ -191,8 +201,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request including url, etc.
     /// - parameter completion:  A closure handling the (optional) computer list and (optional) error
-    func getComputerList(userRequest: UserRequest, completion: @escaping (ComputerList?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getComputerList(userRequest: UserRequest, completion: @escaping (ComputerList?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(nil, error); return }
             guard let data = data
@@ -208,8 +218,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request including the url, etc.
     /// - parameter completion:  A closure handling the (optional) plugin list and (optional) error
-    func getPlugins(userRequest: UserRequest, completion: @escaping (PluginList?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getPlugins(userRequest: UserRequest, completion: @escaping (PluginList?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(nil, error); return }
             guard let data = data
@@ -226,8 +236,8 @@ class NetworkManager{
     ///
     /// - parameter userRequest: The user request including the url, etc
     /// - parameter completion:  A closure handling the (optional) user list and an (optional) error
-    func getUsers(userRequest: UserRequest, completion: @escaping (UserList?, Error?) -> ()){
-        performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
+    func getUsers(userRequest: UserRequest, completion: @escaping (UserList?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequestForJson(userRequest: userRequest, method: .GET) { (data, error) in
             guard error == nil
                 else { completion(nil, error); return }
             guard let data = data
@@ -244,9 +254,31 @@ class NetworkManager{
     /// - parameter artifact:   The artifact that should be downloaded
     /// - parameter account:    The account the artifact is associated with
     /// - parameter completion: A closure handling the (optionally) returned data as well as an (optional) error
-    func downloadArtifact(artifact: Artifact, account: Account, completion: @escaping ((Data?, Error?) -> ())){
+    func downloadArtifact(artifact: Artifact, account: Account, completion: @escaping ((Data?, Error?) -> ())) -> URLSessionTaskController{
         let request = UserRequest(requestUrl: artifact.url, account: account)
-        performRequest(userRequest: request, method: .GET, useAPIURL: false, completion: completion)
+        return performRequest(userRequest: request, method: .GET, useAPIURL: false){
+            data, error, _ in
+            completion(data, error)
+        }
+    }
+    
+    /// Set the file size for a given artifact
+    ///
+    /// - Parameters:
+    ///   - artifact: The artifact whose file size should be set
+    ///   - account: The account that should be used for the artifact
+    ///   - completion: A closure handling the updated artifact and an optional error
+    /// - Returns: A URLSessionTaskController instance representing the current task
+    func setSizeForArtifact(artifact: Artifact, account: Account, completion: ((Artifact, Error?) -> ())?) -> URLSessionTaskController{
+        
+        let userRequest = UserRequest(requestUrl: artifact.url, account: account)
+        
+        return performRequest(userRequest: userRequest, method: .HEAD, useAPIURL: false){
+            _, error, response in
+            
+            artifact.size = response?.expectedContentLength
+            completion?(artifact, error)
+        }
     }
     
     /// Get the user request for getting the console output of a given build
@@ -276,7 +308,7 @@ class NetworkManager{
                 else { return }
             
             let userRequest = UserRequest(requestUrl: url, account: account)
-            self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (_, error) in
+            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (_, error, _) in
                 completion(error)
             }
         }
@@ -290,18 +322,30 @@ class NetworkManager{
     /// - parameter token:      The user's token that is set up in the job configuration
     /// - parameter parameters: The build's parameters
     /// - parameter completion: A closure handling the returned data and an (optional) error
-    func performBuild(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: ((AnyObject?, Error?) -> ())?) throws{
+    func performBuild(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: ((AnyObject?, Error?) -> ())?) throws{
         configureBuildRequest(account: account, job: job, token: token, parameters: parameters) { (request, error) in
             guard let userRequest = request, error == nil
                 else { completion?(nil, error); return }
-            self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (data, error) in
+            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (data, error, _) in
                 completion?(data as AnyObject, error)
             }
         }
     }
     
-    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [String: AnyObject]?, completion: @escaping (UserRequest?, Error?) -> ()){
-        var components = URLComponents(url: job.url.appendingPathComponent("build", isDirectory: true), resolvingAgainstBaseURL: true)
+    
+    /// Configure the request for triggering a given build
+    ///
+    /// - Parameters:
+    ///   - account: The account on which to trigger the build
+    ///   - job: The job which to trigger
+    ///   - token: An optional security token that is passed with the url
+    ///   - parameters: The parameters that the build should be triggered with
+    ///   - completion: A closure handing the userrequest to the calling entity
+    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: @escaping (UserRequest?, Error?) -> ()){
+        
+        let buildDirectory = parameters == nil || parameters!.isEmpty ? "build" : "buildWithParameters"
+        
+        var components = URLComponents(url: job.url.appendingPathComponent(buildDirectory, isDirectory: true), resolvingAgainstBaseURL: true)
         
         components?.queryItems = [
             URLQueryItem(name: "cause", value: "Caused by Jenkins for iOS")
@@ -312,12 +356,11 @@ class NetworkManager{
         }
         
         if let parameters = parameters{
+            let parameterQueryItems = parameters.map{
+                URLQueryItem(name: $0.parameter.name, value: $0.value)
+            }
             
-            let keyValuePairs = parameters.flatMap({ (key: String, value: AnyObject) -> String in
-                return "\(key):\(value)"
-            })
-            
-            components?.queryItems?.append(URLQueryItem(name: "parameter", value: keyValuePairs.joined(separator: ",")))
+            components?.queryItems?.append(contentsOf: parameterQueryItems)
         }
         
         getCrumb(account: account) { (item) in
@@ -331,9 +374,15 @@ class NetworkManager{
         }
     }
     
+    
+    /// Get the crumb for a given account for authentication
+    ///
+    /// - Parameters:
+    ///   - account: The account to get the crumb for
+    ///   - completion: A closure handling the (optionally) returned crumb as a URLQueryItem
     private func getCrumb(account: Account, completion: @escaping (URLQueryItem?) -> ()){
         let request = UserRequest(requestUrl: account.baseUrl.appendingPathComponent(Constants.API.crumbIssuer), account: account)
-        performRequestForJson(userRequest: request, method: .GET) { (data, error) in
+        _ = performRequestForJson(userRequest: request, method: .GET) { (data, error) in
             guard let json = data as? [String: String]
                 else { completion(nil); return }
             guard let crumb = json[Constants.JSON.crumb], let requestField = json[Constants.JSON.crumbRequestField]
@@ -349,8 +398,8 @@ class NetworkManager{
     /// - parameter userRequest: The user request object that describes the request
     /// - parameter method:      The HTTP Method that should be used
     /// - parameter completion:  The completion handler, that takes optional json data and an optional error object
-    private func performRequestForJson(userRequest: UserRequest, method: HTTPMethod, completion: @escaping (Any?, Error?) -> ()){
-        performRequest(userRequest: userRequest, method: method, useAPIURL: true) { (data, error) in
+    private func performRequestForJson(userRequest: UserRequest, method: HTTPMethod, completion: @escaping (Any?, Error?) -> ()) -> URLSessionTaskController{
+        return performRequest(userRequest: userRequest, method: method, useAPIURL: true) { (data, error, _) in
             
             guard let data = data, error == nil
                 else { completion(nil, error); return }
@@ -368,31 +417,41 @@ class NetworkManager{
     /// - parameter method:      The HTTP method that should be used
     /// - parameter useAPIURL:   Whether or not the userRequest's api url should be used
     /// - parameter completion:  A completion handler that takes an optional data and an optional error
-    private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, completion: @escaping (Data?, Error?) -> ()){
+    private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, completion: @escaping (Data?, Error?, URLResponse?) -> ()) -> URLSessionTaskController{
         
         let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
         
-        NetworkActivityIndicatorManager.manager.setActivityIndicator(active: true)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             
             NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
             
+            // Ignore errors that result from cancellation
+            if let urlError = error as? URLError{
+                guard urlError.code != .cancelled
+                    else { return }
+            }
+            
             guard let data = data, error == nil
-                else { completion(nil, error); return }
+                else { completion(nil, error, response); return }
             
             if let httpResponse = response as? HTTPURLResponse{
                 guard Constants.Networking.successCodes.contains(httpResponse.statusCode)
                     else {
-                        completion(nil, NetworkManagerError.HTTPResponseNoSuccess(code: httpResponse.statusCode, message: httpResponse.description))
+                        completion(nil, NetworkManagerError.HTTPResponseNoSuccess(code: httpResponse.statusCode, message: httpResponse.description), response)
                         return
                 }
             }
             
-            completion(data, error)
+            completion(data, error, response)
         }
+
+        accounts[task] = userRequest.account
         
-        task.resume()
+        let controller = URLSessionTaskController(task: task, delegate: self)
+        controller.resumeTask()
+        
+        return controller
+
     }
     
     //MARK: - Helper methods
@@ -425,5 +484,38 @@ class NetworkManager{
         return [
             "Authorization" : "Basic " + "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
         ]
+    }
+}
+
+extension NetworkManager: URLSessionTaskDelegate{
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        guard let account = accounts[task], account.trustAllCertificates == true
+            else { completionHandler(.performDefaultHandling, nil); return }
+
+        // An empty credential
+        let credential = URLCredential(user: "", password: "", persistence: .none)
+        completionHandler(.useCredential, credential)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+        accounts[task] = nil
+    }
+}
+
+extension NetworkManager: URLSessionTaskControllerDelegate{
+    func didCancel(task: URLSessionTask) {
+        NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
+    }
+    
+    func didResume(task: URLSessionTask) {
+        NetworkActivityIndicatorManager.manager.setActivityIndicator(active: true)
+    }
+    
+    func didSuspend(task: URLSessionTask) {
+        NetworkActivityIndicatorManager.manager.setActivityIndicator(active: false)
     }
 }
