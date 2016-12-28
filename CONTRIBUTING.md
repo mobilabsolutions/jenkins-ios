@@ -1,6 +1,6 @@
 # Contributing
 
-We are always very happy to receive contributions of any kind (but especially code contributions). If you have any questions regarding contributing that cannot be answered referring to this guide, please send us an email or message at [jenkinsios@mobilabsolutions.com](jenkinsios@mobilabsolutions.com) with the subject line `JenkinsiOS contributing question: ` + your subject.
+We are always very happy to receive contributions of any kind (but especially code contributions). If you have any questions regarding contributing that cannot be answered referring to this guide, please send us an email or message at [jenkinsios@mobilabsolutions.com](mailto:jenkinsios@mobilabsolutions.com) with the subject line `JenkinsiOS contributing question: ` + your subject.
 
 ## Code Contributions
 
@@ -22,6 +22,6 @@ If you have a feature request or bug that you would like to report, please us Gi
 
 ## Feedback
 
-If you have any general feedback or questions, please consider sending us an email at [jenkinsios@mobilabsolutions.com](jenkinsios@mobilabsolutions.com).
+If you have any general feedback or questions, please consider sending us an email at [jenkinsios@mobilabsolutions.com](mailto:jenkinsios@mobilabsolutions.com).
 
 However, please report any bugs or direct and concrete feature requests on [GitHub issues](https://github.com/mobilabsolutions/jenkins-ios/issues).
