@@ -1,7 +1,7 @@
 # JenkinsiOS [![Build Status Dev](https://travis-ci.org/mobilabsolutions/jenkins-ios.svg?branch=dev)](https://travis-ci.org/mobilabsolutions/jenkins-ios) <sup><sub><sup>(dev branch status)</sup><sub><sub>
 
-<div style="text-align:center">
-  <img src="JenkinsiOS/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" width=200 style="border-radius:30px">
+<div style="text-align: center">
+  <img src="JenkinsiOS/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" width=200 style="border-radius: 30px">
 </div>
 
 ### A feature-rich Jenkins client for iOS
