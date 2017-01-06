@@ -91,6 +91,9 @@ class UsersTableViewController: RefreshingTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return userList?.users[section].fullName
+        if let name = userList?.users[section].fullName, name != ""{
+            return name;
+        }
+        return "No Name";
     }
 }
