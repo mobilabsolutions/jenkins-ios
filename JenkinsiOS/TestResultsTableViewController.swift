@@ -141,8 +141,10 @@ class TestResultsTableViewController: RefreshingTableViewController {
     private func getAdditionalSearchCondition() -> ((Searchable, String?) -> Bool){
         return {
             (searchable, scopeString) -> Bool in
-            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
+            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case
                 else { return false }
+            guard let status = testCase.status
+                else { return scope == .failed }
             return scope.equals(status: status)
         }
     }

@@ -166,17 +166,27 @@ class JobViewController: UIViewController {
         }
     }
 
-    //MARK: - Viewcontroller lifecycl
+    //MARK: - Viewcontroller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         performRequest()
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.addTarget(self, action: #selector(openUrl))
+        urlLabel.addGestureRecognizer(tapRecognizer)
+        urlLabel.isUserInteractionEnabled = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupUI()
         viewWillAppearCalled = true
+    }
+
+    func openUrl(){
+        guard let job = self.job
+              else { return }
+        UIApplication.shared.openURL(job.url)
     }
 
     func like(){
