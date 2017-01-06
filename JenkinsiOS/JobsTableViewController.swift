@@ -31,7 +31,7 @@ class JobsTableViewController: RefreshingTableViewController{
             }
         }]
 
-    let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins", Constants.Identifiers.showJenkinsSegue)]
+    let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins Settings", Constants.Identifiers.showJenkinsSegue)]
     
     //MARK: - View controller lifecycle
     override func viewDidLoad() {

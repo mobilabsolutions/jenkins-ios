@@ -144,11 +144,19 @@ class BuildViewController: UITableViewController {
             builtOnString = "Loading information..."
         }
         
-        let causeText = (build?.actions?.causes.reduce("",
-                                                       { (str, cause) -> String in
-                                                        return str + cause.shortDescription + "\n"
+        var causes: [Cause] = []
+        
+        if let multipleCauses = build?.actions?.causes{
+            for cause in multipleCauses{
+                if !causes.contains{ $0.shortDescription == cause.shortDescription }{
+                    causes.append(cause)
+                }
             }
-            )) ?? "Unknown"
+        }
+        
+        let causeText = causes.reduce("", { (str, cause) -> String in
+                                                        return str + cause.shortDescription + "\n"
+        })
         
         displayData = [
             DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),

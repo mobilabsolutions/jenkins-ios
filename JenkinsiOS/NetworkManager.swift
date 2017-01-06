@@ -288,7 +288,7 @@ class NetworkManager: NSObject{
     ///
     /// - returns: The url request that gets the console output
     func getConsoleOutputUserRequest(build: Build, account: Account) -> URLRequest{
-        let userRequest = UserRequest(requestUrl: build.consoleOutputUrl.using(scheme: "https")!, account: account)
+        let userRequest = UserRequest(requestUrl: build.consoleOutputUrl, account: account)
         return urlRequest(for: userRequest, useAPIURL: false, method: .GET)
     }
     
