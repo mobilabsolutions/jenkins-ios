@@ -30,6 +30,11 @@ class UsersTableViewController: RefreshingTableViewController {
     
     //MARK: - View controller life cycle
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        emptyTableView(for: .loading)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         performRequest()
@@ -46,6 +51,7 @@ class UsersTableViewController: RefreshingTableViewController {
         
         _ = NetworkManager.manager.getUsers(userRequest: UserRequest.userRequestForUsers(account: account)) { (userList, error) in
             DispatchQueue.main.async {
+                self.emptyTableView(for: .noData)
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnDict) in
                         self.account?.username = returnDict["username"]!
@@ -53,6 +59,7 @@ class UsersTableViewController: RefreshingTableViewController {
                         
                         self.performRequest()
                     })
+                    self.emptyTableView(for: .error)
                 }
                 
                 self.userList = userList
@@ -66,6 +73,10 @@ class UsersTableViewController: RefreshingTableViewController {
     
     override func numberOfSections() -> Int {
         return userList?.users.count ?? 0
+    }
+    
+    override func tableViewIsEmpty() -> Bool {
+        return (userList?.users.count ?? 0) == 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
