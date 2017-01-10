@@ -285,8 +285,10 @@ extension TestResultsTableViewController: SearchResultsControllerDelegate{
         
         cell.detailTextLabel?.text = testCase.duration != nil ? "\(testCase.duration!)ms" : nil
         cell.textLabel?.text = testCase.name.textify()
-        
-        if let status = testCase.status?.rawValue.lowercased(), let image = UIImage(named: "\(status)TestCase"){
+
+        let status = testCase.status?.rawValue.lowercased() ?? Case.Status.failed.rawValue.lowercased()
+
+        if let image = UIImage(named: "\(status)TestCase"){
             cell.imageView?.withResized(image: image, size: CGSize(width: 20, height: 20))
             cell.imageView?.contentMode = .scaleAspectFit
         }

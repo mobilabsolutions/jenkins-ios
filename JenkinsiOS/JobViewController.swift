@@ -283,8 +283,11 @@ class JobViewController: UIViewController {
         if let icon = job.healthReport.first?.iconClassName{
             self.colorImageView.image = UIImage(named: icon)
         }
+        else if job.isFullVersion{
+            self.colorImageView.image = UIImage(named: "Jenkins_Loader")
+        }
         
-        if job.healthReport.first != nil{
+        if job.healthReport.first != nil || job.isFullVersion == true{
             stopIndicator()
         }
 
@@ -302,9 +305,9 @@ class JobViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
             dest.account = account
+            dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
             dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
             dest.dataSource = self
-            dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
             self.buildProvidable = dest
         }
         else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
