@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SourceSansPro-Regular.ttf</string>
-		<string>SourceSansPro-Bold.ttf</string>
-		<string>SourceSansPro-BoldItalic.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -34,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -56,6 +50,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SourceSansPro-Regular.ttf</string>
+		<string>SourceSansPro-Bold.ttf</string>
+		<string>SourceSansPro-BoldItalic.ttf</string>
+	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
