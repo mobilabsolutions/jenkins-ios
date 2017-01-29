@@ -1292,8 +1292,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "534e56d4-bdb5-4fd8-9173-14341eea426d";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins iOS Development";
+				PROVISIONING_PROFILE = "53316343-45e6-4426-aafa-96165c1d5360";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG IS_EXTENSION";
 				SWIFT_VERSION = 3.0;
@@ -1438,8 +1438,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "534e56d4-bdb5-4fd8-9173-14341eea426d";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins iOS Development";
+				PROVISIONING_PROFILE = "53316343-45e6-4426-aafa-96165c1d5360";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
