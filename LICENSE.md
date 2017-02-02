@@ -1,6 +1,6 @@
-T License
+MIT License
 
-Copyright (20177 MobilabSolutions GmbH
+Copyright (2017) MobilabSolutions GmbH
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
