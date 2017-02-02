@@ -141,8 +141,10 @@ class TestResultsTableViewController: RefreshingTableViewController {
     private func getAdditionalSearchCondition() -> ((Searchable, String?) -> Bool){
         return {
             (searchable, scopeString) -> Bool in
-            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case, let status = testCase.status
+            guard let scopeString = scopeString, let scope = TestResultScope(rawValue: scopeString), let testCase = searchable.data as? Case
                 else { return false }
+            guard let status = testCase.status
+                else { return scope == .failed }
             return scope.equals(status: status)
         }
     }
@@ -283,8 +285,10 @@ extension TestResultsTableViewController: SearchResultsControllerDelegate{
         
         cell.detailTextLabel?.text = testCase.duration != nil ? "\(testCase.duration!)ms" : nil
         cell.textLabel?.text = testCase.name.textify()
-        
-        if let status = testCase.status?.rawValue.lowercased(), let image = UIImage(named: "\(status)TestCase"){
+
+        let status = testCase.status?.rawValue.lowercased() ?? Case.Status.failed.rawValue.lowercased()
+
+        if let image = UIImage(named: "\(status)TestCase"){
             cell.imageView?.withResized(image: image, size: CGSize(width: 20, height: 20))
             cell.imageView?.contentMode = .scaleAspectFit
         }

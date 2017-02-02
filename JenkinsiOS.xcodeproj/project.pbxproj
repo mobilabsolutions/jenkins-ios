@@ -1037,12 +1037,13 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SAMKeychain.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\n./Fabric.framework/run 847049f2fecf499955a79279ce695b9e97057f33 b66a30f4948041a1504c36b28a1ff07f2a8a8856c27628ab41ce13430cd2c138";
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\n/usr/local/bin/carthage copy-frameworks\n\n./Fabric.framework/run 847049f2fecf499955a79279ce695b9e97057f33 b66a30f4948041a1504c36b28a1ff07f2a8a8856c27628ab41ce13430cd2c138";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1280,6 +1281,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = JenkinsiOSTodayExtension/JenkinsiOSTodayExtension.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1290,10 +1292,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53316343-45e6-4426-aafa-96165c1d5360";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development";
+				PROVISIONING_PROFILE = "8c1c6d59-d520-4adb-b120-82c01bf64fa8";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Extension Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG IS_EXTENSION";
 				SWIFT_VERSION = 3.0;
@@ -1313,10 +1315,10 @@
 				);
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2ad63e93-82b5-406a-a980-e34fabe3143c";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Ad Hoc";
+				PROVISIONING_PROFILE = "7b9170ff-5fb6-49e2-88c2-1fcdf388a795";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Extension App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = IS_EXTENSION;
 				SWIFT_VERSION = 3.0;
@@ -1424,7 +1426,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JenkinsiOS/JenkinsiOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S722Z9XR48;
@@ -1451,7 +1452,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JenkinsiOS/JenkinsiOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = S722Z9XR48;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1464,8 +1464,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "587047e1-0b56-4680-85cb-b14c3463894b";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Ad Hoc";
+				PROVISIONING_PROFILE = "40d5af6a-3871-4364-9cfb-a368915f340c";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins App Store";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

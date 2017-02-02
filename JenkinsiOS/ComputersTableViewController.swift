@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComputersTableViewController: UITableViewController {
+class ComputersTableViewController: BaseTableViewController {
 
     var account: Account?
     var computerList: ComputerList?{
@@ -26,14 +26,16 @@ class ComputersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         performRequest()
+        emptyTableView(for: .loading)
     }
     
     private func performRequest(){
         guard let account = account
             else { return }
+        emptyTableView(for: .loading)
          _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
-                
+                self.emptyTableView(for: .noData)
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
                         self.account?.username = returnData["username"]!
@@ -41,6 +43,7 @@ class ComputersTableViewController: UITableViewController {
                         
                         self.performRequest()
                     })
+                    self.emptyTableView(for: .error)
                 }
 
                 self.computerList = computerList
@@ -85,7 +88,11 @@ class ComputersTableViewController: UITableViewController {
         return 0
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func tableViewIsEmpty() -> Bool {
+        return (computerList?.computers.count ?? 0) == 0
+    }
+    
+    override func numberOfSections() -> Int {
         return computerList?.computers.count ?? 0
     }
     
