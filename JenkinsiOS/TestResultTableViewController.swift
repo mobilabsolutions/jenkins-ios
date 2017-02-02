@@ -16,23 +16,25 @@ class TestResultTableViewController: UITableViewController {
                 else { return }
             
             testCaseData = [
-                ("Name", testCase.name ?? "No name"),
-                ("Class Name", testCase.className.textify()),
-                ("Duration", testCase.duration != nil ? "\(testCase.duration!)ms" : "Unknown"),
-                ("Age", testCase.age.textify()),
-                ("Status", testCase.status.textify()),
-                ("Skipped", testCase.skipped.textify()),
-                ("Error details", testCase.errorDetails ?? "No error details")
+                ("Name", testCase.name ?? "No name", Constants.Identifiers.testResultCell),
+                ("Class Name", testCase.className.textify(), Constants.Identifiers.testResultCell),
+                ("Duration", testCase.duration != nil ? "\(testCase.duration!)ms" : "Unknown", Constants.Identifiers.testResultCell),
+                ("Age", testCase.age.textify(), Constants.Identifiers.testResultCell),
+                ("Status", testCase.status.textify(), Constants.Identifiers.testResultCell),
+                ("Skipped", testCase.skipped.textify(), Constants.Identifiers.testResultCell),
+                ("Error details", testCase.errorDetails ?? "No error details", Constants.Identifiers.testResultErrorDetailsCell)
             ]
             
             tableView.reloadData()
         }
     }
-    private var testCaseData: [(String, String)] = []
+    private var testCaseData: [(String, String, String)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = testCase?.name
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     // MARK: - Table view data source
@@ -47,11 +49,17 @@ class TestResultTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.testResultCell, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: testCaseData[indexPath.row].2, for: indexPath)
 
-        cell.textLabel?.text = testCaseData[indexPath.row].0
-        cell.detailTextLabel?.text = testCaseData[indexPath.row].1
-        
+        if testCaseData[indexPath.row].2 == Constants.Identifiers.testResultCell{
+            cell.textLabel?.text = testCaseData[indexPath.row].0
+            cell.detailTextLabel?.text = testCaseData[indexPath.row].1
+        }
+        else if testCaseData[indexPath.row].2 == Constants.Identifiers.testResultErrorDetailsCell, let errorCell = cell as? LongBuildInfoTableViewCell{
+            errorCell.infoLabel.text = testCaseData[indexPath.row].1
+            errorCell.titleLabel.text = testCaseData[indexPath.row].0
+            errorCell.infoLabel.lineBreakMode = .byWordWrapping
+        }
         return cell
     }
 }

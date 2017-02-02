@@ -50,6 +50,7 @@ struct Constants{
         static let moreInfoBuildCell = "moreInfoBuildCell"
         static let changeCell = "changeCell"
         static let testResultCell = "testResultCell"
+        static let testResultErrorDetailsCell = "testResultErrorDetailsCell"
         static let computerCell = "computerCell"
         static let pluginCell = "pluginCell"
         static let userCell = "userCell"
@@ -171,10 +172,7 @@ struct Constants{
     }
     
     struct API{
-        static let consoleOutput = "/logText/progressiveHtml"
-        static let consoleOutputQueryItems = [
-            URLQueryItem(name: "start", value: "0")
-        ]
+        static let consoleOutput = "/consoleText"
         static let jobListAdditionalQueryItems = [
             URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]],nodeDescription,nodeName,mode,description")
         ]

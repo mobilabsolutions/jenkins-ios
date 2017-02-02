@@ -31,7 +31,9 @@ class ChangesTableViewController: BaseTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        guard let changeSetItems = changeSetItems
+            else { return 0 }
+        return (changeSetItems[section].comment?.trimmingCharacters(in: .whitespacesAndNewlines) == changeSetItems[section].message?.trimmingCharacters(in: .whitespacesAndNewlines)) ? 3 : 4
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

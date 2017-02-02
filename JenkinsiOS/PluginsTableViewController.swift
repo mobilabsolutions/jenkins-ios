@@ -90,6 +90,10 @@ class PluginsTableViewController: RefreshingTableViewController {
         return pluginList?.plugins.count ?? 0
     }
 
+    override func tableViewIsEmpty() -> Bool {
+        return (pluginList?.plugins.count ?? 0) == 0
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pluginData[section].count
     }

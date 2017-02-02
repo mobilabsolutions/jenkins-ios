@@ -50,7 +50,6 @@ class Build: Favoratible, CustomDebugStringConvertible{
     var consoleOutputUrl: URL{
         get{
             var components = URLComponents(url: url.appendingPathComponent(Constants.API.consoleOutput), resolvingAgainstBaseURL: true)
-            components?.queryItems = Constants.API.consoleOutputQueryItems
             return components?.url ?? url
         }
     }

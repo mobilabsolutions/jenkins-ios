@@ -34,8 +34,7 @@ class NetworkManagerAuxiliaryTests: XCTestCase {
             ], minimalVersion: true)
             else { XCTFail("Could not initialise build"); return }
         let urlRequest = NetworkManager.manager.getConsoleOutputUserRequest(build: build, account: account)
-        
-        XCTAssertEqual(urlRequest.url, URL(string: "\(account.baseUrl)/test-build/logText/progressiveHtml?start=0"))
+        XCTAssertEqual(urlRequest.url, URL(string: "\(build.url)/consoleText"))
     }
     
     //MARK: - Helpers

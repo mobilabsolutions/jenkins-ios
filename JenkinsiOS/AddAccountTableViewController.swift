@@ -137,9 +137,23 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
+    
+        schemeControl.addTarget(self, action: #selector(toggleTrustAllCertificatesCell), for: UIControlEvents.valueChanged)
         
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
         addKeyboardHandling()
+        toggleTrustAllCertificatesCell()
+    }
+    
+    @objc private func toggleTrustAllCertificatesCell(){
+        if schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) == "http://"{
+            self.trustAllCertificatesSwitch.setOn(false, animated: true)
+            self.trustAllCertificatesSwitch.isEnabled = false
+        }
+        else{
+            self.trustAllCertificatesSwitch.isEnabled = true
+        }
+        toggleTrustAllCertificates(trustAllCertificatesSwitch)
     }
     
     private func addKeyboardHandling(){
@@ -196,7 +210,7 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
         usernameTextField.text = ""
         apiKeyTextField.text = ""
-        portTextField.placeholder = "Port"
+        portTextField.placeholder = "Default Port"
         titleLabel.text = "Add account"
     }
     
