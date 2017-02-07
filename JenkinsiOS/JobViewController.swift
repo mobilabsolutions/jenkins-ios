@@ -20,7 +20,7 @@ class JobViewController: UIViewController {
     @IBOutlet weak var colorImageView: UIImageView!
     @IBOutlet weak var descriptionWebView: UIWebView!
     @IBOutlet weak var healthReportLabel: UILabel!
-    @IBOutlet weak var showBuildsCell: UITableViewCell!
+    @IBOutlet weak var showBuildsCell: UIView!
 
     var viewWillAppearCalled = false
     var buildProvidable: BuildProvidable? = nil

@@ -83,7 +83,7 @@ class JobsTableViewController: RefreshingTableViewController{
                 }
                 
                 self.jobs = jobList
-                self.currentView = jobList!.allJobsView
+                self.currentView = jobList!.allJobsView ?? jobList?.views.first
                 
                 self.viewPicker.reloadAllComponents()
                 self.pickerScrollToAllView()
@@ -279,6 +279,13 @@ class JobsTableViewController: RefreshingTableViewController{
             }
             
             viewPickerSuperView.addSubview(viewPicker)
+            
+            viewPicker.translatesAutoresizingMaskIntoConstraints = false
+            
+            viewPicker.leftAnchor.constraint(equalTo: viewPickerSuperView.leftAnchor).isActive = true
+            viewPicker.rightAnchor.constraint(equalTo: viewPickerSuperView.rightAnchor).isActive = true
+            viewPicker.bottomAnchor.constraint(equalTo: viewPickerSuperView.bottomAnchor).isActive = true
+            viewPicker.topAnchor.constraint(equalTo: viewPickerSuperView.topAnchor).isActive = true
             
             return viewPickerSuperView
         }
