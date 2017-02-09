@@ -41,6 +41,7 @@ class JobsTableViewController: RefreshingTableViewController{
         
         emptyTableView(for: .loading)
         title = title ?? account?.displayName ?? "Jobs"
+        contentType = .jobList
     }
     
     override func viewWillAppear(_ animated: Bool) {

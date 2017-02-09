@@ -14,7 +14,7 @@ class BuildsTableViewController: RefreshingTableViewController, BuildProvidable 
     var builds: [Build] = []
 
     var buildsAlreadyLoaded = false
-    
+
     var dataSource: BuildsTableViewControllerDataSource?
     var account: Account?
 
@@ -25,6 +25,11 @@ class BuildsTableViewController: RefreshingTableViewController, BuildProvidable 
             self.tableView.reloadData()
             self.reloadAllBuilds()
         })
+    }
+
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        contentType = .buildList
     }
 
     private func setup(){

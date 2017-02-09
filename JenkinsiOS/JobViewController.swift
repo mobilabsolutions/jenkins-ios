@@ -213,7 +213,9 @@ class JobViewController: UIViewController {
                 
                 self.buildProvidable?.setBuilds(builds: self.job?.builds ?? [], specialBuilds: self.specialBuilds() ?? [])
                 self.buildProvidable?.buildsAlreadyLoaded = true
-                
+
+                LoggingManager.loggingManager.log(contentView: .job)
+
                 if self.viewWillAppearCalled{
                     self.updateUI()
                 }

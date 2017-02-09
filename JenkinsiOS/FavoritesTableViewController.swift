@@ -34,6 +34,7 @@ class FavoritesTableViewController: RefreshingTableViewController {
         
         title = "Favorites"
         emptyTableView(for: .noData)
+        contentType = .favorites
     }
 
     override func refresh(){
