@@ -16,60 +16,83 @@ fastlane_version "2.2.0"
 default_platform :ios
 
 platform :ios do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
 
+  before_all do
     carthage
   end
 
   desc "Runs all the tests"
   lane :test do
-    scan
+    scan(scheme: "JenkinsiOSTests")
   end
 
   desc "This will also make sure the profile is up to date"
   lane :beta do
+
+    keychain_name = "ci-example-certs"
+    prepare_distribution(keychain_name: keychain_name)
+
     gym(scheme: "JenkinsiOS") # Build your app - more options available
-    increment_build_number
+    changelog_from_git_commits
     crashlytics(
         api_token: ENV["CRASHLYTICS_API_KEY"],
-	    build_secret: ENV["CRASHLYTICS_BUILD_SECRET"]
-	)
+        build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
+    )
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
+    delete_keychain(
+        name: keychain_name
+    )
+
   end
 
   desc "Deploy a new version to the App Store"
   lane :release do
-    # match(type: "appstore")
-    # snapshot
+    keychain_name = "ci-example-certs"
+    prepare_distribution(keychain_name: keychain_name)
+    increment_build_number(build_number: ENV["TRAVIS_BUILD_NUMBER"])
     gym(scheme: "JenkinsiOS") # Build your app - more options available
-    deliver(force: true)
-    # frameit
+    deliver(username: ENV["FASTLANE_USER"], dev_portal_team_id: ENV["DEV_PORTAL_TEAM_ID"],
+	team_name: ENV["TEAM_NAME"], force: true)
+
+    delete_keychain(
+        name: keychain_name
+    )
   end
 
-  # You can define as many lanes as you want
+  desc "Prepares the build for distribution"
+  lane :prepare_distribution do |options|
+      keychain_name = options[:keychain_name]
+      create_keychain(
+            name: keychain_name,
+            default_keychain: true,
+            unlock: true,
+            timeout: 3600,
+            lock_when_sleeps: true,
+            password: SecureRandom.base64
+      )
 
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
+      # Import distribution certificate
+        import_certificate(
+            certificate_path: "fastlane/Certificates/distribution.p12",
+            certificate_password: ENV["KEY_PASSWORD"],
+            keychain_name: keychain_name,
+            log_output: true
+        )
 
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+         sigh(
+             username: ENV["FASTLANE_USER"],
+             team_id: ENV["TEAM_NAME"],
+             provisioning_name: "Jenkins App Store",
+             cert_id: ENV["CERTIFICATE_ID"]
+         )
+
+         sigh(
+             username: ENV["FASTLANE_USER"],
+             team_id: ENV["TEAM_NAME"],
+             provisioning_name: "Jenkins Extension App Store",
+             cert_id: ENV["CERTIFICATE_ID"]
+         )
   end
 
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
+
 end
-
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
