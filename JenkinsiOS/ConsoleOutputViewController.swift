@@ -7,23 +7,39 @@
 //
 
 import UIKit
+import WebKit
 
 class ConsoleOutputViewController: UIViewController {
 
-    @IBOutlet weak var consoleWebView: UIWebView!
+    var consoleWebView: WKWebView?
     var directionButton: UIButton = UIButton(type: .system)
     var request: URLRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        consoleWebView.allowsLinkPreview = true
-        consoleWebView.delegate = self
+        let configuration = WKWebViewConfiguration()
+        if #available(iOS 10.0, *) {
+            configuration.dataDetectorTypes = .all
+        }
+        consoleWebView = WKWebView(frame: self.view.frame, configuration: configuration)
+
+        consoleWebView?.navigationDelegate = self
+        addConsoleWebViewConstraints()
         addDirectionButton()
 
         reload()
     }
-    
+
+    func addConsoleWebViewConstraints(){
+        guard let consoleWebView = self.consoleWebView else { return }
+        view.addSubview(consoleWebView)
+        consoleWebView.translatesAutoresizingMaskIntoConstraints = false
+        consoleWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        consoleWebView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        consoleWebView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        consoleWebView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    }
+
     func addIndicatorView(){
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
@@ -45,10 +61,12 @@ class ConsoleOutputViewController: UIViewController {
         
         addIndicatorView()
         enableDirectionButton(enable: false)
-        consoleWebView.loadRequest(request)
+        consoleWebView?.load(request)
     }
 
     func addDirectionButton(){
+
+        guard let consoleWebView = self.consoleWebView else { return }
 
         directionButton.addTarget(self, action: #selector(scrollToBottom), for: .touchUpInside)
         directionButton.setImage(UIImage(named: "downArrow"), for: .normal)
@@ -58,8 +76,8 @@ class ConsoleOutputViewController: UIViewController {
 
         directionButton.translatesAutoresizingMaskIntoConstraints = false
 
-        directionButton.bottomAnchor.constraint(equalTo: self.consoleWebView.bottomAnchor, constant: -20).isActive = true
-        directionButton.rightAnchor.constraint(equalTo: self.consoleWebView.rightAnchor, constant: -16).isActive = true
+        directionButton.bottomAnchor.constraint(equalTo: consoleWebView.bottomAnchor, constant: -20).isActive = true
+        directionButton.rightAnchor.constraint(equalTo: consoleWebView.rightAnchor, constant: -16).isActive = true
         directionButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         directionButton.widthAnchor.constraint(lessThanOrEqualTo: directionButton.heightAnchor).isActive = true
     }
@@ -74,8 +92,10 @@ class ConsoleOutputViewController: UIViewController {
     }
 
     func scrollToBottom(){
+        guard let consoleWebView = self.consoleWebView else { return }
+
         let y = consoleWebView.scrollView.contentSize.height - consoleWebView.frame.height
-        self.consoleWebView.scrollView.scrollRectToVisible(
+        consoleWebView.scrollView.scrollRectToVisible(
                 CGRect(x: 0.0, y: y >= 0 ? y : 0.0, width: consoleWebView.frame.width, height: consoleWebView.frame.height),
                 animated: true
         )
@@ -83,14 +103,27 @@ class ConsoleOutputViewController: UIViewController {
 }
 
 //MARK: - Webview delegate
-extension ConsoleOutputViewController: UIWebViewDelegate{
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        // We do not want the user to be able to tap any other links
-        return navigationType == UIWebViewNavigationType.other
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+extension ConsoleOutputViewController: WKNavigationDelegate{
+
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         replaceIndicatorViewWithReload()
         enableDirectionButton(enable: true)
     }
+
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated{
+            if let url = navigationAction.request.url, UIApplication.shared.canOpenURL(url){
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            decisionHandler(.cancel)
+        }
+        else{
+            decisionHandler(.allow)
+        }
+    }
+
 }
