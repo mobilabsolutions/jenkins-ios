@@ -11,6 +11,7 @@ import UIKit
 class ConsoleOutputViewController: UIViewController {
 
     @IBOutlet weak var consoleWebView: UIWebView!
+    var directionButton: UIButton = UIButton(type: .system)
     var request: URLRequest?
     
     override func viewDidLoad() {
@@ -18,7 +19,8 @@ class ConsoleOutputViewController: UIViewController {
         
         consoleWebView.allowsLinkPreview = true
         consoleWebView.delegate = self
-        
+        addDirectionButton()
+
         reload()
     }
     
@@ -42,7 +44,41 @@ class ConsoleOutputViewController: UIViewController {
             else { return }
         
         addIndicatorView()
+        enableDirectionButton(enable: false)
         consoleWebView.loadRequest(request)
+    }
+
+    func addDirectionButton(){
+
+        directionButton.addTarget(self, action: #selector(scrollToBottom), for: .touchUpInside)
+        directionButton.setImage(UIImage(named: "downArrow"), for: .normal)
+        enableDirectionButton(enable: false)
+
+        view.addSubview(directionButton)
+
+        directionButton.translatesAutoresizingMaskIntoConstraints = false
+
+        directionButton.bottomAnchor.constraint(equalTo: self.consoleWebView.bottomAnchor, constant: -20).isActive = true
+        directionButton.rightAnchor.constraint(equalTo: self.consoleWebView.rightAnchor, constant: -16).isActive = true
+        directionButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        directionButton.widthAnchor.constraint(lessThanOrEqualTo: directionButton.heightAnchor).isActive = true
+    }
+
+    func enableDirectionButton(enable: Bool){
+        UIView.animate(withDuration: 0.4, animations: {
+            [unowned self] in
+            self.directionButton.alpha = enable ? 1.0 : 0.0
+        }, completion: { _ in
+            self.directionButton.isHidden = !enable
+         })
+    }
+
+    func scrollToBottom(){
+        let y = consoleWebView.scrollView.contentSize.height - consoleWebView.frame.height
+        self.consoleWebView.scrollView.scrollRectToVisible(
+                CGRect(x: 0.0, y: y >= 0 ? y : 0.0, width: consoleWebView.frame.width, height: consoleWebView.frame.height),
+                animated: true
+        )
     }
 }
 
@@ -55,5 +91,6 @@ extension ConsoleOutputViewController: UIWebViewDelegate{
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         replaceIndicatorViewWithReload()
+        enableDirectionButton(enable: true)
     }
 }
