@@ -39,6 +39,7 @@ class AddAccountTableViewController: UITableViewController {
             else { return }
         let success = addAccountWith(account: account)
         if success{
+            LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
             performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
         }
     }

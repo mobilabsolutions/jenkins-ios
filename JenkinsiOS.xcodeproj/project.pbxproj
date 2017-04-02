@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */; };
+		BC91B41BACDFCB0DF254B4BC /* LoggableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */; };
 		BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */; };
 		BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */; };
 		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
 		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
+		BC91BFB233A3B9A67696AE6F /* LoggingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
 		DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
 		DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
@@ -97,6 +99,8 @@
 		DC595DFD1DD75344000FEA9F /* UserRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFC1DD75344000FEA9F /* UserRequestTests.swift */; };
 		DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */; };
 		DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */; };
+		DC5B3DC11E4C93E500604F13 /* LoggingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */; };
+		DC5B3DC21E4C93E700604F13 /* LoggableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */; };
 		DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEBE1D97FD9000808ED0 /* Account.swift */; };
 		DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */; };
 		DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */; };
@@ -259,6 +263,8 @@
 
 /* Begin PBXFileReference section */
 		BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshingTableViewController.swift; sourceTree = "<group>"; };
+		BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingManager.swift; sourceTree = "<group>"; };
+		BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggableContentView.swift; sourceTree = "<group>"; };
 		BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagerTests.swift; sourceTree = "<group>"; };
 		BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
@@ -706,6 +712,8 @@
 				DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */,
 				DC6DB1931DF09283005548A3 /* ReviewHandler.swift */,
 				DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */,
+				BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */,
+				BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1067,6 +1075,7 @@
 				DC6F079A1DB4EE1D00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				DC2045D81DB12D4E009CF232 /* View.swift in Sources */,
 				DC2045E01DB12D7F009CF232 /* Case.swift in Sources */,
+				DC5B3DC21E4C93E700604F13 /* LoggableContentView.swift in Sources */,
 				DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DC2045DF1DB12D7F009CF232 /* Suite.swift in Sources */,
 				DC2045E31DB12D95009CF232 /* Computer.swift in Sources */,
@@ -1095,6 +1104,7 @@
 				DC2045D91DB12D59009CF232 /* Errors.swift in Sources */,
 				DC2045E91DB12DB6009CF232 /* UserList.swift in Sources */,
 				DC2045CE1DB129D3009CF232 /* Job.swift in Sources */,
+				DC5B3DC11E4C93E500604F13 /* LoggingManager.swift in Sources */,
 				DC2045DA1DB12D61009CF232 /* BuildQueue.swift in Sources */,
 				DC2045E21DB12D82009CF232 /* JenkinsColor.swift in Sources */,
 				DC2045F21DB132C2009CF232 /* DataRetriever.swift in Sources */,
@@ -1207,6 +1217,8 @@
 				DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
 				BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */,
+				BC91BFB233A3B9A67696AE6F /* LoggingManager.swift in Sources */,
+				BC91B41BACDFCB0DF254B4BC /* LoggableContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

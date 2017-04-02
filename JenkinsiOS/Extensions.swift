@@ -17,7 +17,7 @@ extension URL{
     ///
     /// - returns: The given url, with port and scheme replaced 
     func using(scheme: String, at port: Int? = nil) -> URL?{
-        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
         components?.port = port
         components?.scheme = scheme
         return components?.url

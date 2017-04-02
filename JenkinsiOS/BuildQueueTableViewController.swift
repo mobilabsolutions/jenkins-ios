@@ -22,6 +22,8 @@ class BuildQueueTableViewController: RefreshingTableViewController {
         tableView.estimatedRowHeight = 70
 
         performRequest()
+
+        contentType = .buildQueue
     }
 
     override func refresh(){
