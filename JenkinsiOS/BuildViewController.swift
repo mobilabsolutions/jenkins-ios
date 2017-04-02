@@ -134,7 +134,7 @@ class BuildViewController: UITableViewController {
             timeIntervalString = build.duration?.toString() ?? "Unknown"
             estimatedTimeIntervalString = build.estimatedDuration?.toString() ?? "Unknown"
             buildingString = build.building != nil ? build.building!.humanReadableString : "Unknown"
-            builtOnString = build.builtOn ?? "Unknown"
+            builtOnString = (build.builtOn ?? "Unknown") != "" ? (build.builtOn ?? "Unknown") : "Unknown"
         }
         else{
             resultString = "Loading result..."
