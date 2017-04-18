@@ -38,6 +38,7 @@ class ConsoleOutputViewController: UIViewController {
         consoleWebView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         consoleWebView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         consoleWebView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        consoleWebView.scrollView.contentInset = UIEdgeInsets(top: 20 + (navigationController?.navigationBar.frame.height ?? 0), left: 0, bottom: 0, right: 0)
     }
 
     func addIndicatorView(){
