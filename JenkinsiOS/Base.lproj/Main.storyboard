@@ -631,7 +631,7 @@
         <!--Builds Table View Controller-->
         <scene sceneID="vTw-kR-uMj">
             <objects>
-                <tableViewController id="gUw-4b-F72" customClass="BuildsTableViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BuildsTableViewController" id="gUw-4b-F72" customClass="BuildsTableViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="i7n-XD-zh9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1689,7 +1689,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsWhenKeyboardAppears="YES" id="kx5-WF-0Mf" customClass="NavigationController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QwA-xi-yHa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QwA-xi-yHa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -241,7 +241,9 @@ class JobViewController: UIViewController {
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
-
+        
+        registerForPreviewing(with: self, sourceView: showBuildsCell)
+        
         updateUI()
         
         guard job?.healthReport.first == nil
@@ -315,11 +317,7 @@ class JobViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            dest.account = account
-            dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
-            dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
-            dest.dataSource = self
-            self.buildProvidable = dest
+            prepareBuildsTableViewController(viewController: dest)
         }
         else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
             dest.parameters = job?.parameters ?? []
@@ -327,6 +325,13 @@ class JobViewController: UIViewController {
         }
     }
 
+    fileprivate func prepareBuildsTableViewController(viewController: BuildsTableViewController){
+        viewController.account = account
+        viewController.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
+        viewController.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
+        viewController.dataSource = self
+        self.buildProvidable = viewController
+    }
 
     @objc private func segueToNextViewController(){
         performSegue(withIdentifier: Constants.Identifiers.showBuildsSegue, sender: nil)
@@ -378,5 +383,22 @@ extension JobViewController: BuildsTableViewControllerDataSource{
                 completion(self.job?.builds, self.specialBuilds())
             }
         }
+    }
+}
+
+extension JobViewController: UIViewControllerPreviewingDelegate{
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: false)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else { return nil }
+        guard let buildsViewController = appDelegate.getViewController(name: "BuildsTableViewController") as? BuildsTableViewController
+            else { return nil }
+        
+        prepareBuildsTableViewController(viewController: buildsViewController)
+        return buildsViewController
     }
 }
