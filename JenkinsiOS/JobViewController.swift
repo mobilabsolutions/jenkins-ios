@@ -98,14 +98,18 @@ class JobViewController: UIViewController {
             modalViewController, data, error in
 
             if let error = error{
-                
-                if modalViewController?.isBeingPresented == true{
+                if self.presentedViewController == modalViewController{
                     modalViewController?.dismiss(animated: true, completion: {
                         self.displayError(error: error)
                     })
                 }
                 else{
                     self.displayError(error: error)
+                }
+            }
+            else{
+                if self.presentedViewController == modalViewController{
+                    modalViewController?.dismiss(animated: true, completion: nil)
                 }
             }
         }
@@ -151,7 +155,12 @@ class JobViewController: UIViewController {
     }
 
     fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+        do {
+            try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+        }
+        catch let error{
+            completion(nil, error)
+        }
     }
 
     //MARK: - Refreshing

@@ -191,7 +191,7 @@ class BuildViewController: UITableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           prepare(viewController: segue.destination)
+        prepare(viewController: segue.destination)
     }
     
     fileprivate func prepare(viewController: UIViewController){

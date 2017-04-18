@@ -305,7 +305,7 @@ class NetworkManager: NSObject{
             }
             
             guard let url = components?.url
-                else { return }
+                else { completion(NetworkManagerError.URLBuildingError); return }
             
             let userRequest = UserRequest(requestUrl: url, account: account)
             _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { (_, error, _) in
