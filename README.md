@@ -10,4 +10,4 @@ This is the `Butler` source code repository. For information about contributing,
 
 `Butler` was created in inspiration of [MobiLab](www.mobilabsolutions.com)'s Jenkins client for Android (which can be found [here](https://play.google.com/store/apps/details?id=com.mobilabsolutions.jenkins.app)) and supports various common Jenkins tasks, including but not limited to: inspecting jobs, builds as well as test results, triggering builds with and without parameters and performing actions such as restarting on a Jenkins instance.
 
-To install `Butler`, either get it from the app store (where it will be released soon) or simply clone this project and run it. You will, however, have to replace certain values in [`Config.plist`](JenkinsiOS/Config.plist) to be able to use the application.    
+To install `Butler`, either [get it from the app store](https://itunes.apple.com/app/butler-client-for-jenkins/id1196866502) or simply clone this project and run it. You will, however, have to replace certain values in [`Config.plist`](JenkinsiOS/Config.plist) to be able to use the application.    
