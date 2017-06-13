@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import StoreKit
 
 class ReviewHandler: NSObject{
     
@@ -20,19 +21,25 @@ class ReviewHandler: NSObject{
     }
     
     func askForReview(){
-        
-        guard let viewController = self.viewController, viewController.isViewLoaded
-            else {
+        if #available(iOS 10.3, *){
+            SKStoreReviewController.requestReview()
+        }
+        else {
+            guard let viewController = self.viewController, viewController.isViewLoaded
+                    else {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10), execute: askForReview)
-                return }
-        
-        let reviewViewController = ReviewReminderViewController()
-        reviewViewController.delegate = self
-        viewController.present(reviewViewController, animated: true, completion: nil)
+                return
+            }
+
+            let reviewViewController = ReviewReminderViewController()
+            reviewViewController.delegate = self
+            viewController.present(reviewViewController, animated: true, completion: nil)
+        }
     }
     
     func mayAskForReview() -> Bool{
-        return !user.canceledReviewReminder && (user.timesOpenedApp >= 7)
+        return true
+        //return !user.canceledReviewReminder && (user.timesOpenedApp >= 7)
     }
     
     func triggerReview(){
@@ -62,7 +69,11 @@ class ReviewHandler: NSObject{
     }
     
     private func getAppStoreURL() -> URL{
-        return URL(string: "itms-apps://itunes.apple.com/app/id" + getAppStoreID())!
+        var parameter = ""
+        if #available(iOS 10.3, *) {
+            parameter = "?action=write-review"
+        }
+        return URL(string: "itms-apps://itunes.apple.com/app/id" + getAppStoreID() + parameter)!
     }
     
     private func getAppStoreID() -> String{
