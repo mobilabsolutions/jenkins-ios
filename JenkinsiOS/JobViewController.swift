@@ -198,7 +198,7 @@ class JobViewController: UIViewController {
         UIApplication.shared.openURL(job.url)
     }
 
-    func like(){
+    func favorite(){
         if let account = account, job != nil{
             job?.toggleFavorite(account: account)
             let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
@@ -277,7 +277,7 @@ class JobViewController: UIViewController {
 
         navigationItem.titleView?.sizeToFit()
         navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
+        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favorite)))
 
         guard let job = job
             else { return }

@@ -10,6 +10,7 @@
 		BC91B00373116270C5248BEF /* DescribingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */; };
 		BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */; };
 		BC91B41BACDFCB0DF254B4BC /* LoggableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */; };
+		BC91B5F9F7A5BDC2FBF5F973 /* FavoriteLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BFA406365670605B84B4 /* FavoriteLoadingState.swift */; };
 		BC91B6682BE0558C0AFAA446 /* Job+DescribingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */; };
 		BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */; };
 		BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */; };
@@ -279,6 +280,7 @@
 		BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Job+DescribingColor.swift"; sourceTree = "<group>"; };
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManagerTests.swift; sourceTree = "<group>"; };
+		BC91BFA406365670605B84B4 /* FavoriteLoadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteLoadingState.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
 		DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */,
 				BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */,
 				BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */,
+				BC91BFA406365670605B84B4 /* FavoriteLoadingState.swift */,
 			);
 			path = JenkinsiOS;
 			sourceTree = "<group>";
@@ -1243,6 +1246,7 @@
 				BC91B6682BE0558C0AFAA446 /* Job+DescribingColor.swift in Sources */,
 				BC91B00373116270C5248BEF /* DescribingColor.swift in Sources */,
 				BC91BF03ADB79DCF6EC4BE3A /* Build+DescribingColor.swift in Sources */,
+				BC91B5F9F7A5BDC2FBF5F973 /* FavoriteLoadingState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

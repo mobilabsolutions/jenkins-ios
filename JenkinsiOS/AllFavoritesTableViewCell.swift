@@ -45,12 +45,6 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         return favorites.count
     }
 
-    private enum FavoriteLoadingState{
-        case loaded(favoritable: Favoratible)
-        case errored
-        case loading
-    }
-
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.favoritesCell,
