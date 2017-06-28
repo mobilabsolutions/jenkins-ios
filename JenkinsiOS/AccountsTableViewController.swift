@@ -52,6 +52,10 @@ class AccountsTableViewController: BaseTableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
+        else if segue.identifier == Constants.Identifiers.showBuildSegue || segue.identifier == Constants.Identifiers.showJobSegue,
+                let favoritableAndFavorite = sender as? (Favoratible, Favorite){
+            prepare(favoritableViewController: segue.destination, for: favoritableAndFavorite)
+        }
         navigationController?.isToolbarHidden = true
     }
     
@@ -61,6 +65,17 @@ class AccountsTableViewController: BaseTableViewController {
         }
         else if let jobsViewController = viewController as? JobsTableViewController{
             jobsViewController.account = AccountManager.manager.accounts[indexPath.row]
+        }
+    }
+
+    fileprivate func prepare(favoritableViewController: UIViewController, for favoritableAndFavorite: (Favoratible, Favorite)){
+        if let jobViewController = favoritableViewController as? JobViewController, let job = favoritableAndFavorite.0 as? Job{
+            jobViewController.account = favoritableAndFavorite.1.account
+            jobViewController.job = job
+        }
+        else if let buildViewController = favoritableViewController as? BuildViewController, let build = favoritableAndFavorite.0 as? Build{
+            buildViewController.account = favoritableAndFavorite.1.account
+            buildViewController.build = build
         }
     }
     
@@ -90,7 +105,17 @@ class AccountsTableViewController: BaseTableViewController {
             return cell
         }
         else{
-            return tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath)
+            
+            if let favoritesCell = cell as? AllFavoritesTableViewCell {
+                if favoritesCell.loader == nil{
+                    favoritesCell.loader = FavoritesLoader(with: favoritesCell)
+                }
+                favoritesCell.favorites = ApplicationUserManager.manager.applicationUser.favorites
+                favoritesCell.delegate = self
+            }
+
+            return cell
         }
     }
     
@@ -168,14 +193,71 @@ extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        // The selected table view cell should be selected while we are not editing and should be in the accounts section, instead of the favorites section
-        guard let indexPath = tableView.indexPathForRow(at: location), isEditing == false, indexPath.section == 1
+        guard let indexPath = tableView.indexPathForRow(at: location)
             else { return nil }
-        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+
+        switch indexPath.section{
+            case 0:
+                guard let cell = tableView.cellForRow(at: indexPath) as? AllFavoritesTableViewCell
+                        else { return nil }
+                let translatedPoint = cell.collectionView.convert(location, from: view)
+                guard let collectionViewCellIndexPath = cell.collectionView.indexPathForItem(at: translatedPoint)
+                        else { return nil }
+                guard let favoritableAndFavorite = cell.getFavoritableAndFavoriteForIndexPath(indexPath: collectionViewCellIndexPath)
+                        else { return nil }
+
+                if let collectionViewCellFrame = cell.collectionView.layoutAttributesForItem(at: collectionViewCellIndexPath)?.frame {
+                    previewingContext.sourceRect = cell.collectionView.convert(collectionViewCellFrame, to: self.view)
+                }
+
+                return getFavoritableViewController(for: favoritableAndFavorite)
+            case 1:
+                guard isEditing == false
+                        else { return nil }
+                previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+                return getJobsViewController(for: indexPath)
+            default: return nil
+        }
+    }
+
+    private func getFavoritableViewController(for favoritableAndFavorite: (favoritable: Favoratible, favorite: Favorite)) -> UIViewController?{
+
+        var viewController: UIViewController?
+
+        switch favoritableAndFavorite.favorite.type{
+            case .build:
+                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "BuildViewController")
+            case .job:
+                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobViewController")
+        }
+
+        guard let favoritableViewController = viewController
+              else { return nil }
+
+        prepare(favoritableViewController: favoritableViewController, for: favoritableAndFavorite)
+        return favoritableViewController
+    }
+
+    private func getJobsViewController(for indexPath: IndexPath) -> UIViewController?{
         guard let jobsViewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobsTableViewController")
-            else { return nil }
+                else { return nil }
         prepare(viewController: jobsViewController, indexPath: indexPath)
-        
+
         return jobsViewController
+    }
+}
+
+extension AccountsTableViewController: AllFavoritesTableViewCellDelegate{
+    func didSelectErroredFavorite(favorite: Favorite) {
+        UIApplication.shared.openURL(favorite.url)
+    }
+
+    func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
+        switch favorite.type{
+            case .build:
+                performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
+            case .job:
+                performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: (favoritable, favorite))
+        }
     }
 }

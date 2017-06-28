@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC91B00373116270C5248BEF /* DescribingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */; };
 		BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */; };
 		BC91B41BACDFCB0DF254B4BC /* LoggableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */; };
+		BC91B6682BE0558C0AFAA446 /* Job+DescribingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */; };
 		BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */; };
 		BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */; };
 		BC91BA54926325A92B026793 /* BuildTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BD8AB3DC9032CF20688B /* BuildTest.swift */; };
 		BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */; };
+		BC91BF03ADB79DCF6EC4BE3A /* Build+DescribingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */; };
 		BC91BFB233A3B9A67696AE6F /* LoggingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */; };
+		BC91BFFA12F6DC36F0387829 /* FavoritesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91BA124B0A90C962D2416C /* FavoritesLoader.swift */; };
 		DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */; };
+		DC08DD2E1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */; };
+		DC08DD301EFBF75300679B74 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */; };
 		DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
 		DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
 		DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */; };
@@ -266,10 +272,16 @@
 		BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingManager.swift; sourceTree = "<group>"; };
 		BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggableContentView.swift; sourceTree = "<group>"; };
 		BC91B5B604EA1237B2EC23EE /* AccountManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagerTests.swift; sourceTree = "<group>"; };
+		BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Build+DescribingColor.swift"; sourceTree = "<group>"; };
+		BC91BA124B0A90C962D2416C /* FavoritesLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesLoader.swift; sourceTree = "<group>"; };
+		BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescribingColor.swift; sourceTree = "<group>"; };
 		BC91BC4CA91C47B6A8AA92F4 /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
+		BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Job+DescribingColor.swift"; sourceTree = "<group>"; };
 		BC91BD8AB3DC9032CF20688B /* BuildTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTest.swift; sourceTree = "<group>"; };
 		BC91BD9833EB43AC71B64A35 /* ApplicationUserManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserManagerTests.swift; sourceTree = "<group>"; };
 		DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongBuildInfoTableViewCell.swift; sourceTree = "<group>"; };
+		DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllFavoritesTableViewCell.swift; sourceTree = "<group>"; };
+		DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC169FCA1DE33FFD0015A499 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
 		DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -620,6 +632,8 @@
 				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
 				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
 				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
+				DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */,
+				DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -655,6 +669,10 @@
 				DCC2E16D1D9FFD3000491B98 /* Utils */,
 				DC8625731DA9213A00EB7867 /* View */,
 				DC99C3F91D9561710031DBE4 /* Other */,
+				BC91BA124B0A90C962D2416C /* FavoritesLoader.swift */,
+				BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */,
+				BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */,
+				BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */,
 			);
 			path = JenkinsiOS;
 			sourceTree = "<group>";
@@ -1123,6 +1141,7 @@
 			files = (
 				DC4D21B11DF4299A0023B4EA /* StarRatingViewDelegate.swift in Sources */,
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
+				DC08DD2E1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift in Sources */,
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
 				DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */,
@@ -1184,6 +1203,7 @@
 				DCC2E17A1DA0199900491B98 /* Case.swift in Sources */,
 				DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
+				DC08DD301EFBF75300679B74 /* FavoriteCollectionViewCell.swift in Sources */,
 				DC6DB1941DF09283005548A3 /* ReviewHandler.swift in Sources */,
 				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
 				DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */,
@@ -1219,6 +1239,10 @@
 				BC91BE7A5303B06A23AC1A86 /* RefreshingTableViewController.swift in Sources */,
 				BC91BFB233A3B9A67696AE6F /* LoggingManager.swift in Sources */,
 				BC91B41BACDFCB0DF254B4BC /* LoggableContentView.swift in Sources */,
+				BC91BFFA12F6DC36F0387829 /* FavoritesLoader.swift in Sources */,
+				BC91B6682BE0558C0AFAA446 /* Job+DescribingColor.swift in Sources */,
+				BC91B00373116270C5248BEF /* DescribingColor.swift in Sources */,
+				BC91BF03ADB79DCF6EC4BE3A /* Build+DescribingColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
