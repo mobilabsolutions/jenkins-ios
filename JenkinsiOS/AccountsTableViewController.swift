@@ -10,7 +10,15 @@ import UIKit
 
 class AccountsTableViewController: BaseTableViewController {
     
-    let headers = ["Favorites", "Accounts"]
+    private let headers = ["Favorites", "Accounts"]
+    
+    private var hasFavorites: Bool {
+        return ApplicationUserManager.manager.applicationUser.favorites.isEmpty == false
+    }
+    
+    private var hasAccounts: Bool{
+        return AccountManager.manager.accounts.isEmpty == false
+    }
     
     //MARK: - View controller lifecycle
     
@@ -149,7 +157,22 @@ class AccountsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0 && !hasFavorites && !hasAccounts) || (section == 1 && !hasAccounts) {
+            return 0
+        }
+        
         return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && !hasFavorites && !hasAccounts{
+            return 0
+        }
+        else if indexPath.section == 0 && !hasFavorites && hasAccounts {
+            return 75
+        }
+        
+        return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

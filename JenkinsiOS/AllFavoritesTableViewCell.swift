@@ -16,12 +16,18 @@ protocol AllFavoritesTableViewCellDelegate{
 class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, FavoritesLoading {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var showAllButton: UIButton!
+    @IBOutlet weak var noFavoritesAvailableLabel: UILabel!
+    
     var favorites: [Favorite] = [] {
         didSet{
             loadedFavoritables = []
             failedLoads = []
             self.collectionView.reloadData()
             self.loader?.loadFavorites(favorites: favorites)
+            self.showAllButton.isHidden = favorites.isEmpty
+            self.collectionView.isHidden = favorites.isEmpty
+            self.noFavoritesAvailableLabel.isHidden = !favorites.isEmpty
         }
     }
 
@@ -63,10 +69,12 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     }
 
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if case let .loading(_) = stateForIndexPath(indexPath: indexPath){
+        switch stateForIndexPath(indexPath: indexPath) {
+        case .loading:
             return false
+        default:
+            return true
         }
-        return true
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
