@@ -1357,7 +1357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7b9170ff-5fb6-49e2-88c2-1fcdf388a795";
+				PROVISIONING_PROFILE = "6c927151-2015-46d2-a2f1-f0821805871b";
 				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Extension App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = IS_EXTENSION;
@@ -1504,7 +1504,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "40d5af6a-3871-4364-9cfb-a368915f340c";
+				PROVISIONING_PROFILE = "e4c6a422-4273-487e-9374-843d46abdfce";
 				PROVISIONING_PROFILE_SPECIFIER = "Jenkins App Store";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
