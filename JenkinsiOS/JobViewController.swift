@@ -157,6 +157,7 @@ class JobViewController: UIViewController {
     fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+            LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
         }
         catch let error{
             completion(nil, error)
