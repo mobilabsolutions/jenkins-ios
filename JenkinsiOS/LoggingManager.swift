@@ -55,4 +55,8 @@ class LoggingManager{
     func logunfavoritedFavoritable(type: Favorite.FavoriteType){
         Answers.logCustomEvent(withName: "Unfavorited", customAttributes: ["type": type.rawValue])
     }
+    
+    func logTriggeredBuild(withParameters: Bool){
+        Answers.logCustomEvent(withName: "Build Triggered", customAttributes: ["withParameters" : "\(withParameters)"])
+    }
 }

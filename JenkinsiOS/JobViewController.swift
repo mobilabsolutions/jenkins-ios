@@ -157,6 +157,7 @@ class JobViewController: UIViewController {
     fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+            LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
         }
         catch let error{
             completion(nil, error)
@@ -198,7 +199,7 @@ class JobViewController: UIViewController {
         UIApplication.shared.openURL(job.url)
     }
 
-    func like(){
+    func favorite(){
         if let account = account, job != nil{
             job?.toggleFavorite(account: account)
             let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
@@ -277,7 +278,7 @@ class JobViewController: UIViewController {
 
         navigationItem.titleView?.sizeToFit()
         navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
+        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favorite)))
 
         guard let job = job
             else { return }
