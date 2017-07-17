@@ -1,4 +1,6 @@
 #!/bin/bash
+
+echo "Starting Test run";
 fastlane test;
 
 if [ $? -eq 0 ]; then
@@ -13,20 +15,24 @@ if [ $? -eq 0 ]; then
 
     echo "Testing succeeded. Next steps will be taken";
 
+    OPERATION_RESULT=0;
+
     if [ ! -z "${TRAVIS_TAG}" ]; then
         echo "Will release application to iTunes Connect";
         fastlane release;
+	let OPERATION_RESULT="$?";
     elif [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
         echo "Will distribute application to Beta";
+        let OPERATION_RESULT="$?";
         fastlane beta;
     fi
-
-    OPERATION_RESULT = $?
 
     echo "Removing certificate folder";
     rm -rf fastlane/Certificates;
 
-    if [ $OPERATION_RESULT -ne 0 ]; then
+    echo "Operation result: $OPERATION_RESULT";
+
+    if [ "$OPERATION_RESULT" -ne "0" ]; then
 	echo "An error occurred while distributing!";
 	exit 1;
     fi	
