@@ -4,6 +4,12 @@ xcode_scheme: JenkinsiOSTests
 osx_image: xcode8.2
 xcode_sdk: iphonesimulator10.0
 
+cache:
+- bundler
+
+before_install:
+- bundle install
+
 branches:
   only:
     - master
