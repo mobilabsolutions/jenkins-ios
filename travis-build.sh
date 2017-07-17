@@ -21,8 +21,15 @@ if [ $? -eq 0 ]; then
         fastlane beta;
     fi
 
+    OPERATION_RESULT = $?
+
     echo "Removing certificate folder";
     rm -rf fastlane/Certificates;
+
+    if [ $OPERATION_RESULT -ne 0 ]; then
+	echo "An error occurred while distributing!";
+	exit 1;
+    fi	
 
 else
     echo "An error occurred while testing; Will not go further";
