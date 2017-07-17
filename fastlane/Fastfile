@@ -89,7 +89,8 @@ platform :ios do
          sigh(
              username: ENV["FASTLANE_USER"],
              team_id: ENV["TEAM_NAME"],
-             provisioning_name: "Jenkins Extension App Store",
+             app_identifier: "com.mobilabsolutions.jenkins.client.extension",
+             # provisioning_name: "Jenkins Extension App Store",
              cert_id: ENV["CERTIFICATE_ID"]
          )
   end
