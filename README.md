@@ -1,4 +1,4 @@
-# Butler - Client For Jenkins [![Build Status Dev](https://travis-ci.org/mobilabsolutions/jenkins-ios.svg?branch=dev)](https://travis-ci.org/mobilabsolutions/jenkins-ios) <sup><sub><sup>(dev branch status)</sup><sub><sub>
+# Butler - Client For Jenkins [![Build Status Master](https://travis-ci.org/mobilabsolutions/jenkins-ios.svg?branch=master)](https://travis-ci.org/mobilabsolutions/jenkins-ios)
 
 <p align="center">
   <img src="JenkinsiOS/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" width=200>
