@@ -4,5 +4,17 @@ xcode_scheme: JenkinsiOSTests
 osx_image: xcode8.3
 xcode_sdk: iphonesimulator10.0
 
+cache:
+- bundler
+
+before_install:
+- bundle install
+
+branches:
+  only:
+    - master
+    - /^(\d+\.)?(\d+\.)?\d+(-\w+)?$/
+    - JENIOS-29/fastlane
+
 script:
-- xcodebuild clean build test -project JenkinsiOS.xcodeproj -scheme JenkinsiOSTests  -destination "platform=iOS Simulator,id=85AF1F51-F2EB-4A4D-930B-0E5761511A45" -json
+- ./travis-build.sh
