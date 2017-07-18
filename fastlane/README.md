@@ -40,6 +40,11 @@ Runs all the tests
 fastlane ios beta
 ```
 This will also make sure the profile is up to date
+### ios lane_test
+```
+fastlane ios lane_test
+```
+
 ### ios release
 ```
 fastlane ios release

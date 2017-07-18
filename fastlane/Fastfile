@@ -50,6 +50,11 @@ platform :ios do
     keychain_name = "ci-example-certs"
     prepare_distribution(keychain_name: keychain_name)
     increment_build_number(build_number: ENV["TRAVIS_BUILD_NUMBER"])
+    unless ENV["TRAVIS_TAG"].nil?
+        increment_version_number(
+            version_number: ENV["TRAVIS_TAG"]
+        )
+    end
     gym(scheme: "JenkinsiOS") # Build your app - more options available
     deliver(username: ENV["FASTLANE_USER"], dev_portal_team_id: ENV["DEV_PORTAL_TEAM_ID"],
 	team_name: ENV["TEAM_NAME"], force: true)
