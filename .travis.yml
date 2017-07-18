@@ -1,6 +1,5 @@
 language: objective-c
 xcode_project: JenkinsiOS.xcodeproj
-xcode_scheme: JenkinsiOSTests
 osx_image: xcode8.3
 xcode_sdk: iphonesimulator10.0
 
