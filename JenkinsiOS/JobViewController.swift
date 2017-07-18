@@ -20,7 +20,7 @@ class JobViewController: UIViewController {
     @IBOutlet weak var colorImageView: UIImageView!
     @IBOutlet weak var descriptionWebView: UIWebView!
     @IBOutlet weak var healthReportLabel: UILabel!
-    @IBOutlet weak var showBuildsCell: UITableViewCell!
+    @IBOutlet weak var showBuildsCell: UIView!
 
     var viewWillAppearCalled = false
     var buildProvidable: BuildProvidable? = nil
@@ -98,14 +98,18 @@ class JobViewController: UIViewController {
             modalViewController, data, error in
 
             if let error = error{
-                
-                if modalViewController?.isBeingPresented == true{
+                if self.presentedViewController == modalViewController{
                     modalViewController?.dismiss(animated: true, completion: {
                         self.displayError(error: error)
                     })
                 }
                 else{
                     self.displayError(error: error)
+                }
+            }
+            else{
+                if self.presentedViewController == modalViewController{
+                    modalViewController?.dismiss(animated: true, completion: nil)
                 }
             }
         }
@@ -151,7 +155,13 @@ class JobViewController: UIViewController {
     }
 
     fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+        do {
+            try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
+            LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
+        }
+        catch let error{
+            completion(nil, error)
+        }
     }
 
     //MARK: - Refreshing
@@ -189,7 +199,7 @@ class JobViewController: UIViewController {
         UIApplication.shared.openURL(job.url)
     }
 
-    func like(){
+    func favorite(){
         if let account = account, job != nil{
             job?.toggleFavorite(account: account)
             let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
@@ -213,7 +223,9 @@ class JobViewController: UIViewController {
                 
                 self.buildProvidable?.setBuilds(builds: self.job?.builds ?? [], specialBuilds: self.specialBuilds() ?? [])
                 self.buildProvidable?.buildsAlreadyLoaded = true
-                
+
+                LoggingManager.loggingManager.log(contentView: .job)
+
                 if self.viewWillAppearCalled{
                     self.updateUI()
                 }
@@ -230,7 +242,9 @@ class JobViewController: UIViewController {
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
         showBuildsCell.addGestureRecognizer(tapRecognizer)
-
+        
+        registerForPreviewing(with: self, sourceView: showBuildsCell)
+        
         updateUI()
         
         guard job?.healthReport.first == nil
@@ -264,7 +278,7 @@ class JobViewController: UIViewController {
 
         navigationItem.titleView?.sizeToFit()
         navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(like)))
+        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favorite)))
 
         guard let job = job
             else { return }
@@ -304,11 +318,7 @@ class JobViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            dest.account = account
-            dest.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
-            dest.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
-            dest.dataSource = self
-            self.buildProvidable = dest
+            prepareBuildsTableViewController(viewController: dest)
         }
         else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
             dest.parameters = job?.parameters ?? []
@@ -316,6 +326,13 @@ class JobViewController: UIViewController {
         }
     }
 
+    fileprivate func prepareBuildsTableViewController(viewController: BuildsTableViewController){
+        viewController.account = account
+        viewController.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
+        viewController.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
+        viewController.dataSource = self
+        self.buildProvidable = viewController
+    }
 
     @objc private func segueToNextViewController(){
         performSegue(withIdentifier: Constants.Identifiers.showBuildsSegue, sender: nil)
@@ -367,5 +384,22 @@ extension JobViewController: BuildsTableViewControllerDataSource{
                 completion(self.job?.builds, self.specialBuilds())
             }
         }
+    }
+}
+
+extension JobViewController: UIViewControllerPreviewingDelegate{
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: false)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else { return nil }
+        guard let buildsViewController = appDelegate.getViewController(name: "BuildsTableViewController") as? BuildsTableViewController
+            else { return nil }
+        
+        prepareBuildsTableViewController(viewController: buildsViewController)
+        return buildsViewController
     }
 }

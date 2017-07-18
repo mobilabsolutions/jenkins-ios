@@ -42,9 +42,11 @@ extension Favoratible{
         if let type = getType(){
             if let index = ApplicationUserManager.manager.applicationUser.favorites.index(of: Favorite(url: self.url, type: type, account: account)){
                 ApplicationUserManager.manager.applicationUser.favorites.remove(at: index)
+                LoggingManager.loggingManager.logunfavoritedFavoritable(type: type)
             }
             else{
                 ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: self.url, type: type, account: account))
+                LoggingManager.loggingManager.logfavoritedFavoritable(type: type)
             }
             
             ApplicationUserManager.manager.save()

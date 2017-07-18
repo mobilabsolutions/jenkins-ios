@@ -43,6 +43,8 @@ class BuildViewController: UITableViewController {
         }
     }
     
+    private let dateFormatter = DateFormatter()
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     //MARK: - View controller lifecycle
@@ -51,6 +53,7 @@ class BuildViewController: UITableViewController {
         super.viewDidLoad()
     
         setUpUI()
+        setupDateFormatter()
         updateData()
         performRequests()
         registerForPreviewing(with: self, sourceView: tableView)
@@ -59,6 +62,16 @@ class BuildViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewWillAppearCalled = true
+        LoggingManager.loggingManager.log(contentView: .build)
+    }
+   
+    //MARK: - Setup of objects
+    private func setupDateFormatter(){
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        dateFormatter.doesRelativeDateFormatting = true
+        dateFormatter.formattingContext = .standalone
+        dateFormatter.locale = Locale.autoupdatingCurrent
     }
     
     //MARK: - Actions
@@ -126,14 +139,16 @@ class BuildViewController: UITableViewController {
         let estimatedTimeIntervalString: String!
         let buildingString: String!
         let builtOnString: String!
+        let timeStampString: String!
         
         if let build = build{
             resultString = build.result ?? "Unknown"
             idString = build.id ?? "Unknown"
+            timeStampString = build.timeStamp != nil ? dateFormatter.string(from: build.timeStamp!) : "Unknown"
             timeIntervalString = build.duration?.toString() ?? "Unknown"
             estimatedTimeIntervalString = build.estimatedDuration?.toString() ?? "Unknown"
             buildingString = build.building != nil ? build.building!.humanReadableString : "Unknown"
-            builtOnString = build.builtOn ?? "Unknown"
+            builtOnString = (build.builtOn ?? "Unknown") != "" ? (build.builtOn ?? "Unknown") : "Unknown"
         }
         else{
             resultString = "Loading result..."
@@ -142,6 +157,7 @@ class BuildViewController: UITableViewController {
             estimatedTimeIntervalString = "Loading time interval..."
             buildingString = "Loading information..."
             builtOnString = "Loading information..."
+            timeStampString = "Loading information..."
         }
         
         var causes: [Cause] = []
@@ -163,6 +179,7 @@ class BuildViewController: UITableViewController {
             DisplayData(key: "Cause", value: causeText, cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
             DisplayData(key: "Result", value: resultString, cellIdentifier: staticBuildInfoCell),
             DisplayData(key: "ID", value: idString, cellIdentifier: staticBuildInfoCell),
+            DisplayData(key: "Started", value: timeStampString, cellIdentifier: staticBuildInfoCell),
             DisplayData(key: "Duration", value: timeIntervalString, cellIdentifier: staticBuildInfoCell),
             DisplayData(key: "Estimated", value: estimatedTimeIntervalString, cellIdentifier: staticBuildInfoCell),
             DisplayData(key: "Building", value: buildingString, cellIdentifier: staticBuildInfoCell),
@@ -190,7 +207,7 @@ class BuildViewController: UITableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           prepare(viewController: segue.destination)
+        prepare(viewController: segue.destination)
     }
     
     fileprivate func prepare(viewController: UIViewController){

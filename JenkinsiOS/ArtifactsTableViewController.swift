@@ -133,7 +133,9 @@ class ArtifactsTableViewController: UITableViewController {
     private func showModalInformationViewController(){
         let modalInfoViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading Artifact...")
         modalInfoViewController.delegate = self
-        navigationController?.present(modalInfoViewController, animated: true, completion: nil)
+        if self.presentedViewController == nil && navigationController?.presentedViewController == nil{
+            navigationController?.present(modalInfoViewController, animated: true, completion: nil)
+        }
     }
         
     fileprivate func dismissDownload(){
