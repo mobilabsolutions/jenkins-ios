@@ -18,7 +18,7 @@ Generally, we prefer to use `Storyboards` instead of building our UI in code. Pl
 
 ## Feature Requests and Bugs
 
-If you have a feature request or bug that you would like to report, please us GitHub's issues feature to [create a new issue](https://github.com/mobilabsolutions/jenkins-ios/issues/new) _after_ checking if a similar issue already exists.
+If you have a feature request or bug that you would like to report, please use GitHub's issues feature to [create a new issue](https://github.com/mobilabsolutions/jenkins-ios/issues/new) _after_ checking if a similar issue already exists.
 
 ## Feedback
 
