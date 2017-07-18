@@ -33,10 +33,11 @@ platform :ios do
     prepare_distribution(keychain_name: keychain_name)
 
     gym(scheme: "JenkinsiOS") # Build your app - more options available
-    changelog_from_git_commits
+    notes = changelog_from_git_commits
     crashlytics(
         api_token: ENV["CRASHLYTICS_API_KEY"],
         build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
+        notes: notes
     )
 
     delete_keychain(
