@@ -19,11 +19,11 @@ if [ $? -eq 0 ]; then
     if [ ! -z "${TRAVIS_TAG}" ]; then
         echo "Will release application to iTunes Connect";
         fastlane release;
-	let OPERATION_RESULT="$?";
+	    let OPERATION_RESULT="$?";
     elif [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
         echo "Will distribute application to Beta";
-        let OPERATION_RESULT="$?";
         fastlane beta;
+        let OPERATION_RESULT="$?";
     fi
 
     echo "Removing certificate folder";
