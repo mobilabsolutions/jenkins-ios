@@ -6,7 +6,7 @@ We are always very happy to receive contributions of any kind (but especially co
 
 Code contributions are very much appreciated (especially those that add to our test suite). To get a quick start on the application's architecture, please visit our [Wiki](https://github.com/mobilabsolutions/jenkins-ios/wiki).
 
-Before adding any features or fixing any issues, please branch off either `dev` or `master` and create your own feature branch. Once your feature is developed, please create a pull request onto `dev`.
+Before adding any features or fixing any issues, please branch off either `master` and create your own feature branch. Once your feature is developed, please create a pull request onto `master`.
 
 We always try to review pull requests in a very timely manner, however, please be patient if it does take a little longer than you expected.
 
@@ -18,7 +18,7 @@ Generally, we prefer to use `Storyboards` instead of building our UI in code. Pl
 
 ## Feature Requests and Bugs
 
-If you have a feature request or bug that you would like to report, please us GitHub's issues feature to [create a new issue](https://github.com/mobilabsolutions/jenkins-ios/issues/new) _after_ checking if a similar issue already exists.
+If you have a feature request or bug that you would like to report, please use GitHub's issues feature to [create a new issue](https://github.com/mobilabsolutions/jenkins-ios/issues/new) _after_ checking if a similar issue already exists.
 
 ## Feedback
 
