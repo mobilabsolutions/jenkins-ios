@@ -9,7 +9,10 @@
 import UIKit
 
 @IBDesignable class BaseTableViewController: UITableViewController {
-    
+
+    /// The type of content that should be logged
+    var contentType: LoggableContentView?
+
     /// The text that should be displayed if the table view is empty
     @IBInspectable var emptyTableViewText: String?{
         didSet{
@@ -56,6 +59,11 @@ import UIKit
             loadingIndicator.stopAnimation()
             loadingIndicator.startAnimation()
         }
+
+        guard let contentView = contentType
+              else { return }
+
+        LoggingManager.loggingManager.log(contentView: contentView)
     }
     
     /// How many sections there are in the given table view

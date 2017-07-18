@@ -37,8 +37,10 @@ class Build: Favoratible, CustomDebugStringConvertible{
     
     /// The duration of the build
     var duration: TimeInterval?
-    /// The estimated duration of the buil
+    /// The estimated duration of the build
     var estimatedDuration: TimeInterval?
+    /// The date that the build was started on
+    var timeStamp: Date?
     
     /// The changes that took place before the build
     var changeSets: [ChangeSet] = []
@@ -103,11 +105,16 @@ class Build: Favoratible, CustomDebugStringConvertible{
                 changeSets.append(changeSet)
             }
         }
-            // It seems, as if Change Sets could also be in an array
+        // It seems, as if Change Sets could also be in an array
         else if let changeSetsJson = json["changeSet"] as? [[String: AnyObject]]{
             changeSets = changeSetsJson.map({ (dict) -> ChangeSet in
                 return ChangeSet(json: dict)
             })
+        }
+        
+        if let timeStampInterval = json["timestamp"] as? TimeInterval{
+            // For some reason, Jenkins use milliseconds for their timestamp
+            timeStamp = Date(timeIntervalSince1970: timeStampInterval/1000.0)
         }
         
         if let artifactsJson = json[Constants.JSON.artifacts] as? [[String: AnyObject]]{

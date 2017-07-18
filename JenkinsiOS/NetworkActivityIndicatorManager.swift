@@ -27,7 +27,9 @@ class NetworkActivityIndicatorManager{
         }
         
         #if !IS_EXTENSION
-            UIApplication.shared.isNetworkActivityIndicatorVisible = (outstandingRequests > 0)
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = (self.outstandingRequests > 0)
+            }
         #endif
     }
     

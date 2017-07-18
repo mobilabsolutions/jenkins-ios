@@ -7,116 +7,109 @@
 //
 
 import UIKit
+import SafariServices
 
-class FavoritesTableViewController: RefreshingTableViewController {
-    
-    var jobFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .job}
-    var buildFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .build }
-    
-    var jobs: [(job: Job, account: Account)] = []
-    var builds: [(build: Build, account: Account)] = []
-    
-    var requestedFavorites: [URL] = []
-    
-    private var failedRequests: [Favorite] = []
-    
+class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoading {
+
+    var favoritesLoader: FavoritesLoader?
+    var favorites = ApplicationUserManager.manager.applicationUser.favorites
+
+    var numberOfJobs: Int {
+        return ApplicationUserManager.manager.applicationUser.favorites.filter({ $0.type == .job }).count
+    }
+
+    var loadedJobs: [(favoritable: Favoratible, favorite: Favorite)] = []
+    var loadedBuilds: [(favoritable: Favoratible, favorite: Favorite)] = []
+
+    var failedLoadingJobs: [Favorite] = []
+    var failedLoadingBuilds: [Favorite] = []
+
     //MARK: - View controller lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTitleView()
-        
-        loadJobs()
-        loadBuilds()
-        
+
+        favoritesLoader = FavoritesLoader(with: self)
+        favoritesLoader?.loadFavorites(favorites: favorites)
+
         registerForPreviewing(with: self, sourceView: tableView)
         
         title = "Favorites"
         emptyTableView(for: .noData)
+        contentType = .favorites
     }
 
     override func refresh(){
         reloadAllFavorites()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        jobFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .job}
-        buildFavorites = ApplicationUserManager.manager.applicationUser.favorites.filter{ $0.type == .build }
-        
-        loadJobs()
-        loadBuilds()
-    }
-    
+
     //MARK: - Data loading and presentation
     
-    func loadJobs(){
-        for jobFavorite in jobFavorites{
-            if let account = jobFavorite.account, !requestedFavorites.contains(jobFavorite.url){
-                requestedFavorites.append(jobFavorite.url)
-                let userRequest = UserRequest(requestUrl: jobFavorite.url, account: account)
-                _ = NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
-                    DispatchQueue.main.async {
-                        if let job = job{
-                            self.jobs.append((job: job, account: account))
-                            self.tableView.reloadData()
-                        }
-                        else{
-                            self.failedRequests.append(jobFavorite)
-                        }
-                        self.conditionallyEndRefreshing()
-                    }
-                })
-            }
-        }
-        self.conditionallyEndRefreshing()
+
+    @objc private func reloadAllFavorites(){
+        loadedJobs = []
+        loadedBuilds = []
+        failedLoadingJobs = []
+        failedLoadingBuilds = []
+
+        favorites = ApplicationUserManager.manager.applicationUser.favorites
+
+        tableView.reloadData()
+        favoritesLoader?.loadFavorites(favorites: favorites)
     }
-    
-    func loadBuilds(){
-        for buildFavorite in buildFavorites{
-            if let account = buildFavorite.account, !requestedFavorites.contains(buildFavorite.url){
-                let userRequest = UserRequest(requestUrl: buildFavorite.url, account: account)
-                requestedFavorites.append(buildFavorite.url)
-                _ = NetworkManager.manager.getBuild(userRequest: userRequest, completion: { (build, _) in
-                    DispatchQueue.main.async {
-                        if let build = build{
-                            self.builds.append((build: build, account: account))
-                            self.tableView.reloadData()
-                        }
-                        else{
-                            self.failedRequests.append(buildFavorite)
-                        }
-                        self.conditionallyEndRefreshing()
-                    }
-                })
-            }
+
+    func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite) {
+        switch favorite.type{
+            case .job:
+                loadedJobs.append((favoritable, favorite))
+                tableView.reloadRows(at: [IndexPath(row: loadedJobs.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
+            case .build:
+                loadedBuilds.append((favoritable, favorite))
+                tableView.reloadRows(at: [IndexPath(row: loadedBuilds.count - 1, section: 1)], with: UITableViewRowAnimation.automatic)
         }
+
         conditionallyEndRefreshing()
     }
-    
-    @objc private func reloadAllFavorites(){
-        requestedFavorites = []
-        jobs = []
-        builds = []
-        failedRequests = []
-        tableView.reloadData()
-        loadJobs()
-        loadBuilds()
-    }
-    
-    private func conditionallyEndRefreshing(){
-        
-        let loadedCount = jobs.count + builds.count + failedRequests.count
-        
-        if loadedCount >= ApplicationUserManager.manager.applicationUser.favorites.count {
-            self.refreshControl?.endRefreshing()
-            (navigationItem.titleView as? UIActivityIndicatorView)?.stopAnimating()
-            navigationItem.titleView = nil
+
+    func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure) {
+        switch favorite.type{
+            case .build:
+                let numberOfBuilds = (favorites.count - numberOfJobs)
+                failedLoadingBuilds.append(favorite)
+                tableView.reloadRows(at: [IndexPath(row: numberOfBuilds - failedLoadingBuilds.count, section: 1)], with: UITableViewRowAnimation.automatic)
+            case .job:
+                failedLoadingJobs.append(favorite)
+                tableView.reloadRows(at: [IndexPath(row: numberOfJobs - failedLoadingJobs.count, section: 0)], with: UITableViewRowAnimation.automatic)
         }
     }
-    
+
+    private func conditionallyEndRefreshing(){
+        // Make sure there are no more builds or jobs that are currently loading
+        guard loadedJobs.count + loadedBuilds.count + failedLoadingBuilds.count + failedLoadingJobs.count >= favorites.count
+                else { return }
+
+        self.refreshControl?.endRefreshing()
+        (navigationItem.titleView as? UIActivityIndicatorView)?.stopAnimating()
+        navigationItem.titleView = nil
+    }
+
+    fileprivate func loadingState(for indexPath: IndexPath) -> FavoriteLoadingState{
+        let isJob = indexPath.section == 0
+        let failedForType = isJob ? failedLoadingJobs : failedLoadingBuilds
+        let succeededForType = isJob ? loadedJobs : loadedBuilds
+        let numberOfItemsForType = isJob ? numberOfJobs : favorites.count - numberOfJobs
+
+        if indexPath.row < succeededForType.count{
+            return .loaded(favoritable: succeededForType[indexPath.row].favoritable)
+        }
+        else if indexPath.row >= numberOfItemsForType - failedForType.count{
+            return .errored
+        }
+        return .loading
+    }
+
     private func setupTitleView(){
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         navigationItem.titleView = activityIndicator
@@ -124,9 +117,63 @@ class FavoritesTableViewController: RefreshingTableViewController {
     }
     
     override func tableViewIsEmpty() -> Bool {
-        return ApplicationUserManager.manager.applicationUser.favorites.count == 0
+        return favorites.count == 0
     }
-    
+
+    private func favorite(for indexPath: IndexPath) -> Favorite?{
+        let isJob = indexPath.section == 0
+        let failedForType = isJob ? failedLoadingJobs : failedLoadingBuilds
+        let succeededForType = isJob ? loadedJobs : loadedBuilds
+        let numberOfItemsForType = isJob ? numberOfJobs : favorites.count - numberOfJobs
+
+        if indexPath.row < succeededForType.count {
+            return succeededForType[indexPath.row].favorite
+        }
+        else if indexPath.row >= numberOfItemsForType - failedForType.count {
+            return failedForType[indexPath.row - (numberOfItemsForType - failedForType.count)]
+        }
+        return nil
+    }
+
+    private func unfavorite(favoriteAt indexPath: IndexPath){
+        guard let favorite = self.favorite(for: indexPath)
+                else { return }
+        guard let index = ApplicationUserManager.manager.applicationUser.favorites.index(of: favorite)
+                else { return }
+        ApplicationUserManager.manager.applicationUser.favorites.remove(at: index)
+        LoggingManager.loggingManager.logunfavoritedFavoritable(type: favorite.type)
+        ApplicationUserManager.manager.save()
+
+        self.favorites = ApplicationUserManager.manager.applicationUser.favorites
+
+        switch favorite.type{
+            case .build: unfavoriteBuild(favorite: favorite)
+            case .job: unfavoriteJob(favorite: favorite)
+        }
+
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+        self.tableView.endUpdates()
+    }
+
+    private func unfavoriteBuild(favorite: Favorite){
+        if let index = loadedBuilds.index(where: { tuple in tuple.1 == favorite } ){
+            loadedBuilds.remove(at: index)
+        }
+        else if let index = failedLoadingBuilds.index(where: { failedFavorite in  failedFavorite == favorite } ){
+            failedLoadingBuilds.remove(at: index)
+        }
+    }
+
+    private func unfavoriteJob(favorite: Favorite){
+        if let index = loadedJobs.index(where: { tuple in tuple.1 == favorite } ){
+            loadedJobs.remove(at: index)
+        }
+        else if let index = failedLoadingJobs.index(where: { failedFavorite in  failedFavorite == favorite } ){
+            failedLoadingJobs.remove(at: index)
+        }
+    }
+
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -139,24 +186,35 @@ class FavoritesTableViewController: RefreshingTableViewController {
     }
     
     func prepareViewController(viewController: UIViewController, row: Int, type: Favorite.FavoriteType){
-        if type == .job, let dest = viewController as? JobViewController{
-            dest.job = jobs[row].job
-            dest.account = jobs[row].account
-        }
-        else if type == .build, let dest = viewController as? BuildViewController{
-            dest.build = builds[row].build
-            dest.account = builds[row].account
+
+        if case let .loaded(_) = loadingState(for: IndexPath(row: row, section: type == .job ? 0 : 1)){
+            if type == .job, let dest = viewController as? JobViewController{
+                dest.job = loadedJobs[row].favoritable as? Job
+                dest.account = loadedJobs[row].favorite.account
+            }
+            else if type == .build, let dest = viewController as? BuildViewController{
+                dest.build = loadedBuilds[row].favoritable as? Build
+                dest.account = loadedBuilds[row].favorite.account
+            }
         }
     }
     
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
-            performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: indexPath.row)
-        }
-        else if indexPath.section == 1{
-            performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: indexPath.row)
+        switch loadingState(for: indexPath) {
+            case .loaded(_):
+                if indexPath.section == 0 {
+                    performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: indexPath.row)
+                } else if indexPath.section == 1 {
+                    performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: indexPath.row)
+                }
+            case .errored:
+                guard let favorite = favorite(for: indexPath)
+                        else { return }
+                let safariVC = SFSafariViewController(url: favorite.url)
+                present(safariVC, animated: true)
+            case .loading: return
         }
     }
     
@@ -166,40 +224,92 @@ class FavoritesTableViewController: RefreshingTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
-            case 0: return jobs.count
-            case 1: return builds.count
+            case 0: return numberOfJobs
+            case 1: return favorites.count - numberOfJobs
             default: return 0
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section{
-            case 0: return jobs.count > 0 ? "Jobs" : nil
-            case 1: return builds.count > 0 ? "Builds" : nil
+            case 0: return numberOfJobs > 0 ? "Jobs" : nil
+            case 1: return (favorites.count - numberOfJobs) > 0 ? "Builds" : nil
             default: return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath)
-        
-        if indexPath.section == 1{
-            let build = builds[indexPath.row].build
-            cell.textLabel?.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
-            
-            if let color = build.result?.lowercased(){
-                cell.imageView?.image = UIImage(named: "\(color)Circle")
-            }
+
+        let isJob = indexPath.section == 0
+
+        switch loadingState(for: indexPath){
+            case .loaded(let favoritable):
+                prepare(cell: cell, for: favoritable)
+            case .loading:
+                prepareForLoading(cell: cell, type: isJob ? .job : .build)
+            case .errored:
+                prepareForErrored(cell: cell, favorite: favorite(for: indexPath))
         }
-        else if indexPath.section == 0{
-            let job = jobs[indexPath.row].job
-            cell.textLabel?.text = job.name
-            if let color = job.color?.rawValue{
-                cell.imageView?.image = UIImage(named: "\(color)Circle")
-            }
-        }
-        
         return cell
+    }
+
+    public override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        return [
+            UITableViewRowAction(style: .destructive, title: "Unfavorite") { action, indexPath in
+                self.unfavorite(favoriteAt: indexPath)
+            }
+        ]
+    }
+
+
+    private func prepare(cell: UITableViewCell, for favoritable: Favoratible){
+
+        cell.textLabel?.textColor = .black
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .default
+
+        if let job = favoritable as? Job{
+            prepare(cell: cell, for: job)
+        }
+        else if let build = favoritable as? Build{
+            prepare(cell: cell, for: build)
+        }
+    }
+
+    private func prepare(cell: UITableViewCell, for job: Job){
+        cell.textLabel?.text = job.name
+        if let color = job.color?.rawValue{
+            cell.imageView?.image = UIImage(named: "\(color)Circle")
+        }
+    }
+
+    private func prepare(cell: UITableViewCell, for build: Build){
+        cell.textLabel?.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
+
+        if let color = build.result?.lowercased(){
+            cell.imageView?.image = UIImage(named: "\(color)Circle")
+        }
+    }
+
+    private func prepareForErrored(cell: UITableViewCell, favorite: Favorite?){
+        cell.imageView?.image = nil
+
+        if let favorite = favorite{
+            cell.textLabel?.text = "Failed loading " + ((favorite.type == .build) ? "Build" : "Job") + ": \(favorite.url)"
+        }
+
+        cell.textLabel?.textColor = .darkGray
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .default
+    }
+
+    private func prepareForLoading(cell: UITableViewCell, type: Favorite.FavoriteType){
+        cell.imageView?.image = nil
+        cell.textLabel?.text = "Loading "  + ((type == .build) ? "Build" : "Job") + "..."
+        cell.textLabel?.textColor = .lightGray
+        cell.accessoryType = .none
+        cell.selectionStyle = .none
     }
 }
 
@@ -209,26 +319,33 @@ extension FavoritesTableViewController: UIViewControllerPreviewingDelegate{
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = tableView.indexPathForRow(at: location){
+        guard let indexPath = tableView.indexPathForRow(at: location)
+            else { return nil }
+
+        if case let .loaded(_) = loadingState(for: indexPath) {
+
             previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-            
+
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            
-            if indexPath.section == 0{
+
+            if indexPath.section == 0 {
                 guard let viewController = appDelegate?.getViewController(name: "JobViewController")
-                    else { return nil }
+                        else {
+                    return nil
+                }
                 prepareViewController(viewController: viewController, row: indexPath.row, type: .job)
                 return viewController
-                
-            }
-            else if indexPath.section == 1{
+
+            } else if indexPath.section == 1 {
                 guard let viewController = appDelegate?.getViewController(name: "BuildViewController")
-                    else { return nil }
+                        else {
+                    return nil
+                }
                 prepareViewController(viewController: viewController, row: indexPath.row, type: .build)
                 return viewController
             }
-            return nil
         }
+
         return nil
     }
 }

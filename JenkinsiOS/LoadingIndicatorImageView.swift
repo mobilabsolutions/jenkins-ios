@@ -74,7 +74,7 @@ class LoadingIndicatorImageView: UIImageView {
     private func getRotatingAnimation() -> CAAnimation{
         let animation = CABasicAnimation(keyPath: "transform")
         
-        var rotation = CATransform3DMakeRotation(CGFloat(M_PI), 0.1, 1, 0.1)
+        var rotation = CATransform3DMakeRotation(.pi, 0.1, 1, 0.1)
         rotation.m34 = 1.0/800.0
         
         animation.toValue = rotation
