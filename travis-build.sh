@@ -12,7 +12,6 @@ if [ $? -eq 0 ]; then
     echo "${CERTIFICATE}" > fastlane/Certificates/distribution_base64;
 
     base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
-    echo `md5 fastlane/Certificates/distribution.p12`;
     echo "Testing succeeded. Next steps will be taken";
 
     OPERATION_RESULT=0;
@@ -35,7 +34,7 @@ if [ $? -eq 0 ]; then
     if [ "$OPERATION_RESULT" -ne "0" ]; then
 	echo "An error occurred while distributing!";
 	exit 1;
-    fi	
+    fi
 
 else
     echo "An error occurred while testing; Will not go further";
