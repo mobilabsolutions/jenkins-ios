@@ -1,7 +1,7 @@
 # Butler - Client For Jenkins [![Build Status Master](https://travis-ci.org/mobilabsolutions/jenkins-ios.svg?branch=master)](https://travis-ci.org/mobilabsolutions/jenkins-ios)
 
 <p align="center">
-  <img src="JenkinsiOS/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" width=200>
+  <img src="images/icon.png" width=200>
 </p>
 
 ### A feature-rich Jenkins client for iOS

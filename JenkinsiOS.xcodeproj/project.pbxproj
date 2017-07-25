@@ -83,7 +83,6 @@
 		DC2045EB1DB12DB6009CF232 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256E1DA90F2500EB7867 /* Project.swift */; };
 		DC2045EC1DB12DF0009CF232 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC61D98079A00808ED0 /* AccountManager.swift */; };
 		DC2045ED1DB12DFA009CF232 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CECC1D98256C00808ED0 /* Extensions.swift */; };
-		DC2045EE1DB12E41009CF232 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
 		DC2045EF1DB12E67009CF232 /* ApplicationUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */; };
 		DC2045F01DB12E98009CF232 /* ApplicationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */; };
 		DC2045F21DB132C2009CF232 /* DataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2045F11DB132C2009CF232 /* DataRetriever.swift */; };
@@ -180,8 +179,6 @@
 		DCAD24BA1E0BF6B200FAF0CF /* BuildProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */; };
 		DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
-		DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; };
-		DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1641D9FF2BA00491B98 /* Favorite.swift */; };
 		DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */; };
 		DCC2E16A1D9FF54E00491B98 /* Favoratible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1691D9FF54E00491B98 /* Favoratible.swift */; };
@@ -217,13 +214,18 @@
 		DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */; };
 		DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CAF1DB624A300028A96 /* TestExtensions.swift */; };
 		DCE73CB21DB627BE00028A96 /* JobTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */; };
-		DCE73CB61DB64DE600028A96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB41DB64DE600028A96 /* Fabric.framework */; };
-		DCE73CB71DB64DE600028A96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB41DB64DE600028A96 /* Fabric.framework */; };
-		DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
-		DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE73CB51DB64DE600028A96 /* Crashlytics.framework */; };
 		DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
+		E10857191F20F473005363D2 /* Frameworks in Resources */ = {isa = PBXBuildFile; fileRef = E10857181F20F473005363D2 /* Frameworks */; };
+		E135158D1F20F614002847BF /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
+		E135158E1F20F614002847BF /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E13515901F20F6F8002847BF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
+		E13515931F20F702002847BF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
+		E13515941F20F702002847BF /* Fabric.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E13515961F20F702002847BF /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
+		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,7 +263,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DCC2E1621D9FE85600491B98 /* SAMKeychain.framework in Embed Frameworks */,
+				E135158E1F20F614002847BF /* SAMKeychain.framework in Embed Frameworks */,
+				E13515961F20F702002847BF /* Crashlytics.framework in Embed Frameworks */,
+				E13515941F20F702002847BF /* Fabric.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,7 +396,6 @@
 		DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewControllerDelegate.swift; sourceTree = "<group>"; };
 		DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildProvidable.swift; sourceTree = "<group>"; };
 		DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
-		DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = ../Carthage/Build/iOS/SAMKeychain.framework; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DCC2E1641D9FF2BA00491B98 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUser.swift; sourceTree = "<group>"; };
@@ -429,11 +432,13 @@
 		DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsMinimalResource.json; sourceTree = "<group>"; };
 		DCE73CAF1DB624A300028A96 /* TestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
 		DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsFullResource.json; sourceTree = "<group>"; };
-		DCE73CB41DB64DE600028A96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		DCE73CB51DB64DE600028A96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DCE73CBA1DB678B400028A96 /* Artifact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artifact.swift; sourceTree = "<group>"; };
 		DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsFullResource.json; sourceTree = "<group>"; };
+		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
+		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
+		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
+		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,10 +446,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC2045EE1DB12E41009CF232 /* SAMKeychain.framework in Frameworks */,
 				DC2045B71DB12892009CF232 /* NotificationCenter.framework in Frameworks */,
-				DCE73CB91DB64DE600028A96 /* Crashlytics.framework in Frameworks */,
-				DCE73CB71DB64DE600028A96 /* Fabric.framework in Frameworks */,
+				E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */,
+				E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,10 +456,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E135158D1F20F614002847BF /* SAMKeychain.framework in Frameworks */,
+				E13515931F20F702002847BF /* Fabric.framework in Frameworks */,
 				DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */,
-				DCC2E1611D9FE85600491B98 /* SAMKeychain.framework in Frameworks */,
-				DCE73CB81DB64DE600028A96 /* Crashlytics.framework in Frameworks */,
-				DCE73CB61DB64DE600028A96 /* Fabric.framework in Frameworks */,
+				E13515901F20F6F8002847BF /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,54 +493,6 @@
 				DC2045F11DB132C2009CF232 /* DataRetriever.swift */,
 			);
 			path = JenkinsiOSTodayExtension;
-			sourceTree = "<group>";
-		};
-		DC2A47281DFD731A0094D79B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DCDBD73E1E01C85B007B7FA9 /* Fonts */,
-				DC2CB8A61DF9B73100661806 /* AboutText */,
-				DC2CB8A81DF9B75000661806 /* CreditsText */,
-				DC6F079E1DB502BB00C77FAE /* Config.plist */,
-				DC99C3E01D955C900031DBE4 /* Info.plist */,
-				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		DC3CCD0F1DA67900004C4C3D /* Plugin */ = {
-			isa = PBXGroup;
-			children = (
-				DC3CCD0B1DA67229004C4C3D /* PluginList.swift */,
-				DC3CCD0D1DA67245004C4C3D /* Plugin.swift */,
-				DC3CCD121DA6791D004C4C3D /* Dependency.swift */,
-			);
-			name = Plugin;
-			sourceTree = "<group>";
-		};
-		DC3CCD101DA67908004C4C3D /* Computer */ = {
-			isa = PBXGroup;
-			children = (
-				DC66CED01D982B8B00808ED0 /* Computer.swift */,
-				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
-				DCDB97A71DAE7580007BCBCC /* MonitorData.swift */,
-			);
-			name = Computer;
-			sourceTree = "<group>";
-		};
-		DC3CCD111DA67911004C4C3D /* Job */ = {
-			isa = PBXGroup;
-			children = (
-				DC169FD71DE340340015A499 /* ParameterType.swift */,
-				DC169FD81DE340340015A499 /* ParameterValue.swift */,
-				DC169FCA1DE33FFD0015A499 /* Parameter.swift */,
-				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
-				DC66CECE1D98273A00808ED0 /* View.swift */,
-				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
-				DC99C4051D95719C0031DBE4 /* JobList.swift */,
-				DC8B5C641DC2694800A01D6E /* JobListResult.swift */,
-			);
-			name = Job;
 			sourceTree = "<group>";
 		};
 		DC4CBA221DD4D81600E54245 /* Model Tests */ = {
@@ -585,61 +541,6 @@
 			name = "App Specific";
 			sourceTree = "<group>";
 		};
-		DC85AE0C1DABDE9100D20059 /* BuildQueue */ = {
-			isa = PBXGroup;
-			children = (
-				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
-				DC85AE0A1DABDE8700D20059 /* QueueItem.swift */,
-			);
-			name = BuildQueue;
-			sourceTree = "<group>";
-		};
-		DC8625691DA90C2C00EB7867 /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				DC66CED41D9D40DF00808ED0 /* Author.swift */,
-				DC66CECA1D981EE000808ED0 /* Actions.swift */,
-				DC99C3F61D9561500031DBE4 /* Build.swift */,
-				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
-				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
-				DC66CED21D9D408300808ED0 /* Item.swift */,
-				DCE73CBA1DB678B400028A96 /* Artifact.swift */,
-			);
-			name = Build;
-			sourceTree = "<group>";
-		};
-		DC8625701DA90F2B00EB7867 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				DC86256A1DA90DD200EB7867 /* UserList.swift */,
-				DC86256C1DA90DD900EB7867 /* User.swift */,
-				DC86256E1DA90F2500EB7867 /* Project.swift */,
-			);
-			name = User;
-			sourceTree = "<group>";
-		};
-		DC8625731DA9213A00EB7867 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DC169FDD1DE341230015A499 /* BigButton.swift */,
-				DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */,
-				DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */,
-				DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */,
-				DC56A5081DF09452000D1A15 /* ReviewReminderViewController.xib */,
-				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
-				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
-				DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */,
-				DC169FE11DE358950015A499 /* PasswordTextField.swift */,
-				DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */,
-				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
-				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
-				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
-				DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */,
-				DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
 		DC99C3C81D955C8F0031DBE4 = {
 			isa = PBXGroup;
 			children = (
@@ -664,18 +565,13 @@
 		DC99C3D31D955C900031DBE4 /* JenkinsiOS */ = {
 			isa = PBXGroup;
 			children = (
+				E1D90AAC1F20F3DB009CE6B9 /* Other */,
+				E1D90AAB1F20F3C7009CE6B9 /* View */,
+				E1D90AAA1F20F3BC009CE6B9 /* Utils */,
+				E1D90AA91F20F3A6009CE6B9 /* Service */,
+				E1D90AA01F20D62E009CE6B9 /* Model */,
+				E1D90A9F1F20D5FF009CE6B9 /* Controller */,
 				DC2045B01DB12501009CF232 /* JenkinsiOS.entitlements */,
-				DC99C3FE1D9562440031DBE4 /* Controller */,
-				DC99C3F81D95615A0031DBE4 /* Model */,
-				DC99C3FD1D9562330031DBE4 /* Service */,
-				DCC2E16D1D9FFD3000491B98 /* Utils */,
-				DC8625731DA9213A00EB7867 /* View */,
-				DC99C3F91D9561710031DBE4 /* Other */,
-				BC91BA124B0A90C962D2416C /* FavoritesLoader.swift */,
-				BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */,
-				BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */,
-				BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */,
-				BC91BFA406365670605B84B4 /* FavoriteLoadingState.swift */,
 			);
 			path = JenkinsiOS;
 			sourceTree = "<group>";
@@ -690,56 +586,68 @@
 			path = JenkinsiOSTests;
 			sourceTree = "<group>";
 		};
-		DC99C3F81D95615A0031DBE4 /* Model */ = {
+		DC9BAE351DEAED74008AE942 /* Jenkins Account Reader */ = {
 			isa = PBXGroup;
 			children = (
-				DCC2E1661D9FF2DD00491B98 /* JenkinsAPI */,
-				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
-				DC66CEBE1D97FD9000808ED0 /* Account.swift */,
-				DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */,
-				DCC2E1641D9FF2BA00491B98 /* Favorite.swift */,
-				DCC2E1691D9FF54E00491B98 /* Favoratible.swift */,
+				DC9BAE331DEAED6E008AE942 /* JenkinsTest.plist */,
+				DC9BAE2D1DEADF36008AE942 /* JenkinsAccountReader.swift */,
+				DC9BAE2F1DEAE266008AE942 /* JenkinsAccountReaderTests.swift */,
 			);
-			name = Model;
+			name = "Jenkins Account Reader";
 			sourceTree = "<group>";
 		};
-		DC99C3F91D9561710031DBE4 /* Other */ = {
+		DCC2E15E1D9D7CDA00491B98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
-				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
-				DC66CEC41D98069F00808ED0 /* Constants.swift */,
-				DC99C4071D9572930031DBE4 /* Errors.swift */,
-				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
-				DCC2E15D1D9D7CA800491B98 /* Frameworks */,
-				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
-				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
-				DC2A47281DFD731A0094D79B /* Resources */,
+				E13515911F20F6FB002847BF /* Fabric.framework */,
+				E135158F1F20F6F8002847BF /* Crashlytics.framework */,
+				E108571A1F20F51D005363D2 /* SAMKeychain.framework */,
+				DCC2E15F1D9D7CDA00491B98 /* Security.framework */,
+				DC2045B61DB12892009CF232 /* NotificationCenter.framework */,
 			);
-			name = Other;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DC99C3FD1D9562330031DBE4 /* Service */ = {
+		DCDBD73E1E01C85B007B7FA9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DC2CB8AA1DF9B82000661806 /* AboutInformationManager.swift */,
-				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
-				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
-				DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */,
-				DC2045AA1DB0CBFA009CF232 /* Searcher.swift */,
-				DC2045AC1DB0CC39009CF232 /* Searchable.swift */,
-				DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */,
-				DC9CE6781DBA138000624742 /* JenkinsAction.swift */,
-				DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */,
-				DC6DB1931DF09283005548A3 /* ReviewHandler.swift */,
-				DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */,
-				BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */,
-				BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */,
+				DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */,
 			);
-			name = Service;
+			name = Fonts;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		DC99C3FE1D9562440031DBE4 /* Controller */ = {
+		DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBD7421E01CB18007B7FA9 /* OFL.txt */,
+				DCDBD7431E01CB18007B7FA9 /* SourceSansPro-Black.ttf */,
+				DCDBD7441E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf */,
+				DCDBD7451E01CB18007B7FA9 /* SourceSansPro-Bold.ttf */,
+				DCDBD7461E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf */,
+				DCDBD7471E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf */,
+				DCDBD7481E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf */,
+				DCDBD7491E01CB18007B7FA9 /* SourceSansPro-Italic.ttf */,
+				DCDBD74A1E01CB18007B7FA9 /* SourceSansPro-Light.ttf */,
+				DCDBD74B1E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf */,
+				DCDBD74C1E01CB18007B7FA9 /* SourceSansPro-Regular.ttf */,
+				DCDBD74D1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf */,
+				DCDBD74E1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf */,
+			);
+			path = Source_Sans_Pro;
+			sourceTree = "<group>";
+		};
+		DCE73CB31DB63B7700028A96 /* Job Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DCE73CAB1DB61E2C00028A96 /* JobTests.swift */,
+				DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */,
+				DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */,
+			);
+			name = "Job Tests";
+			sourceTree = "<group>";
+		};
+		E1D90A9F1F20D5FF009CE6B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				DC2CB8A41DF9B63500661806 /* AboutViewController.swift */,
@@ -774,62 +682,89 @@
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		DC9BAE351DEAED74008AE942 /* Jenkins Account Reader */ = {
+		E1D90AA01F20D62E009CE6B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DC9BAE331DEAED6E008AE942 /* JenkinsTest.plist */,
-				DC9BAE2D1DEADF36008AE942 /* JenkinsAccountReader.swift */,
-				DC9BAE2F1DEAE266008AE942 /* JenkinsAccountReaderTests.swift */,
+				E1D90AA11F20D642009CE6B9 /* JenkinsAPI */,
+				DC99C4031D95647E0031DBE4 /* UserRequest.swift */,
+				DC66CEBE1D97FD9000808ED0 /* Account.swift */,
+				DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */,
+				DCC2E1641D9FF2BA00491B98 /* Favorite.swift */,
+				DCC2E1691D9FF54E00491B98 /* Favoratible.swift */,
 			);
-			name = "Jenkins Account Reader";
+			path = Model;
 			sourceTree = "<group>";
 		};
-		DCC2E15D1D9D7CA800491B98 /* Frameworks */ = {
+		E1D90AA11F20D642009CE6B9 /* JenkinsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				DCE73CB41DB64DE600028A96 /* Fabric.framework */,
-				DCE73CB51DB64DE600028A96 /* Crashlytics.framework */,
-				DCC2E15B1D9D7C9A00491B98 /* SAMKeychain.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DCC2E15E1D9D7CDA00491B98 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DCC2E15F1D9D7CDA00491B98 /* Security.framework */,
-				DC2045B61DB12892009CF232 /* NotificationCenter.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DCC2E1661D9FF2DD00491B98 /* JenkinsAPI */ = {
-			isa = PBXGroup;
-			children = (
-				DC8625691DA90C2C00EB7867 /* Build */,
-				DC85AE0C1DABDE9100D20059 /* BuildQueue */,
-				DC3CCD101DA67908004C4C3D /* Computer */,
+				E1D90AA81F20F362009CE6B9 /* User */,
+				E1D90AA71F20F35B009CE6B9 /* Plugin */,
+				E1D90AA61F20F354009CE6B9 /* TestResult */,
+				E1D90AA51F20F34F009CE6B9 /* Job */,
+				E1D90AA41F20F348009CE6B9 /* Computer */,
+				E1D90AA31F20F337009CE6B9 /* BuildQueue */,
+				E1D90AA21F20D652009CE6B9 /* Build */,
 				DC99C4091D95753B0031DBE4 /* JenkinsColor.swift */,
-				DC3CCD111DA67911004C4C3D /* Job */,
-				DCC2E1721DA0196800491B98 /* TestResult */,
-				DC3CCD0F1DA67900004C4C3D /* Plugin */,
-				DC8625701DA90F2B00EB7867 /* User */,
+				BC91BA2919A1D5D776BC51D5 /* DescribingColor.swift */,
 			);
-			name = JenkinsAPI;
+			path = JenkinsAPI;
 			sourceTree = "<group>";
 		};
-		DCC2E16D1D9FFD3000491B98 /* Utils */ = {
+		E1D90AA21F20D652009CE6B9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */,
+				BC91BA036EFF361D6A1BFE0E /* Build+DescribingColor.swift */,
+				DC66CED41D9D40DF00808ED0 /* Author.swift */,
+				DC66CECA1D981EE000808ED0 /* Actions.swift */,
+				DC99C3F61D9561500031DBE4 /* Build.swift */,
+				DC66CEC81D981D8A00808ED0 /* Cause.swift */,
+				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
+				DC66CED21D9D408300808ED0 /* Item.swift */,
+				DCE73CBA1DB678B400028A96 /* Artifact.swift */,
 			);
-			name = Utils;
+			path = Build;
 			sourceTree = "<group>";
 		};
-		DCC2E1721DA0196800491B98 /* TestResult */ = {
+		E1D90AA31F20F337009CE6B9 /* BuildQueue */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3FA1D9561D60031DBE4 /* BuildQueue.swift */,
+				DC85AE0A1DABDE8700D20059 /* QueueItem.swift */,
+			);
+			path = BuildQueue;
+			sourceTree = "<group>";
+		};
+		E1D90AA41F20F348009CE6B9 /* Computer */ = {
+			isa = PBXGroup;
+			children = (
+				DC66CED01D982B8B00808ED0 /* Computer.swift */,
+				DC66CED61D9D4BF300808ED0 /* ComputerList.swift */,
+				DCDB97A71DAE7580007BCBCC /* MonitorData.swift */,
+			);
+			path = Computer;
+			sourceTree = "<group>";
+		};
+		E1D90AA51F20F34F009CE6B9 /* Job */ = {
+			isa = PBXGroup;
+			children = (
+				BC91BD3AE78BEBAD88CCCC40 /* Job+DescribingColor.swift */,
+				DC169FD71DE340340015A499 /* ParameterType.swift */,
+				DC169FD81DE340340015A499 /* ParameterValue.swift */,
+				DC169FCA1DE33FFD0015A499 /* Parameter.swift */,
+				DC99C40B1D9579810031DBE4 /* HealthReportResult.swift */,
+				DC66CECE1D98273A00808ED0 /* View.swift */,
+				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
+				DC99C4051D95719C0031DBE4 /* JobList.swift */,
+				DC8B5C641DC2694800A01D6E /* JobListResult.swift */,
+			);
+			path = Job;
+			sourceTree = "<group>";
+		};
+		E1D90AA61F20F354009CE6B9 /* TestResult */ = {
 			isa = PBXGroup;
 			children = (
 				DCC2E1701DA0196200491B98 /* TestResult.swift */,
@@ -839,45 +774,108 @@
 				DCC2E1791DA0199900491B98 /* Case.swift */,
 				DCC2E17B1DA01A1300491B98 /* ChildReport.swift */,
 			);
-			name = TestResult;
+			path = TestResult;
 			sourceTree = "<group>";
 		};
-		DCDBD73E1E01C85B007B7FA9 /* Fonts */ = {
+		E1D90AA71F20F35B009CE6B9 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */,
+				DC3CCD0B1DA67229004C4C3D /* PluginList.swift */,
+				DC3CCD0D1DA67245004C4C3D /* Plugin.swift */,
+				DC3CCD121DA6791D004C4C3D /* Dependency.swift */,
 			);
-			name = Fonts;
+			path = Plugin;
 			sourceTree = "<group>";
 		};
-		DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */ = {
+		E1D90AA81F20F362009CE6B9 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				DCDBD7421E01CB18007B7FA9 /* OFL.txt */,
-				DCDBD7431E01CB18007B7FA9 /* SourceSansPro-Black.ttf */,
-				DCDBD7441E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf */,
-				DCDBD7451E01CB18007B7FA9 /* SourceSansPro-Bold.ttf */,
-				DCDBD7461E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf */,
-				DCDBD7471E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf */,
-				DCDBD7481E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf */,
-				DCDBD7491E01CB18007B7FA9 /* SourceSansPro-Italic.ttf */,
-				DCDBD74A1E01CB18007B7FA9 /* SourceSansPro-Light.ttf */,
-				DCDBD74B1E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf */,
-				DCDBD74C1E01CB18007B7FA9 /* SourceSansPro-Regular.ttf */,
-				DCDBD74D1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf */,
-				DCDBD74E1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf */,
+				DC86256A1DA90DD200EB7867 /* UserList.swift */,
+				DC86256C1DA90DD900EB7867 /* User.swift */,
+				DC86256E1DA90F2500EB7867 /* Project.swift */,
 			);
-			path = Source_Sans_Pro;
+			path = User;
 			sourceTree = "<group>";
 		};
-		DCE73CB31DB63B7700028A96 /* Job Tests */ = {
+		E1D90AA91F20F3A6009CE6B9 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				DCE73CAB1DB61E2C00028A96 /* JobTests.swift */,
-				DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */,
-				DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */,
+				BC91BFA406365670605B84B4 /* FavoriteLoadingState.swift */,
+				BC91BA124B0A90C962D2416C /* FavoritesLoader.swift */,
+				DC2CB8AA1DF9B82000661806 /* AboutInformationManager.swift */,
+				DC99C4011D9562F70031DBE4 /* NetworkManager.swift */,
+				DC66CEC61D98079A00808ED0 /* AccountManager.swift */,
+				DCC2E16B1D9FFB7F00491B98 /* ApplicationUserManager.swift */,
+				DC2045AA1DB0CBFA009CF232 /* Searcher.swift */,
+				DC2045AC1DB0CC39009CF232 /* Searchable.swift */,
+				DC6F07981DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift */,
+				DC9CE6781DBA138000624742 /* JenkinsAction.swift */,
+				DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */,
+				DC6DB1931DF09283005548A3 /* ReviewHandler.swift */,
+				DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */,
+				BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */,
+				BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */,
 			);
-			name = "Job Tests";
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E1D90AAA1F20F3BC009CE6B9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E1D90AAB1F20F3C7009CE6B9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DC169FDD1DE341230015A499 /* BigButton.swift */,
+				DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */,
+				DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */,
+				DC1D9FDC1DB8F97400441752 /* ModalInformationViewController.xib */,
+				DC56A5081DF09452000D1A15 /* ReviewReminderViewController.xib */,
+				DC8625711DA9213400EB7867 /* AccountTableViewCell.swift */,
+				DC0550D01DACE274008D94E6 /* LongBuildInfoTableViewCell.swift */,
+				DC26C8591DAE34C800B98880 /* TestResultTableViewCell.swift */,
+				DC169FE11DE358950015A499 /* PasswordTextField.swift */,
+				DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */,
+				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
+				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
+				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
+				DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */,
+				DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1D90AAC1F20F3DB009CE6B9 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				DC99C3DD1D955C900031DBE4 /* LaunchScreen.storyboard */,
+				DC99C3D81D955C900031DBE4 /* Main.storyboard */,
+				DC99C3D41D955C900031DBE4 /* AppDelegate.swift */,
+				DC9BAE361DEAF6FE008AE942 /* ColorPrinter.swift */,
+				DC66CEC41D98069F00808ED0 /* Constants.swift */,
+				DC99C4071D9572930031DBE4 /* Errors.swift */,
+				DC66CECC1D98256C00808ED0 /* Extensions.swift */,
+				E10857181F20F473005363D2 /* Frameworks */,
+				E1D90AAE1F20F3EE009CE6B9 /* Resources */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		E1D90AAE1F20F3EE009CE6B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBD73E1E01C85B007B7FA9 /* Fonts */,
+				DC2CB8A61DF9B73100661806 /* AboutText */,
+				DC2CB8A81DF9B75000661806 /* CreditsText */,
+				DC6F079E1DB502BB00C77FAE /* Config.plist */,
+				DC99C3E01D955C900031DBE4 /* Info.plist */,
+				DC99C3DB1D955C900031DBE4 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1030,6 +1028,7 @@
 				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
 				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
+				E10857191F20F473005363D2 /* Frameworks in Resources */,
 				DCDBD7581E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf in Resources */,
 				DCDBD7501E01CB18007B7FA9 /* SourceSansPro-Black.ttf in Resources */,
 				DCDBD7531E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf in Resources */,
@@ -1072,7 +1071,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\n/usr/local/bin/carthage copy-frameworks\n\n./Fabric.framework/run 847049f2fecf499955a79279ce695b9e97057f33 b66a30f4948041a1504c36b28a1ff07f2a8a8856c27628ab41ce13430cd2c138";
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\n/usr/local/bin/carthage copy-frameworks\n\n./JenkinsiOS/Other/Frameworks/Fabric.framework/run 847049f2fecf499955a79279ce695b9e97057f33 b66a30f4948041a1504c36b28a1ff07f2a8a8856c27628ab41ce13430cd2c138";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1329,6 +1328,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
@@ -1355,6 +1355,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks",
 				);
 				INFOPLIST_FILE = JenkinsiOSTodayExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1478,8 +1479,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks/**",
 				);
-				INFOPLIST_FILE = JenkinsiOS/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/JenkinsiOS/Other/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
@@ -1505,8 +1507,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks/**",
 				);
-				INFOPLIST_FILE = JenkinsiOS/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/JenkinsiOS/Other/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
