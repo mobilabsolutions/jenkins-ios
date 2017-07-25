@@ -35,4 +35,9 @@ path_hierarchy_all = walk_dir("JenkinsiOSTodayExtension", path_hierarchy_app)
 
 with open('.jazzy.yaml', 'a') as f:
     print("Writing representation to .jazzy.yaml")
+    f.write("""\n
+    #############################################################################################################################################
+    ### This is an auto-generated file! To edit the above, please edit .jazzy-base.yaml, to edit custom_categories, please edit update-jazzy-yaml.py!
+    #############################################################################################################################################\n\n""")
     yaml.dump({'custom_categories': path_hierarchy_all}, f, default_flow_style=False)
+    print('Done!')

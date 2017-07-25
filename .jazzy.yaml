@@ -4,6 +4,12 @@ github_url: https://github.com/mobilabsolutions/jenkins-ios
 min_acl: internal
 clean: True
 theme: fullwidth
+
+
+    #############################################################################################################################################
+    ### This is an auto-generated file! To edit the above, please edit .jazzy-base.yaml, to edit the structure, please edit update-jazzy-yaml.py!
+    #############################################################################################################################################
+
 custom_categories:
 - children:
   - AboutViewController
