@@ -1,0 +1,144 @@
+author: MobiLab Solutions GmbH
+author_url: https://mobilabsolutions.com
+github_url: https://github.com/mobilabsolutions/jenkins-ios
+min_acl: internal
+clean: True
+theme: fullwidth
+custom_categories:
+- children:
+  - AboutViewController
+  - AccountsTableViewController
+  - AddAccountTableViewController
+  - ArtifactsTableViewController
+  - BaseTableViewController
+  - BaseTableViewControllerExtensions
+  - BuildProvidable
+  - BuildQueueTableViewController
+  - BuildsTableViewController
+  - BuildsTableViewControllerDataSource
+  - BuildViewController
+  - ChangesTableViewController
+  - ComputersTableViewController
+  - ConsoleOutputViewController
+  - FavoritesTableViewController
+  - JenkinsInformationTableViewController
+  - JobsTableViewController
+  - JobViewController
+  - LoadingIndicatorImageView
+  - ModalInformationViewController
+  - ModalInformationViewControllerDelegate
+  - NavigationController
+  - ParametersTableViewController
+  - ParametersViewControllerDelegate
+  - PluginsTableViewController
+  - RefreshingTableViewController
+  - ReviewReminderViewController
+  - SearchResultsTableViewController
+  - TestResultsTableViewController
+  - TestResultTableViewController
+  - UsersTableViewController
+  name: JenkinsiOS Controller
+- children:
+  - Account
+  - ApplicationUser
+  - Favoratible
+  - Favorite
+  - UserRequest
+  name: JenkinsiOS Model
+- children:
+  - DescribingColor
+  - JenkinsColor
+  name: JenkinsiOS Model JenkinsAPI
+- children:
+  - Actions
+  - Artifact
+  - Author
+  - Build+DescribingColor
+  - Build
+  - Cause
+  - ChangeSet
+  - Item
+  name: JenkinsiOS Model JenkinsAPI Build
+- children:
+  - BuildQueue
+  - QueueItem
+  name: JenkinsiOS Model JenkinsAPI BuildQueue
+- children:
+  - Computer
+  - ComputerList
+  - MonitorData
+  name: JenkinsiOS Model JenkinsAPI Computer
+- children:
+  - HealthReportResult
+  - Job+DescribingColor
+  - Job
+  - JobList
+  - JobListResult
+  - Parameter
+  - ParameterType
+  - ParameterValue
+  - View
+  name: JenkinsiOS Model JenkinsAPI Job
+- children:
+  - Dependency
+  - Plugin
+  - PluginList
+  name: JenkinsiOS Model JenkinsAPI Plugin
+- children:
+  - Case
+  - Child
+  - ChildReport
+  - Result
+  - Suite
+  - TestResult
+  name: JenkinsiOS Model JenkinsAPI TestResult
+- children:
+  - Project
+  - User
+  - UserList
+  name: JenkinsiOS Model JenkinsAPI User
+- children:
+  - AppDelegate
+  - ColorPrinter
+  - Constants
+  - Errors
+  - Extensions
+  name: JenkinsiOS Other
+- children:
+  - AboutInformationManager
+  - AccountManager
+  - AppearanceManager
+  - ApplicationUserManager
+  - FavoriteLoadingState
+  - FavoritesLoader
+  - JenkinsAction
+  - LoggableContentView
+  - LoggingManager
+  - NetworkActivityIndicatorManager
+  - NetworkManager
+  - ReviewHandler
+  - Searchable
+  - Searcher
+  - URLSessionTaskController
+  name: JenkinsiOS Service
+- children:
+  - PersistenceUtils
+  name: JenkinsiOS Utils
+- children:
+  - AccountTableViewCell
+  - AllFavoritesTableViewCell
+  - BigButton
+  - BuildQueueTableViewCell
+  - FavoriteCollectionViewCell
+  - LongBuildInfoTableViewCell
+  - ParameterTableViewCell
+  - ParameterTableViewCellDelegate
+  - PasswordTextField
+  - StarRatingView
+  - StarRatingViewDelegate
+  - TestResultTableViewCell
+  name: JenkinsiOS View
+- children:
+  - DataRetriever
+  - TodayViewController
+  name: JenkinsiOSTodayExtension

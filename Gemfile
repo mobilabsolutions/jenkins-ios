@@ -1,5 +1,6 @@
-# Needed for fastlane ci workflow 
+# Needed for fastlane ci workflow
 
 source 'https://rubygems.org'
 
-gem 'fastlane'  
+gem 'fastlane'
+gem 'jazzy'

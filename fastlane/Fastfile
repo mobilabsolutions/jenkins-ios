@@ -65,6 +65,12 @@ platform :ios do
     )
   end
 
+  lane :documentation do
+      sh "cd .. && python3 update-jazzy-yaml.py"
+      jazzy
+      sh "cd .. && cp -R images docs/"
+  end
+
   desc "Prepares the build for distribution"
   lane :prepare_distribution do |options|
       keychain_name = options[:keychain_name]

@@ -1,0 +1,6 @@
+author: MobiLab Solutions GmbH
+author_url: https://mobilabsolutions.com
+github_url: https://github.com/mobilabsolutions/jenkins-ios
+min_acl: internal
+clean: True
+theme: fullwidth

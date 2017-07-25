@@ -1,1 +1,2567 @@
-{"warnings":[{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":12,"symbol":"Constants","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":13,"symbol":"Defaults","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":18,"symbol":"Paths","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":19,"symbol":"userPath","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":20,"symbol":"sharedUserPath","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":21,"symbol":"accountsPath","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":22,"symbol":"sharedAccountsPath","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":25,"symbol":"Config","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":26,"symbol":"keychainAccessGroup","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":36,"symbol":"Identifiers","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":37,"symbol":"accountCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":38,"symbol":"jobCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":39,"symbol":"folderCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":40,"symbol":"buildCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":41,"symbol":"favoritesCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":42,"symbol":"jenkinsCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":43,"symbol":"staticBuildInfoCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":44,"symbol":"longBuildInfoCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":45,"symbol":"moreInfoBuildCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":46,"symbol":"changeCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":47,"symbol":"testResultCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":48,"symbol":"computerCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":49,"symbol":"pluginCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":50,"symbol":"userCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":51,"symbol":"artifactsCell","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":53,"symbol":"showJobsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":54,"symbol":"showJobSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":55,"symbol":"showBuildsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":56,"symbol":"showBuildSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":57,"symbol":"showBuildQueueSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":58,"symbol":"showJenkinsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":59,"symbol":"showConsoleOutputSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":60,"symbol":"showChangesSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":61,"symbol":"showTestResultsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":62,"symbol":"showTestResultSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":63,"symbol":"showComputersSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":64,"symbol":"showUsersSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":65,"symbol":"showPluginsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":66,"symbol":"editAccountSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":67,"symbol":"showArtifactsSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":68,"symbol":"showFolderSegue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":70,"symbol":"favoritesShortcutItemType","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":73,"symbol":"JSON","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":74,"symbol":"allViews","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":75,"symbol":"views","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":76,"symbol":"name","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":77,"symbol":"url","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":78,"symbol":"jobs","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":79,"symbol":"color","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":80,"symbol":"builds","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":81,"symbol":"firstBuild","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":82,"symbol":"absoluteUrl","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":83,"symbol":"fullName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":84,"symbol":"blocked","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":85,"symbol":"buildable","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":86,"symbol":"id","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":87,"symbol":"inQueueSince","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":88,"symbol":"params","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":89,"symbol":"stuck","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":90,"symbol":"why","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":91,"symbol":"task","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":92,"symbol":"buildableStartMilliseconds","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":93,"symbol":"actions","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":94,"symbol":"items","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":95,"symbol":"age","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":96,"symbol":"className","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":97,"symbol":"duration","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":98,"symbol":"errorDetails","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":99,"symbol":"errorStackTrace","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":100,"symbol":"failedSince","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":101,"symbol":"skipped","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":102,"symbol":"skippedMessage","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":103,"symbol":"status","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":104,"symbol":"stdout","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":105,"symbol":"stderr","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":106,"symbol":"reportUrl","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":107,"symbol":"cases","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":108,"symbol":"timestamp","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":109,"symbol":"number","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":110,"symbol":"empty","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":111,"symbol":"failCount","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":112,"symbol":"passCount","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":113,"symbol":"skipCount","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":114,"symbol":"suites","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":115,"symbol":"child","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":116,"symbol":"result","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":117,"symbol":"totalCount","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":118,"symbol":"childReports","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":119,"symbol":"urlName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":120,"symbol":"active","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":121,"symbol":"shortName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":122,"symbol":"bundled","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":123,"symbol":"deleted","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":124,"symbol":"downgradable","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":125,"symbol":"enabled","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":126,"symbol":"hasUpdate","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":127,"symbol":"longName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":128,"symbol":"pinned","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":129,"symbol":"supportsDynamicLoad","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":130,"symbol":"version","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":131,"symbol":"dependencies","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":132,"symbol":"optional","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":133,"symbol":"plugins","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":134,"symbol":"description","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":135,"symbol":"nodeDescription","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":136,"symbol":"mode","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":137,"symbol":"nodeName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":138,"symbol":"lastChange","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":139,"symbol":"project","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":140,"symbol":"user","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":141,"symbol":"users","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":142,"symbol":"availablePhysicalMemory","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":143,"symbol":"availableSwapSpace","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":144,"symbol":"totalPhysicalMemory","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":145,"symbol":"totalSwapSpace","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":146,"symbol":"artifacts","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":147,"symbol":"fileName","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":148,"symbol":"relativePath","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":149,"symbol":"crumb","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":150,"symbol":"crumbRequestField","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":153,"symbol":"Networking","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":154,"symbol":"successCodes","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":157,"symbol":"API","symbol_kind":"source.lang.swift.decl.struct","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":158,"symbol":"consoleOutput","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":159,"symbol":"consoleOutputQueryItems","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":162,"symbol":"jobListAdditionalQueryItems","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":165,"symbol":"testReport","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":166,"symbol":"testReportAdditionalQueryItems","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":169,"symbol":"buildQueue","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":170,"symbol":"computer","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":171,"symbol":"plugins","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":172,"symbol":"pluginsAdditionalQueryItems","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":175,"symbol":"users","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":176,"symbol":"artifact","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":177,"symbol":"crumbIssuer","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":179,"symbol":"quietDown","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":180,"symbol":"cancelQuietDown","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":181,"symbol":"restart","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Constants.swift","line":182,"symbol":"safeRestart","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Child.swift","line":11,"symbol":"Child","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":11,"symbol":"JobListResult","symbol_kind":"source.lang.swift.decl.enum","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":12,"symbol":"job","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":13,"symbol":"folder","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":15,"symbol":"init(json:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":27,"symbol":"data","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":34,"symbol":"name","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":38,"symbol":"url","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":42,"symbol":"color","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobListResult.swift","line":46,"symbol":"description","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/TestResult.swift","line":11,"symbol":"TestResult","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Actions.swift","line":11,"symbol":"Actions","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/HealthReportResult.swift","line":11,"symbol":"HealthReportResult","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/HealthReportResult.swift","line":13,"symbol":"description","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/HealthReportResult.swift","line":14,"symbol":"score","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/HealthReportResult.swift","line":15,"symbol":"iconClassName","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Result.swift","line":11,"symbol":"Result","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Item.swift","line":11,"symbol":"Item","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Artifact.swift","line":11,"symbol":"Artifact","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Artifact.swift","line":13,"symbol":"filename","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Artifact.swift","line":14,"symbol":"url","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Artifact.swift","line":16,"symbol":"init(json:with:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/AccountManager.swift","line":12,"symbol":"AccountManager","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/AccountManager.swift","line":14,"symbol":"manager","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/NetworkManager.swift","line":11,"symbol":"NetworkManager","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/NetworkManager.swift","line":13,"symbol":"manager","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/NetworkManager.swift","line":22,"symbol":"GET","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/NetworkManager.swift","line":23,"symbol":"POST","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/NetworkActivityIndicatorManager.swift","line":11,"symbol":"NetworkActivityIndicatorManager","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/View.swift","line":11,"symbol":"View","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/View.swift","line":12,"symbol":"name","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/View.swift","line":13,"symbol":"url","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/View.swift","line":14,"symbol":"jobResults","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Case.swift","line":11,"symbol":"Case","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Suite.swift","line":11,"symbol":"Suite","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Computer.swift","line":11,"symbol":"Computer","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ChildReport.swift","line":11,"symbol":"ChildReport","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/MonitorData.swift","line":11,"symbol":"MonitorData","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Build.swift","line":11,"symbol":"Build","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":12,"symbol":"TodayViewController","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":14,"symbol":"favorites","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":15,"symbol":"favoritables","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":17,"symbol":"viewDidLoad()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":24,"symbol":"viewWillAppear(_:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":38,"symbol":"widgetPerformUpdate(completionHandler:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":43,"symbol":"widgetActiveDisplayModeDidChange(_:withMaximumSize:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":49,"symbol":"requestData()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":98,"symbol":"numberOfSections(in:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":102,"symbol":"tableView(_:numberOfRowsInSection:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":106,"symbol":"tableView(_:cellForRowAt:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift","line":142,"symbol":"tableView(_:didSelectRowAt:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ChangeSet.swift","line":11,"symbol":"ChangeSet","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ApplicationUserManager.swift","line":11,"symbol":"ApplicationUserManager","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ComputerList.swift","line":11,"symbol":"ComputerList","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Author.swift","line":11,"symbol":"Author","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Author.swift","line":17,"symbol":"init(json:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/UserRequest.swift","line":11,"symbol":"UserRequest","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/UserRequest.swift","line":null,"symbol":"UserRequest","symbol_kind":"source.lang.swift.decl.extension","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Cause.swift","line":11,"symbol":"Cause","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":11,"symbol":"JenkinsAction","symbol_kind":"source.lang.swift.decl.enum","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":12,"symbol":"restart","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":13,"symbol":"quietDown","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":14,"symbol":"cancelQuietDown","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":15,"symbol":"safeRestart","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsAction.swift","line":17,"symbol":"apiConstant()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":11,"symbol":"Favorite","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":18,"symbol":"job","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":19,"symbol":"build","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":42,"symbol":"init(coder:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":51,"symbol":"encode(with:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favorite.swift","line":57,"symbol":"isEqual(_:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/User.swift","line":11,"symbol":"User","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/User.swift","line":13,"symbol":"fullName","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/User.swift","line":14,"symbol":"absoluteUrl","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/User.swift","line":15,"symbol":"lastChange","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/User.swift","line":16,"symbol":"project","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/QueueItem.swift","line":11,"symbol":"QueueItem","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Project.swift","line":11,"symbol":"Project","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JobList.swift","line":11,"symbol":"JobList","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ApplicationUser.swift","line":11,"symbol":"ApplicationUser","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ApplicationUser.swift","line":16,"symbol":"init()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/ApplicationUser.swift","line":20,"symbol":"init(coder:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/PersistenceUtils.swift","line":11,"symbol":"PersistenceUtils","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Dependency.swift","line":11,"symbol":"Dependency","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":11,"symbol":"NetworkManagerError","symbol_kind":"source.lang.swift.decl.enum","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":12,"symbol":"JSONParsingFailed","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":13,"symbol":"HTTPResponseNoSuccess","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":14,"symbol":"dataTaskError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":15,"symbol":"noDataFound","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":16,"symbol":"URLBuildingError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":18,"symbol":"localizedDescription","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":35,"symbol":"code","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":46,"symbol":"ParsingError","symbol_kind":"source.lang.swift.decl.enum","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":47,"symbol":"DataNotCorrectFormatError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":48,"symbol":"KeyMissingError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Errors.swift","line":50,"symbol":"localizedDescription","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/UserList.swift","line":11,"symbol":"UserList","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Job.swift","line":11,"symbol":"Job","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/BuildQueue.swift","line":11,"symbol":"BuildQueue","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":13,"symbol":"blue","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":14,"symbol":"red","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":15,"symbol":"yellow","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":16,"symbol":"disabled","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":17,"symbol":"aborted","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":18,"symbol":"notBuilt","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":20,"symbol":"yellowAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":21,"symbol":"redAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":22,"symbol":"blueAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":23,"symbol":"abortedAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":24,"symbol":"disabledAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":25,"symbol":"notBuiltAnimated","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/JenkinsColor.swift","line":27,"symbol":"folder","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift","line":11,"symbol":"DataRetriever","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift","line":13,"symbol":"retriever","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift","line":16,"symbol":"getSharedApplicationUser()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favoratible.swift","line":13,"symbol":"url","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favoratible.swift","line":14,"symbol":"isFavorite","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Favoratible.swift","line":15,"symbol":"toggleFavorite(account:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/PluginList.swift","line":11,"symbol":"PluginList","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/PluginList.swift","line":12,"symbol":"plugins","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Plugin.swift","line":11,"symbol":"Plugin","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Account.swift","line":11,"symbol":"Account","symbol_kind":"source.lang.swift.decl.class","warning":"undocumented"},{"file":"/Users/kinder/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Account.swift","line":41,"symbol":"init(coder:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"}],"source_directory":"/Users/kinder/Desktop/Arbeit/JenkinsiOS"}
+{
+  "warnings": [
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Controller/ParametersViewControllerDelegate.swift",
+      "line": 11,
+      "symbol": "ParametersViewControllerDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Controller/ParametersViewControllerDelegate.swift",
+      "line": 12,
+      "symbol": "ParametersViewControllerDelegate.build(parameters:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Controller/ParametersViewControllerDelegate.swift",
+      "line": 13,
+      "symbol": "ParametersViewControllerDelegate.updateAccount(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Account.swift",
+      "line": 11,
+      "symbol": "Account",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Account.swift",
+      "line": 44,
+      "symbol": "Account.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Account.swift",
+      "line": 66,
+      "symbol": "Account.isEqual(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Account.swift",
+      "line": 72,
+      "symbol": "Account.copy()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/ApplicationUser.swift",
+      "line": 11,
+      "symbol": "ApplicationUser",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/ApplicationUser.swift",
+      "line": 22,
+      "symbol": "ApplicationUser.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/ApplicationUser.swift",
+      "line": 26,
+      "symbol": "ApplicationUser.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favoratible.swift",
+      "line": 13,
+      "symbol": "Favoratible.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favoratible.swift",
+      "line": 14,
+      "symbol": "Favoratible.isFavorite",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favoratible.swift",
+      "line": 15,
+      "symbol": "Favoratible.toggleFavorite(account:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 11,
+      "symbol": "Favorite",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 18,
+      "symbol": "Favorite.FavoriteType.job",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 19,
+      "symbol": "Favorite.FavoriteType.build",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 42,
+      "symbol": "Favorite.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 51,
+      "symbol": "Favorite.encode(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/Favorite.swift",
+      "line": 57,
+      "symbol": "Favorite.isEqual(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Actions.swift",
+      "line": 11,
+      "symbol": "Actions",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Artifact.swift",
+      "line": 11,
+      "symbol": "Artifact",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Artifact.swift",
+      "line": 13,
+      "symbol": "Artifact.filename",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Artifact.swift",
+      "line": 14,
+      "symbol": "Artifact.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Artifact.swift",
+      "line": 16,
+      "symbol": "Artifact.size",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Artifact.swift",
+      "line": 18,
+      "symbol": "Artifact.init(json:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Author.swift",
+      "line": 11,
+      "symbol": "Author",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Author.swift",
+      "line": 17,
+      "symbol": "Author.init(json:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Build.swift",
+      "line": 11,
+      "symbol": "Build",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Cause.swift",
+      "line": 11,
+      "symbol": "Cause",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/ChangeSet.swift",
+      "line": 11,
+      "symbol": "ChangeSet",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Build/Item.swift",
+      "line": 11,
+      "symbol": "Item",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/BuildQueue/BuildQueue.swift",
+      "line": 11,
+      "symbol": "BuildQueue",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/BuildQueue/QueueItem.swift",
+      "line": 11,
+      "symbol": "QueueItem",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Computer/Computer.swift",
+      "line": 11,
+      "symbol": "Computer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Computer/ComputerList.swift",
+      "line": 11,
+      "symbol": "ComputerList",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Computer/MonitorData.swift",
+      "line": 11,
+      "symbol": "MonitorData",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 13,
+      "symbol": "JenkinsColor.blue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 14,
+      "symbol": "JenkinsColor.red",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 15,
+      "symbol": "JenkinsColor.yellow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 16,
+      "symbol": "JenkinsColor.disabled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 17,
+      "symbol": "JenkinsColor.aborted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 18,
+      "symbol": "JenkinsColor.notBuilt",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 20,
+      "symbol": "JenkinsColor.yellowAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 21,
+      "symbol": "JenkinsColor.redAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 22,
+      "symbol": "JenkinsColor.blueAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 23,
+      "symbol": "JenkinsColor.abortedAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 24,
+      "symbol": "JenkinsColor.disabledAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 25,
+      "symbol": "JenkinsColor.notBuiltAnimated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/JenkinsColor.swift",
+      "line": 27,
+      "symbol": "JenkinsColor.folder",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/HealthReportResult.swift",
+      "line": 11,
+      "symbol": "HealthReportResult",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/HealthReportResult.swift",
+      "line": 13,
+      "symbol": "HealthReportResult.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/HealthReportResult.swift",
+      "line": 14,
+      "symbol": "HealthReportResult.score",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/HealthReportResult.swift",
+      "line": 15,
+      "symbol": "HealthReportResult.iconClassName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Job.swift",
+      "line": 11,
+      "symbol": "Job",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobList.swift",
+      "line": 11,
+      "symbol": "JobList",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 11,
+      "symbol": "JobListResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 12,
+      "symbol": "JobListResult.job",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 13,
+      "symbol": "JobListResult.folder",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 15,
+      "symbol": "JobListResult.init(json:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 27,
+      "symbol": "JobListResult.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 34,
+      "symbol": "JobListResult.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 38,
+      "symbol": "JobListResult.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 42,
+      "symbol": "JobListResult.color",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/JobListResult.swift",
+      "line": 46,
+      "symbol": "JobListResult.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 11,
+      "symbol": "Parameter",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 13,
+      "symbol": "Parameter.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 14,
+      "symbol": "Parameter.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 15,
+      "symbol": "Parameter.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 17,
+      "symbol": "Parameter.defaultParameterString",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 19,
+      "symbol": "Parameter.additionalData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 21,
+      "symbol": "Parameter.init(json:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/Parameter.swift",
+      "line": 48,
+      "symbol": "==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 22,
+      "symbol": "ParameterType.boolean",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 23,
+      "symbol": "ParameterType.choice",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 24,
+      "symbol": "ParameterType.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 25,
+      "symbol": "ParameterType.run",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 26,
+      "symbol": "ParameterType.password",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 27,
+      "symbol": "ParameterType.file",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 28,
+      "symbol": "ParameterType.textBox",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 29,
+      "symbol": "ParameterType.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterType.swift",
+      "line": 57,
+      "symbol": "ParameterType.init(value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterValue.swift",
+      "line": 11,
+      "symbol": "ParameterValue",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterValue.swift",
+      "line": 12,
+      "symbol": "ParameterValue.parameter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterValue.swift",
+      "line": 13,
+      "symbol": "ParameterValue.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/ParameterValue.swift",
+      "line": 15,
+      "symbol": "ParameterValue.init(parameter:value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/View.swift",
+      "line": 11,
+      "symbol": "View",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/View.swift",
+      "line": 12,
+      "symbol": "View.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/View.swift",
+      "line": 13,
+      "symbol": "View.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Job/View.swift",
+      "line": 14,
+      "symbol": "View.jobResults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Plugin/Dependency.swift",
+      "line": 11,
+      "symbol": "Dependency",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Plugin/Plugin.swift",
+      "line": 11,
+      "symbol": "Plugin",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Plugin/PluginList.swift",
+      "line": 11,
+      "symbol": "PluginList",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/Plugin/PluginList.swift",
+      "line": 12,
+      "symbol": "PluginList.plugins",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Case.swift",
+      "line": 11,
+      "symbol": "Case",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Case.swift",
+      "line": 13,
+      "symbol": "Case.Status",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Case.swift",
+      "line": 14,
+      "symbol": "Case.Status.passed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Case.swift",
+      "line": 15,
+      "symbol": "Case.Status.skipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Case.swift",
+      "line": 16,
+      "symbol": "Case.Status.failed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Child.swift",
+      "line": 11,
+      "symbol": "Child",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/ChildReport.swift",
+      "line": 11,
+      "symbol": "ChildReport",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Result.swift",
+      "line": 11,
+      "symbol": "Result",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/Suite.swift",
+      "line": 11,
+      "symbol": "Suite",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/TestResult/TestResult.swift",
+      "line": 11,
+      "symbol": "TestResult",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/Project.swift",
+      "line": 11,
+      "symbol": "Project",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/User.swift",
+      "line": 11,
+      "symbol": "User",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/User.swift",
+      "line": 13,
+      "symbol": "User.fullName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/User.swift",
+      "line": 14,
+      "symbol": "User.absoluteUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/User.swift",
+      "line": 15,
+      "symbol": "User.lastChange",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/User.swift",
+      "line": 16,
+      "symbol": "User.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/JenkinsAPI/User/UserList.swift",
+      "line": 11,
+      "symbol": "UserList",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/UserRequest.swift",
+      "line": null,
+      "symbol": "UserRequest",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Model/UserRequest.swift",
+      "line": 11,
+      "symbol": "UserRequest",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 11,
+      "symbol": "ANSIColor",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 12,
+      "symbol": "ANSIColor.black",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 13,
+      "symbol": "ANSIColor.red",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 14,
+      "symbol": "ANSIColor.green",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 15,
+      "symbol": "ANSIColor.yellow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 16,
+      "symbol": "ANSIColor.blue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 17,
+      "symbol": "ANSIColor.magenta",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 18,
+      "symbol": "ANSIColor.cyan",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 19,
+      "symbol": "ANSIColor.white",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 20,
+      "symbol": "ANSIColor.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/ColorPrinter.swift",
+      "line": 24,
+      "symbol": "String.colorized(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 12,
+      "symbol": "Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 13,
+      "symbol": "Constants.Defaults",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 18,
+      "symbol": "Constants.Paths",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 19,
+      "symbol": "Constants.Paths.userPath",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 20,
+      "symbol": "Constants.Paths.sharedUserPath",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 21,
+      "symbol": "Constants.Paths.accountsPath",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 22,
+      "symbol": "Constants.Paths.sharedAccountsPath",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 25,
+      "symbol": "Constants.Config",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 26,
+      "symbol": "Constants.Config.keychainAccessGroup",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 36,
+      "symbol": "Constants.UI",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 37,
+      "symbol": "Constants.UI.bigButtonColor",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 38,
+      "symbol": "Constants.UI.defaultLabelFont",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 41,
+      "symbol": "Constants.Identifiers",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 42,
+      "symbol": "Constants.Identifiers.accountCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 43,
+      "symbol": "Constants.Identifiers.jobCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 44,
+      "symbol": "Constants.Identifiers.folderCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 45,
+      "symbol": "Constants.Identifiers.buildCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 46,
+      "symbol": "Constants.Identifiers.favoritesCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 47,
+      "symbol": "Constants.Identifiers.jenkinsCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 48,
+      "symbol": "Constants.Identifiers.staticBuildInfoCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 49,
+      "symbol": "Constants.Identifiers.longBuildInfoCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 50,
+      "symbol": "Constants.Identifiers.moreInfoBuildCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 51,
+      "symbol": "Constants.Identifiers.changeCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 52,
+      "symbol": "Constants.Identifiers.testResultCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 53,
+      "symbol": "Constants.Identifiers.testResultErrorDetailsCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 54,
+      "symbol": "Constants.Identifiers.computerCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 55,
+      "symbol": "Constants.Identifiers.pluginCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 56,
+      "symbol": "Constants.Identifiers.userCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 57,
+      "symbol": "Constants.Identifiers.artifactsCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 58,
+      "symbol": "Constants.Identifiers.parameterCell",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 60,
+      "symbol": "Constants.Identifiers.showJobsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 61,
+      "symbol": "Constants.Identifiers.showJobSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 62,
+      "symbol": "Constants.Identifiers.showBuildsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 63,
+      "symbol": "Constants.Identifiers.showBuildSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 64,
+      "symbol": "Constants.Identifiers.showBuildQueueSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 65,
+      "symbol": "Constants.Identifiers.showJenkinsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 66,
+      "symbol": "Constants.Identifiers.showConsoleOutputSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 67,
+      "symbol": "Constants.Identifiers.showChangesSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 68,
+      "symbol": "Constants.Identifiers.showTestResultsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 69,
+      "symbol": "Constants.Identifiers.showTestResultSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 70,
+      "symbol": "Constants.Identifiers.showComputersSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 71,
+      "symbol": "Constants.Identifiers.showUsersSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 72,
+      "symbol": "Constants.Identifiers.showPluginsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 73,
+      "symbol": "Constants.Identifiers.editAccountSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 74,
+      "symbol": "Constants.Identifiers.showArtifactsSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 75,
+      "symbol": "Constants.Identifiers.showFolderSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 76,
+      "symbol": "Constants.Identifiers.showParametersSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 77,
+      "symbol": "Constants.Identifiers.didAddAccountSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 78,
+      "symbol": "Constants.Identifiers.showInformationSegue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 80,
+      "symbol": "Constants.Identifiers.favoritesShortcutItemType",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 83,
+      "symbol": "Constants.JSON",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 84,
+      "symbol": "Constants.JSON.allViews",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 85,
+      "symbol": "Constants.JSON.views",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 86,
+      "symbol": "Constants.JSON.name",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 87,
+      "symbol": "Constants.JSON.url",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 88,
+      "symbol": "Constants.JSON.jobs",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 89,
+      "symbol": "Constants.JSON.color",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 90,
+      "symbol": "Constants.JSON.builds",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 91,
+      "symbol": "Constants.JSON.firstBuild",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 92,
+      "symbol": "Constants.JSON.absoluteUrl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 93,
+      "symbol": "Constants.JSON.fullName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 94,
+      "symbol": "Constants.JSON.blocked",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 95,
+      "symbol": "Constants.JSON.buildable",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 96,
+      "symbol": "Constants.JSON.id",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 97,
+      "symbol": "Constants.JSON.inQueueSince",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 98,
+      "symbol": "Constants.JSON.params",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 99,
+      "symbol": "Constants.JSON.stuck",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 100,
+      "symbol": "Constants.JSON.why",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 101,
+      "symbol": "Constants.JSON.task",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 102,
+      "symbol": "Constants.JSON.buildableStartMilliseconds",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 103,
+      "symbol": "Constants.JSON.actions",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 104,
+      "symbol": "Constants.JSON.items",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 105,
+      "symbol": "Constants.JSON.age",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 106,
+      "symbol": "Constants.JSON.className",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 107,
+      "symbol": "Constants.JSON.duration",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 108,
+      "symbol": "Constants.JSON.errorDetails",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 109,
+      "symbol": "Constants.JSON.errorStackTrace",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 110,
+      "symbol": "Constants.JSON.failedSince",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 111,
+      "symbol": "Constants.JSON.skipped",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 112,
+      "symbol": "Constants.JSON.skippedMessage",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 113,
+      "symbol": "Constants.JSON.status",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 114,
+      "symbol": "Constants.JSON.stdout",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 115,
+      "symbol": "Constants.JSON.stderr",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 116,
+      "symbol": "Constants.JSON.reportUrl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 117,
+      "symbol": "Constants.JSON.cases",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 118,
+      "symbol": "Constants.JSON.timestamp",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 119,
+      "symbol": "Constants.JSON.number",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 120,
+      "symbol": "Constants.JSON.empty",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 121,
+      "symbol": "Constants.JSON.failCount",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 122,
+      "symbol": "Constants.JSON.passCount",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 123,
+      "symbol": "Constants.JSON.skipCount",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 124,
+      "symbol": "Constants.JSON.suites",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 125,
+      "symbol": "Constants.JSON.child",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 126,
+      "symbol": "Constants.JSON.result",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 127,
+      "symbol": "Constants.JSON.totalCount",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 128,
+      "symbol": "Constants.JSON.childReports",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 129,
+      "symbol": "Constants.JSON.urlName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 130,
+      "symbol": "Constants.JSON.active",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 131,
+      "symbol": "Constants.JSON.shortName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 132,
+      "symbol": "Constants.JSON.bundled",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 133,
+      "symbol": "Constants.JSON.deleted",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 134,
+      "symbol": "Constants.JSON.downgradable",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 135,
+      "symbol": "Constants.JSON.enabled",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 136,
+      "symbol": "Constants.JSON.hasUpdate",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 137,
+      "symbol": "Constants.JSON.longName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 138,
+      "symbol": "Constants.JSON.pinned",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 139,
+      "symbol": "Constants.JSON.supportsDynamicLoad",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 140,
+      "symbol": "Constants.JSON.version",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 141,
+      "symbol": "Constants.JSON.dependencies",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 142,
+      "symbol": "Constants.JSON.optional",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 143,
+      "symbol": "Constants.JSON.plugins",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 144,
+      "symbol": "Constants.JSON.description",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 145,
+      "symbol": "Constants.JSON.nodeDescription",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 146,
+      "symbol": "Constants.JSON.mode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 147,
+      "symbol": "Constants.JSON.nodeName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 148,
+      "symbol": "Constants.JSON.lastChange",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 149,
+      "symbol": "Constants.JSON.project",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 150,
+      "symbol": "Constants.JSON.user",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 151,
+      "symbol": "Constants.JSON.users",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 152,
+      "symbol": "Constants.JSON.availablePhysicalMemory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 153,
+      "symbol": "Constants.JSON.availableSwapSpace",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 154,
+      "symbol": "Constants.JSON.totalPhysicalMemory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 155,
+      "symbol": "Constants.JSON.totalSwapSpace",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 156,
+      "symbol": "Constants.JSON.artifacts",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 157,
+      "symbol": "Constants.JSON.fileName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 158,
+      "symbol": "Constants.JSON.relativePath",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 159,
+      "symbol": "Constants.JSON.crumb",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 160,
+      "symbol": "Constants.JSON.crumbRequestField",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 161,
+      "symbol": "Constants.JSON.type",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 162,
+      "symbol": "Constants.JSON.defaultParameterValue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 163,
+      "symbol": "Constants.JSON.value",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 164,
+      "symbol": "Constants.JSON.parameterDefinitions",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 165,
+      "symbol": "Constants.JSON.property",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 166,
+      "symbol": "Constants.JSON.choices",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 167,
+      "symbol": "Constants.JSON.projectName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 170,
+      "symbol": "Constants.Networking",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 171,
+      "symbol": "Constants.Networking.successCodes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 174,
+      "symbol": "Constants.API",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 175,
+      "symbol": "Constants.API.consoleOutput",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 176,
+      "symbol": "Constants.API.jobListAdditionalQueryItems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 179,
+      "symbol": "Constants.API.testReport",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 180,
+      "symbol": "Constants.API.testReportAdditionalQueryItems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 183,
+      "symbol": "Constants.API.buildQueue",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 184,
+      "symbol": "Constants.API.computer",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 185,
+      "symbol": "Constants.API.plugins",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 186,
+      "symbol": "Constants.API.pluginsAdditionalQueryItems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 189,
+      "symbol": "Constants.API.users",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 190,
+      "symbol": "Constants.API.artifact",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 191,
+      "symbol": "Constants.API.crumbIssuer",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 193,
+      "symbol": "Constants.API.quietDown",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 194,
+      "symbol": "Constants.API.cancelQuietDown",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 195,
+      "symbol": "Constants.API.restart",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Constants.swift",
+      "line": 196,
+      "symbol": "Constants.API.safeRestart",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 11,
+      "symbol": "NetworkManagerError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 12,
+      "symbol": "NetworkManagerError.JSONParsingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 13,
+      "symbol": "NetworkManagerError.HTTPResponseNoSuccess",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 14,
+      "symbol": "NetworkManagerError.dataTaskError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 15,
+      "symbol": "NetworkManagerError.noDataFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 16,
+      "symbol": "NetworkManagerError.URLBuildingError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 18,
+      "symbol": "NetworkManagerError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 35,
+      "symbol": "NetworkManagerError.code",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 46,
+      "symbol": "BuildError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 47,
+      "symbol": "BuildError.notEnoughDataError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 49,
+      "symbol": "BuildError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 56,
+      "symbol": "AccountManagerError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 57,
+      "symbol": "AccountManagerError.accountAlreadyExists",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 59,
+      "symbol": "AccountManagerError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 67,
+      "symbol": "ParsingError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 68,
+      "symbol": "ParsingError.DataNotCorrectFormatError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 69,
+      "symbol": "ParsingError.KeyMissingError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Errors.swift",
+      "line": 71,
+      "symbol": "ParsingError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Extensions.swift",
+      "line": 42,
+      "symbol": "Bool.humanReadableString",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Extensions.swift",
+      "line": 70,
+      "symbol": "NSNumber.bytesToGigabytesString(numberFormatter:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Extensions.swift",
+      "line": 238,
+      "symbol": "UILabel.updateFontName(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Other/Extensions.swift",
+      "line": 245,
+      "symbol": "UIFont.isBold",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/AccountManager.swift",
+      "line": 12,
+      "symbol": "AccountManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/AccountManager.swift",
+      "line": 14,
+      "symbol": "AccountManager.manager",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/ApplicationUserManager.swift",
+      "line": 11,
+      "symbol": "ApplicationUserManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 11,
+      "symbol": "JenkinsAction",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 12,
+      "symbol": "JenkinsAction.restart",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 13,
+      "symbol": "JenkinsAction.quietDown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 14,
+      "symbol": "JenkinsAction.cancelQuietDown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 15,
+      "symbol": "JenkinsAction.safeRestart",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/JenkinsAction.swift",
+      "line": 17,
+      "symbol": "JenkinsAction.apiConstant()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 8,
+      "symbol": "LoggableContentView",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 9,
+      "symbol": "LoggableContentView.job",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 10,
+      "symbol": "LoggableContentView.build",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 11,
+      "symbol": "LoggableContentView.jobList",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 12,
+      "symbol": "LoggableContentView.buildList",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 13,
+      "symbol": "LoggableContentView.buildQueue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggableContentView.swift",
+      "line": 14,
+      "symbol": "LoggableContentView.favorites",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 9,
+      "symbol": "LoggingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 10,
+      "symbol": "LoggingManager.loggingManager",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 12,
+      "symbol": "LoggingManager.log(contentView:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 23,
+      "symbol": "LoggingManager.logJobView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 27,
+      "symbol": "LoggingManager.logJobListView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 31,
+      "symbol": "LoggingManager.logBuildListView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 35,
+      "symbol": "LoggingManager.logBuildView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 39,
+      "symbol": "LoggingManager.logBuildQueueView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 43,
+      "symbol": "LoggingManager.logFavoritesView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 47,
+      "symbol": "LoggingManager.logAccountCreation(https:allowsEveryCertificate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 51,
+      "symbol": "LoggingManager.logfavoritedFavoritable(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 55,
+      "symbol": "LoggingManager.logunfavoritedFavoritable(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/LoggingManager.swift",
+      "line": 59,
+      "symbol": "LoggingManager.logTriggeredBuild(withParameters:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkActivityIndicatorManager.swift",
+      "line": 11,
+      "symbol": "NetworkActivityIndicatorManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": null,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": null,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 11,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 13,
+      "symbol": "NetworkManager.manager",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 31,
+      "symbol": "NetworkManager.HTTPMethod.GET",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 32,
+      "symbol": "NetworkManager.HTTPMethod.POST",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 33,
+      "symbol": "NetworkManager.HTTPMethod.HEAD",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 492,
+      "symbol": "NetworkManager.urlSession(_:task:didReceive:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 504,
+      "symbol": "NetworkManager.urlSession(_:task:didCompleteWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 510,
+      "symbol": "NetworkManager.didCancel(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 514,
+      "symbol": "NetworkManager.didResume(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/NetworkManager.swift",
+      "line": 518,
+      "symbol": "NetworkManager.didSuspend(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 11,
+      "symbol": "URLSessionTaskControllerDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 12,
+      "symbol": "URLSessionTaskControllerDelegate.didCancel(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 13,
+      "symbol": "URLSessionTaskControllerDelegate.didSuspend(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 14,
+      "symbol": "URLSessionTaskControllerDelegate.didResume(task:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 17,
+      "symbol": "URLSessionTaskController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 19,
+      "symbol": "URLSessionTaskController.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 22,
+      "symbol": "URLSessionTaskController.init(task:delegate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 27,
+      "symbol": "URLSessionTaskController.cancelTask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 37,
+      "symbol": "URLSessionTaskController.suspendTask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Service/URLSessionTaskController.swift",
+      "line": 42,
+      "symbol": "URLSessionTaskController.resumeTask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOS/Utils/PersistenceUtils.swift",
+      "line": 11,
+      "symbol": "PersistenceUtils",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift",
+      "line": 11,
+      "symbol": "DataRetriever",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift",
+      "line": 13,
+      "symbol": "DataRetriever.retriever",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/DataRetriever.swift",
+      "line": 16,
+      "symbol": "DataRetriever.getSharedApplicationUser()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 12,
+      "symbol": "TodayViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 14,
+      "symbol": "TodayViewController.favorites",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 15,
+      "symbol": "TodayViewController.favoritables",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 17,
+      "symbol": "TodayViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 24,
+      "symbol": "TodayViewController.viewWillAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 38,
+      "symbol": "TodayViewController.widgetPerformUpdate(completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 43,
+      "symbol": "TodayViewController.widgetActiveDisplayModeDidChange(_:withMaximumSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 49,
+      "symbol": "TodayViewController.requestData()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 98,
+      "symbol": "TodayViewController.numberOfSections(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 102,
+      "symbol": "TodayViewController.tableView(_:numberOfRowsInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 106,
+      "symbol": "TodayViewController.tableView(_:cellForRowAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/robert/Desktop/Arbeit/JenkinsiOS/JenkinsiOSTodayExtension/TodayViewController.swift",
+      "line": 142,
+      "symbol": "TodayViewController.tableView(_:didSelectRowAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/robert/Desktop/Arbeit/JenkinsiOS"
+}
