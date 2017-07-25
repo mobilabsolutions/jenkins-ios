@@ -217,12 +217,9 @@
 		DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
-		E135158D1F20F614002847BF /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
-		E135158E1F20F614002847BF /* SAMKeychain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E13515901F20F6F8002847BF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
-		E13515931F20F702002847BF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
-		E13515941F20F702002847BF /* Fabric.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E13515961F20F702002847BF /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
+		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
+		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -254,19 +251,6 @@
 				DC2045C11DB12892009CF232 /* JenkinsiOSTodayExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC2E1631D9FE85600491B98 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E135158E1F20F614002847BF /* SAMKeychain.framework in Embed Frameworks */,
-				E13515961F20F702002847BF /* Crashlytics.framework in Embed Frameworks */,
-				E13515941F20F702002847BF /* Fabric.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -455,10 +439,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E135158D1F20F614002847BF /* SAMKeychain.framework in Frameworks */,
-				E13515931F20F702002847BF /* Fabric.framework in Frameworks */,
 				DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */,
-				E13515901F20F6F8002847BF /* Crashlytics.framework in Frameworks */,
+				E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */,
+				E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */,
+				E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,7 +888,6 @@
 				DC99C3CD1D955C8F0031DBE4 /* Sources */,
 				DC99C3CE1D955C8F0031DBE4 /* Frameworks */,
 				DC99C3CF1D955C8F0031DBE4 /* Resources */,
-				DCC2E1631D9FE85600491B98 /* Embed Frameworks */,
 				DC3CCD141DA67FCA004C4C3D /* ShellScript */,
 				DC2045C51DB12892009CF232 /* Embed App Extensions */,
 			);
@@ -1478,6 +1461,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
 					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks/**",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/JenkinsiOS/Other/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1506,6 +1490,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/JenkinsiOS",
 					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks/**",
+					"$(PROJECT_DIR)/JenkinsiOS/Other/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/JenkinsiOS/Other/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
