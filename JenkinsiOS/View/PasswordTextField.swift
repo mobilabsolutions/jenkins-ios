@@ -15,7 +15,7 @@ import UIKit
     @IBInspectable var openImage = UIImage(named: "openEye")
     @IBInspectable var closedImage = UIImage(named: "key")
     
-    @IBInspectable var buttonInset: (x: Int, y: Int) = (10, 7)
+    var buttonInset: (x: Int, y: Int) = (10, 7)
     
     override var text: String?{
         didSet{

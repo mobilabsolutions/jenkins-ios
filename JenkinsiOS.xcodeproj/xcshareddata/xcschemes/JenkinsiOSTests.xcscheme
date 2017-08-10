@@ -52,6 +52,16 @@
                ReferencedContainer = "container:JenkinsiOS.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E11621091F3C7EB70036DD9A"
+               BuildableName = "JenkinsiOSUITests.xctest"
+               BlueprintName = "JenkinsiOSUITests"
+               ReferencedContainer = "container:JenkinsiOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
@@ -93,6 +103,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DC99C3D01D955C8F0031DBE4"
+            BuildableName = "JenkinsiOS.app"
+            BlueprintName = "JenkinsiOS"
+            ReferencedContainer = "container:JenkinsiOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

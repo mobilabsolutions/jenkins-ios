@@ -100,11 +100,17 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
 
     func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite) {
         loadedFavoritables.append((favoritable, favorite))
-        collectionView.reloadItems(at: [IndexPath(item: loadedFavoritables.count - 1, section: 0)])
+        let item = loadedFavoritables.count - 1
+        guard item < collectionView.numberOfItems(inSection: 0)
+            else { collectionView.reloadData(); return }
+        collectionView.reloadItems(at: [IndexPath(item: item, section: 0)])
     }
 
     func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure) {
         failedLoads.append(favorite)
-        collectionView.reloadItems(at: [IndexPath(item: favorites.count - failedLoads.count, section: 0)])
+        let item = favorites.count - failedLoads.count
+        guard item < collectionView.numberOfItems(inSection: 0)
+            else { collectionView.reloadData(); return }
+        collectionView.reloadItems(at: [IndexPath(item: item, section: 0)])
     }
 }
