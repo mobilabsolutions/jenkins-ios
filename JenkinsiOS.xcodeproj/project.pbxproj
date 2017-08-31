@@ -1471,7 +1471,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95266de5-b285-452c-ba6f-87ec5cc760f9";
+				PROVISIONING_PROFILE = "73ba05b1-fbbe-4d0c-96f1-3a601909e7a1";
 				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
