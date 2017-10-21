@@ -56,7 +56,7 @@ class ConsoleOutputViewController: UIViewController {
         navigationItem.rightBarButtonItem = reloadButtonItem
     }
     
-    func reload(){
+    @objc func reload(){
         guard let request = request
             else { return }
         
@@ -92,7 +92,7 @@ class ConsoleOutputViewController: UIViewController {
          })
     }
 
-    func scrollToBottom(){
+    @objc func scrollToBottom(){
         guard let consoleWebView = self.consoleWebView else { return }
 
         let y = consoleWebView.scrollView.contentSize.height - consoleWebView.frame.height

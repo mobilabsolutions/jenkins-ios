@@ -106,7 +106,7 @@ class PluginsTableViewController: RefreshingTableViewController {
         cell.backgroundColor = pluginData[indexPath.section][indexPath.row].2
         
         if pluginData[indexPath.section][indexPath.row].2 == UIColor.groupTableViewBackground {
-            let attributedString = NSAttributedString(string: pluginData[indexPath.section][indexPath.row].0, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
+            let attributedString = NSAttributedString(string: pluginData[indexPath.section][indexPath.row].0, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17)])
             cell.textLabel?.attributedText = attributedString
         }
         

@@ -121,7 +121,7 @@ class ReviewReminderViewController: UIViewController {
             else { return nil }
         
         return NSLayoutConstraint(
-            item: containerViewHeightConstraint.firstItem,
+            item: containerViewHeightConstraint.firstItem as Any,
             attribute: containerViewHeightConstraint.firstAttribute,
             relatedBy: containerViewHeightConstraint.relation,
             toItem: containerViewHeightConstraint.secondItem,
@@ -216,13 +216,13 @@ class ReviewReminderViewController: UIViewController {
 }
 
 extension ReviewReminderViewController{
-    func keyboardWillShow(notification: Notification){
+    @objc func keyboardWillShow(notification: Notification){
         guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             else { return }
         getYPositionConstraint()?.constant = -(keyboardRect.height / 2)
     }
     
-    func keyboardWillDisappear(notification: Notification){
+    @objc func keyboardWillDisappear(notification: Notification){
         getYPositionConstraint()?.constant = 0
     }
     

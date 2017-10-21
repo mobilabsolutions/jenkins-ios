@@ -187,7 +187,7 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
     
     func prepareViewController(viewController: UIViewController, row: Int, type: Favorite.FavoriteType){
 
-        if case let .loaded(_) = loadingState(for: IndexPath(row: row, section: type == .job ? 0 : 1)){
+        if case .loaded(_) = loadingState(for: IndexPath(row: row, section: type == .job ? 0 : 1)){
             if type == .job, let dest = viewController as? JobViewController{
                 dest.job = loadedJobs[row].favoritable as? Job
                 dest.account = loadedJobs[row].favorite.account
@@ -322,7 +322,7 @@ extension FavoritesTableViewController: UIViewControllerPreviewingDelegate{
         guard let indexPath = tableView.indexPathForRow(at: location)
             else { return nil }
 
-        if case let .loaded(_) = loadingState(for: indexPath) {
+        if case .loaded(_) = loadingState(for: indexPath) {
 
             previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
 

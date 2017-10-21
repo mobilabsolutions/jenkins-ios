@@ -20,7 +20,7 @@ class JobsTableViewController: RefreshingTableViewController{
     private var searchController: UISearchController?
     
     /// The identifier and number of rows for a given section and a row in that section. Based on the current JobListResults
-    lazy var sections: [(Int?, [JobListResult]?) -> (identifier: String, rows: Int)] = [{_ in (Constants.Identifiers.jenkinsCell, self.jenkinsCellSegues.count)} , {
+    lazy var sections: [(Int?, [JobListResult]?) -> (identifier: String, rows: Int)] = [{_,_  in (Constants.Identifiers.jenkinsCell, self.jenkinsCellSegues.count)} , {
         row, jobResults in
             guard let row = row, let jobResult = jobResults?[row]
                 else { return ("", jobResults?.count ?? 0) }
