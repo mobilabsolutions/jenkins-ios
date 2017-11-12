@@ -108,13 +108,18 @@ class ArtifactsTableViewController: UITableViewController {
         downloadArtifact(artifact: artifact) { (data) in
             guard let data = data
                 else { return }
-            let composer = self.mailComposer(for: artifact, with: data)
+            guard let composer = self.mailComposer(for: artifact, with: data)
+                else { self.displayError(title: "Can't send mail", message: "Please set up a Mail account to be able to share artifacts.", textFieldConfigurations: [], actions: [UIAlertAction(title: "Alright", style: UIAlertActionStyle.cancel, handler: nil)]); return }
             
             self.present(composer, animated: true, completion: nil)
         }
     }
     
-    private func mailComposer(for artifact: Artifact, with data: Data) -> MFMailComposeViewController{
+    private func mailComposer(for artifact: Artifact, with data: Data) -> MFMailComposeViewController? {
+        
+        guard MFMailComposeViewController.canSendMail()
+            else { return nil }
+        
         let composer = MFMailComposeViewController()
         
         var subject = "Artifact \(artifact.filename)"
