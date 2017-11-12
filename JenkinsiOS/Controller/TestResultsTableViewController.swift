@@ -257,7 +257,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
     }
     
     private func setUpHeaderLabel(label: UILabel, for suite: Suite){
-        label.attributedText = NSAttributedString(string: suite.name ?? "No name", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
+        label.attributedText = NSAttributedString(string: suite.name ?? "No name", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17)])
         label.numberOfLines = 0
         label.sizeToFit()
     }

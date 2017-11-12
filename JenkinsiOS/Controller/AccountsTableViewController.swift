@@ -95,7 +95,7 @@ class AccountsTableViewController: BaseTableViewController {
         performSegue(withIdentifier: Constants.Identifiers.showInformationSegue, sender: nil)
     }
     
-    func showAddAccountViewController(){
+    @objc func showAddAccountViewController(){
         performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nil)
     }
     

@@ -11,7 +11,7 @@ class RefreshingTableViewController: BaseTableViewController{
         addRefreshControl(action: #selector(refresh))
     }
 
-    func refresh(){}
+    @objc func refresh(){}
 
     /// Add a refresh control to the given table view controller
     ///

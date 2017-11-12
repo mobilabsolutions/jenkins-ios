@@ -51,7 +51,7 @@ class Build: Favoratible, CustomDebugStringConvertible{
     /// The url that points to the Build's console output
     var consoleOutputUrl: URL{
         get{
-            var components = URLComponents(url: url.appendingPathComponent(Constants.API.consoleOutput), resolvingAgainstBaseURL: true)
+            let components = URLComponents(url: url.appendingPathComponent(Constants.API.consoleOutput), resolvingAgainstBaseURL: true)
             return components?.url ?? url
         }
     }

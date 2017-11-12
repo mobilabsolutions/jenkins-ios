@@ -29,9 +29,9 @@ class AppearanceManager{
         case bold = "Bold"
     }
     
-    private func getTitleTextAttributes(font: String, qualifier: FontTypeQualifier, size: CGFloat) -> [String: Any]{
+    private func getTitleTextAttributes(font: String, qualifier: FontTypeQualifier, size: CGFloat) -> [NSAttributedStringKey: Any]{
         return [
-            NSFontAttributeName : UIFont(name: "\(font)-\(qualifier.rawValue)", size: size) as Any
+            NSAttributedStringKey.font : UIFont(name: "\(font)-\(qualifier.rawValue)", size: size) as Any
         ]
 
     }

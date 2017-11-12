@@ -34,7 +34,7 @@ class AddAccountTableViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func addAccount(){
+    @objc func addAccount(){
         guard let account = createAccount()
             else { return }
         let success = addAccountWith(account: account)
@@ -81,7 +81,7 @@ class AddAccountTableViewController: UITableViewController {
         return URL(string: schemeString + urlTextField.text!)
     }
     
-    func saveAccount(){
+    @objc func saveAccount(){
         guard let newAccount = createAccount()
             else { return }
         

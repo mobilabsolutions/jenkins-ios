@@ -28,7 +28,7 @@ class NetworkManagerTests: XCTestCase {
         let testExpectation = expectation(description: "Loading jobs from \(account.baseUrl) should work")
         
         
-        manager.getJobs(userRequest: request){
+        _ = manager.getJobs(userRequest: request){
             jobList, error in
             
             XCTAssertNil(error)

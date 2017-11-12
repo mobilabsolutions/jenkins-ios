@@ -27,7 +27,7 @@ class JobViewController: UIViewController {
     
     //MARK: - Actions
 
-    func triggerBuild() {
+    @objc func triggerBuild() {
         guard let job = job
             else { return }
 
@@ -193,13 +193,13 @@ class JobViewController: UIViewController {
         viewWillAppearCalled = true
     }
 
-    func openUrl(){
+    @objc func openUrl(){
         guard let job = self.job
               else { return }
         UIApplication.shared.openURL(job.url)
     }
 
-    func favorite(){
+    @objc func favorite(){
         if let account = account, job != nil{
             job?.toggleFavorite(account: account)
             let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"

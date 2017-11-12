@@ -70,7 +70,7 @@ import UIKit
         return (self.isSecureTextEntry) ? openImage : closedImage
     }
     
-    func toggleIsSecureTextEntry(){
+    @objc func toggleIsSecureTextEntry(){
         isSecureTextEntry = !isSecureTextEntry
         setButtonImage()
     }
