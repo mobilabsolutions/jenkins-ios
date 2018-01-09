@@ -23,6 +23,8 @@ class JobList{
     var mode: String?
     /// The node's name
     var nodeName: String?
+    /// Whether this is a multibranch pipeline job list
+    var isMultibranch: Bool = false
     
     /// Initialize a JobList object
     ///
@@ -47,6 +49,15 @@ class JobList{
         nodeDescription = json[Constants.JSON.nodeDescription] as? String
         mode = json[Constants.JSON.mode] as? String
         nodeName = json[Constants.JSON.nodeName] as? String
-        
+
+        if let _class = json["_class"] as? String,
+            let jobType = JobListType(rawValue: _class),
+            jobType == .multibranch { isMultibranch = true }
     }
+}
+
+private enum JobListType: String {
+    case folder = "com.cloudbees.hudson.plugins.folder.Folder"
+    case list = "hudson.model.Hudson"
+    case multibranch = "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"
 }

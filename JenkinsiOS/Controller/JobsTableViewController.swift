@@ -18,6 +18,7 @@ class JobsTableViewController: RefreshingTableViewController{
     
     var viewPicker: UIPickerView!
     private var searchController: UISearchController?
+    private var isInitialLoad: Bool = true
     
     /// The identifier and number of rows for a given section and a row in that section. Based on the current JobListResults
     lazy var sections: [(Int?, [JobListResult]?) -> (identifier: String, rows: Int)] = [{_,_  in (Constants.Identifiers.jenkinsCell, self.jenkinsCellSegues.count)} , {
@@ -84,10 +85,20 @@ class JobsTableViewController: RefreshingTableViewController{
                 }
                 
                 self.jobs = jobList
-                self.currentView = jobList!.allJobsView ?? jobList?.views.first
-                
+                let filterViews: (View) -> Bool = {
+                    $0.name == self.currentView?.name && $0.url == self.currentView?.url
+                }
+                if let view = jobList?.views.filter(filterViews).first {
+                    self.currentView = view
+                } else {
+                    self.currentView = jobList?.allJobsView ?? jobList?.views.first
+                }
+
                 self.viewPicker.reloadAllComponents()
-                self.pickerScrollToAllView()
+                if self.isInitialLoad {
+                    self.isInitialLoad = false
+                    self.scrollToInitialPickerView()
+                }
                 self.emptyTableView(for: .noData)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
@@ -112,8 +123,17 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     private func getSearchData() -> [Searchable]{
-        return jobs?.allJobsView?.jobResults.map({ (job) -> Searchable in
-            return Searchable(searchString: job.name, data: job as AnyObject, action: {
+        guard let jobs = jobs else { return [] }
+        let jobResults: [JobListResult]
+        if let allResults = jobs.allJobsView?.jobResults {
+            jobResults = allResults
+        }
+        else {
+            jobResults = jobs.views.flatMap { $0.jobResults }
+        }
+
+        return jobResults.map { (job) -> Searchable in
+            return Searchable(searchString: job.name, data: job as AnyObject) {
                 self.searchController?.dismiss(animated: true, completion: nil)
                 
                 let identifier: String!
@@ -126,8 +146,8 @@ class JobsTableViewController: RefreshingTableViewController{
                 }
                 
                 self.performSegue(withIdentifier: identifier, sender: job)
-            })
-        }) ?? []
+            }
+        }
     }
     
     private func setUpPicker(){
@@ -137,7 +157,7 @@ class JobsTableViewController: RefreshingTableViewController{
         viewPicker.backgroundColor = UIColor.clear
     }
     
-    private func pickerScrollToAllView(){
+    private func scrollToInitialPickerView(){
         if let jobs = jobs, let currentView = currentView, let index = jobs.views.index(where: {$0.name == currentView.name}){
             viewPicker.selectRow(index, inComponent: 0, animated: true)
         }
@@ -198,7 +218,8 @@ class JobsTableViewController: RefreshingTableViewController{
         
         dest.account = account
         dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
-        dest.sections = [sections.lazy.last!]
+        let emptySection: (Int?, [JobListResult]?) -> (String, Int) = { _, _ in return ("empty", 0) }
+        dest.sections = [emptySection, sections.lazy.last!]
         dest.title = folder.name
     }
     
@@ -262,39 +283,45 @@ class JobsTableViewController: RefreshingTableViewController{
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 && jobs != nil{
-            let viewPickerSuperView = UIView()
-            
-            viewPicker.frame = viewPickerSuperView.bounds
-            viewPicker.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            
-            if UIAccessibilityIsReduceTransparencyEnabled() == false{
-                
-                let effect = UIBlurEffect(style: .light)
-                let effectView = UIVisualEffectView(effect: effect)
-                
-                effectView.frame = viewPicker.bounds
-                effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                
-                viewPickerSuperView.addSubview(effectView)
-            }
-            
-            viewPickerSuperView.addSubview(viewPicker)
-            
-            viewPicker.translatesAutoresizingMaskIntoConstraints = false
-            
-            viewPicker.leftAnchor.constraint(equalTo: viewPickerSuperView.leftAnchor).isActive = true
-            viewPicker.rightAnchor.constraint(equalTo: viewPickerSuperView.rightAnchor).isActive = true
-            viewPicker.bottomAnchor.constraint(equalTo: viewPickerSuperView.bottomAnchor).isActive = true
-            viewPicker.topAnchor.constraint(equalTo: viewPickerSuperView.topAnchor).isActive = true
-            
-            return viewPickerSuperView
+        guard let jobs = jobs,
+            jobs.views.count > 1,
+            section == 1
+            else { return nil }
+
+        let viewPickerSuperView = UIView()
+
+        viewPicker.frame = viewPickerSuperView.bounds
+        viewPicker.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+
+        if UIAccessibilityIsReduceTransparencyEnabled() == false{
+
+            let effect = UIBlurEffect(style: .light)
+            let effectView = UIVisualEffectView(effect: effect)
+
+            effectView.frame = viewPicker.bounds
+            effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+            viewPickerSuperView.addSubview(effectView)
         }
-        return nil
+
+        viewPickerSuperView.addSubview(viewPicker)
+
+        viewPicker.translatesAutoresizingMaskIntoConstraints = false
+
+        viewPicker.leftAnchor.constraint(equalTo: viewPickerSuperView.leftAnchor).isActive = true
+        viewPicker.rightAnchor.constraint(equalTo: viewPickerSuperView.rightAnchor).isActive = true
+        viewPicker.bottomAnchor.constraint(equalTo: viewPickerSuperView.bottomAnchor).isActive = true
+        viewPicker.topAnchor.constraint(equalTo: viewPickerSuperView.topAnchor).isActive = true
+
+        return viewPickerSuperView
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 && jobs != nil ? 100 : 0
+        guard let jobs = jobs,
+            jobs.views.count > 1,
+            section == 1
+            else { return 0 }
+        return 100
     }
 }
 
@@ -308,7 +335,15 @@ extension JobsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return jobs?.views[row].name
+        guard let jobs = jobs else { return nil }
+        switch jobs.views[row].name {
+        case "change-requests" where jobs.isMultibranch:
+            return "Pull Requests"
+        case "default" where jobs.isMultibranch:
+            return "Branches"
+        default:
+            return jobs.views[row].name
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

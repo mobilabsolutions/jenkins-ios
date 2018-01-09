@@ -70,7 +70,9 @@ class Job: Favoratible{
     ///
     /// - returns: The initialized Job object or nil, if initialization failed
     init?(json: [String: AnyObject], minimalVersion: Bool = false){
-        guard let name = json[Constants.JSON.name] as? String, let urlString = json[Constants.JSON.url] as? String
+        guard let nameUrlString = json[Constants.JSON.name] as? String,
+            let name = nameUrlString.removingPercentEncoding,
+            let urlString = json[Constants.JSON.url] as? String
             else { return nil }
         guard let url = URL(string: urlString)
             else { return nil }
