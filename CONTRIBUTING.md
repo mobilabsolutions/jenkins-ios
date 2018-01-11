@@ -12,7 +12,7 @@ We always try to review pull requests in a very timely manner, however, please b
 
 ### Code Conventions
 
-Please do not converge too much from the general code style of the application. It is written in `Swift` and therefore we expect any contributions also to use `Swift` if possible.
+Please do not diverge too much from the general code style of the application. It is written in `Swift` and therefore we expect any contributions also to use `Swift` if possible.
 
 Generally, we prefer to use `Storyboards` instead of building our UI in code. Please, if not too inconveniencing, stick to that way of creating your user interfaces.
 
