@@ -6,7 +6,7 @@ We are always very happy to receive contributions of any kind (but especially co
 
 Code contributions are very much appreciated (especially those that add to our test suite). To get a quick start on the application's architecture, please visit our [Wiki](https://github.com/mobilabsolutions/jenkins-ios/wiki).
 
-Before adding any features or fixing any issues, please branch off either `master` and create your own feature branch. Once your feature is developed, please create a pull request onto `master`.
+Before adding any features or fixing any issues, please branch off `master` and create your own feature branch. Once your feature is developed, please create a pull request onto `master`.
 
 We always try to review pull requests in a very timely manner, however, please be patient if it does take a little longer than you expected.
 
