@@ -133,17 +133,26 @@ class Job: Favoratible{
 
         // Parse all the parameters
         parameters = []
+        // For some reason there are multiple places in which the parameters may be defined. We
+        // will a
+        let possibleParameterDefinitionPlaces = [Constants.JSON.property, Constants.JSON.actions]
+        
+        for possibleParameterDefinitionPlace in possibleParameterDefinitionPlaces {
+            if let properties = json[possibleParameterDefinitionPlace] as? [[String: Any]],
+                let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]]{
+                
+                for parameterJson in parametersJson{
+                    guard let parameter = Parameter(json: parameterJson)
+                        else { continue }
 
-        if let properties = json[Constants.JSON.property] as? [[String: Any]], let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]]{
-            for parameterJson in parametersJson{
-                guard let parameter = Parameter(json: parameterJson)
-                    else { continue }
+                    if parameter.type == .run{
+                        parameter.additionalData = builds.map({ "\(name)#\($0.number)" }) as AnyObject?
+                    }
 
-                if parameter.type == .run{
-                    parameter.additionalData = builds.map({ "\(name)#\($0.number)" }) as AnyObject?
+                    parameters.append(parameter)
                 }
-
-                parameters.append(parameter)
+                
+                break;
             }
         }
 
