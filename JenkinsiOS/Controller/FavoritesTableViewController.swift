@@ -212,6 +212,11 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
             case .errored:
                 guard let favorite = favorite(for: indexPath)
                         else { return }
+                
+                let favoriteUrlComponents = URLComponents(url: favorite.url, resolvingAgainstBaseURL: false)
+                guard favoriteUrlComponents?.scheme == "http" || favoriteUrlComponents?.scheme == "https"
+                        else { return }
+                
                 let safariVC = SFSafariViewController(url: favorite.url)
                 present(safariVC, animated: true)
             case .loading: return
