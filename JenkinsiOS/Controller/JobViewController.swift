@@ -55,8 +55,10 @@ class JobViewController: UIViewController {
             })
         }
         else{
-            performBuild(job: job, account: account, token: nil, parameters: nil){
-                self.completionForBuild()(modalViewController, $0, $1)
+            performBuild(job: job, account: account, token: nil, parameters: nil){ result, error in
+                DispatchQueue.main.async { [unowned self] in
+                    self.completionForBuild()(modalViewController, result, error)
+                }
             }
         }
     }
