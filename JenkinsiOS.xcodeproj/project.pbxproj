@@ -1319,7 +1319,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eb727942-abcb-40de-baf9-53e149dda96c";
+				PROVISIONING_PROFILE = "8c4ca1ee-62bb-44fb-867a-b5975007ce71";
 				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Extension Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG IS_EXTENSION";
