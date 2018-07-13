@@ -104,6 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
                 
                 return vc
+        case .folder:
+            let vc = getViewController(name: "JobsTableViewController") as! JobsTableViewController
+            vc.account = favorite.account
+            guard let account = favorite.account
+                else { return vc }
+        
+            vc.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: favorite.url)
+            return vc
         }
     }
     

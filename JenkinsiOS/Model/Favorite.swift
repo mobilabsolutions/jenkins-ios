@@ -17,6 +17,7 @@ class Favorite: NSObject, NSCoding{
     enum FavoriteType: String{
         case job = "Job"
         case build = "Build"
+        case folder = "Folder"
     }
     
     /// The type of the Favorite

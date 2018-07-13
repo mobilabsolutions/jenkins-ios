@@ -52,18 +52,18 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         
         self.favorites = favorites
         favorites.forEach { (favorite) in
-            if favorite.type == .job{
-                getJob(favorite: favorite)
-            }
-            else if favorite.type == .build{
-                getBuild(favorite: favorite)
+            switch favorite.type {
+                case .job, .folder:
+                    getJob(favorite: favorite)
+                case .build:
+                    getBuild(favorite: favorite)
             }
         }
     }
     
     private func getJob(favorite: Favorite){
         
-        guard let account = favorite.account, favorite.type == .job
+        guard let account = favorite.account
             else { return }
         
         let request = UserRequest(requestUrl: favorite.url, account: account)
@@ -78,7 +78,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     private func getBuild(favorite: Favorite){
-        guard let account = favorite.account, favorite.type == .build
+        guard let account = favorite.account
             else { return }
         
         let request = UserRequest(requestUrl: favorite.url, account: account)
@@ -100,7 +100,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? favorites.filter{ $0.type == .job }.count : favorites.filter{ $0.type == .build }.count
+        return section == 0 ? favorites.filter{ $0.type != .build }.count : favorites.filter{ $0.type == .build }.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,7 +116,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
                 return cell
         }
         
-        if let job = favoritables[indexPath.section][indexPath.row] as? Job{
+        if let job = favoritables[indexPath.section][indexPath.row] as? Job {
             cell.textLabel?.text = job.name
             cell.detailTextLabel?.text = job.healthReport.first?.description
             
@@ -124,7 +124,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
                 cell.imageView?.image = UIImage(named: color + "Circle")
             }
         }
-        else if let build = favoritables[indexPath.section][indexPath.row] as? Build{
+        else if let build = favoritables[indexPath.section][indexPath.row] as? Build {
             cell.textLabel?.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
             
             if let duration = build.duration{
@@ -149,9 +149,18 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         var components = URLComponents()
         components.scheme = "jenkinsios"
         components.host = "present"
+        
+        let favoritableType: String
+        switch favoritable {
+        case is Job:
+            favoritableType = (favoritable as! Job).color == .folder ? "Folder" : "Job"
+        default:
+            favoritableType = "Build"
+        }
+        
         components.queryItems = [
             URLQueryItem(name: "url", value: favoritable.url.absoluteString),
-            URLQueryItem(name: "type", value: (favoritable is Job) ? "Job" : "Build")
+            URLQueryItem(name: "type", value: favoritableType)
         ]
         
         guard let url = components.url

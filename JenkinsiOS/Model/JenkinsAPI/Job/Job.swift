@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Job: Favoratible{
+class Job: Favoratible {
 
     //MARK: - Minimal Version
     /// The job's name

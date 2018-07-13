@@ -16,7 +16,7 @@ enum JobListResult{
         guard let job = Job(json: json, minimalVersion: true)
             else { return nil }
         
-        if job.color == .folder{
+        if job.color == .folder {
             self = JobListResult.folder(folder: job)
         }
         else{

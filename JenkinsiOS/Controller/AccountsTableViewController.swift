@@ -60,7 +60,7 @@ class AccountsTableViewController: BaseTableViewController {
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
-        else if segue.identifier == Constants.Identifiers.showBuildSegue || segue.identifier == Constants.Identifiers.showJobSegue,
+        else if segue.identifier == Constants.Identifiers.showBuildSegue || segue.identifier == Constants.Identifiers.showJobSegue || segue.identifier == Constants.Identifiers.showJobsSegue,
                 let favoritableAndFavorite = sender as? (Favoratible, Favorite){
             prepare(favoritableViewController: segue.destination, for: favoritableAndFavorite)
         }
@@ -77,13 +77,20 @@ class AccountsTableViewController: BaseTableViewController {
     }
 
     fileprivate func prepare(favoritableViewController: UIViewController, for favoritableAndFavorite: (Favoratible, Favorite)){
-        if let jobViewController = favoritableViewController as? JobViewController, let job = favoritableAndFavorite.0 as? Job{
+        if let jobViewController = favoritableViewController as? JobViewController, let job = favoritableAndFavorite.0 as? Job {
             jobViewController.account = favoritableAndFavorite.1.account
             jobViewController.job = job
         }
-        else if let buildViewController = favoritableViewController as? BuildViewController, let build = favoritableAndFavorite.0 as? Build{
+        else if let buildViewController = favoritableViewController as? BuildViewController, let build = favoritableAndFavorite.0 as? Build {
             buildViewController.account = favoritableAndFavorite.1.account
             buildViewController.build = build
+        }
+        else if let jobsViewController = favoritableViewController as? JobsTableViewController, let folder = favoritableAndFavorite.0 as? Job {
+            jobsViewController.account = favoritableAndFavorite.1.account
+            jobsViewController.folderJob = folder
+            guard let account = favoritableAndFavorite.1.account
+                else { return }
+            jobsViewController.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
         }
     }
     
@@ -247,11 +254,13 @@ extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
 
         var viewController: UIViewController?
 
-        switch favoritableAndFavorite.favorite.type{
+        switch favoritableAndFavorite.favorite.type {
             case .build:
                 viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "BuildViewController")
             case .job:
                 viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobViewController")
+            case .folder:
+                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobsTableViewController")
         }
 
         guard let favoritableViewController = viewController
@@ -281,6 +290,8 @@ extension AccountsTableViewController: AllFavoritesTableViewCellDelegate{
                 performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
             case .job:
                 performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: (favoritable, favorite))
+            case .folder:
+                performSegue(withIdentifier: Constants.Identifiers.showJobsSegue, sender: (favoritable, favorite))
         }
     }
 }

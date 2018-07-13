@@ -10,22 +10,26 @@ import Foundation
 
 /// A protocol describing those objects that can be favorites
 protocol Favoratible {
-    var url: URL{get}
-    var isFavorite: Bool {get}
+    var url: URL { get }
+    var isFavorite: Bool { get }
     func toggleFavorite(account: Account)
 }
 
-extension Favoratible{
-    
+extension Favoratible {
     /// Get the type of a given favoritable
     ///
     /// - returns: The type of the favoritable
-    private func getType() -> Favorite.FavoriteType?{
-        var type: Favorite.FavoriteType? = nil
+    private func getType() -> Favorite.FavoriteType? {
+        var type: Favorite.FavoriteType?
         
-        switch self{
+        switch self {
         case is Job:
-            type = .job
+            if (self as? Job)?.color != .folder {
+                type = .job
+            }
+            else {
+                type = .folder
+            }
         case is Build:
             type = .build
         default:
@@ -38,13 +42,13 @@ extension Favoratible{
     /// Set the Favoritable to favorite if it isn't, else set it to not favorite
     ///
     /// - parameter account: The account that is associated with the favorite
-    func toggleFavorite(account: Account){
-        if let type = getType(){
-            if let index = ApplicationUserManager.manager.applicationUser.favorites.index(of: Favorite(url: self.url, type: type, account: account)){
+    func toggleFavorite(account: Account) {
+        if let type = getType() {
+            if let index = ApplicationUserManager.manager.applicationUser.favorites.index(of: Favorite(url: self.url, type: type, account: account)) {
                 ApplicationUserManager.manager.applicationUser.favorites.remove(at: index)
                 LoggingManager.loggingManager.logunfavoritedFavoritable(type: type)
             }
-            else{
+            else {
                 ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: self.url, type: type, account: account))
                 LoggingManager.loggingManager.logfavoritedFavoritable(type: type)
             }
@@ -54,11 +58,9 @@ extension Favoratible{
     }
     
     /// A flag indicating whether or not the current favoritable is a favorite
-    var isFavorite: Bool{
-        get{
-            guard let type = getType()
-                else { return false }
-            return ApplicationUserManager.manager.applicationUser.favorites.contains(Favorite(url: self.url, type: type, account: nil))
-        }
+    var isFavorite: Bool {
+        guard let type = getType()
+        else { return false }
+        return ApplicationUserManager.manager.applicationUser.favorites.contains(Favorite(url: self.url, type: type, account: nil))
     }
 }
