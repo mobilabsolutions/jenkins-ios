@@ -183,7 +183,7 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
         else if segue.identifier == Constants.Identifiers.showBuildSegue, let row = sender as? Int {
             prepareViewController(viewController: segue.destination, row: row, type: .build)
         }
-        if segue.identifier == Constants.Identifiers.showJobsSegue, let row = sender as? Int {
+        else if segue.identifier == Constants.Identifiers.showJobsSegue, let row = sender as? Int {
             prepareViewController(viewController: segue.destination, row: row, type: .folder)
         }
     }
