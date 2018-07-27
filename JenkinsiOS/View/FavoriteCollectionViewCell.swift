@@ -90,7 +90,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupForJob(job: Job){
-        typeLabel.text = "J"
+        typeLabel.text = job.color != .folder ? "J" : "F"
         nameLabel.text = job.name
         
         setGradientLayerColor(with: job.describingColor())

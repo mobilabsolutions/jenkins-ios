@@ -27,8 +27,6 @@ enum NetworkManagerError: Error{
             return "No data found"
         case .URLBuildingError:
             return "Cannot build url"
-        default:
-            return "An Error in the NetworkManager occurred"
         }
     }
     
@@ -74,8 +72,6 @@ enum ParsingError: Error{
             return "The data is not in a correct format"
         case .KeyMissingError(let key):
             return "The key \(key) is missing in the JSON"
-        default:
-            return "An error occurred while parsing"
         }
     }
 }

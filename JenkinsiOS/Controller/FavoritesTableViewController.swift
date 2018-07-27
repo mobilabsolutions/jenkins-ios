@@ -15,7 +15,7 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
     var favorites = ApplicationUserManager.manager.applicationUser.favorites
 
     var numberOfJobs: Int {
-        return ApplicationUserManager.manager.applicationUser.favorites.filter({ $0.type == .job }).count
+        return ApplicationUserManager.manager.applicationUser.favorites.filter({ $0.type == .job || $0.type == .folder }).count
     }
 
     var loadedJobs: [(favoritable: Favoratible, favorite: Favorite)] = []
@@ -62,7 +62,7 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
 
     func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite) {
         switch favorite.type{
-            case .job:
+            case .job, .folder:
                 loadedJobs.append((favoritable, favorite))
                 tableView.reloadRows(at: [IndexPath(row: loadedJobs.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
             case .build:
@@ -74,12 +74,12 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
     }
 
     func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure) {
-        switch favorite.type{
+        switch favorite.type {
             case .build:
                 let numberOfBuilds = (favorites.count - numberOfJobs)
                 failedLoadingBuilds.append(favorite)
                 tableView.reloadRows(at: [IndexPath(row: numberOfBuilds - failedLoadingBuilds.count, section: 1)], with: UITableViewRowAnimation.automatic)
-            case .job:
+            case .job, .folder:
                 failedLoadingJobs.append(favorite)
                 tableView.reloadRows(at: [IndexPath(row: numberOfJobs - failedLoadingJobs.count, section: 0)], with: UITableViewRowAnimation.automatic)
         }
@@ -148,7 +148,7 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
 
         switch favorite.type{
             case .build: unfavoriteBuild(favorite: favorite)
-            case .job: unfavoriteJob(favorite: favorite)
+            case .job, .folder: unfavoriteJob(favorite: favorite)
         }
 
         self.tableView.beginUpdates()
@@ -177,24 +177,34 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showJobSegue, let row = sender as? Int{
+        if segue.identifier == Constants.Identifiers.showJobSegue, let row = sender as? Int {
             prepareViewController(viewController: segue.destination, row: row, type: .job)
         }
-        else if segue.identifier == Constants.Identifiers.showBuildSegue, let row = sender as? Int{
+        else if segue.identifier == Constants.Identifiers.showBuildSegue, let row = sender as? Int {
             prepareViewController(viewController: segue.destination, row: row, type: .build)
+        }
+        else if segue.identifier == Constants.Identifiers.showJobsSegue, let row = sender as? Int {
+            prepareViewController(viewController: segue.destination, row: row, type: .folder)
         }
     }
     
     func prepareViewController(viewController: UIViewController, row: Int, type: Favorite.FavoriteType){
 
-        if case .loaded(_) = loadingState(for: IndexPath(row: row, section: type == .job ? 0 : 1)){
-            if type == .job, let dest = viewController as? JobViewController{
+        if case .loaded(_) = loadingState(for: IndexPath(row: row, section: type == .job || type == .folder ? 0 : 1)){
+            if type == .job, let dest = viewController as? JobViewController {
                 dest.job = loadedJobs[row].favoritable as? Job
                 dest.account = loadedJobs[row].favorite.account
             }
-            else if type == .build, let dest = viewController as? BuildViewController{
+            else if type == .build, let dest = viewController as? BuildViewController {
                 dest.build = loadedBuilds[row].favoritable as? Build
                 dest.account = loadedBuilds[row].favorite.account
+            }
+            else if type == .folder, let dest = viewController as? JobsTableViewController {
+                guard let account = loadedJobs[row].favorite.account, let folder = loadedJobs[row].favoritable as? Job
+                    else { return }
+                dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
+                dest.folderJob = folder
+                dest.account = account
             }
         }
     }
@@ -204,9 +214,13 @@ class FavoritesTableViewController: RefreshingTableViewController, FavoritesLoad
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch loadingState(for: indexPath) {
             case .loaded(_):
-                if indexPath.section == 0 {
+                if indexPath.section == 0 && favorites[indexPath.row].type == .job {
                     performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: indexPath.row)
-                } else if indexPath.section == 1 {
+                }
+                else if indexPath.section == 0 && favorites[indexPath.row].type == .folder {
+                    performSegue(withIdentifier: Constants.Identifiers.showJobsSegue, sender: indexPath.row)
+                }
+                else if indexPath.section == 1 {
                     performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: indexPath.row)
                 }
             case .errored:

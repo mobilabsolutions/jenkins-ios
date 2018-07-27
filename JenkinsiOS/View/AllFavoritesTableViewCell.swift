@@ -89,10 +89,10 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     }
 
     private func stateForIndexPath(indexPath: IndexPath) -> FavoriteLoadingState{
-        if indexPath.item < loadedFavoritables.count{
+        if indexPath.item < loadedFavoritables.count {
             return .loaded(favoritable: loadedFavoritables[indexPath.item].favoratible)
         }
-        else if indexPath.item >= favorites.count - failedLoads.count{
+        else if indexPath.item >= favorites.count - failedLoads.count {
             return .errored
         }
         return .loading
