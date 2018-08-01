@@ -85,6 +85,10 @@ extension UserRequest{
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
     
+    static func userRequestForJob(account: Account, requestUrl: URL) -> UserRequest {
+        return UserRequest(requestUrl: requestUrl, account: account, additionalQueryItems: Constants.API.jobAdditionalQueryItems)
+    }
+    
     /// Return the user request specific to getting the list of computers
     ///
     /// - parameter account: The account for which the user request should be create

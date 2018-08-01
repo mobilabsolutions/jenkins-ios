@@ -113,7 +113,8 @@ class TestResultsTableViewController: RefreshingTableViewController {
         
         let searchData = getSearchData()
 
-        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
+        //FIXME: Use actual test results cell nib
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData, cellNib: UINib(nibName: "THISISNOTCORRECT", bundle: .main))
         
         setupSearchResultsController(controller: searchResultsController)
         
@@ -133,7 +134,6 @@ class TestResultsTableViewController: RefreshingTableViewController {
     
     private func setupSearchResultsController(controller: SearchResultsTableViewController){
         controller.delegate = self
-        controller.cellStyle = .subtitle
         controller.searcher?.includeAllOnEmptySearchString = true
         controller.searcher?.additionalSearchCondition = getAdditionalSearchCondition()
     }

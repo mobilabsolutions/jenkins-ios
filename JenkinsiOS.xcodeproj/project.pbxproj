@@ -197,19 +197,6 @@
 		DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */; };
 		DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */; };
 		DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A71DAE7580007BCBCC /* MonitorData.swift */; };
-		DCDBD74F1E01CB18007B7FA9 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7421E01CB18007B7FA9 /* OFL.txt */; };
-		DCDBD7501E01CB18007B7FA9 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7431E01CB18007B7FA9 /* SourceSansPro-Black.ttf */; };
-		DCDBD7511E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7441E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf */; };
-		DCDBD7521E01CB18007B7FA9 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7451E01CB18007B7FA9 /* SourceSansPro-Bold.ttf */; };
-		DCDBD7531E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7461E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf */; };
-		DCDBD7541E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7471E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf */; };
-		DCDBD7551E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7481E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf */; };
-		DCDBD7561E01CB18007B7FA9 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD7491E01CB18007B7FA9 /* SourceSansPro-Italic.ttf */; };
-		DCDBD7571E01CB18007B7FA9 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD74A1E01CB18007B7FA9 /* SourceSansPro-Light.ttf */; };
-		DCDBD7581E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD74B1E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf */; };
-		DCDBD7591E01CB18007B7FA9 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD74C1E01CB18007B7FA9 /* SourceSansPro-Regular.ttf */; };
-		DCDBD75A1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD74D1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf */; };
-		DCDBD75B1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDBD74E1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf */; };
 		DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CAB1DB61E2C00028A96 /* JobTests.swift */; };
 		DCE73CAE1DB61FB100028A96 /* JobTestsMinimalResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */; };
 		DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CAF1DB624A300028A96 /* TestExtensions.swift */; };
@@ -220,6 +207,19 @@
 		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
+		E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
+		E1D266D52102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
+		E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */; };
+		E1D266DE210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */; };
+		E1D266DF210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D266DD210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib */; };
+		E1D266E1210F596D00C4D6BB /* JobTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D266E0210F596D00C4D6BB /* JobTableViewCell.xib */; };
+		E1D266EF2110441500C4D6BB /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266E52110441400C4D6BB /* Lato-Italic.ttf */; };
+		E1D266F02110441500C4D6BB /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266E62110441400C4D6BB /* Lato-BlackItalic.ttf */; };
+		E1D266F22110441500C4D6BB /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266E82110441400C4D6BB /* Lato-Black.ttf */; };
+		E1D266F52110441500C4D6BB /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266EB2110441500C4D6BB /* Lato-Regular.ttf */; };
+		E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266ED2110441500C4D6BB /* Lato-Bold.ttf */; };
+		E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266EE2110441500C4D6BB /* Lato-BoldItalic.ttf */; };
+		E1D266FE2111CBE900C4D6BB /* ValueSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -398,19 +398,6 @@
 		DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A71DAE7580007BCBCC /* MonitorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorData.swift; sourceTree = "<group>"; };
-		DCDBD7421E01CB18007B7FA9 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
-		DCDBD7431E01CB18007B7FA9 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
-		DCDBD7441E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
-		DCDBD7451E01CB18007B7FA9 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
-		DCDBD7461E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
-		DCDBD7471E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
-		DCDBD7481E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
-		DCDBD7491E01CB18007B7FA9 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
-		DCDBD74A1E01CB18007B7FA9 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
-		DCDBD74B1E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
-		DCDBD74C1E01CB18007B7FA9 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
-		DCDBD74D1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Semibold.ttf"; sourceTree = "<group>"; };
-		DCDBD74E1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		DCE73CAB1DB61E2C00028A96 /* JobTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTests.swift; sourceTree = "<group>"; };
 		DCE73CAD1DB61FB100028A96 /* JobTestsMinimalResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JobTestsMinimalResource.json; sourceTree = "<group>"; };
 		DCE73CAF1DB624A300028A96 /* TestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
@@ -422,6 +409,18 @@
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		E1D266D32102046000C4D6BB /* JobTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
+		E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		E1D266DD210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilteringHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		E1D266E0210F596D00C4D6BB /* JobTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JobTableViewCell.xib; sourceTree = "<group>"; };
+		E1D266E52110441400C4D6BB /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
+		E1D266E62110441400C4D6BB /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		E1D266E82110441400C4D6BB /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		E1D266EB2110441500C4D6BB /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		E1D266ED2110441500C4D6BB /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		E1D266EE2110441500C4D6BB /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -594,30 +593,10 @@
 		DCDBD73E1E01C85B007B7FA9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */,
+				E1D266E4211043FA00C4D6BB /* Lato */,
 			);
 			name = Fonts;
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		DCDBD7411E01CB18007B7FA9 /* Source_Sans_Pro */ = {
-			isa = PBXGroup;
-			children = (
-				DCDBD7421E01CB18007B7FA9 /* OFL.txt */,
-				DCDBD7431E01CB18007B7FA9 /* SourceSansPro-Black.ttf */,
-				DCDBD7441E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf */,
-				DCDBD7451E01CB18007B7FA9 /* SourceSansPro-Bold.ttf */,
-				DCDBD7461E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf */,
-				DCDBD7471E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf */,
-				DCDBD7481E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf */,
-				DCDBD7491E01CB18007B7FA9 /* SourceSansPro-Italic.ttf */,
-				DCDBD74A1E01CB18007B7FA9 /* SourceSansPro-Light.ttf */,
-				DCDBD74B1E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf */,
-				DCDBD74C1E01CB18007B7FA9 /* SourceSansPro-Regular.ttf */,
-				DCDBD74D1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf */,
-				DCDBD74E1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf */,
-			);
-			path = Source_Sans_Pro;
 			sourceTree = "<group>";
 		};
 		DCE73CB31DB63B7700028A96 /* Job Tests */ = {
@@ -628,6 +607,19 @@
 				DCE73CB11DB627BE00028A96 /* JobTestsFullResource.json */,
 			);
 			name = "Job Tests";
+			sourceTree = "<group>";
+		};
+		E1D266E4211043FA00C4D6BB /* Lato */ = {
+			isa = PBXGroup;
+			children = (
+				E1D266E82110441400C4D6BB /* Lato-Black.ttf */,
+				E1D266E62110441400C4D6BB /* Lato-BlackItalic.ttf */,
+				E1D266ED2110441500C4D6BB /* Lato-Bold.ttf */,
+				E1D266EE2110441500C4D6BB /* Lato-BoldItalic.ttf */,
+				E1D266E52110441400C4D6BB /* Lato-Italic.ttf */,
+				E1D266EB2110441500C4D6BB /* Lato-Regular.ttf */,
+			);
+			path = Lato;
 			sourceTree = "<group>";
 		};
 		E1D90A9F1F20D5FF009CE6B9 /* Controller */ = {
@@ -664,6 +656,7 @@
 				DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */,
 				DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */,
 				DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */,
+				E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -828,6 +821,11 @@
 				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
 				DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */,
 				DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */,
+				E1D266D32102046000C4D6BB /* JobTableViewCell.swift */,
+				E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */,
+				E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */,
+				E1D266DD210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib */,
+				E1D266E0210F596D00C4D6BB /* JobTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1001,28 +999,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCDBD7541E01CB18007B7FA9 /* SourceSansPro-ExtraLight.ttf in Resources */,
-				DCDBD7561E01CB18007B7FA9 /* SourceSansPro-Italic.ttf in Resources */,
-				DCDBD75A1E01CB18007B7FA9 /* SourceSansPro-Semibold.ttf in Resources */,
-				DCDBD7511E01CB18007B7FA9 /* SourceSansPro-BlackItalic.ttf in Resources */,
-				DCDBD7571E01CB18007B7FA9 /* SourceSansPro-Light.ttf in Resources */,
-				DCDBD74F1E01CB18007B7FA9 /* OFL.txt in Resources */,
+				E1D266DF210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib in Resources */,
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
-				DCDBD7551E01CB18007B7FA9 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
+				E1D266E1210F596D00C4D6BB /* JobTableViewCell.xib in Resources */,
+				E1D266F02110441500C4D6BB /* Lato-BlackItalic.ttf in Resources */,
 				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
-				DCDBD7581E01CB18007B7FA9 /* SourceSansPro-LightItalic.ttf in Resources */,
-				DCDBD7501E01CB18007B7FA9 /* SourceSansPro-Black.ttf in Resources */,
-				DCDBD7531E01CB18007B7FA9 /* SourceSansPro-BoldItalic.ttf in Resources */,
-				DCDBD75B1E01CB18007B7FA9 /* SourceSansPro-SemiboldItalic.ttf in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
-				DCDBD7521E01CB18007B7FA9 /* SourceSansPro-Bold.ttf in Resources */,
-				DCDBD7591E01CB18007B7FA9 /* SourceSansPro-Regular.ttf in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
+				E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */,
+				E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */,
 				DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */,
 				DC2CB8A91DF9B75000661806 /* CreditsText in Resources */,
+				E1D266EF2110441500C4D6BB /* Lato-Italic.ttf in Resources */,
+				E1D266F52110441500C4D6BB /* Lato-Regular.ttf in Resources */,
 				DC56A5101DF0A0FE000D1A15 /* StarRatingView.xib in Resources */,
+				E1D266F22110441500C4D6BB /* Lato-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1067,6 +1060,7 @@
 				DC2045DD1DB12D7F009CF232 /* Child.swift in Sources */,
 				DC8B5C661DC26AA300A01D6E /* JobListResult.swift in Sources */,
 				DC2045DC1DB12D7F009CF232 /* TestResult.swift in Sources */,
+				E1D266D52102046000C4D6BB /* JobTableViewCell.swift in Sources */,
 				DC2045C91DB129C2009CF232 /* Actions.swift in Sources */,
 				DC2045CF1DB129D6009CF232 /* HealthReportResult.swift in Sources */,
 				DC2045DE1DB12D7F009CF232 /* Result.swift in Sources */,
@@ -1131,6 +1125,7 @@
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
 				DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
+				E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */,
 				DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */,
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
@@ -1195,6 +1190,7 @@
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
+				E1D266DE210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift in Sources */,
 				DCD196471DEC822300940C75 /* LoadingIndicatorImageView.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
@@ -1204,9 +1200,11 @@
 				DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
+				E1D266FE2111CBE900C4D6BB /* ValueSelectionTableViewController.swift in Sources */,
 				DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */,
 				DC66CED51D9D40DF00808ED0 /* Author.swift in Sources */,
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
+				E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
 				DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,

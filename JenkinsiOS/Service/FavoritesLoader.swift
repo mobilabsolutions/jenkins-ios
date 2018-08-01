@@ -58,7 +58,7 @@ class FavoritesLoader {
     }
 
     private func loadJob(favorite: Favorite, with account: Account) {
-        let userRequest = UserRequest(requestUrl: favorite.url, account: account)
+        let userRequest = UserRequest.userRequestForJob(account: account, requestUrl: favorite.url)
         _ = NetworkManager.manager.getJob(userRequest: userRequest) { job, error in
             self.didLoadFavoritable(favoritable: job, error: error, for: favorite)
         }

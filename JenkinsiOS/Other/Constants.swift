@@ -33,9 +33,16 @@ struct Constants{
         }
     }
     
-    struct UI{
+    struct UI {
         static let bigButtonColor = UIColor(red: 125/255, green: 151/255, blue: 255/255, alpha: 1.0)
-        static let defaultLabelFont = "SourceSansPro"
+        static let defaultLabelFont = "Lato"
+        static let paleGreyColor = UIColor(red: 229.0 / 255.0, green: 236.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
+        static let darkGrey =  UIColor(red: 140.0 / 255.0, green: 150.0 / 255.0, blue: 171.0 / 255.0, alpha: 1.0)
+        static let silver = UIColor(red: 198.0 / 255.0, green: 203.0 / 255.0, blue: 213.0 / 255.0, alpha: 1.0)
+        static let greyBlue = UIColor(red: 107.0 / 255.0, green: 120.0 / 255.0, blue: 151.0 / 255.0, alpha: 1.0)
+        static let skyBlue = UIColor(red: 96.0 / 255.0, green: 205.0 / 255.0, blue: 1.0, alpha: 1.0)
+        static let steel = UIColor(red: 108.0 / 255.0, green: 117.0 / 255.0, blue: 155.0 / 255.0, alpha: 1.0)
+        static let backgroundColor = UIColor(red: 244.0 / 255.0, green: 245 / 255.0, blue: 248 / 255.0, alpha: 1.0)
     }
     
     struct Identifiers{
@@ -44,6 +51,8 @@ struct Constants{
         static let folderCell = "folderCell"
         static let buildCell = "buildCell"
         static let favoritesCell = "favoritesCell"
+        static let favoritesHeaderCell = "favoritesHeaderCell"
+        static let jobsHeaderCell = "jobsHeaderCell"
         static let jenkinsCell = "jenkinsCell"
         static let staticBuildInfoCell = "staticBuildInfoCell"
         static let longBuildInfoCell = "longBuildInfoCell"
@@ -174,8 +183,13 @@ struct Constants{
     struct API{
         static let consoleOutput = "/consoleText"
         static let jobListAdditionalQueryItems = [
-            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]],nodeDescription,nodeName,mode,description")
+            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color,healthReport[description,score,iconClassName],lastBuild[timestamp,number,url]]],nodeDescription,nodeName,mode,description")
         ]
+        static let jobAdditionalQueryItems: [URLQueryItem] = {
+            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number"
+            return [
+                URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)]")
+            ]}()
         static let testReport = "/testReport"
         static let testReportAdditionalQueryItems = [
             URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount")

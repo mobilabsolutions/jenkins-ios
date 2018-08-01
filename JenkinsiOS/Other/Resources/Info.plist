@@ -54,9 +54,9 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SourceSansPro-Regular.ttf</string>
-		<string>SourceSansPro-Bold.ttf</string>
-		<string>SourceSansPro-BoldItalic.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-BoldItalic.ttf</string>
 	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>

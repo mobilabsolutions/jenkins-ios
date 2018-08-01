@@ -69,7 +69,7 @@ class Searcher: NSObject{
     
     fileprivate func toggleResultsControllerTableView(controller: UISearchController){
         if includeAllOnEmptySearchString, controller.searchBar.text?.isEmpty ?? false,
-            let resultsController = controller.searchResultsController as? SearchResultsTableViewController{
+            let resultsController = controller.searchResultsController as? SearchResultsTableViewController {
             resultsController.tableView.isHidden = false
         }
     }

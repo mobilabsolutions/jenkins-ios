@@ -8,13 +8,22 @@
 
 import Foundation
 
-class View: CustomStringConvertible{
+class View: CustomStringConvertible, Equatable {
     var name: String
     var url: URL
     var jobResults: [JobListResult] = []
     
-    var description: String{
-        return "View \"\(name)\""
+    var belongsToMultiBranchJob: Bool = false
+    
+    var description: String {
+        switch name {
+        case "change-requests" where belongsToMultiBranchJob:
+            return "Pull Requests"
+        case "default" where belongsToMultiBranchJob:
+            return "Branches"
+        default:
+            return name
+        }
     }
     
     /// Optionally initialize a View object
@@ -26,6 +35,7 @@ class View: CustomStringConvertible{
         guard let name = json[Constants.JSON.name] as? String, let urlString = json[Constants.JSON.url] as? String,
             let url = URL(string: urlString)
             else { return nil }
+        
         self.name = name
         self.url = url
         
@@ -36,5 +46,9 @@ class View: CustomStringConvertible{
                 }
             }
         }
+    }
+    
+    static func == (lhs: View, rhs: View) -> Bool {
+        return lhs.url == rhs.url
     }
 }

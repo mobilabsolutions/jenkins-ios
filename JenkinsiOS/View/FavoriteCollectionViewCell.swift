@@ -11,35 +11,36 @@ import QuartzCore
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var colorBackgroundView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var buildStabilityLabel: UILabel!
+    @IBOutlet weak var buildStabilityContentLabel: UILabel!
+    @IBOutlet weak var lastBuildLabel: UILabel!
+    
+    let dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
+        formatter.maximumUnitCount = 2
+        formatter.unitsStyle = .full
+        return formatter
+    }()
 
-    private var loadingIndicator: UIActivityIndicatorView?
     private var gradientLayer: CAGradientLayer?
 
-    private func setup(){
-        let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        self.colorBackgroundView.addSubview(loadingIndicator)
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        loadingIndicator.centerXAnchor.constraint(equalTo: colorBackgroundView.centerXAnchor).isActive = true
-        loadingIndicator.centerYAnchor.constraint(equalTo: colorBackgroundView.centerYAnchor).isActive = true
-        
-        self.loadingIndicator = loadingIndicator
-
+    private func setup() {
         colorBackgroundView.backgroundColor = .clear
 
-        colorBackgroundView.layer.cornerRadius = 8.0
-        colorBackgroundView.clipsToBounds = true
-        colorBackgroundView.layer.masksToBounds = true
-
+        containerView.layer.masksToBounds = true
+        containerView.layer.cornerRadius = 5
+        containerView.clipsToBounds = true
+        
         layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        layer.shadowRadius = 2.0
+        layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        layer.shadowRadius = 0.5
         layer.shadowOpacity = 1.0
         layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:colorBackgroundView.layer.cornerRadius).cgPath
+        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:containerView.layer.cornerRadius).cgPath
 
         gradientLayer = CAGradientLayer()
         gradientLayer?.frame = colorBackgroundView.bounds
@@ -49,17 +50,17 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         self.colorBackgroundView.layer.insertSublayer(gradientLayer!, at: 0)
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
     
     var favoritable: Favoratible? {
         didSet{
-            
-            if loadingIndicator == nil{ setup() }
-            
-            loadingIndicator?.stopAnimating()
-            if let job = favoritable as? Job{
+            if let job = favoritable as? Job {
                 setupForJob(job: job)
             }
-            else if let build = favoritable as? Build{
+            else if let build = favoritable as? Build {
                 setupForBuild(build: build)
             }
             else {
@@ -68,48 +69,60 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setLoading(){
-        
-        if loadingIndicator == nil{ setup() }
-        
-        nameLabel.text = ""
+    func setLoading() {
+        nameLabel.text = "Loading favorite"
+        buildStabilityLabel.text = "Build Stability"
+        buildStabilityContentLabel.text = "..."
+        lastBuildLabel.text = "..."
         setGradientLayerColor(with: UIColor.lightGray.withAlphaComponent(0.7))
-        typeLabel.text = ""
-
-        loadingIndicator?.isHidden = false
-        loadingIndicator?.startAnimating()
     }
 
-    func setErrored(){
-        if loadingIndicator == nil{ setup() }
-        
+    func setErrored() {
         nameLabel.text = "Loading favorite failed"
+        buildStabilityLabel.text = ""
+        buildStabilityContentLabel.text = ""
+        lastBuildLabel.text = ""
         setGradientLayerColor(with: UIColor.darkGray)
-        typeLabel.text = ""
-        loadingIndicator?.stopAnimating()
     }
 
     private func setupForJob(job: Job){
-        typeLabel.text = job.color != .folder ? "J" : "F"
+        
         nameLabel.text = job.name
+        buildStabilityLabel.text = "Build Stability"
+        buildStabilityContentLabel.text = job.healthReport.first?.description
+        
+        if let timeStamp = job.lastBuild?.timeStamp, let describingString = dateFormatter.string(from: timeStamp, to: Date()) {
+            lastBuildLabel.text = describingString + " ago"
+        }
+        else {
+            lastBuildLabel.text = ""
+        }
         
         setGradientLayerColor(with: job.describingColor())
     }
 
     private func setupForBuild(build: Build){
-        typeLabel.text = "B"
         nameLabel.text = build.fullDisplayName ?? build.displayName ?? "Unknown"
+        buildStabilityLabel.text = "Build Duration"
+        
+        if let timeStamp = build.timeStamp, let describingString = dateFormatter.string(from: timeStamp, to: Date()) {
+            lastBuildLabel.text = describingString + " ago"
+        }
+        else {
+            lastBuildLabel.text = ""
+        }
+        
+        buildStabilityContentLabel.text = build.duration?.toString() ?? "Unknown"
         
         setGradientLayerColor(with: build.describingColor())
     }
 
-    private func empty(){
+    private func empty() {
         nameLabel.text = ""
         setGradientLayerColor(with: .clear)
-        typeLabel.text = ""
     }
 
-    private func setGradientLayerColor(with baseColor: UIColor){
+    private func setGradientLayerColor(with baseColor: UIColor) {
         gradientLayer?.colors = [baseColor.withAlphaComponent(0.7).cgColor, baseColor.withAlphaComponent(0.6).cgColor]
     }
 }

@@ -170,8 +170,7 @@ class JobViewController: UIViewController {
 
     func updateData(completion: @escaping (Error?) -> ()){
         if let account = account, let job = job{
-            let userRequest = UserRequest(requestUrl: job.url, account: account)
-
+            let userRequest = UserRequest.userRequestForJob(account: account, requestUrl: job.url)
             _ = NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (_, error) in
                 completion(error)
             })

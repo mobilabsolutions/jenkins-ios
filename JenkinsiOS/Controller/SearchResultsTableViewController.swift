@@ -13,14 +13,15 @@ class SearchResultsTableViewController: UITableViewController {
     var searcher: Searcher?
     var searchData: [Searchable] = []
     var delegate: SearchResultsControllerDelegate?
-    var cellStyle: UITableViewCellStyle?
     
     fileprivate var displayingData: [Searchable] = []
+    private var cellNib: UINib
     
-    init(searchData: [Searchable]){
-        super.init(style: .plain)
+    init(searchData: [Searchable], cellNib: UINib) {
         self.searchData = searchData
-        searcher = Searcher(searchableData: searchData, delegate: self)
+        self.cellNib = cellNib
+        super.init(style: .plain)
+        self.searcher = Searcher(searchableData: searchData, delegate: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +31,10 @@ class SearchResultsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(cellNib, forCellReuseIdentifier: "searchCell")
+        tableView.backgroundColor = Constants.UI.paleGreyColor
+        tableView.separatorStyle = .none
+        
         automaticallyAdjustsScrollViewInsets = false
         edgesForExtendedLayout = []
     }
@@ -43,7 +48,7 @@ class SearchResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell") ?? UITableViewCell(style: cellStyle ?? .default, reuseIdentifier: "searchCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell") ?? UITableViewCell(style: .default, reuseIdentifier: "searchCell")
         
         if let delegate = delegate{
             delegate.setup(cell: cell, for: displayingData[indexPath.row])
