@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol FilteringHeaderTableViewCellDelegate {
+protocol FilteringHeaderTableViewCellDelegate: class {
     func didSelect(selected: CustomStringConvertible, cell: FilteringHeaderTableViewCell)
+    func didDeselectAll()
 }
 
 class FilteringHeaderTableViewCell: UITableViewCell {
@@ -26,7 +27,9 @@ class FilteringHeaderTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: FilteringHeaderTableViewCellDelegate?
+    weak var delegate: FilteringHeaderTableViewCellDelegate?
+    
+    var canDeselectAllOptions = false
     
     @IBOutlet weak var stackView: UIStackView?
     @IBOutlet weak var titleLabel: UILabel?
@@ -55,7 +58,9 @@ class FilteringHeaderTableViewCell: UITableViewCell {
             stackView?.addArrangedSubview(view)
         }
         
-        (stackView?.arrangedSubviews.first as? RoundedButton)?.isSelected = true
+        if !canDeselectAllOptions {
+            (stackView?.arrangedSubviews.first as? RoundedButton)?.isSelected = true
+        }
     }
    
     func select(where predicate: (CustomStringConvertible) -> Bool) {
@@ -68,9 +73,12 @@ class FilteringHeaderTableViewCell: UITableViewCell {
             didSelectOne = didSelectOne || button.isSelected
         }
         
-        if !didSelectOne, let first = stackView?.arrangedSubviews.first as? RoundedButton, let option = first.option {
+        if !didSelectOne && !canDeselectAllOptions, let first = stackView?.arrangedSubviews.first as? RoundedButton, let option = first.option {
             first.isSelected = true
             delegate?.didSelect(selected: option, cell: self)
+        }
+        else if !didSelectOne {
+            delegate?.didDeselectAll()
         }
     }
     
@@ -82,9 +90,12 @@ class FilteringHeaderTableViewCell: UITableViewCell {
             }
         }
         
-        if !button.isSelected, let first = stackView?.arrangedSubviews.first as? RoundedButton, let option = first.option {
+        if !button.isSelected && !canDeselectAllOptions, let first = stackView?.arrangedSubviews.first as? RoundedButton, let option = first.option {
             first.isSelected = true
             delegate?.didSelect(selected: option, cell: self)
+        }
+        else if !button.isSelected {
+            delegate?.didDeselectAll()
         }
         else if let option = button.option {
             delegate?.didSelect(selected: option, cell: self)

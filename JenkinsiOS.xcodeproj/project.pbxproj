@@ -220,6 +220,9 @@
 		E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266ED2110441500C4D6BB /* Lato-Bold.ttf */; };
 		E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1D266EE2110441500C4D6BB /* Lato-BoldItalic.ttf */; };
 		E1D266FE2111CBE900C4D6BB /* ValueSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */; };
+		E1D267002118362700C4D6BB /* JobOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266FF2118362700C4D6BB /* JobOverviewTableViewCell.swift */; };
+		E1D2670221183A3B00C4D6BB /* SpecialBuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670121183A3B00C4D6BB /* SpecialBuildTableViewCell.swift */; };
+		E1D2670421183DFE00C4D6BB /* BuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -421,6 +424,9 @@
 		E1D266ED2110441500C4D6BB /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		E1D266EE2110441500C4D6BB /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionTableViewController.swift; sourceTree = "<group>"; };
+		E1D266FF2118362700C4D6BB /* JobOverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobOverviewTableViewCell.swift; sourceTree = "<group>"; };
+		E1D2670121183A3B00C4D6BB /* SpecialBuildTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialBuildTableViewCell.swift; sourceTree = "<group>"; };
+		E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -826,6 +832,9 @@
 				E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */,
 				E1D266DD210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib */,
 				E1D266E0210F596D00C4D6BB /* JobTableViewCell.xib */,
+				E1D266FF2118362700C4D6BB /* JobOverviewTableViewCell.swift */,
+				E1D2670121183A3B00C4D6BB /* SpecialBuildTableViewCell.swift */,
+				E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1133,11 +1142,13 @@
 				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
 				DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */,
+				E1D2670221183A3B00C4D6BB /* SpecialBuildTableViewCell.swift in Sources */,
 				DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */,
 				DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */,
 				DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */,
 				DC3CCD0C1DA67229004C4C3D /* PluginList.swift in Sources */,
 				DC86256F1DA90F2500EB7867 /* Project.swift in Sources */,
+				E1D267002118362700C4D6BB /* JobOverviewTableViewCell.swift in Sources */,
 				DCDB97A21DAE6E9A007BCBCC /* ComputersTableViewController.swift in Sources */,
 				DC9D79EA1DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift in Sources */,
 				DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */,
@@ -1170,6 +1181,7 @@
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
+				E1D2670421183DFE00C4D6BB /* BuildTableViewCell.swift in Sources */,
 				DC169FD11DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */,
 				DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */,
 				DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */,

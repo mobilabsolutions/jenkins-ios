@@ -213,7 +213,11 @@ import UIKit
     }
     
     private func setTableViewSeparatorStyle(for empty: Bool){
-        tableView.separatorStyle = empty ? .none : .singleLine
+        tableView.separatorStyle = empty ? .none : separatorStyleForNonEmpty()
+    }
+    
+    func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+        return .singleLine
     }
     
     override func prepareForInterfaceBuilder() {

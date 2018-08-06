@@ -455,6 +455,10 @@ extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
 }
 
 extension JobsTableViewController: FilteringHeaderTableViewCellDelegate {
+    func didDeselectAll() {
+        // This should never happen
+    }
+    
     func didSelect(selected: CustomStringConvertible, cell: FilteringHeaderTableViewCell) {
         if let selected = selected as? AllFavoritesTableViewCell.FavoritesSections {
             self.didSelectFavoriteSection(section: selected)

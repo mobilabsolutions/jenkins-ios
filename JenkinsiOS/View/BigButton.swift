@@ -21,13 +21,14 @@ import UIKit
     }
     
     private func setup(){
-        self.backgroundColor = Constants.UI.bigButtonColor
+        self.backgroundColor = Constants.UI.skyBlue
         self.tintColor = UIColor.white
+        self.layer.cornerRadius = 5
     }
     
     override var isEnabled: Bool{
         didSet{
-            self.backgroundColor = isEnabled ? Constants.UI.bigButtonColor : UIColor.lightGray
+            self.backgroundColor = isEnabled ? Constants.UI.bigButtonColor : Constants.UI.silver
         }
     }
 }

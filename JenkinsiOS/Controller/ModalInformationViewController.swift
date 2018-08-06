@@ -16,7 +16,7 @@ class ModalInformationViewController: UIViewController {
     
     var dismissOnTap: Bool = true
     
-    var delegate: ModalInformationViewControllerDelegate?
+    weak var delegate: ModalInformationViewControllerDelegate?
     
     private var viewTitle: String?
     private var detailView: UIView?
