@@ -44,7 +44,7 @@ extension Bool{
     }
 }
 
-extension Double{
+extension Double {
     /// Return a string indicating the number of gigabytes from a Double indicating a number of bytes
     ///
     /// - parameter numberFormatter: The numberformatter that should be used
@@ -55,7 +55,7 @@ extension Double{
     }
 }
 
-extension Int64{
+extension Int64 {
     /// Return a string indicating the number of gigabytes from an Int64 indicating a number of bytes
     ///
     /// - parameter numberFormatter: The numberformatter that should be used
@@ -66,7 +66,7 @@ extension Int64{
     }
 }
 
-extension NSNumber{
+extension NSNumber {
     func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
         
         func numberString(from number: Double) -> String?{
@@ -96,7 +96,7 @@ extension NSNumber{
     }
 }
 
-extension Dictionary{
+extension Dictionary {
     /// Instantiate a Dictionary from an array of tuples
     ///
     /// - parameter elements: The array of tuples that the Dictionary should be initialised from
@@ -110,7 +110,7 @@ extension Dictionary{
     }
 }
 
-extension TimeInterval{
+extension TimeInterval {
     
     /// Convert a TimeInterval to a string describing it
     ///

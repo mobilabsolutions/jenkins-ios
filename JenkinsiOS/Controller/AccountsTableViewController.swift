@@ -108,8 +108,6 @@ class AccountsTableViewController: BaseTableViewController {
     
     //MARK: - Tableview datasource and delegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.accountCell, for: indexPath) as! AccountTableViewCell
             
             let urlString = "\(AccountManager.manager.accounts[indexPath.row].baseUrl)"
@@ -118,24 +116,10 @@ class AccountsTableViewController: BaseTableViewController {
             cell.urlLabel.text = urlString
             
             return cell
-        }
-        else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath)
-            
-            if let favoritesCell = cell as? AllFavoritesTableViewCell {
-                if favoritesCell.loader == nil{
-                    favoritesCell.loader = FavoritesLoader(with: favoritesCell)
-                }
-                favoritesCell.favorites = ApplicationUserManager.manager.applicationUser.favorites
-                favoritesCell.delegate = self
-            }
-
-            return cell
-        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : AccountManager.manager.accounts.count
+        return AccountManager.manager.accounts.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -172,7 +156,7 @@ class AccountsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && !hasFavorites && !hasAccounts{
+        if indexPath.section == 0 && !hasFavorites && !hasAccounts {
             return 0
         }
         else if indexPath.section == 0 && !hasFavorites && hasAccounts {
@@ -276,22 +260,5 @@ extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
         prepare(viewController: jobsViewController, indexPath: indexPath)
 
         return jobsViewController
-    }
-}
-
-extension AccountsTableViewController: AllFavoritesTableViewCellDelegate{
-    func didSelectErroredFavorite(favorite: Favorite) {
-        UIApplication.shared.openURL(favorite.url)
-    }
-
-    func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
-        switch favorite.type{
-            case .build:
-                performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
-            case .job:
-                performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: (favoritable, favorite))
-            case .folder:
-                performSegue(withIdentifier: Constants.Identifiers.showJobsSegue, sender: (favoritable, favorite))
-        }
     }
 }

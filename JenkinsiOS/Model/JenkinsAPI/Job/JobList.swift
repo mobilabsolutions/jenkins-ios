@@ -52,7 +52,10 @@ class JobList{
 
         if let _class = json["_class"] as? String,
             let jobType = JobListType(rawValue: _class),
-            jobType == .multibranch { isMultibranch = true }
+            jobType == .multibranch {
+            isMultibranch = true
+            views.forEach{ $0.belongsToMultiBranchJob = true }
+        }
     }
 }
 

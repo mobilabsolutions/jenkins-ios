@@ -30,7 +30,7 @@ import UIKit
     var viewForEmptyMessage: UIView?
     
     /// Whether or not the image should rotate
-    @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false{
+    @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false {
         didSet{
             
             // Did anything change?

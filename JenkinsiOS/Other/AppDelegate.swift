@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard let account = favorite.account
                     else { return vc }
                 
-                let userRequest = UserRequest(requestUrl: favorite.url, account: account)
+                let userRequest = UserRequest.userRequestForJob(account: account, requestUrl: favorite.url)
                 _ = NetworkManager.manager.getJob(userRequest: userRequest, completion: { (job, _) in
                     vc.job = job
                     

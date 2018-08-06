@@ -69,13 +69,17 @@ class Job: Favoratible {
     /// - parameter minimalVersion: Whether or not the json represents a minimal version of the job
     ///
     /// - returns: The initialized Job object or nil, if initialization failed
-    init?(json: [String: AnyObject], minimalVersion: Bool = false){
+    init?(json: [String: AnyObject], minimalVersion: Bool = false, isBuildMinimalVersion: Bool = true){
         guard let nameUrlString = json[Constants.JSON.name] as? String,
             let name = nameUrlString.removingPercentEncoding,
             let urlString = json[Constants.JSON.url] as? String
-            else { return nil }
+            else {
+                return nil
+        }
         guard let url = URL(string: urlString)
-            else { return nil }
+            else {
+                return nil
+        }
 
         if let stringColor = json["color"] as? String{
             self.color = JenkinsColor(rawValue: stringColor)
@@ -87,16 +91,21 @@ class Job: Favoratible {
         self.url = url
         self.name = name
 
+        self.healthReport = (json["healthReport"] as? [[String: AnyObject]])?
+            .map{ HealthReportResult(json: $0) }.compactMap{ $0 } ?? []
+        
+        lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        
         // The minimal version only contains these select fields
         if !minimalVersion{
-            addAdditionalFields(from: json)
+            addAdditionalFields(from: json, isBuildMinimalVersion: isBuildMinimalVersion)
         }
     }
 
     /// Add values for fields in the full job category
     ///
     /// - parameter json: The JSON parsed data from which to get the values for the additional fields
-    func addAdditionalFields(from json: [String: AnyObject]){
+    func addAdditionalFields(from json: [String: AnyObject], isBuildMinimalVersion: Bool){
 
         if let stringColor = json["color"] as? String{
             self.color = JenkinsColor(rawValue: stringColor)
@@ -107,18 +116,17 @@ class Job: Favoratible {
         inQueue = json["inQueue"] as? Bool
         keepDependencies =  json["keepDependencies"] as? Bool
 
-        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: true) }.filter{ $0 != nil }.map{ $0! } ?? []
-        healthReport = (json["healthReport"] as? [[String: AnyObject]])?.map{ HealthReportResult(json: $0) }.filter{ $0 != nil }.map{ $0! } ?? []
+        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: isBuildMinimalVersion) }.filter{ $0 != nil }.map{ $0! } ?? []
 
         // Get the interesting builds from the json data and, if they can be converted to a dictionary, try to initialize a Build from them
-        firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastCompletedBuild = json["lastCompletedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastCompletedBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastFailedBuild = json["lastFailedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastFailedBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastStableBuild = json["lastStableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastStableBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastSuccessfulBuild = json["lastSuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastSuccessfulBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastUnstableBuild = json["lastUnstableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnstableBuild"] as! [String: AnyObject], minimalVersion: true)
-        lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject], minimalVersion: true)
+        firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastCompletedBuild = json["lastCompletedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastCompletedBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastFailedBuild = json["lastFailedBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastFailedBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastStableBuild = json["lastStableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastStableBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastSuccessfulBuild = json["lastSuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastSuccessfulBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastUnstableBuild = json["lastUnstableBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnstableBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
+        lastUnsuccessfulBuild = json["lastUnsuccessfulBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastUnsuccessfulBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
 
         nextBuildNumber = json["nextBuildNumber"] as? Int
 

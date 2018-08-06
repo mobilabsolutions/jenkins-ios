@@ -78,7 +78,7 @@ class NetworkManager: NSObject{
             do{
                 guard let jobJson = data as? [String: AnyObject]
                     else { throw ParsingError.DataNotCorrectFormatError }
-                guard let job = Job(json: jobJson, minimalVersion: false)
+                guard let job = Job(json: jobJson, minimalVersion: false, isBuildMinimalVersion: false)
                     else { throw ParsingError.DataNotCorrectFormatError }
                 completion(job, nil)
             }
@@ -158,7 +158,7 @@ class NetworkManager: NSObject{
                 else { completion(job, NetworkManagerError.noDataFound); return }
             guard let json = data as? [String: AnyObject]
                 else { completion(job, NetworkManagerError.JSONParsingFailed); return }
-            job.addAdditionalFields(from: json)
+            job.addAdditionalFields(from: json, isBuildMinimalVersion: false)
             completion(job, nil)
         }
     }

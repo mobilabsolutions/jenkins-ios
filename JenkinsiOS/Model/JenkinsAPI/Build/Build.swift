@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Build: Favoratible, CustomDebugStringConvertible{
+class Build: Favoratible, CustomDebugStringConvertible {
     
     /// The build's number
     var number: Int
@@ -73,6 +73,11 @@ class Build: Favoratible, CustomDebugStringConvertible{
         self.number = number
         self.url = url
         
+        if let timeStampInterval = json["timestamp"] as? TimeInterval{
+            // For some reason, Jenkins use milliseconds for their timestamp
+            timeStamp = Date(timeIntervalSince1970: timeStampInterval/1000.0)
+        }
+        
         if !minimalVersion{
             addAdditionalFields(from: json)
         }
@@ -110,11 +115,6 @@ class Build: Favoratible, CustomDebugStringConvertible{
             changeSets = changeSetsJson.map({ (dict) -> ChangeSet in
                 return ChangeSet(json: dict)
             })
-        }
-        
-        if let timeStampInterval = json["timestamp"] as? TimeInterval{
-            // For some reason, Jenkins use milliseconds for their timestamp
-            timeStamp = Date(timeIntervalSince1970: timeStampInterval/1000.0)
         }
         
         if let artifactsJson = json[Constants.JSON.artifacts] as? [[String: AnyObject]]{
