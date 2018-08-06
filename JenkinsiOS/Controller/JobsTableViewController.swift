@@ -475,7 +475,7 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
         child?.view.removeFromSuperview()
         child?.removeFromParentViewController()
         
-        self.tableView.isUserInteractionEnabled = true
+        self.tableView.isScrollEnabled = true
         self.tableView.reloadSections([2, 3], with: .automatic)
     }
 }
@@ -503,4 +503,3 @@ extension JenkinsColor: Comparable {
         }
     }
 }
-

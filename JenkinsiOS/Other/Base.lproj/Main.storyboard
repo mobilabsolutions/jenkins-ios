@@ -147,6 +147,7 @@
                                                         <outlet property="buildStabilityLabel" destination="GUf-eD-i4p" id="fVF-IH-YLz"/>
                                                         <outlet property="colorBackgroundView" destination="DOk-db-Oqc" id="sBS-rJ-BM8"/>
                                                         <outlet property="containerView" destination="6mL-Zb-Ib2" id="zeU-bx-UhT"/>
+                                                        <outlet property="healthImageView" destination="6O6-KZ-pRO" id="QEQ-X8-Reb"/>
                                                         <outlet property="lastBuildLabel" destination="saK-2x-qIF" id="JbT-O0-g2L"/>
                                                         <outlet property="nameLabel" destination="8mK-JK-0Y3" id="kL8-kE-Orc"/>
                                                     </connections>
