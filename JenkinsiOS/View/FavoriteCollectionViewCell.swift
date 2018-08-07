@@ -91,7 +91,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     private func setupForJob(job: Job){
         
         if let imageName = job.healthReport.first?.iconClassName {
-            healthImageView.image = UIImage(named: imageName)
+            healthImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+            healthImageView.tintColor = .white
         }
         else {
             healthImageView.image = nil
