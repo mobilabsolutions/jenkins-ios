@@ -14,7 +14,7 @@ class Searcher: NSObject{
     /// The data that can be searched through
     var searchableData: [Searchable] = []
     /// The Searcher's delegate
-    var delegate: SearcherDelegate
+    unowned var delegate: SearcherDelegate
     
     /// Whether or not to include all searchables if there is no input given
     var includeAllOnEmptySearchString: Bool = false

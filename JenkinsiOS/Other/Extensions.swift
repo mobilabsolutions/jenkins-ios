@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension URL{
+extension URL {
     /// Get the current url, replacing its scheme with a given scheme and its port with a given port
     ///
     /// - parameter scheme: The url scheme that should be used (i.e. https)

@@ -23,10 +23,16 @@ class JobTableViewCell: UITableViewCell {
             self.statusView?.image = UIImage(named: color.rawValue + "Circle")
         }
         
-        if let icon = jobResult.data.healthReport.first?.iconClassName {
+        if let icon = jobResult.data.healthReport.first?.boldIconClassName {
             self.healthView.image = UIImage(named: icon)
         }
         
         containerView.layer.cornerRadius = 5
+    }
+}
+
+extension HealthReportResult {
+    var boldIconClassName: String {
+        return iconClassName + "-bold"
     }
 }

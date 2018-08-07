@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol FavoritesLoading {
+protocol FavoritesLoading: class {
     func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite)
     func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure)
 }
@@ -17,7 +17,7 @@ enum FavoriteLoadingFailure {
 }
 
 class FavoritesLoader {
-    private var delegate: FavoritesLoading
+    private unowned var delegate: FavoritesLoading
 
     init(with delegate: FavoritesLoading) {
         self.delegate = delegate

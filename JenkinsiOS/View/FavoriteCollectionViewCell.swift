@@ -11,6 +11,7 @@ import QuartzCore
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var healthImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var colorBackgroundView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -48,6 +49,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         gradientLayer?.startPoint = CGPoint(x: gradientLayerFrame.maxX, y: gradientLayerFrame.minY)
         gradientLayer?.endPoint = CGPoint(x: gradientLayerFrame.minX, y: gradientLayerFrame.maxY)
         self.colorBackgroundView.layer.insertSublayer(gradientLayer!, at: 0)
+        
+        healthImageView.image = nil
     }
 
     override func awakeFromNib() {
@@ -87,6 +90,14 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
     private func setupForJob(job: Job){
         
+        if let imageName = job.healthReport.first?.iconClassName {
+            healthImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+            healthImageView.tintColor = .white
+        }
+        else {
+            healthImageView.image = nil
+        }
+        
         nameLabel.text = job.name
         buildStabilityLabel.text = "Build Stability"
         buildStabilityContentLabel.text = job.healthReport.first?.description
@@ -101,7 +112,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         setGradientLayerColor(with: job.describingColor())
     }
 
-    private func setupForBuild(build: Build){
+    private func setupForBuild(build: Build) {
         nameLabel.text = build.fullDisplayName ?? build.displayName ?? "Unknown"
         buildStabilityLabel.text = "Build Duration"
         

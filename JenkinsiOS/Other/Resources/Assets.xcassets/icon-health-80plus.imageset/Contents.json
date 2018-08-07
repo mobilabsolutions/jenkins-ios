@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "sunny.png",
+      "filename" : "icon-sun-color.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "sunny@2x.png",
+      "filename" : "icon-sun-color@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "sunny@3x.png",
+      "filename" : "icon-sun-color@3x.png",
       "scale" : "3x"
     }
   ],

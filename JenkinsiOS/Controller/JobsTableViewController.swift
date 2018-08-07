@@ -8,8 +8,15 @@
 
 import UIKit
 
-class JobsTableViewController: RefreshingTableViewController {
-    var account: Account?
+class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil {
+                loadJobs()
+            }
+        }
+    }
+    
     var userRequest: UserRequest?
     
     var jobs: JobList?
@@ -455,6 +462,10 @@ extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
 }
 
 extension JobsTableViewController: FilteringHeaderTableViewCellDelegate {
+    func didDeselectAll() {
+        // This should never happen
+    }
+    
     func didSelect(selected: CustomStringConvertible, cell: FilteringHeaderTableViewCell) {
         if let selected = selected as? AllFavoritesTableViewCell.FavoritesSections {
             self.didSelectFavoriteSection(section: selected)
@@ -475,7 +486,7 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
         child?.view.removeFromSuperview()
         child?.removeFromParentViewController()
         
-        self.tableView.isUserInteractionEnabled = true
+        self.tableView.isScrollEnabled = true
         self.tableView.reloadSections([2, 3], with: .automatic)
     }
 }
@@ -503,4 +514,3 @@ extension JenkinsColor: Comparable {
         }
     }
 }
-

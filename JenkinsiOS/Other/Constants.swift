@@ -65,6 +65,10 @@ struct Constants{
         static let userCell = "userCell"
         static let artifactsCell = "artifactsCell"
         static let parameterCell = "parameterCell"
+        static let buildsFilteringCell = "buildsFilteringCell"
+        static let titleCell = "titleCell"
+        static let jobOverViewCell = "jobOverViewCell"
+        static let specialBuildCell = "specialBuildCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -208,5 +212,7 @@ struct Constants{
         static let cancelQuietDown = "/cancelQuietDown"
         static let restart = "/restart"
         static let safeRestart = "/safeRestart"
+        static let exit = "/exit"
+        static let safeExit = "/safeExit"
     }
 }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class JenkinsInformationTableViewController: UITableViewController {
+class JenkinsInformationTableViewController: UITableViewController, AccountProvidable {
 
     var account: Account?
-    var actions: [JenkinsAction] = [.safeRestart, .restart, .quietDown, .cancelQuietDown]
+    var actions: [JenkinsAction] = JenkinsAction.allCases
     
-    func performAction(action: JenkinsAction){
+    func performAction(action: JenkinsAction) {
         
         // Methods for presenting messages to the user
         func showSuccessMessage(){
@@ -52,23 +52,9 @@ class JenkinsInformationTableViewController: UITableViewController {
     
     // MARK: - Table view delegate and datasource
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard account != nil, indexPath.section == 1
+        guard account != nil
             else { return }
         performAction(action: actions[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showComputersSegue, let dest = segue.destination as? ComputersTableViewController{
-            dest.account = account
-        }
-        else if segue.identifier == Constants.Identifiers.showPluginsSegue, let dest = segue.destination as? PluginsTableViewController{
-            dest.account = account
-        }
-        else if segue.identifier == Constants.Identifiers.showUsersSegue, let dest = segue.destination as? UsersTableViewController{
-            dest.account = account
-        }
     }
 }

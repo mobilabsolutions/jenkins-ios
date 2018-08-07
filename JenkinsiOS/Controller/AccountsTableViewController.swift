@@ -54,8 +54,8 @@ class AccountsTableViewController: BaseTableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = sender as? IndexPath, let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showJobsSegue{
-            prepare(viewController: dest, indexPath: indexPath)
+        if let indexPath = sender as? IndexPath, let _ = segue.destination as? AccountProvidable, segue.identifier == Constants.Identifiers.showJobsSegue{
+            prepare(viewController: segue.destination, indexPath: indexPath)
         }
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
@@ -71,8 +71,8 @@ class AccountsTableViewController: BaseTableViewController {
         if let addAccountViewController = viewController as? AddAccountTableViewController{
             addAccountViewController.account = AccountManager.manager.accounts[indexPath.row]
         }
-        else if let jobsViewController = viewController as? JobsTableViewController{
-            jobsViewController.account = AccountManager.manager.accounts[indexPath.row]
+        else if var accountProvidable = viewController as? AccountProvidable {
+            accountProvidable.account = AccountManager.manager.accounts[indexPath.row]
         }
     }
 
@@ -94,7 +94,7 @@ class AccountsTableViewController: BaseTableViewController {
         }
     }
     
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         tableView.reloadData()
     }
     
