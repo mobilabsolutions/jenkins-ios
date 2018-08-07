@@ -17,7 +17,6 @@ class BuildTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var healthImageView: UIImageView!
     @IBOutlet weak var buildNameLabel: UILabel!
     @IBOutlet weak var buildEndLabel: UILabel!
     @IBOutlet weak var container: UIView!
@@ -52,15 +51,11 @@ class BuildTableViewCell: UITableViewCell {
         if let result = build.result?.lowercased(){
             statusImageView.image = UIImage(named: "\(result)Circle")
         }
-        
-        // TODO: Figure out what image to show here
-        healthImageView.image = nil
     }
     
     private func updateEmptyBuildInformation() {
         buildNameLabel.text = "..."
         buildEndLabel.text = "..."
         statusImageView.image = nil
-        healthImageView.image = nil
     }
 }

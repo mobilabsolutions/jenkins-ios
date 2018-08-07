@@ -23,7 +23,6 @@ class SpecialBuildTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var buildStatusImageView: UIImageView!
-    @IBOutlet weak var buildHealthImageView: UIImageView!
     @IBOutlet weak var buildNameLabel: UILabel!
     @IBOutlet weak var buildEndLabel: UILabel!
     @IBOutlet weak var artifactsButton: UIButton!
@@ -73,9 +72,6 @@ class SpecialBuildTableViewCell: UITableViewCell {
         if let result = build.result?.lowercased(){
             buildStatusImageView.image = UIImage(named: "\(result)Circle")
         }
-
-        // TODO: Figure out what image to show here
-        buildHealthImageView.image = nil
         
         artifactsButton.isEnabled = !build.artifacts.isEmpty
         testResultsButton.isEnabled = true
@@ -86,7 +82,6 @@ class SpecialBuildTableViewCell: UITableViewCell {
         buildNameLabel.text = "..."
         buildEndLabel.text = "..."
         buildStatusImageView.image = nil
-        buildHealthImageView.image = nil
         artifactsButton.isEnabled = false
         testResultsButton.isEnabled = false
         logsButton.isEnabled = false

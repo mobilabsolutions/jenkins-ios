@@ -8,11 +8,18 @@
 
 import UIKit
 
-class ComputersTableViewController: BaseTableViewController {
+class ComputersTableViewController: BaseTableViewController, AccountProvidable {
 
-    var account: Account?
-    var computerList: ComputerList?{
-        didSet{
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil && computerList == nil {
+                performRequest()
+            }
+        }
+    }
+    
+    private var computerList: ComputerList? {
+        didSet {
             guard let computers = computerList?.computers
                 else { return }
             computerData = computers.map({ (computer) -> [(String, String)] in
@@ -27,6 +34,7 @@ class ComputersTableViewController: BaseTableViewController {
         super.viewDidLoad()
         performRequest()
         emptyTableView(for: .loading)
+        self.title = "Nodes"
     }
     
     private func performRequest(){

@@ -8,8 +8,15 @@
 
 import UIKit
 
-class JobsTableViewController: RefreshingTableViewController {
-    var account: Account?
+class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil {
+                loadJobs()
+            }
+        }
+    }
+    
     var userRequest: UserRequest?
     
     var jobs: JobList?

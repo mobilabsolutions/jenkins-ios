@@ -8,10 +8,17 @@
 
 import UIKit
 
-class BuildQueueTableViewController: RefreshingTableViewController {
+class BuildQueueTableViewController: RefreshingTableViewController, AccountProvidable {
 
-    var queue: BuildQueue?
-    var account: Account?
+    var account: Account? {
+        didSet {
+            if queue == nil && oldValue == nil && account != nil {
+                performRequest()
+            }
+        }
+    }
+    
+    private var queue: BuildQueue?
     
     override func viewDidLoad() {
         super.viewDidLoad()
