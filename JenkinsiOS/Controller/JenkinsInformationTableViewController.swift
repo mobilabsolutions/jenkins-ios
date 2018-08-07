@@ -11,7 +11,7 @@ import UIKit
 class JenkinsInformationTableViewController: UITableViewController, AccountProvidable {
 
     var account: Account?
-    var actions: [JenkinsAction] = [.safeRestart, .restart, .quietDown, .cancelQuietDown]
+    var actions: [JenkinsAction] = JenkinsAction.allCases
     
     func performAction(action: JenkinsAction) {
         

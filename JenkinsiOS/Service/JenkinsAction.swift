@@ -8,18 +8,26 @@
 
 import Foundation
 
-enum JenkinsAction{
+enum JenkinsAction {
     case restart
     case quietDown
     case cancelQuietDown
     case safeRestart
+    case exit
+    case safeExit
+    
+    static var allCases: [JenkinsAction] {
+        return [.safeRestart, .restart, .quietDown, .cancelQuietDown, .safeExit, .exit]
+    }
     
     func apiConstant() -> String{
-        switch self{
+        switch self {
             case .restart: return Constants.API.restart
             case .safeRestart: return Constants.API.safeRestart
             case .quietDown: return Constants.API.quietDown
             case .cancelQuietDown: return Constants.API.cancelQuietDown
+            case .exit: return Constants.API.exit
+            case .safeExit: return Constants.API.safeExit
         }
     }
 }

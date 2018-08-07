@@ -212,5 +212,7 @@ struct Constants{
         static let cancelQuietDown = "/cancelQuietDown"
         static let restart = "/restart"
         static let safeRestart = "/safeRestart"
+        static let exit = "/exit"
+        static let safeExit = "/safeExit"
     }
 }
