@@ -203,6 +203,7 @@
 		DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
+		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
 		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
@@ -227,6 +228,11 @@
 		E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */; };
 		E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */; };
 		E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */; };
+		E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */; };
+		E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */; };
+		E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */; };
+		E1E6321E211D835C00CBBB86 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */; };
+		E1E6321F211D835C00CBBB86 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -411,6 +417,7 @@
 		DCE73CBA1DB678B400028A96 /* Artifact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artifact.swift; sourceTree = "<group>"; };
 		DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsFullResource.json; sourceTree = "<group>"; };
+		E101F0BE211DC6B100613132 /* CorneredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorneredView.swift; sourceTree = "<group>"; };
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
@@ -435,6 +442,11 @@
 		E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
 		E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
+		E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImageTableViewCell.swift; sourceTree = "<group>"; };
+		E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicImageTableViewCell.xib; sourceTree = "<group>"; };
+		E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerTableViewController.swift; sourceTree = "<group>"; };
+		E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -672,6 +684,7 @@
 				E1D266FD2111CBE900C4D6BB /* ValueSelectionTableViewController.swift */,
 				E1D2670521198D1100C4D6BB /* MainTabBarViewController.swift */,
 				E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */,
+				E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -821,6 +834,8 @@
 		E1D90AAB1F20F3C7009CE6B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */,
+				E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */,
 				DC169FDD1DE341230015A499 /* BigButton.swift */,
 				DC169FD31DE3401D0015A499 /* ParameterTableViewCell.swift */,
 				DC169FD41DE3401D0015A499 /* ParameterTableViewCellDelegate.swift */,
@@ -847,6 +862,9 @@
 				E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */,
 				E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */,
 				E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */,
+				E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */,
+				E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */,
+				E101F0BE211DC6B100613132 /* CorneredView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1024,12 +1042,14 @@
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
 				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
+				E1E6321F211D835C00CBBB86 /* DetailTableViewCell.xib in Resources */,
 				E1D266E1210F596D00C4D6BB /* JobTableViewCell.xib in Resources */,
 				E1D266F02110441500C4D6BB /* Lato-BlackItalic.ttf in Resources */,
 				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
 				E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */,
+				E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */,
 				E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */,
 				DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */,
 				DC2CB8A91DF9B75000661806 /* CreditsText in Resources */,
@@ -1149,6 +1169,8 @@
 				E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */,
 				DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */,
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
+				E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */,
+				E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
 				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
@@ -1204,6 +1226,7 @@
 				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
 				DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */,
 				DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */,
+				E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
 				DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */,
 				E1D2670621198D1100C4D6BB /* MainTabBarViewController.swift in Sources */,
@@ -1223,6 +1246,7 @@
 				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
 				DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				DC169FD91DE340340015A499 /* ParameterType.swift in Sources */,
+				E1E6321E211D835C00CBBB86 /* DetailTableViewCell.swift in Sources */,
 				DC99C3F71D9561500031DBE4 /* Build.swift in Sources */,
 				DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,

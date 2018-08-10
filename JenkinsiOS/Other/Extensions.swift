@@ -241,6 +241,16 @@ extension UILabel{
     }
 }
 
+extension UIView {
+    func setCornerRounding(radius: CGFloat, corners: UIRectCorner) {
+        let path = UIBezierPath(roundedRect: self.layer.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer(layer: self.layer)
+        mask.path = path.cgPath
+        self.layer.masksToBounds = true
+        self.layer.mask = mask
+    }
+}
+
 extension UIFont{
     var isBold: Bool{
         return fontDescriptor.symbolicTraits.contains(.traitBold)
