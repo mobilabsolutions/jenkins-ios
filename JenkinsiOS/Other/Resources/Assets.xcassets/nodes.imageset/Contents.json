@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "nodes.png",
+      "filename" : "nodesdeselected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "nodes@2x.png",
+      "filename" : "nodesdeselected@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "nodes@3x.png",
+      "filename" : "nodesdeselected@3x.png",
       "scale" : "3x"
     }
   ],

@@ -8,10 +8,17 @@
 
 import UIKit
 
-class PluginsTableViewController: RefreshingTableViewController {
+class PluginsTableViewController: RefreshingTableViewController, AccountProvidable {
 
-    var account: Account?
-    var pluginList: PluginList?{
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil && pluginList == nil {
+                performRequest()
+            }
+        }
+    }
+    
+    private var pluginList: PluginList?{
         didSet{
             guard let pluginList = pluginList
                 else { return }

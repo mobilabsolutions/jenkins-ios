@@ -11,8 +11,12 @@ import UIKit
 class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
     var account: Account? {
         didSet {
-            if oldValue == nil && account != nil {
+            if account != nil && account != oldValue {
+                userRequest = nil
+                jobs = nil
+                currentView = nil
                 loadJobs()
+                tableView.reloadData()
             }
         }
     }
@@ -64,7 +68,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         loadJobs()
         
         emptyTableView(for: .loading)
-        title = title ?? account?.displayName ?? "Jobs"
+        self.tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
         contentType = .jobList
         
         self.tableView.backgroundColor = Constants.UI.backgroundColor
@@ -91,6 +95,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         guard let account = account
         else { return }
         
+        self.emptyTableView(for: .loading)
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)

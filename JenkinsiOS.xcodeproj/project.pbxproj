@@ -108,7 +108,7 @@
 		DC5B3DC11E4C93E500604F13 /* LoggingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */; };
 		DC5B3DC21E4C93E700604F13 /* LoggableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */; };
 		DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEBE1D97FD9000808ED0 /* Account.swift */; };
-		DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */; };
+		DC66CEC11D97FF1D00808ED0 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC01D97FF1D00808ED0 /* AccountsViewController.swift */; };
 		DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */; };
 		DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC41D98069F00808ED0 /* Constants.swift */; };
 		DC66CEC71D98079A00808ED0 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC61D98079A00808ED0 /* AccountManager.swift */; };
@@ -224,6 +224,8 @@
 		E1D2670421183DFE00C4D6BB /* BuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */; };
 		E1D2670621198D1100C4D6BB /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670521198D1100C4D6BB /* MainTabBarViewController.swift */; };
 		E1D2670821198D3B00C4D6BB /* AccountProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */; };
+		E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */; };
+		E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -317,7 +319,7 @@
 		DC595DFF1DD75C3B000FEA9F /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		DC595E011DD7620F000FEA9F /* ApplicationUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUserTests.swift; sourceTree = "<group>"; };
 		DC66CEBE1D97FD9000808ED0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
+		DC66CEC01D97FF1D00808ED0 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewController.swift; sourceTree = "<group>"; };
 		DC66CEC41D98069F00808ED0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DC66CEC61D98079A00808ED0 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
@@ -429,6 +431,8 @@
 		E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildTableViewCell.swift; sourceTree = "<group>"; };
 		E1D2670521198D1100C4D6BB /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountProvidable.swift; sourceTree = "<group>"; };
+		E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -634,7 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2CB8A41DF9B63500661806 /* AboutViewController.swift */,
-				DC66CEC01D97FF1D00808ED0 /* AccountsTableViewController.swift */,
+				DC66CEC01D97FF1D00808ED0 /* AccountsViewController.swift */,
 				DC66CEC21D98004A00808ED0 /* AddAccountTableViewController.swift */,
 				DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */,
 				DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */,
@@ -838,6 +842,8 @@
 				E1D266FF2118362700C4D6BB /* JobOverviewTableViewCell.swift */,
 				E1D2670121183A3B00C4D6BB /* SpecialBuildTableViewCell.swift */,
 				E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */,
+				E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */,
+				E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1168,7 +1174,7 @@
 				DC169FDB1DE340340015A499 /* ParameterValue.swift in Sources */,
 				DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */,
 				DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */,
-				DC66CEC11D97FF1D00808ED0 /* AccountsTableViewController.swift in Sources */,
+				DC66CEC11D97FF1D00808ED0 /* AccountsViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
 				DC9BAE3D1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift in Sources */,
 				DC8625721DA9213500EB7867 /* AccountTableViewCell.swift in Sources */,
@@ -1179,6 +1185,7 @@
 				DC169FD61DE3401D0015A499 /* ParameterTableViewCellDelegate.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
+				E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */,
 				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */,
@@ -1222,6 +1229,7 @@
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
 				E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
+				E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
 				DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DC2CB8AB1DF9B82000661806 /* AboutInformationManager.swift in Sources */,

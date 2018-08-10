@@ -8,9 +8,16 @@
 
 import UIKit
 
-class UsersTableViewController: RefreshingTableViewController {
+class UsersTableViewController: RefreshingTableViewController, AccountProvidable {
 
-    var account: Account?
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil && userList == nil {
+                performRequest()
+            }
+        }
+    }
+    
     private var userList: UserList?{
         didSet{
             guard let userList = userList
@@ -32,6 +39,7 @@ class UsersTableViewController: RefreshingTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Users"
         emptyTableView(for: .loading)
     }
     

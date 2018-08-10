@@ -8,38 +8,24 @@
 
 import UIKit
 
-class NavigationController: UINavigationController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class NavigationController: UINavigationController, AccountProvidable {
+    
+    var account: Account? {
+        didSet {
+            if var accountProvidableViewController = self.viewControllers.first as? AccountProvidable {
+                accountProvidableViewController.account = account
+            }
+        }
     }
     
     override var isNavigationBarHidden: Bool{
-        get{
+        get {
             return false
         }
-        set{}
+        set {}
     }
-
+    
     override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
         super.setNavigationBarHidden(false, animated: animated)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
