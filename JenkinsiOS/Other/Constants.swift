@@ -34,7 +34,6 @@ struct Constants{
     }
     
     struct UI {
-        static let bigButtonColor = UIColor(red: 125/255, green: 151/255, blue: 255/255, alpha: 1.0)
         static let defaultLabelFont = "Lato"
         static let paleGreyColor = UIColor(red: 229.0 / 255.0, green: 236.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
         static let darkGrey =  UIColor(red: 140.0 / 255.0, green: 150.0 / 255.0, blue: 171.0 / 255.0, alpha: 1.0)
@@ -69,6 +68,8 @@ struct Constants{
         static let titleCell = "titleCell"
         static let jobOverViewCell = "jobOverViewCell"
         static let specialBuildCell = "specialBuildCell"
+        static let headerCell = "headerCell"
+        static let settingsCell = "settingsCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -89,8 +90,11 @@ struct Constants{
         static let showParametersSegue = "showParametersSegue"
         static let didAddAccountSegue = "didAddAccountSegue"
         static let showInformationSegue = "showInformationSegue"
+        static let showAccountsSegue = "showAccountsSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
+        
+        static let currentAccountBaseUrlUserDefaultsKey = "currentAccountBaseUrlUserDefaultsKey"
     }
     
     struct JSON {

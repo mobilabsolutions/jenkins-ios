@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let appearanceManager = AppearanceManager()
         appearanceManager.setGlobalAppearance()
+        
+        setCurrentAccountForRootViewController()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication){
@@ -63,6 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    private func setCurrentAccountForRootViewController() {
+        if var accountProvidable = window?.rootViewController as? AccountProvidable {
+            accountProvidable.account = AccountManager.manager.currentAccount
+        }
     }
     
     private func viewController(for favoriteType: Favorite.FavoriteType, with favorite: Favorite) -> UIViewController{

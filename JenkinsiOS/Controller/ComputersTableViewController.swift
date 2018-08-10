@@ -12,7 +12,10 @@ class ComputersTableViewController: BaseTableViewController, AccountProvidable {
 
     var account: Account? {
         didSet {
-            if oldValue == nil && account != nil && computerList == nil {
+            if account != nil && oldValue != account {
+                computerList = nil
+                computerData = []
+                tableView.reloadData()
                 performRequest()
             }
         }
@@ -34,7 +37,7 @@ class ComputersTableViewController: BaseTableViewController, AccountProvidable {
         super.viewDidLoad()
         performRequest()
         emptyTableView(for: .loading)
-        self.title = "Nodes"
+        self.tabBarController?.navigationItem.title = "Nodes"
     }
     
     private func performRequest(){

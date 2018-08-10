@@ -16,12 +16,30 @@ class AccountManager{
     /// The list of all accounts
     var accounts: [Account] = []
     
-    private init(){
+    var currentAccount: Account? {
+        get {
+            return accounts.first(where: { $0.baseUrl == currentAccountBaseUrl }) ?? accounts.first
+        }
+        set {
+            currentAccountBaseUrl = newValue?.baseUrl
+        }
+    }
+        
+    private var currentAccountBaseUrl: URL? {
+        get {
+            return UserDefaults.standard.url(forKey: Constants.Identifiers.currentAccountBaseUrlUserDefaultsKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.Identifiers.currentAccountBaseUrlUserDefaultsKey)
+        }
+    }
+    
+    private init() {
         accounts = getAccounts()
     }
     
     /// Update the array of accounts
-    func update(){
+    func update() {
         accounts = getAccounts()
     }
     

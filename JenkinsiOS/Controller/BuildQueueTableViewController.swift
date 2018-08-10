@@ -12,7 +12,9 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
 
     var account: Account? {
         didSet {
-            if queue == nil && oldValue == nil && account != nil {
+            if account != nil && account != oldValue {
+                queue = nil
+                tableView.reloadData()
                 performRequest()
             }
         }
@@ -22,7 +24,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Build Queue"
+        tabBarController?.navigationItem.title = "Build Queue"
         emptyTableViewText = "Loading Build Queue"
         
         tableView.rowHeight = UITableViewAutomaticDimension

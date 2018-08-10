@@ -91,7 +91,7 @@ class AccountManagerTests: XCTestCase {
         else { XCTFail("There should be an equal number of accounts! Instead: given \(accounts.count)" +
                 " wanted: \(AccountManager.manager.accounts.count)"); return }
 
-        for (index, account) in AccountManager.manager.accounts.enumerated(){
+        for (index, account) in AccountManager.manager.accounts.enumerated() {
             XCTAssertTrue(account.isEqual(accounts[index]))
         }
     }

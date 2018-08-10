@@ -28,7 +28,7 @@ import UIKit
     
     override var isEnabled: Bool{
         didSet{
-            self.backgroundColor = isEnabled ? Constants.UI.bigButtonColor : Constants.UI.silver
+            self.backgroundColor = isEnabled ? Constants.UI.skyBlue : Constants.UI.silver
         }
     }
 }

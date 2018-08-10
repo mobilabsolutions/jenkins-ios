@@ -8,15 +8,13 @@
 
 import UIKit
 
-class AccountsTableViewController: BaseTableViewController {
+class AccountsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private let headers = ["Favorites", "Accounts"]
+    @IBOutlet weak var tableView: UITableView!
     
-    private var hasFavorites: Bool {
-        return ApplicationUserManager.manager.applicationUser.favorites.isEmpty == false
-    }
+    private let headers = ["Accounts"]
     
-    private var hasAccounts: Bool{
+    private var hasAccounts: Bool {
         return AccountManager.manager.accounts.isEmpty == false
     }
     
@@ -27,11 +25,13 @@ class AccountsTableViewController: BaseTableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
-        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
         registerForPreviewing(with: self, sourceView: tableView)
         
         emptyTableViewText = "No accounts have been created yet.\nTo create an account, tap on the + below"
         emptyTableViewImages = [ UIImage(named: "plus")! ]
+        
+        self.title = "Accounts"
         
         toolbarItems = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
@@ -54,16 +54,13 @@ class AccountsTableViewController: BaseTableViewController {
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = sender as? IndexPath, let _ = segue.destination as? AccountProvidable, segue.identifier == Constants.Identifiers.showJobsSegue{
+        if let indexPath = sender as? IndexPath, let _ = segue.destination as? AccountProvidable, segue.identifier == Constants.Identifiers.showJobsSegue {
             prepare(viewController: segue.destination, indexPath: indexPath)
         }
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
         }
-        else if segue.identifier == Constants.Identifiers.showBuildSegue || segue.identifier == Constants.Identifiers.showJobSegue || segue.identifier == Constants.Identifiers.showJobsSegue,
-                let favoritableAndFavorite = sender as? (Favoratible, Favorite){
-            prepare(favoritableViewController: segue.destination, for: favoritableAndFavorite)
-        }
+
         navigationController?.isToolbarHidden = true
     }
     
@@ -74,32 +71,6 @@ class AccountsTableViewController: BaseTableViewController {
         else if var accountProvidable = viewController as? AccountProvidable {
             accountProvidable.account = AccountManager.manager.accounts[indexPath.row]
         }
-    }
-
-    fileprivate func prepare(favoritableViewController: UIViewController, for favoritableAndFavorite: (Favoratible, Favorite)){
-        if let jobViewController = favoritableViewController as? JobViewController, let job = favoritableAndFavorite.0 as? Job {
-            jobViewController.account = favoritableAndFavorite.1.account
-            jobViewController.job = job
-        }
-        else if let buildViewController = favoritableViewController as? BuildViewController, let build = favoritableAndFavorite.0 as? Build {
-            buildViewController.account = favoritableAndFavorite.1.account
-            buildViewController.build = build
-        }
-        else if let jobsViewController = favoritableViewController as? JobsTableViewController, let folder = favoritableAndFavorite.0 as? Job {
-            jobsViewController.account = favoritableAndFavorite.1.account
-            jobsViewController.folderJob = folder
-            guard let account = favoritableAndFavorite.1.account
-                else { return }
-            jobsViewController.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
-        }
-    }
-    
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-        tableView.reloadData()
-    }
-    
-    @IBAction func showInformationViewController(){
-        performSegue(withIdentifier: Constants.Identifiers.showInformationSegue, sender: nil)
     }
     
     @objc func showAddAccountViewController(){
@@ -123,14 +94,10 @@ class AccountsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.section == 1
-            else { return }
-        
-        if isEditing{
+        if isEditing {
             performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: indexPath)
         }
-        else{
+        else {
             performSegue(withIdentifier: Constants.Identifiers.showJobsSegue, sender: indexPath)
         }
     }
@@ -148,7 +115,7 @@ class AccountsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0 && !hasFavorites && !hasAccounts) || (section == 1 && !hasAccounts) {
+        if section == 1 && !hasAccounts {
             return 0
         }
         
@@ -156,18 +123,15 @@ class AccountsTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && !hasFavorites && !hasAccounts {
+        if indexPath.section == 0 && !hasAccounts {
             return 0
-        }
-        else if indexPath.section == 0 && !hasFavorites && hasAccounts {
-            return 75
         }
         
         return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 1
+        return true
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -199,7 +163,7 @@ class AccountsTableViewController: BaseTableViewController {
     }
 }
 
-extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
+extension AccountsViewController: UIViewControllerPreviewingDelegate{
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         // Ugly hack to ensure that a presented popover will not be presented once pushed
         viewControllerToCommit.dismiss(animated: true, completion: nil)
@@ -207,52 +171,13 @@ extension AccountsTableViewController: UIViewControllerPreviewingDelegate{
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = tableView.indexPathForRow(at: location)
+        guard let indexPath = tableView.indexPathForRow(at: location), !isEditing
             else { return nil }
 
-        switch indexPath.section{
-            case 0:
-                guard let cell = tableView.cellForRow(at: indexPath) as? AllFavoritesTableViewCell
-                        else { return nil }
-                let translatedPoint = cell.collectionView.convert(location, from: view)
-                guard let collectionViewCellIndexPath = cell.collectionView.indexPathForItem(at: translatedPoint)
-                        else { return nil }
-                guard let favoritableAndFavorite = cell.getFavoritableAndFavoriteForIndexPath(indexPath: collectionViewCellIndexPath)
-                        else { return nil }
-
-                if let collectionViewCellFrame = cell.collectionView.layoutAttributesForItem(at: collectionViewCellIndexPath)?.frame {
-                    previewingContext.sourceRect = cell.collectionView.convert(collectionViewCellFrame, to: self.view)
-                }
-
-                return getFavoritableViewController(for: favoritableAndFavorite)
-            case 1:
-                guard isEditing == false
-                        else { return nil }
-                previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-                return getJobsViewController(for: indexPath)
-            default: return nil
-        }
+        previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+        return getJobsViewController(for: indexPath)
     }
 
-    private func getFavoritableViewController(for favoritableAndFavorite: (favoritable: Favoratible, favorite: Favorite)) -> UIViewController?{
-
-        var viewController: UIViewController?
-
-        switch favoritableAndFavorite.favorite.type {
-            case .build:
-                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "BuildViewController")
-            case .job:
-                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobViewController")
-            case .folder:
-                viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobsTableViewController")
-        }
-
-        guard let favoritableViewController = viewController
-              else { return nil }
-
-        prepare(favoritableViewController: favoritableViewController, for: favoritableAndFavorite)
-        return favoritableViewController
-    }
 
     private func getJobsViewController(for indexPath: IndexPath) -> UIViewController?{
         guard let jobsViewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: "JobsTableViewController")

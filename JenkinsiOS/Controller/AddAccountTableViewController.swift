@@ -8,15 +8,19 @@
 
 import UIKit
 
+protocol AddAccountTableViewControllerDelegate: class {
+    func didEditAccount(account: Account)
+}
+
 class AddAccountTableViewController: UITableViewController {
     
     //MARK: - Instance variables
     
     var account: Account?
     
-    //MARK: - Outlets
+    weak var delegate: AddAccountTableViewControllerDelegate?
     
-    @IBOutlet var titleLabel: UILabel!
+    //MARK: - Outlets
     
     @IBOutlet weak var addAccountButton: UIButton!
     @IBOutlet weak var urlTextField: UITextField!
@@ -28,34 +32,33 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet weak var trustAllCertificatesSwitch: UISwitch!
     @IBOutlet weak var trustAllCertificatesWarning: UILabel!
 
-    //MARK: - Actions
+    @IBOutlet weak var topBackgroundView: UIView!
+    @IBOutlet weak var bottomMostBackgroundView: UIView!
     
-    @IBAction func cancel(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
-    }
+    //MARK: - Actions
     
     @objc func addAccount(){
         guard let account = createAccount()
             else { return }
         let success = addAccountWith(account: account)
-        if success{
+        if success {
             LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
-            performSegue(withIdentifier: Constants.Identifiers.didAddAccountSegue, sender: nil)
+            navigationController?.popViewController(animated: true)
         }
     }
     
-    private func addAccountWith(account: Account) -> Bool{
-        do{
+    private func addAccountWith(account: Account) -> Bool {
+        do {
             try AccountManager.manager.addAccount(account: account)
             ApplicationUserManager.manager.save()
             return true
         }
-        catch let error as AccountManagerError{
+        catch let error as AccountManagerError {
             displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [
                     UIAlertAction(title: "Alright", style: .cancel, handler: nil)
                 ])
         }
-        catch{ print("An error occurred: \(error)") }
+        catch { print("An error occurred: \(error)") }
         
         return false
     }
@@ -89,11 +92,11 @@ class AddAccountTableViewController: UITableViewController {
         let oldAccount = account?.copy() as! Account?
         
         if let account = account, newAccount.baseUrl != account.baseUrl {
-            do{
+            do {
                 try AccountManager.manager.deleteAccount(account: account)
                 didDeleteOldAccount = true
             }
-            catch{
+            catch {
                 print(error)
             }
         }
@@ -105,32 +108,36 @@ class AddAccountTableViewController: UITableViewController {
         account?.trustAllCertificates = newAccount.trustAllCertificates
         account?.baseUrl = newAccount.baseUrl
         
-        if didDeleteOldAccount, let account = account{
+        if didDeleteOldAccount, let account = account {
             let success = addAccountWith(account: account)
             
-            if !success{
+            if !success {
                 if let oldAccount = oldAccount{
                     _ = try? AccountManager.manager.addAccount(account: oldAccount)
                 }
                 return
             }
         }
-        else{
+        else if let account = account {
+            delegate?.didEditAccount(account: account)
             AccountManager.manager.save()
         }
         
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - View Controller lifecycle
     
     override func viewDidLoad() {
 
+        topBackgroundView.layer.cornerRadius = 5
+        bottomMostBackgroundView.layer.cornerRadius = 5
+        
         // Write all known data into the text fields
-        if let account = account{
+        if let account = account {
             prepareUI(for: account)
         }
-        else{
+        else {
             prepareUIWithoutAccount()
         }
 
@@ -147,11 +154,11 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     @objc private func toggleTrustAllCertificatesCell(){
-        if schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) == "http://"{
+        if schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) == "http://" {
             self.trustAllCertificatesSwitch.setOn(false, animated: true)
             self.trustAllCertificatesSwitch.isEnabled = false
         }
-        else{
+        else {
             self.trustAllCertificatesSwitch.isEnabled = true
         }
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
@@ -195,24 +202,23 @@ class AddAccountTableViewController: UITableViewController {
     }
     
     private func prepareUI(for account: Account){
-        addAccountButton.setTitle("Save", for: .normal)
+        addAccountButton.setTitle("SAVE", for: .normal)
         addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
         usernameTextField.text = account.username ?? ""
         apiKeyTextField.text = account.password ?? ""
         urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
         nameTextField.text = account.displayName ?? ""
         portTextField.text = account.port != nil ? "\(account.port!)" : ""
-        titleLabel.text = "Edit Account"
         schemeControl.selectedSegmentIndex = account.baseUrl.scheme == "http" ? 1 : 0
         trustAllCertificatesSwitch.isOn = account.trustAllCertificates
     }
     
     private func prepareUIWithoutAccount(){
         addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
+        addAccountButton.setTitle("DONE", for: .normal)
         usernameTextField.text = ""
         apiKeyTextField.text = ""
         portTextField.placeholder = "Default Port"
-        titleLabel.text = "Add account"
     }
     
     //MARK: - Textfield methods
