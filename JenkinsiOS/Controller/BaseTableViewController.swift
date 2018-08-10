@@ -187,7 +187,7 @@ import UIKit
     
     private func getContainerViewForEmptyTableView() -> UIView{
         let container = UIView()
-        container.backgroundColor = UIColor(patternImage: UIImage(named: "noiseTexture")!)
+        container.backgroundColor = Constants.UI.backgroundColor
         return container
     }
     

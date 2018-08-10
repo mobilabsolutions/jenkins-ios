@@ -83,6 +83,7 @@ struct Constants{
         static let showTestResultsSegue = "showTestResultsSegue"
         static let showTestResultSegue = "showTestResultSegue"
         static let showComputersSegue = "showComputersSegue"
+        static let showComputerSegue = "showComputerSegue"
         static let showUsersSegue = "showUsersSegue"
         static let showPluginsSegue = "showPluginsSegue"
         static let editAccountSegue = "editAccountSegue"
