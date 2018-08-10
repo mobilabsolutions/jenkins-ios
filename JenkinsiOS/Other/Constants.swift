@@ -70,6 +70,7 @@ struct Constants{
         static let specialBuildCell = "specialBuildCell"
         static let headerCell = "headerCell"
         static let settingsCell = "settingsCell"
+        static let actionCell = "actionCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"

@@ -16,6 +16,12 @@ class JobTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var arrowView: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        self.containerView.layer.borderWidth = 1
+    }
+    
     func setup(with jobResult: JobListResult) {
         self.nameLabel.text = jobResult.name
         

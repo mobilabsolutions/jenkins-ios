@@ -54,6 +54,8 @@ class SpecialBuildTableViewCell: UITableViewCell {
         artifactsButton.addTarget(self, action: #selector(showArtifacts), for: .touchUpInside)
         
         self.container.layer.cornerRadius = 5
+        self.container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        self.container.layer.borderWidth = 1
     }
     
     private func updateBuildInformation() {

@@ -36,6 +36,8 @@ class JobOverviewTableViewCell: UITableViewCell {
         lastDurationTitleLabel.textColor = Constants.UI.greyBlue
         
         self.container.layer.cornerRadius = 5
+        self.container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        self.container.layer.borderWidth = 1
     }
 
     private func updateCellForJob() {

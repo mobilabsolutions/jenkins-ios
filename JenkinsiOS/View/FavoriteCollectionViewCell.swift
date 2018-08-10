@@ -36,12 +36,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         containerView.layer.cornerRadius = 5
         containerView.clipsToBounds = true
         
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        layer.shadowRadius = 0.5
-        layer.shadowOpacity = 1.0
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:containerView.layer.cornerRadius).cgPath
+        self.containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        self.containerView.layer.borderWidth = 1
 
         gradientLayer = CAGradientLayer()
         gradientLayer?.frame = colorBackgroundView.bounds
