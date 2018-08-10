@@ -11,7 +11,13 @@ import UIKit
 class JenkinsInformationTableViewController: UITableViewController, AccountProvidable {
 
     var account: Account?
-    var actions: [JenkinsAction] = JenkinsAction.allCases
+    var actions: [JenkinsAction] = [.restart, .safeRestart, .exit, .safeExit, .quietDown, .cancelQuietDown]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tableView.backgroundColor = Constants.UI.backgroundColor
+        self.tableView.separatorStyle = .none
+    }
     
     func performAction(action: JenkinsAction) {
         
@@ -45,12 +51,32 @@ class JenkinsInformationTableViewController: UITableViewController, AccountProvi
                 }
                 else{
                     showSuccessMessage()
+                    LoggingManager.loggingManager.logTriggeredAction(action: action)
                 }
             }
         }
     }
     
     // MARK: - Table view delegate and datasource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return actions.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.actionCell, for: indexPath) as! ActionTableViewCell
+        cell.setup(for: actions[indexPath.row])
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 74
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard account != nil
             else { return }

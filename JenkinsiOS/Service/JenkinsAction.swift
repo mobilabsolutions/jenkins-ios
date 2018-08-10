@@ -16,10 +16,6 @@ enum JenkinsAction {
     case exit
     case safeExit
     
-    static var allCases: [JenkinsAction] {
-        return [.safeRestart, .restart, .quietDown, .cancelQuietDown, .safeExit, .exit]
-    }
-    
     func apiConstant() -> String{
         switch self {
             case .restart: return Constants.API.restart

@@ -226,6 +226,7 @@
 		E1D2670821198D3B00C4D6BB /* AccountProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */; };
 		E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */; };
 		E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */; };
+		E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */; };
 		E1E660E31F20F95E0079980B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E1E660E41F20F95E0079980B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -433,6 +434,7 @@
 		E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountProvidable.swift; sourceTree = "<group>"; };
 		E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
+		E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -844,6 +846,7 @@
 				E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */,
 				E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */,
 				E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */,
+				E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1165,6 +1168,7 @@
 				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
 				DC66CECF1D98273A00808ED0 /* View.swift in Sources */,
+				E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */,
 				DC2CB8A51DF9B63500661806 /* AboutViewController.swift in Sources */,
 				DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */,
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,

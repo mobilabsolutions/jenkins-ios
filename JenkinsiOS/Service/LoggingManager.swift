@@ -59,4 +59,8 @@ class LoggingManager{
     func logTriggeredBuild(withParameters: Bool){
         Answers.logCustomEvent(withName: "Build Triggered", customAttributes: ["withParameters" : "\(withParameters)"])
     }
+    
+    func logTriggeredAction(action: JenkinsAction) {
+        Answers.logCustomEvent(withName: "Action Triggered", customAttributes: ["type": action.apiConstant()])
+    }
 }
