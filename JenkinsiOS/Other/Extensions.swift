@@ -219,7 +219,7 @@ extension UIViewController{
     }
 }
 
-extension UIImageView{
+extension UIImageView {
     /// Set an image view's image to an image, resized by a scale factor
     ///
     /// - parameter image: The image that should be resized and set as the view's image

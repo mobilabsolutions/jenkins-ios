@@ -107,7 +107,6 @@ extension UserRequest{
     /// - returns: The fitting user request object
     static func userRequestForBuildQueue(account: Account) -> UserRequest{
         let url = account.baseUrl.appendingPathComponent(Constants.API.buildQueue)
-        
-        return UserRequest(requestUrl: url, account: account)
+        return UserRequest(requestUrl: url, account: account, additionalQueryItems: Constants.API.buildQueueAdditionalQueryItems)
     }
 }

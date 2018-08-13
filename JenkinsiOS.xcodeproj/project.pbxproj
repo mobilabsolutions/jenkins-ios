@@ -176,7 +176,6 @@
 		DC9D79EA1DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */; };
 		DCA206E51DF0767C00FBDDD7 /* URLSessionTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */; };
 		DCAD24BA1E0BF6B200FAF0CF /* BuildProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */; };
-		DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */; };
 		DCC2E1601D9D7CDA00491B98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC2E15F1D9D7CDA00491B98 /* Security.framework */; };
 		DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1641D9FF2BA00491B98 /* Favorite.swift */; };
 		DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */; };
@@ -204,6 +203,7 @@
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
+		E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */; };
 		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
@@ -390,7 +390,6 @@
 		DC9CE6781DBA138000624742 /* JenkinsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsAction.swift; sourceTree = "<group>"; };
 		DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalInformationViewControllerDelegate.swift; sourceTree = "<group>"; };
 		DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildProvidable.swift; sourceTree = "<group>"; };
-		DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
 		DCC2E15F1D9D7CDA00491B98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DCC2E1641D9FF2BA00491B98 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationUser.swift; sourceTree = "<group>"; };
@@ -422,6 +421,7 @@
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
 		E1D266D32102046000C4D6BB /* JobTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -848,7 +848,6 @@
 				DC56A50D1DF0A0EA000D1A15 /* StarRatingView.swift */,
 				DC56A50F1DF0A0FE000D1A15 /* StarRatingView.xib */,
 				DC4D21B01DF4299A0023B4EA /* StarRatingViewDelegate.swift */,
-				DCAD24BB1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift */,
 				DC08DD2D1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift */,
 				DC08DD2F1EFBF75300679B74 /* FavoriteCollectionViewCell.swift */,
 				E1D266D32102046000C4D6BB /* JobTableViewCell.swift */,
@@ -865,6 +864,7 @@
 				E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */,
 				E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */,
 				E101F0BE211DC6B100613132 /* CorneredView.swift */,
+				E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1159,6 +1159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */,
 				DC4D21B11DF4299A0023B4EA /* StarRatingViewDelegate.swift in Sources */,
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
 				DC08DD2E1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift in Sources */,
@@ -1214,7 +1215,6 @@
 				E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */,
 				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
-				DCAD24BC1E0C0B3200FAF0CF /* BuildQueueTableViewCell.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
 				E1D2670421183DFE00C4D6BB /* BuildTableViewCell.swift in Sources */,
 				E1D2670821198D3B00C4D6BB /* AccountProvidable.swift in Sources */,

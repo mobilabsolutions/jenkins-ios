@@ -8,7 +8,7 @@
 
 import Foundation
 
-class QueueItem{
+class QueueItem {
     /// The actions associated with the queue item
     var actions: Actions?
     

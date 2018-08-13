@@ -49,6 +49,7 @@ struct Constants{
         static let jobCell = "jobCell"
         static let folderCell = "folderCell"
         static let buildCell = "buildCell"
+        static let buildQueueCell = "buildQueueCell"
         static let favoritesCell = "favoritesCell"
         static let favoritesHeaderCell = "favoritesHeaderCell"
         static let jobsHeaderCell = "jobsHeaderCell"
@@ -205,6 +206,7 @@ struct Constants{
             URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount")
         ]
         static let buildQueue = "/queue"
+        static let buildQueueAdditionalQueryItems = [ URLQueryItem(name: "tree", value: "items[url,why,blocked,buildable,id,inQueueSince,params,stuck,task[name,url,color,healthReport[description,score,iconClassName]],actions[causes[shortDescription,userId,username],failCount,skipCount,totalCount,urlName],buildableStartMilliseconds]") ]
         static let computer = "/computer"
         static let plugins = "/pluginManager"
         static let pluginsAdditionalQueryItems = [

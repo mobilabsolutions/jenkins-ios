@@ -29,6 +29,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70
+        tableView.backgroundColor = Constants.UI.backgroundColor
 
         performRequest()
 
@@ -84,27 +85,35 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         return queue?.items.count ?? 0
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 104
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath) as! BuildQueueTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildQueueCell, for: indexPath) as! BuildQueueTableViewCell
         
-        cell.nameLabel.text = queue?.items[indexPath.row].task?.name
-        
-        if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
-            cell.itemImageView?.image = UIImage(named: "\(colorString)Circle")
+        if let item = queue?.items[indexPath.row] {
+            cell.queueItem = item
         }
-        
-        cell.detailLabel?.text = queue?.items[indexPath.row].why
         
         return cell
     }
 
+    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: queue?.items[indexPath.row])
+    }
+    
     //MARK: - View controller navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? JobViewController, let cell = sender as? UITableViewCell, let index = tableView.indexPath(for: cell){
+        if let dest = segue.destination as? JobViewController, let queueItem = sender as? QueueItem {
             dest.account = account
-            dest.job = queue?.items[index.row].task
+            dest.job = queueItem.task
         }
     }
 

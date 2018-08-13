@@ -71,8 +71,11 @@ class SpecialBuildTableViewCell: UITableViewCell {
             buildEndLabel.text = ""
         }
         
-        if let result = build.result?.lowercased(){
+        if let result = build.result?.lowercased() {
             buildStatusImageView.image = UIImage(named: "\(result)Circle")
+        }
+        else {
+            buildStatusImageView.image = UIImage(named: "inProgressCircle")
         }
         
         artifactsButton.isEnabled = !build.artifacts.isEmpty

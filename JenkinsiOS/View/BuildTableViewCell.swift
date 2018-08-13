@@ -53,6 +53,9 @@ class BuildTableViewCell: UITableViewCell {
         if let result = build.result?.lowercased(){
             statusImageView.image = UIImage(named: "\(result)Circle")
         }
+        else {
+            statusImageView.image = UIImage(named: "inProgressCircle")
+        }
     }
     
     private func updateEmptyBuildInformation() {
