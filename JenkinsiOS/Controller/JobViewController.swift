@@ -426,7 +426,7 @@ extension JobViewController: ParametersViewControllerDelegate{
     }
 }
 
-extension JobViewController: SpecialBuildsTableViewCellDelegate {
+extension JobViewController: BuildsInformationOpeningDelegate {
     func showLogs(build: Build) {
         performSegue(withIdentifier: Constants.Identifiers.showConsoleOutputSegue, sender: build)
     }

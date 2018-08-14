@@ -35,6 +35,11 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
 
         contentType = .buildQueue
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Build Queue"
+    }
 
     override func refresh(){
         performRequest()

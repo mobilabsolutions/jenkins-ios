@@ -14,22 +14,57 @@ class ArtifactsTableViewController: UITableViewController {
     var account: Account?
     var build: Build?
 
+    private let firstRowHeight: CGFloat = 40.0
+    private let generalRowHeight: CGFloat = 30.0
+    
     private var currentDownloadTask: URLSessionTaskController?
     private var artifacts: [Artifact] = []
     
     private var numberFormatter = NumberFormatter()
     
+    @IBOutlet weak var topContainer: CorneredView!
+    @IBOutlet weak var bottomContainer: CorneredView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Artifacts"
+        title = "Artifact List"
         
         numberFormatter.numberStyle = .decimal
+        
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        topContainer.layer.borderWidth = 1
+        topContainer.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        topContainer.cornersToRound = [.topRight, .topLeft]
+        bottomContainer.cornersToRound = [.bottomLeft, .bottomRight]
+        bottomContainer.borders = [.bottom, .left, .right]
+        resizeBottomContainer()
         
         guard let build = build
             else { return }
         
         self.artifacts = build.artifacts
         updateArtifactSizes()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        resizeBottomContainer()
+        super.viewWillLayoutSubviews()
+    }
+    
+    fileprivate func resizeBottomContainer() {
+        
+        guard let superView = bottomContainer.superview, let topSuperView = topContainer.superview
+            else { return }
+        
+        let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0
+        let bottomSpacing: CGFloat = 50
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        
+        let newHeight = tableView.frame.height - topSuperView.frame.height - firstRowHeight - generalRowHeight * CGFloat(artifacts.count - 1) - bottomSpacing - navigationBarHeight - statusBarHeight
+        
+        let minimumHeight: CGFloat = 10.0
+        superView.frame = CGRect(origin: superView.frame.origin, size: CGSize(width: superView.frame.width, height: max(newHeight, minimumHeight)))
+        superView.setNeedsLayout()
     }
     
     private func updateArtifactSizes(){
@@ -85,16 +120,9 @@ class ArtifactsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.artifactsCell, for: indexPath)
-
-        cell.textLabel?.text = artifacts[indexPath.row].filename
-        
-        if let size = artifacts[indexPath.row].size{
-            cell.detailTextLabel?.text = "Size: " + size.bytesToGigabytesString(numberFormatter: numberFormatter)
-        }
-        else{
-            cell.detailTextLabel?.text = "Size: Loading..."
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.artifactsCell, for: indexPath) as! ArtifactTableViewCell
+        cell.artifactName.text = "\(artifacts[indexPath.row].filename) (\(artifacts[indexPath.row].size?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "? B"))"
+        cell.container.borders = [.left, .right]
         
         return cell
     }
@@ -105,34 +133,36 @@ class ArtifactsTableViewController: UITableViewController {
         
         let artifact = artifacts[indexPath.row]
         
-        downloadArtifact(artifact: artifact) { (data) in
+        downloadArtifact(artifact: artifact) { [unowned self] (data) in
             guard let data = data
                 else { return }
-            guard let composer = self.mailComposer(for: artifact, with: data)
-                else { self.displayError(title: "Can't send mail", message: "Please set up a Mail account to be able to share artifacts.", textFieldConfigurations: [], actions: [UIAlertAction(title: "Alright", style: UIAlertActionStyle.cancel, handler: nil)]); return }
-            
-            self.present(composer, animated: true, completion: nil)
+            self.shareArtifact(data: data, artifact: artifact)
         }
     }
     
-    private func mailComposer(for artifact: Artifact, with data: Data) -> MFMailComposeViewController? {
-        
-        guard MFMailComposeViewController.canSendMail()
-            else { return nil }
-        
-        let composer = MFMailComposeViewController()
-        
-        var subject = "Artifact \(artifact.filename)"
-        if let build = self.build{
-            subject += " from Build \(build.fullDisplayName ?? build.displayName ?? "#\(build.number)")"
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.row == 0 ? firstRowHeight : generalRowHeight
+    }
+    
+    private func shareArtifact(data: Data, artifact: Artifact) {
+        let url: URL
+        if #available(iOS 10.0, *) {
+            url = FileManager.default.temporaryDirectory.appendingPathComponent(artifact.filename)
+        } else {
+            url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(artifact.filename)
         }
-        composer.setSubject(subject)
-        composer.setMessageBody("Sent using Jenkins iOS", isHTML: false)
-        composer.addAttachmentData(data, mimeType: "", fileName: artifact.filename)
         
-        composer.mailComposeDelegate = self
+        do {
+            try data.write(to: url)
+        } catch {
+            self.displayError(title: "Error", message: "Could not save file",
+                              textFieldConfigurations: [],
+                              actions: [UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: nil)])
+            return
+        }
         
-        return composer
+        let activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        self.present(activityController, animated: true, completion: nil)
     }
     
     private func showModalInformationViewController(){
@@ -145,12 +175,6 @@ class ArtifactsTableViewController: UITableViewController {
         
     fileprivate func dismissDownload(){
         currentDownloadTask?.cancelTask()
-    }
-}
-
-extension ArtifactsTableViewController: MFMailComposeViewControllerDelegate{
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }
 

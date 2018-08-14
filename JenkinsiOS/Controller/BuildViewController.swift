@@ -17,35 +17,19 @@ class BuildViewController: UITableViewController {
     
     var viewWillAppearCalled = false
     
-    class DisplayData{
-        var segueIdentifier: String?
-        var key: String
-        var value: String
-        var cellIdentifier: String
-        var viewControllerIdentifier: String?
-        var enabled: Bool
-        
-        init(key: String, value: String, cellIdentifier: String, segueIdentifier: String? = nil, viewControllerIdentifier: String? = nil , enabled: Bool = true){
-            self.key = key
-            self.value = value
-            self.cellIdentifier = cellIdentifier
-            self.segueIdentifier = segueIdentifier
-            self.viewControllerIdentifier = viewControllerIdentifier
-            self.enabled = enabled
-        }
-    }
-    
+    typealias DisplayData = (key: String, value: String)
     var displayData: [DisplayData] = []
     
-    private var favoriteImage: UIImage?{
+    private var favoriteImage: UIImage? {
         get{
-            return (build != nil && build!.isFavorite) ? UIImage(named: "HeartFull") : UIImage(named: "HeartEmpty")
+            return (build != nil && build!.isFavorite) ? UIImage(named: "fav-fill") : UIImage(named: "fav")
         }
     }
     
     private let dateFormatter = DateFormatter()
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
     
     //MARK: - View controller lifecycle
     
@@ -56,7 +40,6 @@ class BuildViewController: UITableViewController {
         setupDateFormatter()
         updateData()
         performRequests()
-        registerForPreviewing(with: self, sourceView: tableView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,59 +63,47 @@ class BuildViewController: UITableViewController {
         guard let account = account
             else { return }
         build?.toggleFavorite(account: account)
-        (navigationItem.titleView as? UIImageView)?.image = favoriteImage
+        navigationItem.rightBarButtonItem?.image = favoriteImage
     }
     
     //MARK: - Data loading and displaying
     
     private func performRequests(){
-        guard let build = build
+        guard let build = build, let account = account
             else { return }
         
-        if build.isFullVersion == false, let account = account{
-            let userRequest = UserRequest(requestUrl: build.url, account: account)
-            
-            _ = NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
-                DispatchQueue.main.async {
-                    
-                    if let error = error{
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                            
-                            self.performRequests()
-                        })
-                    }
-                    
-                    self.updateData()
+        let userRequest = UserRequest(requestUrl: build.url, account: account)
+        
+        _ = NetworkManager.manager.completeBuildInformation(userRequest: userRequest, build: build, completion: { (_, error) in
+            DispatchQueue.main.async {
+                
+                if let error = error{
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+                        
+                        self.performRequests()
+                    })
                 }
-            })
-        }
+                
+                self.updateData()
+            }
+        })
     }
     
     private func setUpUI(){        
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(toggleLike))
-        navigationItem.titleView = UIImageView(image: favoriteImage)
-        navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(recognizer)
+        tableView.register(UINib(nibName: "DetailTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.staticBuildInfoCell)
+        tableView.separatorStyle = .none
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 50
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: favoriteImage, style: .plain, target: self, action: #selector(toggleLike))
+        
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        tableView.tableHeaderView?.backgroundColor = Constants.UI.backgroundColor
+        
+        title = "Build"
     }
     
     func updateData(){
-        
-        let changesCount = build?.changeSets.reduce(0){$0 + $1.items.count} ?? 0
-        let artifactsCount = build?.artifacts.count ?? 0
-        
-        let moreInfoBuildCell = Constants.Identifiers.moreInfoBuildCell
-        let staticBuildInfoCell = Constants.Identifiers.staticBuildInfoCell
-        
-        let testResultsVC = "TestResultsViewController"
-        let changesVC = "ChangesViewController"
-        let artifactsVC = "ArtifactsViewController"
-        let consoleOutputVC = "ConsoleOutputViewController"
-        
         let resultString: String!
         let idString: String!
         let timeIntervalString: String!
@@ -160,48 +131,31 @@ class BuildViewController: UITableViewController {
             timeStampString = "Loading information..."
         }
         
-        var causes: [Cause] = []
-        
-        if let multipleCauses = build?.actions?.causes{
-            for cause in multipleCauses{
-                if !causes.contains{ $0.shortDescription == cause.shortDescription }{
-                    causes.append(cause)
-                }
-            }
-        }
-        
-        let causeText = causes.reduce("", { (str, cause) -> String in
-                                                        return str + cause.shortDescription + "\n"
-        })
-        
         displayData = [
-            DisplayData(key: "Number", value: "\((build?.number).textify())", cellIdentifier: Constants.Identifiers.staticBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Cause", value: causeText, cellIdentifier: Constants.Identifiers.longBuildInfoCell, segueIdentifier: nil),
-            DisplayData(key: "Result", value: resultString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "ID", value: idString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Started", value: timeStampString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Duration", value: timeIntervalString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Estimated", value: estimatedTimeIntervalString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Building", value: buildingString, cellIdentifier: staticBuildInfoCell),
-            DisplayData(key: "Built On", value: builtOnString, cellIdentifier: staticBuildInfoCell),
-            
-            DisplayData(key: "Changes (\(changesCount))", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showChangesSegue, viewControllerIdentifier: changesVC, enabled: changesCount > 0),
-            
-            DisplayData(key: "Test Results", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showTestResultsSegue, viewControllerIdentifier: testResultsVC),
-            
-            DisplayData(key: "Artifacts (\(artifactsCount))", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showArtifactsSegue, viewControllerIdentifier: artifactsVC, enabled: artifactsCount > 0),
-            
-            DisplayData(key: "Console Output", value: "", cellIdentifier: moreInfoBuildCell, segueIdentifier: Constants.Identifiers.showConsoleOutputSegue, viewControllerIdentifier: consoleOutputVC)
+            (key: "Result", value: resultString),
+            (key: "ID", value: idString),
+            (key: "Started", value: timeStampString),
+            (key: "Duration", value: timeIntervalString),
+            (key: "Estimated", value: estimatedTimeIntervalString),
+            (key: "Building", value: buildingString),
+            (key: "Built On", value: builtOnString)
         ]
         
-        nameLabel.text = build?.fullDisplayName ?? build?.displayName
+        nameLabel.text = build?.fullDisplayName ?? build?.displayName ?? "Build #" + ((build?.number != nil) ? "\(build!.number)" : "Unknown")
+        numberLabel.text = "Number: \((build?.number).textify())"
         
-        // This is not nice and I know it. Unfortunately, the Swift compiler gives up on compiling the above statement and this statement together on one line
-        if nameLabel.text == nil{ nameLabel.text = "Build #" + ((build?.number != nil) ? "\(build!.number)" : "Unknown") }
-        
-        (navigationItem.titleView as? UIImageView)?.image = favoriteImage
+        resizeTableHeaderView()
         
         tableView.reloadData()
+    }
+    
+    private func resizeTableHeaderView() {
+        guard let header = tableView.tableHeaderView
+            else { return }
+        
+        let size = header
+            .systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        header.frame = CGRect(origin: header.frame.origin, size: CGSize(width: header.frame.width, height: size.height))
     }
     
     //MARK: - View controller navigation
@@ -211,24 +165,10 @@ class BuildViewController: UITableViewController {
     }
     
     fileprivate func prepare(viewController: UIViewController){
-        if let consoleOutputViewController = viewController as? ConsoleOutputViewController{
+        if let consoleOutputViewController = viewController as? ConsoleOutputViewController {
             guard let build = build, let account = account
                 else { return }
             consoleOutputViewController.request = NetworkManager.manager.getConsoleOutputUserRequest(build: build, account: account)
-        }
-        else if let changesTableViewController = viewController as? ChangesTableViewController{
-            changesTableViewController.changeSetItems = []
-            
-            var commitIds: [String] = []
-            
-            build?.changeSets.forEach({ (changeSet) in
-                for change in changeSet.items{
-                    if let commitId = change.commitId, !commitIds.contains(commitId){
-                        changesTableViewController.changeSetItems?.append(change)
-                        commitIds.append(commitId)
-                    }
-                }
-            })
         }
         else if let testResultsViewController = viewController as? TestResultsTableViewController{
             testResultsViewController.build = build
@@ -243,62 +183,53 @@ class BuildViewController: UITableViewController {
     //MARK: - Table view datasource and delegate
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayData.count
+        return section == 0 ? 1 : displayData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: displayData[indexPath.row].cellIdentifier, for: indexPath)
-        
-        if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.staticBuildInfoCell{
-            cell.textLabel?.text = displayData[indexPath.row].key
-            cell.detailTextLabel?.text = displayData[indexPath.row].value
-        }
-        else if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell{
-            cell.textLabel?.text = displayData[indexPath.row].key
-        }
-        else if displayData[indexPath.row].cellIdentifier == Constants.Identifiers.longBuildInfoCell, let longBuildInfoCell = cell as? LongBuildInfoTableViewCell{
-            longBuildInfoCell.titleLabel.text = displayData[indexPath.row].key
-            longBuildInfoCell.infoLabel.text = displayData[indexPath.row].value
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCauseCell, for: indexPath) as! BuildCauseTableViewCell
+            cell.build = build
+            cell.delegate = self
+            return cell
         }
         
-        if displayData[indexPath.row].enabled && displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell{
-            cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.textColor =  UIColor.black
-            cell.selectionStyle =  .default
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.staticBuildInfoCell, for: indexPath) as! DetailTableViewCell
+        cell.titleLabel.text = displayData[indexPath.row].key
+        cell.detailLabel.text = displayData[indexPath.row].value
+        
+        cell.container.borders = [.left, .right, .bottom]
+        
+        if indexPath.row == 0 {
+            cell.container.cornersToRound = [.topLeft, .topRight]
+            cell.container.borders.insert(.top)
         }
-        else{
-            cell.accessoryType = .none
-            cell.selectionStyle = .none
-            cell.textLabel?.textColor = (displayData[indexPath.row].cellIdentifier == Constants.Identifiers.moreInfoBuildCell) ? UIColor.lightGray : UIColor.black
+        else if indexPath.row == displayData.count - 1 {
+            cell.container.cornersToRound = [.bottomLeft, .bottomRight]
         }
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let segueIdentifier = displayData[indexPath.row].segueIdentifier, displayData[indexPath.row].enabled{
-            performSegue(withIdentifier: segueIdentifier, sender: displayData[indexPath.row])
-        }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 210 : 51
     }
 }
 
-extension BuildViewController: UIViewControllerPreviewingDelegate{
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+extension BuildViewController: BuildsInformationOpeningDelegate {
+    func showLogs(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showConsoleOutputSegue, sender: build)
     }
     
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = tableView.indexPathForRow(at: location), let identifier = displayData[indexPath.row].viewControllerIdentifier
-            else { return nil }
-        guard let viewController = (UIApplication.shared.delegate as? AppDelegate)?.getViewController(name: identifier)
-            else { return nil }
-        
-        prepare(viewController: viewController)
-        
-        return viewController
+    func showArtifacts(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showArtifactsSegue, sender: build)
+    }
+    
+    func showTestResults(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showTestResultsSegue, sender: build)
     }
 }

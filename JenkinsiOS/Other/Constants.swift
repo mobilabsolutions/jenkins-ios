@@ -72,6 +72,7 @@ struct Constants{
         static let headerCell = "headerCell"
         static let settingsCell = "settingsCell"
         static let actionCell = "actionCell"
+        static let buildCauseCell = "buildCauseCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -187,17 +188,17 @@ struct Constants{
         static let projectName = "projectName"
     }
     
-    struct Networking{
+    struct Networking {
         static let successCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226]
     }
     
-    struct API{
+    struct API {
         static let consoleOutput = "/consoleText"
         static let jobListAdditionalQueryItems = [
             URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color,healthReport[description,score,iconClassName],lastBuild[timestamp,number,url]]],nodeDescription,nodeName,mode,description")
         ]
         static let jobAdditionalQueryItems: [URLQueryItem] = {
-            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number"
+            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath]"
             return [
                 URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)]")
             ]}()

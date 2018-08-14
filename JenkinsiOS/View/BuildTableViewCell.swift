@@ -44,7 +44,7 @@ class BuildTableViewCell: UITableViewCell {
         
         buildNameLabel.text = build.fullDisplayName ?? build.displayName ?? "#" + String(build.number)
         if let timeStamp = build.timeStamp {
-            buildEndLabel.text = dateFormatter.string(from: timeStamp, to: Date())
+            buildEndLabel.text = dateFormatter.string(from: timeStamp, to: Date())?.appending(" ago")
         }
         else {
             buildEndLabel.text = ""

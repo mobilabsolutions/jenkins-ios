@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SpecialBuildsTableViewCellDelegate: class {
+protocol BuildsInformationOpeningDelegate: class {
     func showLogs(build: Build)
     func showArtifacts(build: Build)
     func showTestResults(build: Build)
@@ -30,7 +30,7 @@ class SpecialBuildTableViewCell: UITableViewCell {
     @IBOutlet weak var logsButton: UIButton!
     @IBOutlet weak var container: UIView!
     
-    weak var delegate: SpecialBuildsTableViewCellDelegate?
+    weak var delegate: BuildsInformationOpeningDelegate?
     
     private let dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -65,7 +65,7 @@ class SpecialBuildTableViewCell: UITableViewCell {
         
         buildNameLabel.text = build.fullDisplayName ?? build.displayName ?? "#" + String(build.number)
         if let timeStamp = build.timeStamp {
-            buildEndLabel.text = dateFormatter.string(from: timeStamp, to: Date())
+            buildEndLabel.text = dateFormatter.string(from: timeStamp, to: Date())?.appending(" ago")
         }
         else {
             buildEndLabel.text = ""

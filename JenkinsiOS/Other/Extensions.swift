@@ -55,7 +55,7 @@ extension Double {
     }
 }
 
-extension Int64 {
+extension Int {
     /// Return a string indicating the number of gigabytes from an Int64 indicating a number of bytes
     ///
     /// - parameter numberFormatter: The numberformatter that should be used
@@ -75,22 +75,22 @@ extension NSNumber {
             return str
         }
         
-        func numberString(str: String?, with suffix: String) -> String{
+        func numberString(str: String?, with suffix: String) -> String {
             guard let str = str
-                else { return "Unknown" }
+                else { return "? B" }
             return "\(str) \(suffix)"
         }
         
-        if Double(self.int64Value / (1024 * 1024 * 1024)) > 0.5{
+        if Double(self.int64Value / (1024 * 1024 * 1024)) > 0.5 {
             return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024 * 1024))), with: "GB")
         }
-        else if Double(self.int64Value / (1024 * 1024)) > 0.5{
+        else if Double(self.int64Value / (1024 * 1024)) > 0.5 {
             return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024))), with: "MB")
         }
-        else if Double(self.int64Value / (1024)) > 0.5{
+        else if Double(self.int64Value / (1024)) > 0.5 {
             return numberString(str: numberString(from: Double(self.int64Value / (1024))), with: "KB")
         }
-        else{
+        else {
             return numberString(str: numberString(from: self.doubleValue), with: "B")
         }
     }

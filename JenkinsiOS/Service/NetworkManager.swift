@@ -276,7 +276,14 @@ class NetworkManager: NSObject{
         return performRequest(userRequest: userRequest, method: .HEAD, useAPIURL: false){
             _, error, response in
             
-            artifact.size = response?.expectedContentLength
+            if let http = response as? HTTPURLResponse, let contentLength = http.allHeaderFields["Content-Length"] as? String,
+                let size = Int(contentLength) {
+                artifact.size = size
+            }
+            else if let response = response {
+                artifact.size = Int(response.expectedContentLength)
+            }
+            
             completion?(artifact, error)
         }
     }
@@ -420,7 +427,6 @@ class NetworkManager: NSObject{
     private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, completion: @escaping (Data?, Error?, URLResponse?) -> ()) -> URLSessionTaskController{
         
         let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
-        print(request.url?.absoluteString)
         
         let task = session.dataTask(with: request) { (data, response, error) in
             
