@@ -71,9 +71,6 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         contentType = .jobList
         
         self.tableView.backgroundColor = Constants.UI.backgroundColor
-        
-        // FIXME: Use correct image here
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(presentFilterDialog))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +78,14 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         self.tableView.isUserInteractionEnabled = true
         searchController?.searchBar.text = ""
         self.tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
+        
+        // FIXME: Use correct image here
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(presentFilterDialog))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
     }
     
     override func refresh() {

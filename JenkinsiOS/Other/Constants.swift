@@ -73,6 +73,7 @@ struct Constants{
         static let settingsCell = "settingsCell"
         static let actionCell = "actionCell"
         static let buildCauseCell = "buildCauseCell"
+        static let dependencyDataCell = "dependencyDataCell"
         
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -96,6 +97,7 @@ struct Constants{
         static let showInformationSegue = "showInformationSegue"
         static let showAccountsSegue = "showAccountsSegue"
         static let showUserSegue = "showUserSegue"
+        static let showPluginSegue = "showPluginSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
         

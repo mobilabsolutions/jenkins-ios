@@ -18,22 +18,13 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
         }
     }
     
-    private var pluginList: PluginList?{
-        didSet{
-            guard let pluginList = pluginList
-                else { return }
-            
-            pluginData = pluginList.plugins.map({ (plugin) -> [(String, String, UIColor)] in
-                return data(for: plugin)
-            })
-        }
-    }
-    
-    var pluginData: [[(String, String, UIColor)]] = []
+    private var pluginList: PluginList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Plugins"
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        tableView.separatorStyle = .none
         emptyTableView(for: .loading)
         performRequest()
     }
@@ -69,63 +60,50 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
             }
         }
     }
-
-    private func data(for plugin: Plugin) -> [(String, String, UIColor)]{
-        var data = [
-            ("Name", plugin.longName ?? plugin.shortName, UIColor.clear),
-            ("Active", "\(plugin.active)", UIColor.clear),
-            ("Has Update", "\((plugin.hasUpdate).textify())", UIColor.clear),
-            ("Enabled", "\((plugin.enabled).textify())", UIColor.clear),
-            ("Version", "\((plugin.version).textify())", UIColor.clear),
-            ("Supports Dynamic Load", "\((plugin.supportsDynamicLoad).textify())", UIColor.clear)
-        ]
-        
-        if plugin.dependencies.count > 0{
-            data.append(("Dependencies", "", UIColor.groupTableViewBackground))
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? PluginTableViewController, let plugin = sender as? Plugin {
+            dest.plugin = plugin
+            dest.allPlugins = self.pluginList?.plugins ?? []
         }
-        
-        for dependency in plugin.dependencies{
-            data.append(("", "\(dependency.shortName) at v\(dependency.version)", UIColor.groupTableViewBackground))
-        }
-        
-        return data
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections() -> Int {
-        return pluginList?.plugins.count ?? 0
+        return 2
     }
 
     override func tableViewIsEmpty() -> Bool {
-        return (pluginList?.plugins.count ?? 0) == 0
+        return pluginList?.plugins.isEmpty ?? true
+    }
+    
+    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+        return .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pluginData[section].count
+        return section == 0 ? 1 : pluginList?.plugins.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.pluginCell, for: indexPath)
-        
-        cell.textLabel?.text = pluginData[indexPath.section][indexPath.row].0
-        cell.detailTextLabel?.text = pluginData[indexPath.section][indexPath.row].1
-        cell.backgroundColor = pluginData[indexPath.section][indexPath.row].2
-        
-        if pluginData[indexPath.section][indexPath.row].2 == UIColor.groupTableViewBackground {
-            let attributedString = NSAttributedString(string: pluginData[indexPath.section][indexPath.row].0, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17)])
-            cell.textLabel?.attributedText = attributedString
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.headerCell, for: indexPath)
+            cell.textLabel?.text = "PLUGINS INSTALLED"
+            return cell
         }
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.pluginCell, for: indexPath) as! BasicTableViewCell
+        cell.nextImageType = .next
+        cell.title = pluginList?.plugins[indexPath.row].shortName ?? ""
         return cell
     }
- 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return pluginList?.plugins[section].longName ?? pluginList?.plugins[section].shortName
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 48 : 44
     }
     
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showPluginSegue, sender: pluginList?.plugins[indexPath.row])
     }
 }

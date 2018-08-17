@@ -203,6 +203,7 @@
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
+		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */; };
 		E16BDEC82121820D00837E44 /* BuildCauseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */; };
 		E16BDECA2121D30100837E44 /* ArtifactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */; };
@@ -425,6 +426,7 @@
 		E101F0BE211DC6B100613132 /* CorneredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorneredView.swift; sourceTree = "<group>"; };
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
+		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */,
 				E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */,
 				E1C32CB62126EEB900F73B91 /* UserViewController.swift */,
+				E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */,
 				DC66CEC11D97FF1D00808ED0 /* AccountsViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
+				E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */,
 				DC9BAE3D1DEB1C66008AE942 /* BaseTableViewControllerExtensions.swift in Sources */,
 				DC8625721DA9213500EB7867 /* AccountTableViewCell.swift in Sources */,
 				DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */,

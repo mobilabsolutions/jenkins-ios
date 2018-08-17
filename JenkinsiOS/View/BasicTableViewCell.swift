@@ -12,16 +12,16 @@ class BasicTableViewCell: UITableViewCell {
 
     var title: String {
         get {
-            return label.text ?? ""
+            return label?.text ?? ""
         }
         set {
-            label.text = newValue
+            label?.text = newValue
         }
     }
     
     var nextImageType: NextImageType = .next {
         didSet {
-            self.nextImageView.image = nextImageType != .none ? UIImage(named: nextImageType.rawValue) : nil
+            self.nextImageView?.image = nextImageType != .none ? UIImage(named: nextImageType.rawValue) : nil
         }
     }
     
@@ -31,13 +31,13 @@ class BasicTableViewCell: UITableViewCell {
         case none = ""
     }
     
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var nextImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView?
+    @IBOutlet weak var label: UILabel?
+    @IBOutlet weak var nextImageView: UIImageView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = Constants.UI.backgroundColor
-        label.textColor = Constants.UI.greyBlue
+        label?.textColor = Constants.UI.greyBlue
     }
 }
