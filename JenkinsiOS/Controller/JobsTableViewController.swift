@@ -11,7 +11,7 @@ import UIKit
 class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
     var account: Account? {
         didSet {
-            if account != nil && account != oldValue {
+            if account != nil && account != oldValue && folderJob == nil {
                 userRequest = nil
                 jobs = nil
                 currentView = nil
@@ -28,7 +28,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     
     var folderJob: Job? {
         didSet {
-            navigationItem.rightBarButtonItem = folderJob != nil ? favoriteBarButtonItem() : nil
+            tabBarController?.navigationItem.rightBarButtonItem = folderJob != nil ? favoriteBarButtonItem() : nil
             self.title = folderJob?.name ?? "Jobs"
         }
     }
@@ -68,19 +68,19 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         loadJobs()
         
         emptyTableView(for: .loading)
-        self.tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
         contentType = .jobList
         
         self.tableView.backgroundColor = Constants.UI.backgroundColor
         
         // FIXME: Use correct image here
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(presentFilterDialog))
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(presentFilterDialog))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
         searchController?.searchBar.text = ""
+        self.tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
     }
     
     override func refresh() {
@@ -96,7 +96,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         else { return }
         
         self.emptyTableView(for: .loading)
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = false
         
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
         
@@ -136,7 +136,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
+                self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = true
             }
         }
     }
@@ -197,7 +197,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         guard let account = account, let job = folderJob
             else { return }
         job.toggleFavorite(account: account)
-        navigationItem.rightBarButtonItem?.image = UIImage(named: !job.isFavorite ? "HeartEmpty" : "HeartFull")
+        // FIXME: This needs to be adapted to the new UI design
+        self.tabBarController?.navigationItem.rightBarButtonItem?.image = UIImage(named: !job.isFavorite ? "HeartEmpty" : "HeartFull")
     }
     
     // MARK: - Viewcontroller navigation
@@ -221,35 +222,46 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         else if segue.identifier == Constants.Identifiers.showFolderSegue, let jobResult = sender as? JobListResult {
             prepare(vc: segue.destination, for: jobResult)
         }
-    }
-    
-    private func prepare(vc: UIViewController, for jobListResult: JobListResult) {
-        switch jobListResult {
-            case .folder(let folder):
-                prepare(vc: vc, forFolder: folder)
-            case .job(let job):
-                prepare(vc: vc, forJob: job)
+        else if segue.identifier == Constants.Identifiers.showBuildSegue, let favoriteValues = sender as? (Favoratible, Favorite), let build = favoriteValues.0 as? Build, let dest = segue.destination as? BuildViewController {
+            dest.build = build
+            dest.account = favoriteValues.1.account ?? self.account
+        }
+        else if segue.identifier == Constants.Identifiers.showJobSegue, let favoriteValues = sender as? (Favoratible, Favorite),
+            let favoritable = favoriteValues.0 as? Job {
+            prepare(vc: segue.destination, for: .job(job: favoritable), account: favoriteValues.1.account)
+        }
+        else if segue.identifier == Constants.Identifiers.showFolderSegue, let favoriteValues = sender as? (Favoratible, Favorite),let favoritable = favoriteValues.0 as? Job {
+            prepare(vc: segue.destination, for: .folder(folder: favoritable), account: favoriteValues.1.account)
         }
     }
     
-    private func prepare(vc: UIViewController, forJob job: Job) {
+    private func prepare(vc: UIViewController, for jobListResult: JobListResult, account: Account? = nil) {
+        switch jobListResult {
+            case .folder(let folder):
+                prepare(vc: vc, forFolder: folder, account: account)
+            case .job(let job):
+                prepare(vc: vc, forJob: job, account: account)
+        }
+    }
+    
+    private func prepare(vc: UIViewController, forJob job: Job, account: Account?) {
         guard let dest = vc as? JobViewController
         else { return }
         
         dest.job = job
-        dest.account = account
+        dest.account = account ?? self.account
     }
     
-    private func prepare(vc: UIViewController, forFolder folder: Job) {
-        guard let dest = vc as? JobsTableViewController, let account = self.account
+    private func prepare(vc: UIViewController, forFolder folder: Job, account: Account?) {
+        guard let dest = vc as? JobsTableViewController, let account = account ?? self.account
         else { return }
         
-        dest.account = account
+        dest.folderJob = folder
         dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
         let emptySection: SectionInformationClosure = { _, _ in ("empty", 0, 0) }
         dest.sections = [emptySection, sections.lazy.last!]
         dest.title = folder.name
-        dest.folderJob = folder
+        dest.account = account
     }
     
     // MARK: - Tableview datasource and delegate
@@ -336,7 +348,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         // Only select cells in the jobs section
-        return indexPath.section == 3 ? indexPath : nil
+        return indexPath.section == 3 || folderJob != nil ? indexPath : nil
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -456,7 +468,6 @@ extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
     func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
         switch favorite.type{
         case .build:
-            // FIXME: Add this segue
             performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
         case .job:
             performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: JobListResult.job(job: favoritable as! Job))

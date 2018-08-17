@@ -11,9 +11,11 @@ import WebKit
 
 class ConsoleOutputViewController: UIViewController {
 
-    var consoleWebView: WKWebView?
-    var directionButton: UIButton = UIButton(type: .system)
     var request: URLRequest?
+    
+    private var consoleWebView: WKWebView?
+    private var headerView: UIView?
+    private var directionButton: UIButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,34 +23,92 @@ class ConsoleOutputViewController: UIViewController {
         if #available(iOS 10.0, *) {
             configuration.dataDetectorTypes = .all
         }
+        
         consoleWebView = WKWebView(frame: self.view.frame, configuration: configuration)
-
         consoleWebView?.navigationDelegate = self
+        
+        title = "Logs"
+        view.backgroundColor = Constants.UI.backgroundColor
+        
+        addHeaderView()
         addConsoleWebViewConstraints()
         addDirectionButton()
 
         reload()
     }
 
-    func addConsoleWebViewConstraints(){
+    private func addHeaderView() {
+        let header = UIView()
+        header.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleLabel.text = "Logs"
+        titleLabel.textColor = Constants.UI.greyBlue
+        
+        separator.backgroundColor = Constants.UI.paleGreyColor
+        
+        header.backgroundColor = .white
+        
+        header.addSubview(titleLabel)
+        header.addSubview(separator)
+        
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-(16)-[titleLabel]-|", options: [], metrics: [:], views: ["titleLabel": titleLabel]))
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|[separator]|", options: [], metrics: [:], views: ["separator": separator]))
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-(16)-[titleLabel]-(15)-[separator(==1)]|", options: [], metrics: [:], views: ["titleLabel": titleLabel, "separator": separator]))
+        header.layer.cornerRadius = 5
+        header.layer.masksToBounds = true
+        
+        self.view.addSubview(header)
+        
+        header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        header.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
+        header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8).isActive = true
+        header.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        header.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        header.layer.borderWidth = 0.5
+        
+        self.headerView = header
+    }
+    
+    private func addConsoleWebViewConstraints(){
         guard let consoleWebView = self.consoleWebView else { return }
         view.addSubview(consoleWebView)
         consoleWebView.translatesAutoresizingMaskIntoConstraints = false
-        consoleWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        consoleWebView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        consoleWebView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        consoleWebView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        consoleWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65).isActive = true
+        consoleWebView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
+        consoleWebView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        
+        if let headerView = headerView {
+            consoleWebView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        }
+        else {
+            consoleWebView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
+        }
+        
         consoleWebView.scrollView.contentInset = UIEdgeInsets(top: 20 + (navigationController?.navigationBar.frame.height ?? 0), left: 0, bottom: 0, right: 0)
+        consoleWebView.scrollView.layer.cornerRadius = 5
+        consoleWebView.scrollView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        consoleWebView.scrollView.layer.borderWidth = 1
+        consoleWebView.scrollView.layer.masksToBounds = true
     }
 
-    func addIndicatorView(){
+    private func addIndicatorView(){
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
     }
     
-    func replaceIndicatorViewWithReload(){
+    private func replaceIndicatorViewWithReload(){
         if let activityIndicator = navigationItem.rightBarButtonItem?.customView as? UIActivityIndicatorView{
             activityIndicator.stopAnimating()
         }
@@ -56,7 +116,7 @@ class ConsoleOutputViewController: UIViewController {
         navigationItem.rightBarButtonItem = reloadButtonItem
     }
     
-    @objc func reload(){
+    @objc private func reload(){
         guard let request = request
             else { return }
         
@@ -65,7 +125,7 @@ class ConsoleOutputViewController: UIViewController {
         consoleWebView?.load(request)
     }
 
-    func addDirectionButton(){
+    private func addDirectionButton(){
 
         guard let consoleWebView = self.consoleWebView else { return }
 
@@ -83,7 +143,7 @@ class ConsoleOutputViewController: UIViewController {
         directionButton.widthAnchor.constraint(lessThanOrEqualTo: directionButton.heightAnchor).isActive = true
     }
 
-    func enableDirectionButton(enable: Bool){
+    private func enableDirectionButton(enable: Bool){
         UIView.animate(withDuration: 0.4, animations: {
             [unowned self] in
             self.directionButton.alpha = enable ? 1.0 : 0.0
@@ -92,7 +152,7 @@ class ConsoleOutputViewController: UIViewController {
          })
     }
 
-    @objc func scrollToBottom(){
+    @objc private func scrollToBottom(){
         guard let consoleWebView = self.consoleWebView else { return }
 
         let y = consoleWebView.scrollView.contentSize.height - consoleWebView.frame.height

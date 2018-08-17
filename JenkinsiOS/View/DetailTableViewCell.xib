@@ -23,7 +23,7 @@
                         <rect key="frame" x="8" y="0.0" width="304" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejf-Bv-dSp">
-                                <rect key="frame" x="8" y="11" width="248" height="18"/>
+                                <rect key="frame" x="8" y="11" width="243" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.41960784309999999" green="0.47058823529999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ejf-Bv-dSp" firstAttribute="leading" secondItem="UIL-H9-EJ4" secondAttribute="leading" constant="8" id="1a9-W4-VRq"/>
-                            <constraint firstItem="9ia-Oe-BYX" firstAttribute="leading" secondItem="ejf-Bv-dSp" secondAttribute="trailing" id="Bkw-wU-nsO"/>
+                            <constraint firstItem="9ia-Oe-BYX" firstAttribute="leading" secondItem="ejf-Bv-dSp" secondAttribute="trailing" constant="5" id="Bkw-wU-nsO"/>
                             <constraint firstItem="9ia-Oe-BYX" firstAttribute="top" secondItem="ejf-Bv-dSp" secondAttribute="top" id="Jlg-d9-ofX"/>
                             <constraint firstItem="ejf-Bv-dSp" firstAttribute="top" secondItem="UIL-H9-EJ4" secondAttribute="top" constant="11" id="kxI-xf-4Pp"/>
                             <constraint firstAttribute="trailing" secondItem="9ia-Oe-BYX" secondAttribute="trailing" constant="8" id="v0h-vd-ja5"/>

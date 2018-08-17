@@ -5,7 +5,7 @@
 
 import UIKit
 
-extension Build: DescribingColor{
+extension Build: DescribingColor {
     func describingColor() -> UIColor {
         guard let result = self.result?.lowercased()
                 else { return .clear }

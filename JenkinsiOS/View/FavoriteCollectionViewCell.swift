@@ -47,6 +47,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         self.colorBackgroundView.layer.insertSublayer(gradientLayer!, at: 0)
         
         healthImageView.image = nil
+        healthImageView.tintColor = .white
     }
 
     override func awakeFromNib() {
@@ -55,7 +56,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     
     var favoritable: Favoratible? {
-        didSet{
+        didSet {
             if let job = favoritable as? Job {
                 setupForJob(job: job)
             }
@@ -88,7 +89,6 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         
         if let imageName = job.healthReport.first?.iconClassName {
             healthImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
-            healthImageView.tintColor = .white
         }
         else {
             healthImageView.image = nil
@@ -112,6 +112,13 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         nameLabel.text = build.fullDisplayName ?? build.displayName ?? "Unknown"
         buildStabilityLabel.text = "Build Duration"
         
+        if let healthImageName = build.healthImageName {
+            healthImageView.image = UIImage(named: healthImageName)?.withRenderingMode(.alwaysTemplate)
+        }
+        else {
+            healthImageView.image = nil
+        }
+        
         if let timeStamp = build.timeStamp, let describingString = dateFormatter.string(from: timeStamp, to: Date()) {
             lastBuildLabel.text = describingString + " ago"
         }
@@ -131,5 +138,18 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
     private func setGradientLayerColor(with baseColor: UIColor) {
         gradientLayer?.colors = [baseColor.withAlphaComponent(0.7).cgColor, baseColor.withAlphaComponent(0.6).cgColor]
+    }
+}
+
+private extension Build {
+    var healthImageName: String? {
+        switch self.result?.lowercased() {
+        case "aborted": return "icon-health-40to59"
+        case "failure": return "icon-health-00to19"
+        case "notbuilt": return "icon-health-40to59"
+        case "success": return "icon-health-80plus"
+        case "unstable": return "icon-health-20to39"
+        default: return nil
+        }
     }
 }

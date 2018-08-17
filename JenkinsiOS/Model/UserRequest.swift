@@ -69,8 +69,7 @@ extension UserRequest{
     /// - returns: The fitting user request object
     static func userRequestForUsers(account: Account) -> UserRequest{
         let url = account.baseUrl.appendingPathComponent(Constants.API.users)
-        
-        return UserRequest(requestUrl: url, account: account)
+        return UserRequest(requestUrl: url, account: account, additionalQueryItems: Constants.API.usersAdditionalQueryItems)
     }
     
     /// Return the user request specific to getting the list of jobs

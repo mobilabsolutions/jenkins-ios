@@ -8,12 +8,14 @@
 
 import Foundation
 
-class User{
+class User {
     
     var fullName: String
+    var id: String
     var absoluteUrl: URL
     var lastChange: Int?
     var project: Project?
+    var description: String?
     
     /// Optionally initialize a User
     ///
@@ -31,11 +33,13 @@ class User{
             else { return nil }
         guard let fullName = userJson[Constants.JSON.fullName] as? String,
               let absoluteUrlString = userJson[Constants.JSON.absoluteUrl] as? String,
-            let absoluteUrl = URL(string: absoluteUrlString)
+            let absoluteUrl = URL(string: absoluteUrlString), let id = userJson[Constants.JSON.id] as? String
             else { return nil }
         
         self.fullName = fullName
         self.absoluteUrl = absoluteUrl
-    
+        self.id = id
+        
+        self.description = userJson[Constants.JSON.description] as? String
     }
 }
