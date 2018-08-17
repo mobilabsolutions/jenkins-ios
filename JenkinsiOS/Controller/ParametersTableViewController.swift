@@ -30,7 +30,6 @@ class ParametersTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 130
         tableView.keyboardDismissMode = .onDrag
         
-        tableView.tableFooterView = buildButton
         buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
         updateButton()
     }
