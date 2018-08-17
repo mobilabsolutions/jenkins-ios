@@ -312,6 +312,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         self.tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.buildsFilteringCell)
         
         self.tableView.backgroundColor = Constants.UI.backgroundColor
+        self.view.backgroundColor = Constants.UI.backgroundColor
         self.tableView.separatorStyle = .none
         
         self.buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)

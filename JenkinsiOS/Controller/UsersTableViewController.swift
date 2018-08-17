@@ -18,21 +18,7 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
         }
     }
     
-    private var userList: UserList?{
-        didSet{
-            guard let userList = userList
-                else { return }
-            
-            userData = userList.users.map({ (user) -> [(String, String)] in
-                return [
-                    ("Name", user.fullName),
-                    ("Project", user.project?.name ?? "No project")
-                ]
-            })
-        }
-    }
-    
-    private var userData: [[(String, String)]] = []
+    private var userList: UserList?
 
     
     //MARK: - View controller life cycle
@@ -40,6 +26,11 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Users"
+        
+        self.tableView.register(UINib(nibName: "UserTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.userCell)
+        self.tableView.backgroundColor = Constants.UI.backgroundColor
+        self.tableView.separatorStyle = .none
+        
         emptyTableView(for: .loading)
     }
     
@@ -77,10 +68,20 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? UserViewController, let user = sender as? User {
+            dest.user = user
+        }
+    }
+    
     //MARK: - Tableview delegate and data source
     
     override func numberOfSections() -> Int {
-        return userList?.users.count ?? 0
+        return 1
+    }
+    
+    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+        return .none
     }
     
     override func tableViewIsEmpty() -> Bool {
@@ -88,20 +89,20 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userData[section].count
+        return userList?.users.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 69
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.userCell, for: indexPath)
-        cell.textLabel?.text = userData[indexPath.section][indexPath.row].0
-        cell.detailTextLabel?.text = userData[indexPath.section][indexPath.row].1
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.userCell, for: indexPath) as! UserTableViewCell
+        cell.user = userList?.users[indexPath.row]
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let name = userList?.users[section].fullName, name != ""{
-            return name;
-        }
-        return "No Name";
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showUserSegue, sender: userList?.users[indexPath.row])
     }
 }

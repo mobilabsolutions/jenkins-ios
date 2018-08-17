@@ -210,6 +210,9 @@
 		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
+		E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */; };
+		E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */; };
+		E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB62126EEB900F73B91 /* UserViewController.swift */; };
 		E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
 		E1D266D52102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
 		E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */; };
@@ -428,6 +431,9 @@
 		E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCauseTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDECB2122CAE200837E44 /* TestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestResultTableViewCell.xib; sourceTree = "<group>"; };
+		E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
+		E1C32CB62126EEB900F73B91 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		E1D266D32102046000C4D6BB /* JobTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -691,6 +697,7 @@
 				E1D2670521198D1100C4D6BB /* MainTabBarViewController.swift */,
 				E1D2670721198D3B00C4D6BB /* AccountProvidable.swift */,
 				E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */,
+				E1C32CB62126EEB900F73B91 /* UserViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -874,6 +881,8 @@
 				E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */,
 				E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */,
 				E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */,
+				E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */,
+				E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1057,6 +1066,7 @@
 				DC56A50A1DF09452000D1A15 /* ReviewReminderViewController.xib in Resources */,
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
+				E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */,
 				E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */,
 				E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */,
 				E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */,
@@ -1224,6 +1234,7 @@
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
 				E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */,
+				E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */,
 				DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */,
 				DCC2E1761DA0198300491B98 /* Result.swift in Sources */,
 				DCC2E1781DA0198F00491B98 /* Suite.swift in Sources */,
@@ -1245,6 +1256,7 @@
 				DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */,
 				DC99C40E1D958CB50031DBE4 /* JobsTableViewController.swift in Sources */,
 				DC08DD301EFBF75300679B74 /* FavoriteCollectionViewCell.swift in Sources */,
+				E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */,
 				DC6DB1941DF09283005548A3 /* ReviewHandler.swift in Sources */,
 				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
 				DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */,

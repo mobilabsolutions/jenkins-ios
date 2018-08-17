@@ -95,6 +95,7 @@ struct Constants{
         static let didAddAccountSegue = "didAddAccountSegue"
         static let showInformationSegue = "showInformationSegue"
         static let showAccountsSegue = "showAccountsSegue"
+        static let showUserSegue = "showUserSegue"
         
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
         
@@ -214,6 +215,9 @@ struct Constants{
             URLQueryItem(name: "depth", value: "2")
         ]
         static let users = "/asynchPeople"
+        static let usersAdditionalQueryItems = [
+            URLQueryItem(name: "tree", value: "users[*,user[id,fullName,description,absoluteUrl]]")
+        ]
         static let artifact = "/artifact"
         static let crumbIssuer = "/crumbIssuer"
         
