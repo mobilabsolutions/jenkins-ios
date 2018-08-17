@@ -10,7 +10,7 @@ import Foundation
 
 class Case{
     
-    enum Status: String{
+    enum Status: String {
         case passed = "PASSED"
         case skipped = "SKIPPED"
         case failed = "FAILED"

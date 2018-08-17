@@ -14,14 +14,14 @@ import UIKit
     var contentType: LoggableContentView?
 
     /// The text that should be displayed if the table view is empty
-    @IBInspectable var emptyTableViewText: String?{
-        didSet{
+    @IBInspectable var emptyTableViewText: String? {
+        didSet {
             emptyTableViewLabel?.text = emptyTableViewText
         }
     }
     /// The image that should be displayed if the table view is empty
     @IBInspectable var emptyTableViewImages: [UIImage] = []{
-        didSet{
+        didSet {
             setImageForEmptyTableViewImageView(view: emptyTableViewImageView)
         }
     }
@@ -31,17 +31,17 @@ import UIKit
     
     /// Whether or not the image should rotate
     @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false {
-        didSet{
+        didSet {
             
             // Did anything change?
             guard emptyTableViewImageViewIsForLoading != oldValue
                 else { return }
             
-            if emptyTableViewImageViewIsForLoading{
+            if emptyTableViewImageViewIsForLoading {
                 let loadingIndicatorView = LoadingIndicatorImageView(images: emptyTableViewImages)
                 emptyTableViewImageView = loadingIndicatorView
             }
-            else{
+            else {
                 emptyTableViewImageView = UIImageView()
                 setUpTableView(empty: tableViewIsEmpty())
             }
@@ -55,7 +55,7 @@ import UIKit
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let loadingIndicator = emptyTableViewImageView as? LoadingIndicatorImageView{
+        if let loadingIndicator = emptyTableViewImageView as? LoadingIndicatorImageView {
             loadingIndicator.stopAnimation()
             loadingIndicator.startAnimation()
         }
@@ -85,22 +85,22 @@ import UIKit
         return numberOfSections()
     }
     
-    private func setUpTableView(empty: Bool){
-        if empty{
+    private func setUpTableView(empty: Bool) {
+        if empty {
             setupEmptyTableView()
         }
-        else{
+        else {
             setupNotEmptyTableView()
         }
         
         setTableViewSeparatorStyle(for: empty)
     }
     
-    private func setupNotEmptyTableView(){
+    private func setupNotEmptyTableView() {
         tableView.backgroundView = nil
     }
     
-    private func setupEmptyTableView(){
+    private func setupEmptyTableView() {
         let container = getContainerViewForEmptyTableView()
         addContainerToEmptyMessageView(container: container)
         addEmptyTableViewText(in: container)
@@ -111,17 +111,17 @@ import UIKit
         addEmptyTableViewImage(in: container, relativeTo: label)
     }
     
-    private func addContainerToEmptyMessageView(container: UIView){
-        if let view = viewForEmptyMessage{
+    private func addContainerToEmptyMessageView(container: UIView) {
+        if let view = viewForEmptyMessage {
             view.addSubview(container)
             addConstraintsToEmptyTableView(container: container, in: view)
         }
-        else{
+        else {
             tableView.backgroundView = container
         }
     }
     
-    private func addConstraintsToEmptyTableView(container: UIView, in view: UIView){
+    private func addConstraintsToEmptyTableView(container: UIView, in view: UIView) {
         container.translatesAutoresizingMaskIntoConstraints = false
         
         container.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -130,7 +130,7 @@ import UIKit
         container.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
     
-    private func addEmptyTableViewText(in view: UIView){
+    private func addEmptyTableViewText(in view: UIView) {
         let label = getLabelForEmptyTableView()
         label.text = emptyTableViewText
         label.textColor = .darkGray
@@ -141,7 +141,7 @@ import UIKit
         addConstraintsToEmptyTableView(label: label, in: view)
     }
     
-    private func addEmptyTableViewImage(in view: UIView, relativeTo label: UIView){
+    private func addEmptyTableViewImage(in view: UIView, relativeTo label: UIView) {
         let imageView = getImageViewForEmptyTableView()
         setImageForEmptyTableViewImageView(view: imageView)
         
@@ -149,7 +149,7 @@ import UIKit
         addConstraintsToEmptyTableView(imageView: imageView, in: view, relativeTo: label)
     }
     
-    private func setImageForEmptyTableViewImageView(view: UIImageView?){
+    private func setImageForEmptyTableViewImageView(view: UIImageView?) {
         
         view?.stopAnimating()
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension BaseTableViewController{
+extension BaseTableViewController {
     
     enum EmptyTableViewReason: String{
         case noData = "There does not seem to be anything here"
@@ -29,8 +29,8 @@ extension BaseTableViewController{
         guard let image = UIImage(named: "Jenkins_Loader")
             else { return }
         
-        emptyTableViewImages = [ image ]
         emptyTableViewImageViewIsForLoading = true
+        emptyTableViewImages = [ image ]
     }
     
     private func emptyTableViewForNoData(text: String){

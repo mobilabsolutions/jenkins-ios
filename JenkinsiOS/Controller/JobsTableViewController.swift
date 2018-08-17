@@ -468,7 +468,6 @@ extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
     func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
         switch favorite.type{
         case .build:
-            // FIXME: Add this segue
             performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
         case .job:
             performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: JobListResult.job(job: favoritable as! Job))
