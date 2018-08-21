@@ -43,7 +43,7 @@ class AddAccountTableViewController: UITableViewController {
         let success = addAccountWith(account: account)
         if success {
             LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
-            navigationController?.popViewController(animated: true)
+            delegate?.didEditAccount(account: account)
         }
     }
     
@@ -117,13 +117,14 @@ class AddAccountTableViewController: UITableViewController {
                 }
                 return
             }
+            
+            delegate?.didEditAccount(account: account)
         }
         else if let account = account {
-            delegate?.didEditAccount(account: account)
             AccountManager.manager.save()
+            delegate?.didEditAccount(account: account)
         }
         
-        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - View Controller lifecycle

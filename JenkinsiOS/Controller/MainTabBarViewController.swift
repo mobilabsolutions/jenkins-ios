@@ -38,6 +38,20 @@ class MainTabBarViewController: UITabBarController, AccountProvidable, CurrentAc
         }
     }
     
+    private let handler = OnBoardingHandler()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if handler.shouldStartOnBoarding() {
+            handler.startOnBoarding(on: self, delegate: self)
+        }
+        else if handler.shouldShowAccountCreationViewController() {
+            let navigationController = UINavigationController()
+            self.present(navigationController, animated: true, completion: nil)
+            handler.showAccountCreationViewController(on: navigationController, delegate: self)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         sharedInit()
@@ -96,5 +110,11 @@ class MainTabBarViewController: UITabBarController, AccountProvidable, CurrentAc
         account = current
         updateAccountProvidableViewControllers(viewControllers: self.viewControllers)
         currentAccountDelegate?.didChangeCurrentAccount(current: current)
+    }
+}
+
+extension MainTabBarViewController: OnBoardingDelegate {
+    func didFinishOnboarding(didAddAccount: Bool) {
+        dismiss(animated: true, completion: nil)
     }
 }

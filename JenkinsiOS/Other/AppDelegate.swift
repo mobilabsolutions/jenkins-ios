@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
-        handleReviewReminder()
         
         let appearanceManager = AppearanceManager()
         appearanceManager.setGlobalAppearance()
         
         setCurrentAccountForRootViewController()
+        handleReviewReminder()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication){
@@ -146,15 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(reviewHandler.mayAskForReview()){
             reviewHandler.askForReview()
-        }
-    }
-    
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        if shortcutItem.type == Constants.Identifiers.favoritesShortcutItemType{
-            let favoritesViewController = getViewController(name: "FavoritesViewController")
-            if let nav = window?.rootViewController as? UINavigationController{
-                nav.pushViewController(favoritesViewController, animated: true)
-            }
         }
     }
     
