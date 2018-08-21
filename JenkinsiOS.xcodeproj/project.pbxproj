@@ -204,6 +204,14 @@
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
+		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
+		E131DA41212BF04800DF2B8A /* OnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */; };
+		E131DA47212BFA7500DF2B8A /* OnBoardingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA46212BFA7500DF2B8A /* OnBoardingHandler.swift */; };
+		E131DA49212BFB5E00DF2B8A /* OnBoardingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */; };
+		E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA4C212C09F600DF2B8A /* OnBoardingContainerViewController.swift */; };
+		E131DA4F212C09F600DF2B8A /* OnBoardingContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */; };
+		E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164530A212C588F00750C17 /* AccountCreatedViewController.swift */; };
+		E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E164530B212C588F00750C17 /* AccountCreatedViewController.xib */; };
 		E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */; };
 		E16BDEC82121820D00837E44 /* BuildCauseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */; };
 		E16BDECA2121D30100837E44 /* ArtifactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */; };
@@ -427,8 +435,16 @@
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
+		E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingViewController.xib; sourceTree = "<group>"; };
+		E131DA46212BFA7500DF2B8A /* OnBoardingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingHandler.swift; sourceTree = "<group>"; };
+		E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingOption.swift; sourceTree = "<group>"; };
+		E131DA4C212C09F600DF2B8A /* OnBoardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingContainerViewController.swift; sourceTree = "<group>"; };
+		E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingContainerViewController.xib; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		E164530A212C588F00750C17 /* AccountCreatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreatedViewController.swift; sourceTree = "<group>"; };
+		E164530B212C588F00750C17 /* AccountCreatedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCreatedViewController.xib; sourceTree = "<group>"; };
 		E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCauseTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactTableViewCell.swift; sourceTree = "<group>"; };
@@ -701,6 +717,12 @@
 				E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */,
 				E1C32CB62126EEB900F73B91 /* UserViewController.swift */,
 				E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */,
+				E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */,
+				E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */,
+				E131DA4C212C09F600DF2B8A /* OnBoardingContainerViewController.swift */,
+				E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */,
+				E164530A212C588F00750C17 /* AccountCreatedViewController.swift */,
+				E164530B212C588F00750C17 /* AccountCreatedViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -835,6 +857,8 @@
 				DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */,
 				BC91B46ECC50D5E6CDBF2A0C /* LoggingManager.swift */,
 				BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */,
+				E131DA46212BFA7500DF2B8A /* OnBoardingHandler.swift */,
+				E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1061,6 +1085,7 @@
 			files = (
 				E1D266DF210F123A00C4D6BB /* FilteringHeaderTableViewCell.xib in Resources */,
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
+				E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */,
 				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
 				E1E6321F211D835C00CBBB86 /* DetailTableViewCell.xib in Resources */,
@@ -1076,9 +1101,11 @@
 				DC99C3DA1D955C900031DBE4 /* Main.storyboard in Resources */,
 				DC2CB8A91DF9B75000661806 /* CreditsText in Resources */,
 				E1D266EF2110441500C4D6BB /* Lato-Italic.ttf in Resources */,
+				E131DA41212BF04800DF2B8A /* OnBoardingViewController.xib in Resources */,
 				E1D266F52110441500C4D6BB /* Lato-Regular.ttf in Resources */,
 				DC56A5101DF0A0FE000D1A15 /* StarRatingView.xib in Resources */,
 				E16BDECC2122CAE200837E44 /* TestResultTableViewCell.xib in Resources */,
+				E131DA4F212C09F600DF2B8A /* OnBoardingContainerViewController.xib in Resources */,
 				E1D266F22110441500C4D6BB /* Lato-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1191,6 +1218,7 @@
 				DC169FCB1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */,
 				E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */,
+				E131DA49212BFB5E00DF2B8A /* OnBoardingOption.swift in Sources */,
 				DC1D9FDD1DB8F97400441752 /* ModalInformationViewController.swift in Sources */,
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
 				E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */,
@@ -1201,6 +1229,7 @@
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
 				DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */,
 				E1D2670221183A3B00C4D6BB /* SpecialBuildTableViewCell.swift in Sources */,
+				E131DA47212BFA7500DF2B8A /* OnBoardingHandler.swift in Sources */,
 				DC3CCD0E1DA67245004C4C3D /* Plugin.swift in Sources */,
 				DC2045AD1DB0CC39009CF232 /* Searchable.swift in Sources */,
 				DC66CECB1D981EE000808ED0 /* Actions.swift in Sources */,
@@ -1233,6 +1262,7 @@
 				DC66CEDD1D9D5A0800808ED0 /* BuildViewController.swift in Sources */,
 				DCC2E16C1D9FFB7F00491B98 /* ApplicationUserManager.swift in Sources */,
 				DC66CED11D982B8B00808ED0 /* Computer.swift in Sources */,
+				E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */,
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC169FD61DE3401D0015A499 /* ParameterTableViewCellDelegate.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
@@ -1295,6 +1325,8 @@
 				DC99C4081D9572930031DBE4 /* Errors.swift in Sources */,
 				DC169FE01DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift in Sources */,
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
+				E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */,
+				E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */,
 				DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */,

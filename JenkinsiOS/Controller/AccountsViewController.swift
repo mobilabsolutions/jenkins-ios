@@ -31,6 +31,8 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         return AccountManager.manager.accounts.isEmpty == false
     }
     
+    private lazy var handler = { OnBoardingHandler() }()
+    
     //MARK: - View controller lifecycle
     
     override func viewDidLoad(){
@@ -65,7 +67,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     //MARK: - View controller navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
+        if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath {
             prepare(viewController: dest, indexPath: indexPath)
         }
 
@@ -88,6 +90,8 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
             // The current account was edited
             currentAccountDelegate?.didChangeCurrentAccount(current: account)
         }
+        
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Tableview datasource and delegate
@@ -155,16 +159,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return [
             UITableViewRowAction(style: .destructive, title: "Delete", handler: { (_, indexPath) in
-                do{
-                    try AccountManager.manager.deleteAccount(account: AccountManager.manager.accounts[indexPath.row])
-                    self.tableView.reloadData()
-                }
-                catch{
-                    self.displayError(title: "Error", message: "Something went wrong", textFieldConfigurations: [], actions: [
-                            UIAlertAction(title: "Alright", style: .cancel, handler: nil)
-                        ])
-                    self.tableView.reloadData()
-                }
+                self.deleteAccount(at: indexPath)
             }),
             UITableViewRowAction(style: .normal, title: "Edit", handler: { (_, indexPath) in
                 self.performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: indexPath)
@@ -174,5 +169,30 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .clear
+    }
+    
+    private func deleteAccount(at indexPath: IndexPath) {
+        do {
+            try AccountManager.manager.deleteAccount(account: AccountManager.manager.accounts[indexPath.row])
+            self.tableView.reloadData()
+            
+            if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
+                let navigationController = UINavigationController()
+                self.present(navigationController, animated: false, completion: nil)
+                handler.showAccountCreationViewController(on: navigationController, delegate: self)
+            }
+        }
+        catch{
+            self.displayError(title: "Error", message: "Something went wrong", textFieldConfigurations: [], actions: [
+                UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                ])
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension AccountsViewController: OnBoardingDelegate {
+    func didFinishOnboarding(didAddAccount: Bool) {
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -18,8 +18,9 @@ extension BaseTableViewController {
     
     func emptyTableView(for reason: EmptyTableViewReason, customString: String? = nil){
         switch reason{
-            case .noData, .error: emptyTableViewForNoData(text: customString ?? reason.rawValue)
+            case .noData: emptyTableViewForNoData(text: customString ?? reason.rawValue)
             case .loading: emptyTableViewForLoading(text: customString ?? reason.rawValue)
+            case .error: emptyTableViewForError(text: customString ?? reason.rawValue)
         }
     }
 
@@ -34,6 +35,16 @@ extension BaseTableViewController {
     }
     
     private func emptyTableViewForNoData(text: String){
+        emptyTableViewText = text
+        
+        guard let image = UIImage(named: "ic-empty-jobs")
+            else { return }
+        
+        emptyTableViewImageViewIsForLoading = false
+        emptyTableViewImages = [ image ]
+    }
+    
+    private func emptyTableViewForError(text: String){
         emptyTableViewText = text
         
         guard let image = UIImage(named: "sadFace")

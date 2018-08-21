@@ -1,9 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -13,10 +27,46 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="iTz-3c-1rr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-jenkins-splash-background" translatesAutoresizingMaskIntoConstraints="NO" id="hu4-YC-nFm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.28627450980000002" green="0.44705882349999998" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-jenkins-logosplash" translatesAutoresizingMaskIntoConstraints="NO" id="Lbf-jk-3k1">
+                                <rect key="frame" x="0.0" y="75" width="375" height="262"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Butler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWj-F2-Zt9">
+                                <rect key="frame" x="137" y="370" width="102" height="43.5"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="36"/>
+                                <color key="textColor" red="0.98610705139999999" green="0.98345273730000005" blue="0.98621958489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitor your server and perform actions on your projects." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLQ-HK-KKy">
+                                <rect key="frame" x="65" y="420.5" width="245" height="36"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <color key="textColor" red="0.98610705139999999" green="0.98345273730000005" blue="0.98621958489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hu4-YC-nFm" firstAttribute="top" secondItem="iTz-3c-1rr" secondAttribute="top" id="1bx-Ou-vlG"/>
+                            <constraint firstItem="Lbf-jk-3k1" firstAttribute="width" secondItem="iTz-3c-1rr" secondAttribute="width" id="2wQ-Zi-HBc"/>
+                            <constraint firstItem="RQ6-oM-aiE" firstAttribute="trailing" secondItem="hu4-YC-nFm" secondAttribute="trailing" id="Dou-Nn-zgE"/>
+                            <constraint firstItem="bLQ-HK-KKy" firstAttribute="top" secondItem="pWj-F2-Zt9" secondAttribute="bottom" constant="7" id="FkN-bS-2EI"/>
+                            <constraint firstItem="Lbf-jk-3k1" firstAttribute="centerX" secondItem="RQ6-oM-aiE" secondAttribute="centerX" id="RIP-OC-PLv"/>
+                            <constraint firstItem="Lbf-jk-3k1" firstAttribute="centerY" secondItem="RQ6-oM-aiE" secondAttribute="centerY" multiplier="0.6" id="T9S-jZ-31n"/>
+                            <constraint firstAttribute="bottom" secondItem="hu4-YC-nFm" secondAttribute="bottom" id="UAL-HJ-1IS"/>
+                            <constraint firstItem="pWj-F2-Zt9" firstAttribute="centerX" secondItem="RQ6-oM-aiE" secondAttribute="centerX" id="dhn-RF-NCB"/>
+                            <constraint firstItem="bLQ-HK-KKy" firstAttribute="trailing" secondItem="RQ6-oM-aiE" secondAttribute="trailing" constant="-65" id="iou-m4-s8G"/>
+                            <constraint firstItem="RQ6-oM-aiE" firstAttribute="leading" secondItem="bLQ-HK-KKy" secondAttribute="leading" constant="-65" id="kGk-a4-3WG"/>
+                            <constraint firstItem="pWj-F2-Zt9" firstAttribute="top" secondItem="Lbf-jk-3k1" secondAttribute="bottom" constant="33" id="ogo-Ke-Vyv"/>
+                            <constraint firstItem="hu4-YC-nFm" firstAttribute="leading" secondItem="RQ6-oM-aiE" secondAttribute="leading" id="u2R-63-myc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RQ6-oM-aiE"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +74,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic-jenkins-logosplash" width="375" height="262"/>
+        <image name="ic-jenkins-splash-background" width="375" height="812"/>
+    </resources>
 </document>
