@@ -279,7 +279,7 @@
         <!--Job View Controller-->
         <scene sceneID="CiB-yM-TTS">
             <objects>
-                <viewController id="rhd-Xn-TSa" customClass="JobViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobViewController" id="rhd-Xn-TSa" customClass="JobViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H3U-dI-tDU"/>
                         <viewControllerLayoutGuide type="bottom" id="bpV-iV-8we"/>

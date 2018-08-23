@@ -60,11 +60,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let nav = window?.rootViewController as? UINavigationController{
             nav.popToRootViewController(animated: false)
-            nav.pushViewController(getViewController(name: "FavoritesViewController"), animated: false)
             nav.pushViewController(viewController(for: type, with: favorite), animated: false)
         }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if let nav = window?.rootViewController as? UINavigationController{
+            nav.popToRootViewController(animated: false)
+        }
     }
     
     private func setCurrentAccountForRootViewController() {
