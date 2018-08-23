@@ -133,9 +133,8 @@ import UIKit
     private func addEmptyTableViewText(in view: UIView) {
         let label = getLabelForEmptyTableView()
         label.text = emptyTableViewText
-        label.textColor = .darkGray
-        
-        label.font = UIFont(name: "Bangla Sangam MN", size: UIFont.labelFontSize)
+        label.textColor = Constants.UI.greyBlue
+        label.font = UIFont.boldDefaultFont(ofSize: 24)
         
         view.addSubview(label)
         addConstraintsToEmptyTableView(label: label, in: view)

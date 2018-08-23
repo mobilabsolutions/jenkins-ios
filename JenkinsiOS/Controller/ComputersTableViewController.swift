@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComputersTableViewController: BaseTableViewController, AccountProvidable {
+class ComputersTableViewController: RefreshingTableViewController, AccountProvidable {
 
     var account: Account? {
         didSet {
@@ -44,6 +44,7 @@ class ComputersTableViewController: BaseTableViewController, AccountProvidable {
          _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
                 self.emptyTableView(for: .noData)
+                
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
                         self.account?.username = returnData["username"]!
@@ -57,10 +58,17 @@ class ComputersTableViewController: BaseTableViewController, AccountProvidable {
                 self.computerList = computerList
                 self.tabBarController?.navigationItem.title = computerList?.displayName ?? "Nodes"
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
     }
-        
+    
+    override func refresh() {
+        self.computerList = nil
+        emptyTableView(for: .loading)
+        performRequest()
+    }
+    
     //MARK: - Tableview data source and delegate
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
