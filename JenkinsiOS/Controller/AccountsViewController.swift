@@ -51,6 +51,8 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         tableView.tableHeaderView?.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
         
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.view.frame.maxY - newAccountButton.frame.maxY, right: 0)
+        
         newAccountButton.addTarget(self, action: #selector(showAddAccountViewController), for: .touchUpInside)
     }
     
@@ -69,6 +71,9 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath {
             prepare(viewController: dest, indexPath: indexPath)
+        }
+        else if let dest = segue.destination as? AddAccountTableViewController {
+            dest.delegate = self
         }
 
         navigationController?.isToolbarHidden = true

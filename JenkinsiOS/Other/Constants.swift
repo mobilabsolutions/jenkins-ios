@@ -102,6 +102,8 @@ struct Constants{
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
         
         static let currentAccountBaseUrlUserDefaultsKey = "currentAccountBaseUrlUserDefaultsKey"
+        
+        static let favoriteStatusToggledNotification: Notification.Name = .init(rawValue: "favoriteStatusToggledNotification")
     }
     
     struct JSON {

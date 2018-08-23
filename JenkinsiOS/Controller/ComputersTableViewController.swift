@@ -30,6 +30,10 @@ class ComputersTableViewController: BaseTableViewController, AccountProvidable {
         
         performRequest()
         emptyTableView(for: .loading)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Nodes"
     }
     

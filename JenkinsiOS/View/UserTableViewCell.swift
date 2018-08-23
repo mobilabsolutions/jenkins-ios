@@ -35,6 +35,8 @@ class UserTableViewCell: UITableViewCell {
             result?.append(first)
         }) ?? "UN"
         
+        initialsLabel.text = initialsLabel.text?.uppercased()
+        
         fullNameLabel.text = user?.fullName ?? "Unknown"
     }
     

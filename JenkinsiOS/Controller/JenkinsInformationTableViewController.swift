@@ -19,6 +19,11 @@ class JenkinsInformationTableViewController: UITableViewController, AccountProvi
         self.tableView.separatorStyle = .none
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Actions"
+    }
+    
     func performAction(action: JenkinsAction) {
         
         // Methods for presenting messages to the user

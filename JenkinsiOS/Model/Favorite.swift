@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Favorite: NSObject, NSCoding{
+class Favorite: NSObject, NSCoding {
     
     /// An enum describing the type of a favorite
     ///

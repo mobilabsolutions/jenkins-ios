@@ -32,7 +32,7 @@ class SearchResultsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.register(cellNib, forCellReuseIdentifier: "searchCell")
-        tableView.backgroundColor = Constants.UI.paleGreyColor
+        tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
         
         automaticallyAdjustsScrollViewInsets = false

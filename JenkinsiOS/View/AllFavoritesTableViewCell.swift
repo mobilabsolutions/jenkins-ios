@@ -34,9 +34,7 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     
     var currentSectionFilter: FavoritesSections = .all(count: 0) {
         didSet {
-            if oldValue != currentSectionFilter {
-                collectionView.reloadData()
-            }
+            collectionView.reloadData()
         }
     }
     
@@ -65,7 +63,7 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     private var loadedFavoritables: [(favoratible: Favoratible, favorite: Favorite)] = []
     private var failedLoads: [Favorite] = []
 
-    func getFavoritableAndFavoriteForIndexPath(indexPath: IndexPath) -> (Favoratible, Favorite)?{
+    func getFavoritableAndFavoriteForIndexPath(indexPath: IndexPath) -> (Favoratible, Favorite)? {
         switch stateForIndexPath(indexPath: indexPath){
             case .loaded(_):
                 return loadedFavoritables.filter({ isOfCurrentFilterType(favorite: $0.favorite) })[indexPath.row]
@@ -79,6 +77,10 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         super.awakeFromNib()
         self.noFavoritesAvailableDescriptionLabel.textColor = Constants.UI.silver
         self.noFavoritesAvailableLabel.textColor = Constants.UI.silver
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

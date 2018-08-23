@@ -96,7 +96,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         
         nameLabel.text = job.name
         buildStabilityLabel.text = "Build Stability"
-        buildStabilityContentLabel.text = job.healthReport.first?.description
+        buildStabilityContentLabel.text = job.healthReport.first?.description ?? "Unknown Build Stability"
         
         if let timeStamp = job.lastBuild?.timeStamp, let describingString = dateFormatter.string(from: timeStamp, to: Date()) {
             lastBuildLabel.text = describingString + " ago"

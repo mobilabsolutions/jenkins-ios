@@ -16,6 +16,7 @@ protocol Favoratible {
 }
 
 extension Favoratible {
+        
     /// Get the type of a given favoritable
     ///
     /// - returns: The type of the favoritable
@@ -54,6 +55,7 @@ extension Favoratible {
             }
             
             ApplicationUserManager.manager.save()
+            NotificationCenter.default.post(name: Constants.Identifiers.favoriteStatusToggledNotification, object: self)
         }
     }
     
