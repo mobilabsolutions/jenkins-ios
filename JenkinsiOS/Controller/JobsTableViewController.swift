@@ -137,7 +137,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                             self.loadJobs()
                         })
                         
-                        self.emptyTableView(for: .error)
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
                     }
                     
                     self.refreshControl?.endRefreshing()
@@ -155,7 +155,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                     self.currentView = jobList?.allJobsView ?? jobList?.views.first
                 }
                 
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.shouldReloadFavorites = true
                 // If the folder state has changed, we might want to hide the favorites sections and therefore
                 // we reload all data, while if it is the same, there won't be any changes in those sections.

@@ -50,7 +50,7 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
         
         _ = NetworkManager.manager.getUsers(userRequest: UserRequest.userRequestForUsers(account: account)) { (userList, error) in
             DispatchQueue.main.async {
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnDict) in
                         self.account?.username = returnDict["username"]!
@@ -58,7 +58,7 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
                         
                         self.performRequest()
                     })
-                    self.emptyTableView(for: .error)
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
                 }
                 
                 self.userList = userList

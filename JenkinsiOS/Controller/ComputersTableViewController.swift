@@ -46,8 +46,6 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
          _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
                 
-                self.emptyTableView(for: .noData)
-                
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
                         self.account?.username = returnData["username"]!
@@ -55,7 +53,10 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
                         
                         self.performRequest()
                     })
-                    self.emptyTableView(for: .error)
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                }
+                else {
+                    self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 }
 
                 self.computerList = computerList

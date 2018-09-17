@@ -29,16 +29,21 @@ import UIKit
         }
     }
 
-    var actionTitle: String? {
+    struct ActionDescriptor {
+        let actionTitle: String
+        let callback: () -> ()
+    }
+    
+    var actionDescriptor: ActionDescriptor? {
         didSet {
-            if let button = emptyTableViewActionButton, let text = actionTitle {
+            if let button = emptyTableViewActionButton, button.superview != nil, let text = actionDescriptor?.actionTitle {
                 button.setTitle(text, for: .normal)
             }
-            else if actionTitle == nil {
+            else if actionDescriptor == nil {
                 emptyTableViewActionButton?.removeFromSuperview()
             }
-            else if let contentView = emptyTableViewContentView {
-                addEmptyTableViewActionButton(to: contentView)
+            else if let container = emptyTableViewContentView?.superview {
+                addEmptyTableViewActionButton(to: container)
             }
         }
     }
@@ -96,7 +101,7 @@ import UIKit
     }
     
     private func setupEmptyTableView() {
-        let container = getContainerViewForEmptyTableView()
+        let container = tableView.backgroundView ?? createContainerViewForEmptyTableView()
         addContainerToEmptyMessageView(container: container)
         addEmptyTableViewText(in: container)
         
@@ -107,13 +112,9 @@ import UIKit
     }
     
     private func addContainerToEmptyMessageView(container: UIView) {
-        if let view = tableView.backgroundView {
-            view.addSubview(container)
-            addConstraintsToEmptyTableView(container: container, in: view)
-        }
-        else {
-            tableView.backgroundView = container
-        }
+        guard tableView.backgroundView == nil
+            else { return }
+        tableView.backgroundView = container
     }
     
     private func addConstraintsToEmptyTableView(container: UIView, in view: UIView) {
@@ -147,16 +148,17 @@ import UIKit
         label.sizeToFit()
     }
     
-    private func addEmptyTableViewActionButton(to contentView: UIView) {
+    private func addEmptyTableViewActionButton(to container: UIView) {
         let button = BigButton(type: .custom)
-        button.setTitle(self.actionTitle, for: .normal)
+        button.setTitle(self.actionDescriptor?.actionTitle, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(emptyTableViewAction), for: .touchUpInside)
         
-        contentView.addSubview(button)
+        container.addSubview(button)
         
-        button.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
-        button.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
-        button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100).isActive = true
+        button.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 8).isActive = true
+        button.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -8).isActive = true
+        button.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -120).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         self.emptyTableViewActionButton = button
@@ -182,7 +184,7 @@ import UIKit
         contentView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
     }
     
-    private func getContainerViewForEmptyTableView() -> UIView{
+    private func createContainerViewForEmptyTableView() -> UIView {        
         let container = UIView()
         container.backgroundColor = Constants.UI.backgroundColor
         return container
@@ -198,6 +200,10 @@ import UIKit
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         return label
+    }
+    
+    @objc private func emptyTableViewAction() {
+        self.actionDescriptor?.callback()
     }
     
     private func setTableViewSeparatorStyle(for empty: Bool){

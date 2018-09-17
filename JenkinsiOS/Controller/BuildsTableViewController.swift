@@ -35,7 +35,7 @@ class BuildsTableViewController: RefreshingTableViewController, BuildProvidable 
     private func setup(){
         title = "Builds"
         completeAllBuilds()
-        buildsAlreadyLoaded ? emptyTableView(for: .noData) : emptyTableView(for: .loading)
+        buildsAlreadyLoaded ? emptyTableView(for: .noData, action: self.defaultRefreshingAction) : emptyTableView(for: .loading)
     }
     
     private func completeAllBuilds(){

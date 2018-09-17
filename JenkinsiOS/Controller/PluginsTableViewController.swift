@@ -49,7 +49,7 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
                         
                             self.performRequest()
                         })
-                        self.emptyTableView(for: .error)
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
                         self.tableView.reloadData()
                         return
                 }
@@ -57,7 +57,7 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
                 self.pluginList = pluginList
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.tableView.tableHeaderView?.isHidden = false
             }
         }
