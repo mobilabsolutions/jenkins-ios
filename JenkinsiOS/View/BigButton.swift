@@ -9,26 +9,25 @@
 import UIKit
 
 @IBDesignable class BigButton: UIButton {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
-    private func setup(){
-        self.backgroundColor = Constants.UI.skyBlue
-        self.tintColor = UIColor.white
-        self.layer.cornerRadius = 5
+
+    private func setup() {
+        backgroundColor = Constants.UI.skyBlue
+        tintColor = UIColor.white
+        layer.cornerRadius = 5
     }
-    
-    override var isEnabled: Bool{
-        didSet{
-            self.backgroundColor = isEnabled ? Constants.UI.skyBlue : Constants.UI.silver
+
+    override var isEnabled: Bool {
+        didSet {
+            backgroundColor = isEnabled ? Constants.UI.skyBlue : Constants.UI.silver
         }
     }
 }

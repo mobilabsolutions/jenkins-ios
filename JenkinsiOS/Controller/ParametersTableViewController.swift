@@ -9,52 +9,49 @@
 import UIKit
 
 class ParametersTableViewController: UITableViewController {
-
     var parameters: [Parameter] = []
     var delegate: ParametersViewControllerDelegate?
-    
+
     fileprivate var parameterValues: [ParameterValue] = []
-    
-    @IBOutlet weak var buildButton: BigButton!
-    
-    @IBAction func dismiss(_ sender: UIButton) {
+
+    @IBOutlet var buildButton: BigButton!
+
+    @IBAction func dismiss(_: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        parameterValues = parameters.filter{ $0.type != .unknown }.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
-        
+
+        parameterValues = parameters.filter { $0.type != .unknown }.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 130
         tableView.keyboardDismissMode = .onDrag
-        
+
         buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
         updateButton()
     }
 
-    @objc private func triggerBuild(){
+    @objc private func triggerBuild() {
         buildButton.isEnabled = false
-        
-        delegate?.build(parameters: parameterValues, completion: { (error) in
-            
+
+        delegate?.build(parameters: parameterValues, completion: { error in
+
             DispatchQueue.main.async {
-                if error == nil{
-                    
-                    self.tableView.visibleCells.forEach({ (cell) in
-                        cell.subviews.forEach({ (view) in
-                            if view.isFirstResponder{
+                if error == nil {
+                    self.tableView.visibleCells.forEach({ cell in
+                        cell.subviews.forEach({ view in
+                            if view.isFirstResponder {
                                 view.resignFirstResponder()
                             }
                         })
                     })
-                    
+
                     self.dismiss(animated: true, completion: nil)
-                }
-                else{
+                } else {
                     self.buildButton.isEnabled = true
-                    self.displayNetworkError(error: error!, onReturnWithTextFields: { (data) in
+                    self.displayNetworkError(error: error!, onReturnWithTextFields: { data in
                         self.delegate?.updateAccount(data: data)
                         self.triggerBuild()
                     })
@@ -62,18 +59,18 @@ class ParametersTableViewController: UITableViewController {
             }
         })
     }
-    
-    func updateButton(){
-        buildButton.isEnabled = parameters.isEmpty || parameterValues.reduce(true){ $0 && $1.value != nil }
+
+    func updateButton() {
+        buildButton.isEnabled = parameters.isEmpty || parameterValues.reduce(true) { $0 && $1.value != nil }
     }
-    
+
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return parameters.count
     }
 
@@ -82,12 +79,12 @@ class ParametersTableViewController: UITableViewController {
 
         cell.parameter = parameters[indexPath.row]
         cell.delegate = self
-        
+
         return cell
     }
 }
 
-extension ParametersTableViewController: ParameterTableViewCellDelegate{
+extension ParametersTableViewController: ParameterTableViewCellDelegate {
     func set(value: String?, for parameter: Parameter) {
         parameterValues.first(where: { $0.parameter.hashValue == parameter.hashValue })?.value = value
         updateButton()

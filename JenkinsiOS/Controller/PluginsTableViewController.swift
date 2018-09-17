@@ -9,7 +9,6 @@
 import UIKit
 
 class PluginsTableViewController: RefreshingTableViewController, AccountProvidable {
-
     var account: Account? {
         didSet {
             if oldValue == nil && account != nil && pluginList == nil {
@@ -17,9 +16,9 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
             }
         }
     }
-    
+
     private var pluginList: PluginList?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Plugins"
@@ -29,31 +28,30 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
         performRequest()
     }
 
-    override func refresh(){
+    override func refresh() {
         performRequest()
     }
 
-    @objc private func performRequest(){
-        
+    @objc private func performRequest() {
         guard let account = account
-            else { return }
-        
-        _ = NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { (pluginList, error) in
-            
+        else { return }
+
+        _ = NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { pluginList, error in
+
             DispatchQueue.main.async {
                 guard error == nil
-                    else {
-                        self.displayNetworkError(error: error!, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                        
-                            self.performRequest()
-                        })
-                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
-                        self.tableView.reloadData()
-                        return
+                else {
+                    self.displayNetworkError(error: error!, onReturnWithTextFields: { returnData in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+
+                        self.performRequest()
+                    })
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                    self.tableView.reloadData()
+                    return
                 }
-                
+
                 self.pluginList = pluginList
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
@@ -62,14 +60,14 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
             }
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? PluginTableViewController, let plugin = sender as? Plugin {
             dest.plugin = plugin
-            dest.allPlugins = self.pluginList?.plugins ?? []
+            dest.allPlugins = pluginList?.plugins ?? []
         }
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSections() -> Int {
@@ -79,12 +77,12 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
     override func tableViewIsEmpty() -> Bool {
         return pluginList?.plugins.isEmpty ?? true
     }
-    
+
     override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? pluginList != nil ? 1 : 0 : pluginList?.plugins.count ?? 0
     }
 
@@ -94,18 +92,18 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
             cell.textLabel?.text = "PLUGINS INSTALLED"
             return cell
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.pluginCell, for: indexPath) as! BasicTableViewCell
         cell.nextImageType = .next
         cell.title = pluginList?.plugins[indexPath.row].shortName ?? ""
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+    override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 48 : 44
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Constants.Identifiers.showPluginSegue, sender: pluginList?.plugins[indexPath.row])
     }
 }

@@ -9,16 +9,16 @@
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
-    @IBOutlet weak var container: UIView!
-    @IBOutlet weak var initialsLabel: UILabel!
-    @IBOutlet weak var fullNameLabel: UILabel!
-    
+    @IBOutlet var container: UIView!
+    @IBOutlet var initialsLabel: UILabel!
+    @IBOutlet var fullNameLabel: UILabel!
+
     var user: User? {
         didSet {
             updateViews()
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         fullNameLabel.textColor = Constants.UI.greyBlue
@@ -27,17 +27,16 @@ class UserTableViewCell: UITableViewCell {
         container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
         container.layer.borderWidth = 1
     }
-    
+
     private func updateViews() {
-        initialsLabel.text = user?.fullName.split(separator: " ").reduce(into: "", { (result, substring) in
+        initialsLabel.text = user?.fullName.split(separator: " ").reduce(into: "", { result, substring in
             guard let first = substring.first
-                else { return }
+            else { return }
             result?.append(first)
         }) ?? "UN"
-        
+
         initialsLabel.text = initialsLabel.text?.uppercased()
-        
+
         fullNameLabel.text = user?.fullName ?? "Unknown"
     }
-    
 }

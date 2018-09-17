@@ -9,78 +9,75 @@
 import UIKit
 
 @IBDesignable class PasswordTextField: UITextField {
-    
     private var toggleSecureTextButton: UIButton?
-    
+
     @IBInspectable var openImage = UIImage(named: "openEye")
     @IBInspectable var closedImage = UIImage(named: "key")
-    
+
     var buttonInset: (x: Int, y: Int) = (10, 7)
-    
-    override var text: String?{
-        didSet{
-            if oldValue == "" || oldValue == nil{
+
+    override var text: String? {
+        didSet {
+            if oldValue == "" || oldValue == nil {
                 setButtonImage()
             }
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
-    private func setup(){
+
+    private func setup() {
         addSubViews()
-        self.isSecureTextEntry = true
+        isSecureTextEntry = true
     }
-    
-    private func addSubViews(){
-        
+
+    private func addSubViews() {
         let button = UIButton(type: .custom)
 
-        self.leftView = button
-        self.toggleSecureTextButton = button
-        self.leftViewMode = .always
+        leftView = button
+        toggleSecureTextButton = button
+        leftViewMode = .always
 
         setButtonImage()
-        
+
         button.addTarget(self, action: #selector(toggleIsSecureTextEntry), for: .touchUpInside)
-        self.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+        addTarget(self, action: #selector(editingChanged), for: .editingChanged)
     }
-    
-    @objc private func editingChanged(){
-        guard self.text != nil && !self.text!.isEmpty
-            else { toggleSecureTextButton?.setImage(nil, for: .normal); return }
+
+    @objc private func editingChanged() {
+        guard text != nil && !text!.isEmpty
+        else { toggleSecureTextButton?.setImage(nil, for: .normal); return }
         setButtonImage()
     }
-    
-    private func setButtonImage(){
+
+    private func setButtonImage() {
         toggleSecureTextButton?.setImage(imageForSecureTextState(), for: .normal)
     }
-    
-    private func imageForSecureTextState() -> UIImage?{
-        guard self.text != nil && !self.text!.isEmpty
-            else { return nil }
-        return (self.isSecureTextEntry) ? openImage : closedImage
+
+    private func imageForSecureTextState() -> UIImage? {
+        guard text != nil && !text!.isEmpty
+        else { return nil }
+        return (isSecureTextEntry) ? openImage : closedImage
     }
-    
-    @objc func toggleIsSecureTextEntry(){
+
+    @objc func toggleIsSecureTextEntry() {
         isSecureTextEntry = !isSecureTextEntry
         setButtonImage()
     }
-    
+
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-        
-        if text == nil || text!.isEmpty{
+        if text == nil || text!.isEmpty {
             return CGRect(x: 0, y: 0, width: 0, height: 0)
         }
-        
+
         let widthAndHeight = Int(bounds.height) - buttonInset.y * 2
         return CGRect(x: buttonInset.x, y: buttonInset.y, width: widthAndHeight, height: widthAndHeight)
     }

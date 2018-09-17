@@ -9,26 +9,24 @@
 import UIKit
 
 class UserViewController: UIViewController {
-
     var user: User? {
         didSet {
             updateLabels()
         }
     }
-    
-    @IBOutlet weak var userIdLabel: UILabel?
-    @IBOutlet weak var fullNameLabel: UILabel?
-    @IBOutlet weak var descriptionLabel: UILabel?
-    
+
+    @IBOutlet var userIdLabel: UILabel?
+    @IBOutlet var fullNameLabel: UILabel?
+    @IBOutlet var descriptionLabel: UILabel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLabels()
     }
-    
+
     private func updateLabels() {
         userIdLabel?.text = user?.id
         fullNameLabel?.text = user?.fullName
         descriptionLabel?.text = user?.description ?? "No description"
     }
-
 }

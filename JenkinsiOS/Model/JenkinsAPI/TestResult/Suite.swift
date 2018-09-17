@@ -8,8 +8,7 @@
 
 import Foundation
 
-class Suite{
-    
+class Suite {
     /// The test cases that were run in the suite
     var cases: [Case] = []
     /// The duration it took for the suite to run
@@ -24,25 +23,24 @@ class Suite{
     var stdout: String?
     /// The timestamp at which the suite was run
     var timestamp: String?
-    
+
     /// Optionally initialize a Suite
     ///
     /// - parameter json: The json from which to initialize the Suite
     ///
     /// - returns: A Suite or nil, if initialization failed
-    init?(json: [String: AnyObject]){
+    init?(json: [String: AnyObject]) {
         duration = json[Constants.JSON.duration] as? Double
         id = json[Constants.JSON.id] as? String
         name = json[Constants.JSON.name] as? String
         stderr = json[Constants.JSON.stderr] as? String
         stdout = json[Constants.JSON.stdout] as? String
         timestamp = json[Constants.JSON.timestamp] as? String
-        
-        if let casesJson = json[Constants.JSON.cases] as? [[String: AnyObject]]{
-            for caseJson in casesJson{
+
+        if let casesJson = json[Constants.JSON.cases] as? [[String: AnyObject]] {
+            for caseJson in casesJson {
                 cases.append(Case(json: caseJson))
             }
         }
     }
-    
 }

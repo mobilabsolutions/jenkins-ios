@@ -9,7 +9,6 @@
 import UIKit
 
 class BasicTableViewCell: UITableViewCell {
-
     var title: String {
         get {
             return label?.text ?? ""
@@ -18,23 +17,23 @@ class BasicTableViewCell: UITableViewCell {
             label?.text = newValue
         }
     }
-    
+
     var nextImageType: NextImageType = .next {
         didSet {
             self.nextImageView?.image = nextImageType != .none ? UIImage(named: nextImageType.rawValue) : nil
         }
     }
-    
+
     enum NextImageType: String {
         case next = "arrow-right"
         case checkmark = "ic-checked"
         case none = ""
     }
-    
-    @IBOutlet weak var containerView: UIView?
-    @IBOutlet weak var label: UILabel?
-    @IBOutlet weak var nextImageView: UIImageView?
-    
+
+    @IBOutlet var containerView: UIView?
+    @IBOutlet var label: UILabel?
+    @IBOutlet var nextImageView: UIImageView?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = Constants.UI.backgroundColor

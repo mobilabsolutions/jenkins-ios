@@ -9,10 +9,9 @@
 import UIKit
 
 class ArtifactTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var container: CorneredView!
-    @IBOutlet weak var artifactName: UILabel!
-    
+    @IBOutlet var container: CorneredView!
+    @IBOutlet var artifactName: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         artifactName.text = "..."

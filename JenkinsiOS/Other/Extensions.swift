@@ -15,8 +15,8 @@ extension URL {
     /// - parameter scheme: The url scheme that should be used (i.e. https)
     /// - parameter port:   The port that should be used (i.e. 443)
     ///
-    /// - returns: The given url, with port and scheme replaced 
-    func using(scheme: String, at port: Int? = nil) -> URL?{
+    /// - returns: The given url, with port and scheme replaced
+    func using(scheme: String, at port: Int? = nil) -> URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
         components?.port = port
         components?.scheme = scheme
@@ -24,22 +24,22 @@ extension URL {
     }
 }
 
-extension Optional{
+extension Optional {
     /// Return a nicer version of an optional value string
     ///
     /// - returns: A string describing the optional: either "nil" or its actual value
-    func textify() -> String{
-        switch self{
-            case .none:
-                return "Unknown"
-            default:
-                return "\(self!)"
+    func textify() -> String {
+        switch self {
+        case .none:
+            return "Unknown"
+        default:
+            return "\(self!)"
         }
     }
 }
 
-extension Bool{
-    var humanReadableString: String{
+extension Bool {
+    var humanReadableString: String {
         return self ? "Yes" : "No"
     }
 }
@@ -50,7 +50,7 @@ extension Double {
     /// - parameter numberFormatter: The numberformatter that should be used
     ///
     /// - returns: The string indicating the number of gigabytes
-    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String {
         return NSNumber(value: self).bytesToGigabytesString(numberFormatter: numberFormatter)
     }
 }
@@ -61,37 +61,33 @@ extension Int {
     /// - parameter numberFormatter: The numberformatter that should be used
     ///
     /// - returns: The string indicating the number of gigabytes
-    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String {
         return NSNumber(value: self).bytesToGigabytesString(numberFormatter: numberFormatter)
     }
 }
 
 extension NSNumber {
-    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String{
-        
-        func numberString(from number: Double) -> String?{
+    func bytesToGigabytesString(numberFormatter: NumberFormatter) -> String {
+        func numberString(from number: Double) -> String? {
             guard number >= 0.0, let str = numberFormatter.string(from: NSNumber(value: number))
-                else { return nil }
+            else { return nil }
             return str
         }
-        
+
         func numberString(str: String?, with suffix: String) -> String {
             guard let str = str
-                else { return "? B" }
+            else { return "? B" }
             return "\(str) \(suffix)"
         }
-        
-        if Double(self.int64Value / (1024 * 1024 * 1024)) > 0.5 {
-            return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024 * 1024))), with: "GB")
-        }
-        else if Double(self.int64Value / (1024 * 1024)) > 0.5 {
-            return numberString(str: numberString(from: Double(self.int64Value / (1024 * 1024))), with: "MB")
-        }
-        else if Double(self.int64Value / (1024)) > 0.5 {
-            return numberString(str: numberString(from: Double(self.int64Value / (1024))), with: "KB")
-        }
-        else {
-            return numberString(str: numberString(from: self.doubleValue), with: "B")
+
+        if Double(int64Value / (1024 * 1024 * 1024)) > 0.5 {
+            return numberString(str: numberString(from: Double(int64Value / (1024 * 1024 * 1024))), with: "GB")
+        } else if Double(int64Value / (1024 * 1024)) > 0.5 {
+            return numberString(str: numberString(from: Double(int64Value / (1024 * 1024))), with: "MB")
+        } else if Double(int64Value / 1024) > 0.5 {
+            return numberString(str: numberString(from: Double(int64Value / 1024)), with: "KB")
+        } else {
+            return numberString(str: numberString(from: doubleValue), with: "B")
         }
     }
 }
@@ -102,28 +98,27 @@ extension Dictionary {
     /// - parameter elements: The array of tuples that the Dictionary should be initialised from
     ///
     /// - returns: An initialised Dictionary object
-    init(elements: [(Key, Value)]){
+    init(elements: [(Key, Value)]) {
         self.init()
-        for (key, value) in elements{
+        for (key, value) in elements {
             self[key] = value
         }
     }
 }
 
 extension TimeInterval {
-    
     /// Convert a TimeInterval to a string describing it
     ///
     /// - returns: A string describing the TimeInterval in the form: xx hours
     ///            yy minutes zz seconds
-    func toString() -> String{
+    func toString() -> String {
         let seconds = (self / 1000).truncatingRemainder(dividingBy: 60)
         let minutes = (self / 60000).truncatingRemainder(dividingBy: 60)
-        let hours = self / 3600000
+        let hours = self / 3_600_000
 
         var returnString = ""
-        
-        if Int(hours) > 0{
+
+        if Int(hours) > 0 {
             returnString += "\(Int(hours)) hours "
         }
         if Int(minutes) > 0 {
@@ -132,87 +127,82 @@ extension TimeInterval {
         if Int(seconds) > 0 && !(Int(hours) > 0 && Int(minutes) > 0) {
             returnString += "\(Int(seconds)) seconds"
         }
-        
+
         return returnString.isEmpty ? "Unknown" : returnString
     }
 }
 
-extension UIViewController{
+extension UIViewController {
     /// Display an error with given title, message, textfields and alert actions
     ///
     /// - parameter title:      The title of the error
     /// - parameter message:    The error message
     /// - parameter textFields: The text fields that should be displayed
     /// - parameter actions:    The actions that should be displayed
-    func displayError(title: String, message: String?, textFieldConfigurations: [(UITextField) -> ()], actions: [UIAlertAction]){
-        
+    func displayError(title: String, message: String?, textFieldConfigurations: [(UITextField) -> Void], actions: [UIAlertAction]) {
         // Is the view controller currently visible?
-        guard self.isViewLoaded && view.window != nil
-            else { return }
-        
+        guard isViewLoaded && view.window != nil
+        else { return }
+
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        actions.forEach { (action) in
+        actions.forEach { action in
             alertController.addAction(action)
         }
-        textFieldConfigurations.forEach { (textFieldConfiguration) in
+        textFieldConfigurations.forEach { textFieldConfiguration in
             alertController.addTextField(configurationHandler: textFieldConfiguration)
         }
-        
+
         present(alertController, animated: true, completion: nil)
     }
-    
+
     /// Display an error based on a given error
     ///
     /// - parameter error:      The error that should be displayed accordingly
     /// - parameter completion: The completion that is called if the error is a 403 NetworkManagerError.HTTPResponseNoSuccess error
-    func displayNetworkError(error: Error, onReturnWithTextFields completion: (([String: String?]) -> ())?){
-        
-        if let networkManagerError = error as? NetworkManagerError{
-            switch networkManagerError{
-                case .HTTPResponseNoSuccess(let code, _):
-                    if code == 403 || code == 401{
-                        var userNameTextField: UITextField!
-                        var passwordTextField: UITextField!
-                        
-                        
-                        let textFieldConfigurations: [(UITextField) -> ()] = [
-                            {
-                                (textField) -> () in
-                                textField.placeholder = "Username"
-                                userNameTextField = textField
-                            },
-                            {
-                                (textField) -> () in
-                                textField.placeholder = "Password"
-                                passwordTextField = textField
-                            }
-                        ]
-                        
-                        let doneAction = UIAlertAction(title: "Save", style: .default){ (_) -> () in
-                            completion?(["username" : userNameTextField.text, "password" : passwordTextField.text])
-                        }
-                        let cancelAction = UIAlertAction(title: "Discard", style: .cancel, handler: nil)
-                        
-                        let message = "Please provide username and password"
-                        
-                        displayError(title: "Error", message: message, textFieldConfigurations: textFieldConfigurations, actions: [cancelAction, doneAction])
+    func displayNetworkError(error: Error, onReturnWithTextFields completion: (([String: String?]) -> Void)?) {
+        if let networkManagerError = error as? NetworkManagerError {
+            switch networkManagerError {
+            case let .HTTPResponseNoSuccess(code, _):
+                if code == 403 || code == 401 {
+                    var userNameTextField: UITextField!
+                    var passwordTextField: UITextField!
+
+                    let textFieldConfigurations: [(UITextField) -> Void] = [
+                        {
+                            (textField) -> Void in
+                            textField.placeholder = "Username"
+                            userNameTextField = textField
+                        },
+                        {
+                            (textField) -> Void in
+                            textField.placeholder = "Password"
+                            passwordTextField = textField
+                        },
+                    ]
+
+                    let doneAction = UIAlertAction(title: "Save", style: .default) { (_) -> Void in
+                        completion?(["username": userNameTextField.text, "password": passwordTextField.text])
                     }
-                    else{
-                        let message = "An error occured \(code)"
-                        let cancelAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
-                        displayError(title: "Error", message: message, textFieldConfigurations: [], actions: [cancelAction])
-                    }
-                
-                case .dataTaskError(let error):
-                    let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
-                    displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
-    
-                default:
-                    let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
-                    displayError(title: "Error", message: "An error occurred", textFieldConfigurations: [], actions: [doneAction])
+                    let cancelAction = UIAlertAction(title: "Discard", style: .cancel, handler: nil)
+
+                    let message = "Please provide username and password"
+
+                    displayError(title: "Error", message: message, textFieldConfigurations: textFieldConfigurations, actions: [cancelAction, doneAction])
+                } else {
+                    let message = "An error occured \(code)"
+                    let cancelAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                    displayError(title: "Error", message: message, textFieldConfigurations: [], actions: [cancelAction])
+                }
+
+            case let .dataTaskError(error):
+                let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
+
+            default:
+                let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
+                displayError(title: "Error", message: "An error occurred", textFieldConfigurations: [], actions: [doneAction])
             }
-        }
-        else{
+        } else {
             let doneAction = UIAlertAction(title: "Alright", style: .cancel, handler: nil)
             displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
         }
@@ -224,8 +214,7 @@ extension UIImageView {
     ///
     /// - parameter image: The image that should be resized and set as the view's image
     /// - parameter size: The size the image should be resized to
-    func withResized(image: UIImage, size: CGSize){
-
+    func withResized(image: UIImage, size: CGSize) {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -235,24 +224,24 @@ extension UIImageView {
 }
 
 extension UILabel {
-    @objc func updateFontName(to name: String){
-        let fontName =  self.font.isBold ? (name + "-Bold") : name + "-Regular"
-        self.font = UIFont(name: fontName, size: self.font.pointSize)
+    @objc func updateFontName(to name: String) {
+        let fontName = font.isBold ? (name + "-Bold") : name + "-Regular"
+        font = UIFont(name: fontName, size: font.pointSize)
     }
 }
 
 extension UIView {
     func setCornerRounding(radius: CGFloat, corners: UIRectCorner) {
-        let path = UIBezierPath(roundedRect: self.layer.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer(layer: self.layer)
+        let path = UIBezierPath(roundedRect: layer.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer(layer: layer)
         mask.path = path.cgPath
-        self.layer.masksToBounds = true
-        self.layer.mask = mask
+        layer.masksToBounds = true
+        layer.mask = mask
     }
 }
 
-extension UIFont{
-    var isBold: Bool{
+extension UIFont {
+    var isBold: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
 }

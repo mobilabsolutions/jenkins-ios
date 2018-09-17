@@ -10,7 +10,8 @@ import Foundation
 
 class Job: Favoratible {
 
-    //MARK: - Minimal Version
+    // MARK: - Minimal Version
+
     /// The job's name
     var name: String
     /// The job's url
@@ -18,7 +19,8 @@ class Job: Favoratible {
     /// The job's color indicating its current status
     var color: JenkinsColor?
 
-    //MARK: - Full version
+    // MARK: - Full version
+
     /// The job's description
     var description: String?
 
@@ -69,35 +71,34 @@ class Job: Favoratible {
     /// - parameter minimalVersion: Whether or not the json represents a minimal version of the job
     ///
     /// - returns: The initialized Job object or nil, if initialization failed
-    init?(json: [String: AnyObject], minimalVersion: Bool = false, isBuildMinimalVersion: Bool = true){
+    init?(json: [String: AnyObject], minimalVersion: Bool = false, isBuildMinimalVersion: Bool = true) {
         guard let nameUrlString = json[Constants.JSON.name] as? String,
             let name = nameUrlString.removingPercentEncoding,
             let urlString = json[Constants.JSON.url] as? String
-            else {
-                return nil
+        else {
+            return nil
         }
         guard let url = URL(string: urlString)
-            else {
-                return nil
+        else {
+            return nil
         }
 
-        if let stringColor = json["color"] as? String{
-            self.color = JenkinsColor(rawValue: stringColor)
-        }
-        else{
-            self.color = JenkinsColor.folder
+        if let stringColor = json["color"] as? String {
+            color = JenkinsColor(rawValue: stringColor)
+        } else {
+            color = JenkinsColor.folder
         }
 
         self.url = url
         self.name = name
 
-        self.healthReport = (json["healthReport"] as? [[String: AnyObject]])?
-            .map{ HealthReportResult(json: $0) }.compactMap{ $0 } ?? []
-        
+        healthReport = (json["healthReport"] as? [[String: AnyObject]])?
+            .map { HealthReportResult(json: $0) }.compactMap { $0 } ?? []
+
         lastBuild = json["lastBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["lastBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
-        
+
         // The minimal version only contains these select fields
-        if !minimalVersion{
+        if !minimalVersion {
             addAdditionalFields(from: json, isBuildMinimalVersion: isBuildMinimalVersion)
         }
     }
@@ -105,18 +106,17 @@ class Job: Favoratible {
     /// Add values for fields in the full job category
     ///
     /// - parameter json: The JSON parsed data from which to get the values for the additional fields
-    func addAdditionalFields(from json: [String: AnyObject], isBuildMinimalVersion: Bool){
-
-        if let stringColor = json["color"] as? String{
-            self.color = JenkinsColor(rawValue: stringColor)
+    func addAdditionalFields(from json: [String: AnyObject], isBuildMinimalVersion: Bool) {
+        if let stringColor = json["color"] as? String {
+            color = JenkinsColor(rawValue: stringColor)
         }
 
         description = json["description"] as? String
         buildable = json["buildable"] as? Bool
         inQueue = json["inQueue"] as? Bool
-        keepDependencies =  json["keepDependencies"] as? Bool
+        keepDependencies = json["keepDependencies"] as? Bool
 
-        builds = (json["builds"] as? [[String: AnyObject]])?.map{ Build(json: $0, minimalVersion: isBuildMinimalVersion) }.filter{ $0 != nil }.map{ $0! } ?? []
+        builds = (json["builds"] as? [[String: AnyObject]])?.map { Build(json: $0, minimalVersion: isBuildMinimalVersion) }.filter { $0 != nil }.map { $0! } ?? []
 
         // Get the interesting builds from the json data and, if they can be converted to a dictionary, try to initialize a Build from them
         firstBuild = json["firstBuild"] as? [String: AnyObject] == nil ? nil : Build(json: json["firstBuild"] as! [String: AnyObject], minimalVersion: isBuildMinimalVersion)
@@ -136,7 +136,7 @@ class Job: Favoratible {
             ("Last Failed Build", lastFailedBuild),
             ("Last Unsuccessful Build", lastUnsuccessfulBuild),
             ("Last Completed Build", lastCompletedBuild),
-            ("First Build", firstBuild)
+            ("First Build", firstBuild),
         ]
 
         // Parse all the parameters
@@ -144,23 +144,22 @@ class Job: Favoratible {
         // For some reason there are multiple places in which the parameters may be defined. We
         // will a
         let possibleParameterDefinitionPlaces = [Constants.JSON.property, Constants.JSON.actions]
-        
+
         for possibleParameterDefinitionPlace in possibleParameterDefinitionPlaces {
             if let properties = json[possibleParameterDefinitionPlace] as? [[String: Any]],
-                let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]]{
-                
-                for parameterJson in parametersJson{
+                let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]] {
+                for parameterJson in parametersJson {
                     guard let parameter = Parameter(json: parameterJson)
-                        else { continue }
+                    else { continue }
 
-                    if parameter.type == .run{
+                    if parameter.type == .run {
                         parameter.additionalData = builds.map({ "\(name)#\($0.number)" }) as AnyObject?
                     }
 
                     parameters.append(parameter)
                 }
-                
-                break;
+
+                break
             }
         }
 

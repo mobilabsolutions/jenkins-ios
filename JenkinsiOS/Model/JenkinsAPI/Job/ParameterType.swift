@@ -18,7 +18,7 @@ import Foundation
 /// - file: The parameter expects a filename or a file to be uploaded
 /// - textBox: The parameter expects (possibly longer) text
 /// - unknown: The parameter is not known at the moment
-enum ParameterType: String{
+enum ParameterType: String {
     case boolean = "BooleanParameterDefinition"
     case choice = "ChoiceParameterDefinition"
     case string = "StringParameterDefinition"
@@ -27,34 +27,34 @@ enum ParameterType: String{
     case file = "FileParameterDefinition"
     case textBox = "TextParameterDefinition"
     case unknown = "Unknown"
-    
+
     /// Get the string that describes the additional data object in the json
     ///
     /// - Returns: The identifying string
-    func additionalDataString() -> String?{
+    func additionalDataString() -> String? {
         switch self {
-            case .choice:
-                return Constants.JSON.choices
-            case .run:
-                return Constants.JSON.projectName
-            default:
-                return nil
+        case .choice:
+            return Constants.JSON.choices
+        case .run:
+            return Constants.JSON.projectName
+        default:
+            return nil
         }
     }
-    
+
     /// Get the backup default value for a given parameter type, for use when there is no given default value
     ///
     /// - Returns: the backup default value
-    func backupDefaultString() -> String?{
-        switch self{
-            case .boolean: return "\(false)"
-            case .string: return ""
-            case .textBox: return ""
-            default: return nil
+    func backupDefaultString() -> String? {
+        switch self {
+        case .boolean: return "\(false)"
+        case .string: return ""
+        case .textBox: return ""
+        default: return nil
         }
     }
-    
-    init(value: String){
+
+    init(value: String) {
         self = ParameterType(rawValue: value) ?? ParameterType.unknown
     }
 }

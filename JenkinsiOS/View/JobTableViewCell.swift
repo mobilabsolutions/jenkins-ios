@@ -9,36 +9,33 @@
 import UIKit
 
 class JobTableViewCell: UITableViewCell {
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var statusView: UIImageView!
+    @IBOutlet var healthView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var arrowView: UIImageView!
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var statusView: UIImageView!
-    @IBOutlet weak var healthView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var arrowView: UIImageView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
-        self.containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        containerView.layer.borderWidth = 1
     }
-    
+
     func setup(with jobResult: JobListResult) {
-        self.nameLabel.text = jobResult.name
-        
+        nameLabel.text = jobResult.name
+
         if let color = jobResult.color {
-            self.statusView?.image = UIImage(named: color.rawValue + "Circle")
+            statusView?.image = UIImage(named: color.rawValue + "Circle")
         }
-        
+
         if let icon = jobResult.data.healthReport.first?.iconClassName {
-            self.healthView.image = UIImage(named: icon)
+            healthView.image = UIImage(named: icon)
+        } else if jobResult.color == .folder {
+            healthView.image = UIImage(named: "icon-health-folder")
+        } else {
+            healthView.image = UIImage(named: "icon-health-unknown")
         }
-        else if jobResult.color == .folder {
-            self.healthView.image = UIImage(named: "icon-health-folder")
-        }
-        else {
-            self.healthView.image = UIImage(named: "icon-health-unknown")
-        }
-        
+
         containerView.layer.cornerRadius = 5
     }
 }

@@ -15,15 +15,15 @@ enum JenkinsAction {
     case safeRestart
     case exit
     case safeExit
-    
-    func apiConstant() -> String{
+
+    func apiConstant() -> String {
         switch self {
-            case .restart: return Constants.API.restart
-            case .safeRestart: return Constants.API.safeRestart
-            case .quietDown: return Constants.API.quietDown
-            case .cancelQuietDown: return Constants.API.cancelQuietDown
-            case .exit: return Constants.API.exit
-            case .safeExit: return Constants.API.safeExit
+        case .restart: return Constants.API.restart
+        case .safeRestart: return Constants.API.safeRestart
+        case .quietDown: return Constants.API.quietDown
+        case .cancelQuietDown: return Constants.API.cancelQuietDown
+        case .exit: return Constants.API.exit
+        case .safeExit: return Constants.API.safeExit
         }
     }
 }

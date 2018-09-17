@@ -8,40 +8,37 @@
 
 import Foundation
 
-@objc protocol URLSessionTaskControllerDelegate{
+@objc protocol URLSessionTaskControllerDelegate {
     @objc optional func didCancel(task: URLSessionTask)
     @objc optional func didSuspend(task: URLSessionTask)
     @objc optional func didResume(task: URLSessionTask)
 }
 
-class URLSessionTaskController{
-
+class URLSessionTaskController {
     var delegate: URLSessionTaskControllerDelegate?
     private var task: URLSessionTask
 
-    init(task: URLSessionTask, delegate: URLSessionTaskControllerDelegate? = nil){
+    init(task: URLSessionTask, delegate: URLSessionTaskControllerDelegate? = nil) {
         self.task = task
         self.delegate = delegate
     }
-    
-    func cancelTask(){
-        
-        if task.state == .running{
+
+    func cancelTask() {
+        if task.state == .running {
             suspendTask()
         }
-        
+
         task.cancel()
         delegate?.didCancel?(task: task)
     }
-    
-    func suspendTask(){
+
+    func suspendTask() {
         task.suspend()
         delegate?.didSuspend?(task: task)
     }
-    
-    func resumeTask(){
+
+    func resumeTask() {
         task.resume()
         delegate?.didResume?(task: task)
     }
 }
-

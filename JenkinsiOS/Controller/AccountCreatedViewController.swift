@@ -13,18 +13,17 @@ protocol AccountCreatedViewControllerDelegate {
 }
 
 class AccountCreatedViewController: UIViewController {
-
     var delegate: AccountCreatedViewControllerDelegate?
-    
-    @IBOutlet weak var doneButton: BigButton!
-    
+
+    @IBOutlet var doneButton: BigButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.UI.backgroundColor
         doneButton.setTitle("DONE", for: .normal)
         doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
     }
-    
+
     @objc private func doneButtonPressed() {
         delegate?.doneButtonPressed()
     }

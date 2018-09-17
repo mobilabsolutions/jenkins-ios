@@ -8,13 +8,12 @@
 
 import Foundation
 
-class JobList{
-    
+class JobList {
     /// The view corresponding to all jobs
     var allJobsView: View?
     /// The list of all views in the job
     var views: [View] = []
-    
+
     /// The description of the Job List
     var description: String?
     /// The description of the executing node
@@ -25,26 +24,26 @@ class JobList{
     var nodeName: String?
     /// Whether this is a multibranch pipeline job list
     var isMultibranch: Bool = false
-    
+
     /// Initialize a JobList object
     ///
     /// - parameter json: The json from which to initialize the JobList
     ///
     /// - returns: An initialized JobList object
-    init(json: [String: AnyObject]) throws{
+    init(json: [String: AnyObject]) throws {
         guard let viewsJson = json[Constants.JSON.views] as? [[String: AnyObject]]
-            else { throw ParsingError.KeyMissingError(key: Constants.JSON.views) }
-        
-        for viewJson in viewsJson{
-            if let view = View(json: viewJson){
+        else { throw ParsingError.KeyMissingError(key: Constants.JSON.views) }
+
+        for viewJson in viewsJson {
+            if let view = View(json: viewJson) {
                 views.append(view)
-                
-                if view.name == Constants.JSON.allViews{
+
+                if view.name == Constants.JSON.allViews {
                     allJobsView = view
                 }
             }
         }
-        
+
         description = json[Constants.JSON.description] as? String
         nodeDescription = json[Constants.JSON.nodeDescription] as? String
         mode = json[Constants.JSON.mode] as? String
@@ -54,7 +53,7 @@ class JobList{
             let jobType = JobListType(rawValue: _class),
             jobType == .multibranch {
             isMultibranch = true
-            views.forEach{ $0.belongsToMultiBranchJob = true }
+            views.forEach { $0.belongsToMultiBranchJob = true }
         }
     }
 }

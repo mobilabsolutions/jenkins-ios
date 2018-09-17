@@ -9,35 +9,33 @@
 import UIKit
 
 class TestResultTableViewCell: UITableViewCell {
-    @IBOutlet weak var testNameLabel: UILabel!
-    @IBOutlet weak var testDurationLabel: UILabel!
-    @IBOutlet weak var testResultImageView: UIImageView!
-    @IBOutlet weak var container: UIView!
-    
+    @IBOutlet var testNameLabel: UILabel!
+    @IBOutlet var testDurationLabel: UILabel!
+    @IBOutlet var testResultImageView: UIImageView!
+    @IBOutlet var container: UIView!
+
     var test: Case? {
         didSet {
             updateData()
         }
     }
-    
+
     private func updateData() {
         testNameLabel.text = test?.name ?? "No name"
-        
+
         if let duration = test?.duration {
             testDurationLabel.text = String(duration) + " ms"
-        }
-        else {
+        } else {
             testDurationLabel.text = "Unknown"
         }
-        
+
         if let status = test?.status?.rawValue.lowercased() {
             testResultImageView.image = UIImage(named: "\(status)TestCase")
-        }
-        else {
+        } else {
             testResultImageView.image = UIImage(named: "failedTestCase")
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         testNameLabel.textColor = Constants.UI.greyBlue

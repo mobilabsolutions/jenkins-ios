@@ -8,19 +8,17 @@
 
 import Foundation
 
-class DataRetriever{
-    
+class DataRetriever {
     static let retriever = DataRetriever()
-    private init(){}
-    
-    func getSharedApplicationUser() -> ApplicationUser?{
+    private init() {}
+
+    func getSharedApplicationUser() -> ApplicationUser? {
         guard let path = Constants.Paths.sharedUserPath?.path
-            else { return nil }
-        
+        else { return nil }
+
         NSKeyedUnarchiver.setClass(ApplicationUser.self, forClassName: "JenkinsiOS.ApplicationUser")
         NSKeyedUnarchiver.setClass(Favorite.self, forClassName: "JenkinsiOS.Favorite")
-        
+
         return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? ApplicationUser
     }
-    
 }

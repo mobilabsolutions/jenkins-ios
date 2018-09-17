@@ -9,11 +9,10 @@
 import UIKit
 
 class BasicImageTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var container: UIView!
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    
+    @IBOutlet var container: UIView!
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         container.layer.cornerRadius = 5
@@ -26,14 +25,12 @@ class BasicImageTableViewCell: UITableViewCell {
             UIView.animate(withDuration: 0.1) {
                 self.setBackgroundColor(for: selected)
             }
-        }
-        else {
-            self.setBackgroundColor(for: selected)
+        } else {
+            setBackgroundColor(for: selected)
         }
     }
-    
+
     private func setBackgroundColor(for selected: Bool) {
-        self.container.backgroundColor = selected ? UIColor.lightGray.withAlphaComponent(0.3) : .white
+        container.backgroundColor = selected ? UIColor.lightGray.withAlphaComponent(0.3) : .white
     }
-    
 }

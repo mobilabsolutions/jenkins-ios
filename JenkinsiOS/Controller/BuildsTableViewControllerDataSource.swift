@@ -9,5 +9,5 @@
 import Foundation
 
 protocol BuildsTableViewControllerDataSource {
-    func loadBuilds(completion: @escaping ([Build]?, [(String, Build)]?) -> ())
+    func loadBuilds(completion: @escaping ([Build]?, [(String, Build)]?) -> Void)
 }

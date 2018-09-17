@@ -8,8 +8,7 @@
 
 import Foundation
 
-class MonitorData{
-    
+class MonitorData {
     /// The number of avaible bytes of physical memory
     var availablePhysicalMemory: Double?
     /// The number of available bytes of swap space
@@ -18,15 +17,15 @@ class MonitorData{
     var totalPhysicalMemory: Double?
     /// The total number of bytes of swap space
     var totalSwapSpace: Double?
-    
+
     /// Initialize a MonitorData object
     ///
     /// - parameter json: The json from which to initialize the monitor data
     ///
     /// - returns: An initialized MonitorData object
-    init(json: [String: AnyObject]){
-        for partJson in json{
-            if let dataJson = partJson.value as? [String: AnyObject]{
+    init(json: [String: AnyObject]) {
+        for partJson in json {
+            if let dataJson = partJson.value as? [String: AnyObject] {
                 availablePhysicalMemory = dataJson[Constants.JSON.availablePhysicalMemory] as? Double ?? availablePhysicalMemory
                 availableSwapSpace = dataJson[Constants.JSON.availableSwapSpace] as? Double ?? availableSwapSpace
                 totalPhysicalMemory = dataJson[Constants.JSON.totalPhysicalMemory] as? Double ?? totalPhysicalMemory
@@ -34,5 +33,4 @@ class MonitorData{
             }
         }
     }
-    
 }

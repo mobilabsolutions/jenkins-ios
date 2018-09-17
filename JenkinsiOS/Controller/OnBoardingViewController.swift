@@ -10,18 +10,18 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
     var option: OnBoardingOption?
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    
+
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var subtitleLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let imageName = option?.imageName {
             imageView.image = UIImage(named: imageName)
         }
-        
+
         titleLabel.text = option?.title
         subtitleLabel.text = option?.subtitle
     }

@@ -9,7 +9,6 @@
 import UIKit
 
 class ComputersTableViewController: RefreshingTableViewController, AccountProvidable {
-
     var account: Account? {
         didSet {
             if account != nil && oldValue != account {
@@ -19,43 +18,41 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
             }
         }
     }
-    
+
     private var computerList: ComputerList?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.register(UINib(nibName: "BasicImageTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.computerCell)
-        self.tableView.backgroundColor = Constants.UI.backgroundColor
-        
+
+        tableView.register(UINib(nibName: "BasicImageTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.computerCell)
+        tableView.backgroundColor = Constants.UI.backgroundColor
+
         performRequest()
         emptyTableView(for: .loading)
-        
-        self.contentType = .nodes
+
+        contentType = .nodes
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.title = "Nodes"
+        tabBarController?.navigationItem.title = "Nodes"
     }
-    
-    private func performRequest(){
+
+    private func performRequest() {
         guard let account = account
-            else { return }
+        else { return }
         emptyTableView(for: .loading)
-         _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
+        _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { computerList, error in
             DispatchQueue.main.async {
-                
-                if let error = error{
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                if let error = error {
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
                         self.account?.username = returnData["username"]!
                         self.account?.password = returnData["password"]!
-                        
+
                         self.performRequest()
                     })
                     self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
-                }
-                else {
+                } else {
                     self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 }
 
@@ -66,45 +63,45 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
             }
         }
     }
-    
+
     override func refresh() {
-        self.computerList = nil
+        computerList = nil
         performRequest()
     }
-    
-    //MARK: - Tableview data source and delegate
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    // MARK: - Tableview data source and delegate
+
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return computerList?.computers.count ?? 0
     }
-    
+
     override func tableViewIsEmpty() -> Bool {
         return (computerList?.computers.count ?? 0) == 0
     }
-    
+
     override func numberOfSections() -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.computerCell, for: indexPath) as! BasicImageTableViewCell
         cell.iconImageView.image = UIImage(named: "nodesCellImage")
         cell.titleLabel.text = computerList?.computers[indexPath.row].displayName ?? "Node #\(indexPath.row)"
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 74
     }
-    
+
     override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Constants.Identifiers.showComputerSegue, sender: computerList?.computers[indexPath.row])
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? ComputerTableViewController, let computer = sender as? Computer {
             dest.computer = computer

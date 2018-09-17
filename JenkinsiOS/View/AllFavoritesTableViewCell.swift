@@ -8,13 +8,12 @@
 
 import UIKit
 
-protocol AllFavoritesTableViewCellDelegate{
+protocol AllFavoritesTableViewCellDelegate {
     func didSelectErroredFavorite(favorite: Favorite)
     func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite)
 }
 
 class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, FavoritesLoading {
-    
     enum FavoritesSections: CustomStringConvertible, Equatable {
         var description: String {
             switch self {
@@ -22,27 +21,27 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
                 return "JOBS"
             case .build:
                 return "BUILDS"
-            case .all(let count):
+            case let .all(count):
                 return "SHOW ALL (\(count))"
             }
         }
-        
+
         case build
         case job
         case all(count: Int)
     }
-    
+
     var currentSectionFilter: FavoritesSections = .all(count: 0) {
         didSet {
             collectionView.reloadData()
         }
     }
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var noFavoritesAvailableLabel: UILabel!
-    @IBOutlet weak var noFavoritesAvailableImageView: UIImageView!
-    @IBOutlet weak var noFavoritesAvailableDescriptionLabel: UILabel!
-    
+
+    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var noFavoritesAvailableLabel: UILabel!
+    @IBOutlet var noFavoritesAvailableImageView: UIImageView!
+    @IBOutlet var noFavoritesAvailableDescriptionLabel: UILabel!
+
     var favorites: [Favorite] = [] {
         didSet {
             loadedFavoritables = []
@@ -64,47 +63,46 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     private var failedLoads: [Favorite] = []
 
     func getFavoritableAndFavoriteForIndexPath(indexPath: IndexPath) -> (Favoratible, Favorite)? {
-        switch stateForIndexPath(indexPath: indexPath){
-            case .loaded(_):
-                return loadedFavoritables.filter({ isOfCurrentFilterType(favorite: $0.favorite) })[indexPath.row]
-            case .errored: fallthrough
-            case .loading:
-                return nil
+        switch stateForIndexPath(indexPath: indexPath) {
+        case .loaded:
+            return loadedFavoritables.filter({ isOfCurrentFilterType(favorite: $0.favorite) })[indexPath.row]
+        case .errored: fallthrough
+        case .loading:
+            return nil
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.noFavoritesAvailableDescriptionLabel.textColor = Constants.UI.silver
-        self.noFavoritesAvailableLabel.textColor = Constants.UI.silver
+        noFavoritesAvailableDescriptionLabel.textColor = Constants.UI.silver
+        noFavoritesAvailableLabel.textColor = Constants.UI.silver
     }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+
+    func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
-    
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    public func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return favorites.filter(isOfCurrentFilterType).count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.favoritesCell,
-                for: indexPath) as! FavoriteCollectionViewCell
+                                                      for: indexPath) as! FavoriteCollectionViewCell
 
-        switch stateForIndexPath(indexPath: indexPath){
-            case .loaded(let favoritable):
-                cell.favoritable = favoritable
-            case .errored:
-                cell.setErrored()
-            case .loading:
-                cell.setLoading()
+        switch stateForIndexPath(indexPath: indexPath) {
+        case let .loaded(favoritable):
+            cell.favoritable = favoritable
+        case .errored:
+            cell.setErrored()
+        case .loading:
+            cell.setLoading()
         }
 
         return cell
     }
 
-    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    public func collectionView(_: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         switch stateForIndexPath(indexPath: indexPath) {
         case .loading:
             return false
@@ -113,18 +111,18 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         }
     }
 
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filteredLoaded = loadedFavoritables.filter { isOfCurrentFilterType(favorite: $0.favorite) }
         let filteredFailed = failedLoads.filter(isOfCurrentFilterType)
         let filteredFavoritesCount = favorites.lazy.filter { self.isOfCurrentFilterType(favorite: $0) }.count
-        
-        switch stateForIndexPath(indexPath: indexPath){
-            case .loaded(let favoritable):
-                delegate?.didSelectLoadedFavoritable(favoritable: favoritable, for: filteredLoaded[indexPath.row].favorite)
-            case .errored:
-                let selectedFavorite = filteredFailed[indexPath.row - (filteredFavoritesCount - filteredFailed.count)]
-                delegate?.didSelectErroredFavorite(favorite: selectedFavorite)
-            default: return
+
+        switch stateForIndexPath(indexPath: indexPath) {
+        case let .loaded(favoritable):
+            delegate?.didSelectLoadedFavoritable(favoritable: favoritable, for: filteredLoaded[indexPath.row].favorite)
+        case .errored:
+            let selectedFavorite = filteredFailed[indexPath.row - (filteredFavoritesCount - filteredFailed.count)]
+            delegate?.didSelectErroredFavorite(favorite: selectedFavorite)
+        default: return
         }
     }
 
@@ -132,11 +130,10 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         let filteredLoaded = loadedFavoritables.filter { isOfCurrentFilterType(favorite: $0.favorite) }
         let filteredFailed = failedLoads.filter(isOfCurrentFilterType)
         let filteredFavoritesCount = favorites.filter(isOfCurrentFilterType).count
-        
+
         if indexPath.item < filteredLoaded.count {
             return .loaded(favoritable: filteredLoaded[indexPath.item].favoratible)
-        }
-        else if indexPath.item >= filteredFavoritesCount - filteredFailed.count {
+        } else if indexPath.item >= filteredFavoritesCount - filteredFailed.count {
             return .errored
         }
         return .loading
@@ -149,13 +146,13 @@ class AllFavoritesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         case .job: return favorite.type == .job || favorite.type == .folder
         }
     }
-    
+
     func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite) {
         loadedFavoritables.append((favoritable, favorite))
         collectionView.reloadData()
     }
 
-    func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure) {
+    func didFailToLoad(favorite: Favorite, reason _: FavoriteLoadingFailure) {
         failedLoads.append(favorite)
         collectionView.reloadData()
     }

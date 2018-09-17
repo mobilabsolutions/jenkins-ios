@@ -9,18 +9,17 @@
 import UIKit
 
 class BuildTableViewCell: UITableViewCell {
-
     var build: Build? {
         didSet {
             updateBuildInformation()
         }
     }
-    
-    @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var buildNameLabel: UILabel!
-    @IBOutlet weak var buildEndLabel: UILabel!
-    @IBOutlet weak var container: UIView!
-    
+
+    @IBOutlet var statusImageView: UIImageView!
+    @IBOutlet var buildNameLabel: UILabel!
+    @IBOutlet var buildEndLabel: UILabel!
+    @IBOutlet var container: UIView!
+
     private let dateFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
@@ -28,36 +27,34 @@ class BuildTableViewCell: UITableViewCell {
         formatter.unitsStyle = .full
         return formatter
     }()
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         buildNameLabel.text = "..."
         buildEndLabel.text = "..."
-        self.container.layer.cornerRadius = 5
-        self.container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
-        self.container.layer.borderWidth = 1
+        container.layer.cornerRadius = 5
+        container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        container.layer.borderWidth = 1
     }
-    
+
     private func updateBuildInformation() {
         guard let build = self.build
-            else { updateEmptyBuildInformation(); return }
-        
+        else { updateEmptyBuildInformation(); return }
+
         buildNameLabel.text = build.fullDisplayName ?? build.displayName ?? "#" + String(build.number)
         if let timeStamp = build.timeStamp {
             buildEndLabel.text = dateFormatter.string(from: timeStamp, to: Date())?.appending(" ago")
-        }
-        else {
+        } else {
             buildEndLabel.text = ""
         }
-        
-        if let result = build.result?.lowercased(){
+
+        if let result = build.result?.lowercased() {
             statusImageView.image = UIImage(named: "\(result)Circle")
-        }
-        else {
+        } else {
             statusImageView.image = UIImage(named: "inProgressCircle")
         }
     }
-    
+
     private func updateEmptyBuildInformation() {
         buildNameLabel.text = "..."
         buildEndLabel.text = "..."

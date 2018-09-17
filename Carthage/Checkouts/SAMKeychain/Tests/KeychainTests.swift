@@ -6,200 +6,197 @@
 //  Copyright © 2010-2016 Sam Soffes. All rights reserved.
 //
 
-import XCTest
 import SAMKeychain
+import XCTest
 
 class KeychainTests: XCTestCase {
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	let testService = "SSToolkitTestService"
-	let testAccount = "SSToolkitTestAccount"
-	let testPassword = "SSToolkitTestPassword"
-	let testLabel = "SSToolkitLabel"
+    let testService = "SSToolkitTestService"
+    let testAccount = "SSToolkitTestAccount"
+    let testPassword = "SSToolkitTestPassword"
+    let testLabel = "SSToolkitLabel"
 
+    // MARK: - XCTestCase
 
-	// MARK: - XCTestCase
+    override func tearDown() {
+        SAMKeychain.deletePasswordForService(testService, account: testAccount)
+        super.tearDown()
+    }
 
-	override func tearDown() {
-		SAMKeychain.deletePasswordForService(testService, account: testAccount)
-		super.tearDown()
-	}
+    // MARK: - Tests
 
+    func testNewItem() {
+        // New item
+        let newQuery = SAMKeychainQuery()
+        newQuery.password = testPassword
+        newQuery.service = testService
+        newQuery.account = testAccount
+        newQuery.label = testLabel
+        try! newQuery.save()
 
-	// MARK: - Tests
+        // Look up
+        let lookupQuery = SAMKeychainQuery()
+        lookupQuery.service = testService
+        lookupQuery.account = testAccount
+        try! lookupQuery.fetch()
 
-	func testNewItem() {
-		// New item
-		let newQuery = SAMKeychainQuery()
-		newQuery.password = testPassword
-		newQuery.service = testService
-		newQuery.account = testAccount
-		newQuery.label = testLabel
-		try! newQuery.save()
+        XCTAssertEqual(newQuery.password, lookupQuery.password)
 
-		// Look up
-		let lookupQuery = SAMKeychainQuery()
-		lookupQuery.service = testService
-		lookupQuery.account = testAccount
-		try! lookupQuery.fetch()
+        // Search for all accounts
+        let allQuery = SAMKeychainQuery()
+        var accounts = try! allQuery.fetchAll()
+        XCTAssertTrue(self.accounts(accounts, containsAccountWithName: testAccount), "Matching account was not returned")
 
-		XCTAssertEqual(newQuery.password, lookupQuery.password)
+        // Check accounts for service
+        allQuery.service = testService
+        accounts = try! allQuery.fetchAll()
+        XCTAssertTrue(self.accounts(accounts, containsAccountWithName: testAccount), "Matching account was not returned")
 
-		// Search for all accounts
-		let allQuery = SAMKeychainQuery()
-		var accounts = try! allQuery.fetchAll()
-		XCTAssertTrue(self.accounts(accounts, containsAccountWithName: testAccount), "Matching account was not returned")
+        // Delete
+        let deleteQuery = SAMKeychainQuery()
+        deleteQuery.service = testService
+        deleteQuery.account = testAccount
+        try! deleteQuery.deleteItem()
+    }
 
-		// Check accounts for service
-		allQuery.service = testService
-		accounts = try! allQuery.fetchAll()
-		XCTAssertTrue(self.accounts(accounts, containsAccountWithName: testAccount), "Matching account was not returned")
+    func testPasswordObject() {
+        let newQuery = SAMKeychainQuery()
+        newQuery.service = testService
+        newQuery.account = testAccount
 
-		// Delete
-		let deleteQuery = SAMKeychainQuery()
-		deleteQuery.service = testService
-		deleteQuery.account = testAccount
-		try! deleteQuery.deleteItem()
-	}
+        let dictionary: [String: NSObject] = [
+            "number": 42,
+            "string": "Hello World",
+        ]
 
-	func testPasswordObject() {
-		let newQuery = SAMKeychainQuery()
-		newQuery.service = testService
-		newQuery.account = testAccount
+        newQuery.passwordObject = dictionary
+        try! newQuery.save()
 
-		let dictionary: [String: NSObject] = [
-			"number": 42,
-			"string": "Hello World"
-		]
+        let lookupQuery = SAMKeychainQuery()
+        lookupQuery.service = testService
+        lookupQuery.account = testAccount
+        try! lookupQuery.fetch()
 
-		newQuery.passwordObject = dictionary
-		try! newQuery.save()
+        let readDictionary = lookupQuery.passwordObject as! [String: NSObject]
+        XCTAssertEqual(dictionary, readDictionary)
+    }
 
-		let lookupQuery = SAMKeychainQuery()
-		lookupQuery.service = testService
-		lookupQuery.account = testAccount
-		try! lookupQuery.fetch()
+    func testCreateWithMissingInformation() {
+        var query = SAMKeychainQuery()
+        query.service = testService
+        query.account = testAccount
+        XCTAssertThrowsError(try query.save())
 
-		let readDictionary = lookupQuery.passwordObject as! [String: NSObject]
-		XCTAssertEqual(dictionary, readDictionary)
-	}
+        query = SAMKeychainQuery()
+        query.account = testAccount
+        query.password = testPassword
+        XCTAssertThrowsError(try query.save())
 
-	func testCreateWithMissingInformation() {
-		var query = SAMKeychainQuery()
-		query.service = testService
-		query.account = testAccount
-		XCTAssertThrowsError(try query.save())
+        query = SAMKeychainQuery()
+        query.service = testService
+        query.password = testPassword
+        XCTAssertThrowsError(try query.save())
+    }
 
-		query = SAMKeychainQuery()
-		query.account = testAccount
-		query.password = testPassword
-		XCTAssertThrowsError(try query.save())
+    func testDeleteWithMissingInformation() {
+        var query = SAMKeychainQuery()
+        query.account = testAccount
+        XCTAssertThrowsError(try query.deleteItem())
 
-		query = SAMKeychainQuery()
-		query.service = testService
-		query.password = testPassword
-		XCTAssertThrowsError(try query.save())
-	}
+        query = SAMKeychainQuery()
+        query.service = testService
+        XCTAssertThrowsError(try query.deleteItem())
 
-	func testDeleteWithMissingInformation() {
-		var query = SAMKeychainQuery()
-		query.account = testAccount
-		XCTAssertThrowsError(try query.deleteItem())
+        query = SAMKeychainQuery()
+        query.account = testAccount
+        XCTAssertThrowsError(try query.deleteItem())
+    }
 
-		query = SAMKeychainQuery()
-		query.service = testService
-		XCTAssertThrowsError(try query.deleteItem())
+    func testFetchWithMissingInformation() {
+        var query = SAMKeychainQuery()
+        query.account = testAccount
+        XCTAssertThrowsError(try query.fetch())
 
-		query = SAMKeychainQuery()
-		query.account = testAccount
-		XCTAssertThrowsError(try query.deleteItem())
-	}
+        query = SAMKeychainQuery()
+        query.service = testService
+        XCTAssertThrowsError(try query.fetch())
+    }
 
-	func testFetchWithMissingInformation() {
-		var query = SAMKeychainQuery()
-		query.account = testAccount
-		XCTAssertThrowsError(try query.fetch())
+    func testSynchronizable() {
+        let createQuery = SAMKeychainQuery()
+        createQuery.service = testService
+        createQuery.account = testAccount
+        createQuery.password = testPassword
+        createQuery.synchronizationMode = .Yes
+        try! createQuery.save()
 
-		query = SAMKeychainQuery()
-		query.service = testService
-		XCTAssertThrowsError(try query.fetch())
-	}
+        let noFetchQuery = SAMKeychainQuery()
+        noFetchQuery.service = testService
+        noFetchQuery.account = testAccount
+        noFetchQuery.synchronizationMode = .No
+        XCTAssertThrowsError(try noFetchQuery.fetch())
+        XCTAssertNotEqual(createQuery.password, noFetchQuery.password)
 
-	func testSynchronizable() {
-		let createQuery = SAMKeychainQuery()
-		createQuery.service = testService
-		createQuery.account = testAccount
-		createQuery.password = testPassword
-		createQuery.synchronizationMode = .Yes
-		try! createQuery.save()
+        let anyFetchQuery = SAMKeychainQuery()
+        anyFetchQuery.service = testService
+        anyFetchQuery.account = testAccount
+        anyFetchQuery.synchronizationMode = .Any
+        try! anyFetchQuery.fetch()
+        XCTAssertEqual(createQuery.password, anyFetchQuery.password)
+    }
 
-		let noFetchQuery = SAMKeychainQuery()
-		noFetchQuery.service = testService
-		noFetchQuery.account = testAccount
-	    noFetchQuery.synchronizationMode = .No
-		XCTAssertThrowsError(try noFetchQuery.fetch())
-		XCTAssertNotEqual(createQuery.password, noFetchQuery.password)
+    func testConvenienceMethods() {
+        // Create a new item
+        SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
 
-		let anyFetchQuery = SAMKeychainQuery()
-		anyFetchQuery.service = testService
-		anyFetchQuery.account = testAccount
-		anyFetchQuery.synchronizationMode = .Any
-		try! anyFetchQuery.fetch()
-		XCTAssertEqual(createQuery.password, anyFetchQuery.password)
-	}
+        // Check password
+        XCTAssertEqual(testPassword, SAMKeychain.passwordForService(testService, account: testAccount))
 
-	func testConvenienceMethods() {
-		// Create a new item
-		SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
+        // Check all accounts
+        XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
 
-		// Check password
-		XCTAssertEqual(testPassword, SAMKeychain.passwordForService(testService, account: testAccount))
+        // Check account
+        XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
 
-		// Check all accounts
-		XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
+        #if !os(OSX)
+            SAMKeychain.setAccessibilityType(kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+            XCTAssertEqual(String(kSecAttrAccessibleWhenUnlockedThisDeviceOnly), String(SAMKeychain.accessibilityType().takeRetainedValue()))
+        #endif
+    }
 
-		// Check account
-		XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
+    func testUpdateAccessibilityType() {
+        SAMKeychain.setAccessibilityType(kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
 
-		#if !os(OSX)
-			SAMKeychain.setAccessibilityType(kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
-			XCTAssertEqual(String(kSecAttrAccessibleWhenUnlockedThisDeviceOnly), String(SAMKeychain.accessibilityType().takeRetainedValue()))
-		#endif
-	}
+        // Create a new item
+        SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
 
-	func testUpdateAccessibilityType() {
-		SAMKeychain.setAccessibilityType(kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+        // Check all accounts
+        XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
 
-		// Create a new item
-		SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
+        // Check account
+        XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
 
-		// Check all accounts
-		XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
+        SAMKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
+        SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
 
-		// Check account
-		XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
+        // Check all accounts
+        XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
 
-		SAMKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
-		SAMKeychain.setPassword(testPassword, forService: testService, account: testAccount)
+        // Check account
+        XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
+    }
 
-		// Check all accounts
-		XCTAssertTrue(accounts(SAMKeychain.allAccounts(), containsAccountWithName: testAccount))
+    // MARK: - Private
 
-		// Check account
-		XCTAssertTrue(accounts(SAMKeychain.accountsForService(testService), containsAccountWithName: testAccount))
-	}
-	
+    private func accounts(accounts: [[String: AnyObject]], containsAccountWithName name: String) -> Bool {
+        for account in accounts {
+            if let acct = account["acct"] as? String where acct == name {
+                return true
+            }
+        }
 
-	// MARK: - Private
-
-	private func accounts(accounts: [[String: AnyObject]], containsAccountWithName name: String) -> Bool {
-		for account in accounts {
-			if let acct = account["acct"] as? String where acct == name {
-				return true
-			}
-		}
-
-		return false
-	}
+        return false
+    }
 }

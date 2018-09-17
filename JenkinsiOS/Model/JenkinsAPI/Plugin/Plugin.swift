@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Plugin{
+class Plugin {
     /// Whether or not the plugin is active
     var active: Bool
     /// Whether or not the plugin is bundled
@@ -35,19 +35,19 @@ class Plugin{
     var version: String?
     /// The plugin's dependencies
     var dependencies: [Dependency] = []
-    
+
     /// Optionally initialize a Plugin
     ///
     /// - parameter json: The json from which to initialize the Plugin
     ///
     /// - returns: The initialized Plugin object or nil, if initialization failed
-    init?(json: [String: AnyObject]){
+    init?(json: [String: AnyObject]) {
         guard let active = json[Constants.JSON.active] as? Bool,
-              let shortName = json[Constants.JSON.shortName] as? String
-            else { return nil }
+            let shortName = json[Constants.JSON.shortName] as? String
+        else { return nil }
         self.active = active
         self.shortName = shortName
-        
+
         bundled = json[Constants.JSON.bundled] as? Bool
         deleted = json[Constants.JSON.deleted] as? Bool
         downgradable = json[Constants.JSON.downgradable] as? Bool
@@ -56,16 +56,16 @@ class Plugin{
         longName = json[Constants.JSON.longName] as? String
         pinned = json[Constants.JSON.pinned] as? Bool
         supportsDynamicLoad = json[Constants.JSON.supportsDynamicLoad] as? String
-        
-        if let urlString = json[Constants.JSON.url] as? String{
+
+        if let urlString = json[Constants.JSON.url] as? String {
             url = URL(string: urlString)
         }
-        
+
         version = json[Constants.JSON.version] as? String
-        
-        if let dependenciesJSON = json[Constants.JSON.dependencies] as? [[String: AnyObject]]{
-            for dependecyJSON in dependenciesJSON{
-                if let dependency = Dependency(json: dependecyJSON){
+
+        if let dependenciesJSON = json[Constants.JSON.dependencies] as? [[String: AnyObject]] {
+            for dependecyJSON in dependenciesJSON {
+                if let dependency = Dependency(json: dependecyJSON) {
                     dependencies.append(dependency)
                 }
             }

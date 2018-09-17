@@ -28,11 +28,11 @@ class FavoritesLoader {
             guard let account = favorite.account
             else { delegate.didFailToLoad(favorite: favorite, reason: .noAccount); continue }
             switch favorite.type {
-                case .build:
-                    loadBuild(favorite: favorite, with: account)
-                // Folders are in essence just jobs themselves
-                case .job, .folder:
-                    loadJob(favorite: favorite, with: account)
+            case .build:
+                loadBuild(favorite: favorite, with: account)
+            // Folders are in essence just jobs themselves
+            case .job, .folder:
+                loadJob(favorite: favorite, with: account)
             }
         }
     }

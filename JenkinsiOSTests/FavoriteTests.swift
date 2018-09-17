@@ -6,16 +6,16 @@
 import XCTest
 
 class FavoriteTests: ModelTestCase {
-    func testInitializesCorrectly(){
+    func testInitializesCorrectly() {
         let favorite = Favorite(url: getGenericURL(), type: .job, account: getGenericAccount())
 
         assureValuesAreExpected(values: [
-                (favorite.url, getGenericURL()),
-                (favorite.type, Favorite.FavoriteType.job)
+            (favorite.url, getGenericURL()),
+            (favorite.type, Favorite.FavoriteType.job),
         ])
     }
 
-    func testEqualityIsDeterminedCorrectly(){
+    func testEqualityIsDeterminedCorrectly() {
         let firstFavorite = Favorite(url: getGenericURL().appendingPathComponent("test"), type: .job, account: getGenericAccount())
         let secondFavorite = Favorite(url: getGenericURL().appendingPathComponent("test"), type: .job, account: getGenericAccount())
 
@@ -31,21 +31,21 @@ class FavoriteTests: ModelTestCase {
         XCTAssertFalse(firstFavorite.isEqual(secondFavorite))
     }
 
-    func testIsProperlyInitializedFromEncodedData(){
+    func testIsProperlyInitializedFromEncodedData() {
         let favorite = Favorite(url: getGenericURL(), type: .job, account: getGenericAccount())
         let data = NSKeyedArchiver.archivedData(withRootObject: favorite)
 
         guard let unarchived = NSKeyedUnarchiver.unarchiveObject(with: data) as? Favorite
-            else { XCTFail("The unarchived data should be a favorite"); return }
+        else { XCTFail("The unarchived data should be a favorite"); return }
 
         XCTAssertTrue(unarchived.isEqual(favorite))
     }
 
-    private func getGenericAccount() -> Account{
+    private func getGenericAccount() -> Account {
         return Account(baseUrl: getGenericURL(), username: nil, password: nil, port: nil, displayName: nil)
     }
 
-    private func getGenericURL() -> URL{
+    private func getGenericURL() -> URL {
         return URL(string: "https://www.test.com")!
     }
 }

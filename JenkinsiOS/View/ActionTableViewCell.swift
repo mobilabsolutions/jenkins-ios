@@ -9,25 +9,24 @@
 import UIKit
 
 class ActionTableViewCell: UITableViewCell {
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var actionImageView: UIImageView!
+    @IBOutlet var actionLabel: UILabel!
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var actionImageView: UIImageView!
-    @IBOutlet weak var actionLabel: UILabel!
-    
     func setup(for action: JenkinsAction) {
-        self.actionImageView.image = UIImage(named: action.imageName)
-        self.actionLabel.text = action.title
+        actionImageView.image = UIImage(named: action.imageName)
+        actionLabel.text = action.title
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.containerView.layer.cornerRadius = 5
-        self.actionImageView.image = nil
-        self.actionLabel.text = ""
-        self.contentView.backgroundColor = Constants.UI.backgroundColor
-        self.backgroundColor = .clear
-        self.containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
-        self.containerView.layer.borderWidth = 1
+        containerView.layer.cornerRadius = 5
+        actionImageView.image = nil
+        actionLabel.text = ""
+        contentView.backgroundColor = Constants.UI.backgroundColor
+        backgroundColor = .clear
+        containerView.layer.borderColor = Constants.UI.paleGreyColor.cgColor
+        containerView.layer.borderWidth = 1
     }
 }
 
@@ -48,7 +47,7 @@ private extension JenkinsAction {
             return "restart"
         }
     }
-    
+
     var title: String {
         switch self {
         case .cancelQuietDown:

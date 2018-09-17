@@ -9,7 +9,6 @@
 import UIKit
 
 class NavigationController: UINavigationController, AccountProvidable {
-    
     var account: Account? {
         didSet {
             if var accountProvidableViewController = self.viewControllers.first as? AccountProvidable {
@@ -17,15 +16,15 @@ class NavigationController: UINavigationController, AccountProvidable {
             }
         }
     }
-    
-    override var isNavigationBarHidden: Bool{
+
+    override var isNavigationBarHidden: Bool {
         get {
             return false
         }
         set {}
     }
-    
-    override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
+
+    override func setNavigationBarHidden(_: Bool, animated: Bool) {
         super.setNavigationBarHidden(false, animated: animated)
     }
 }

@@ -6,27 +6,25 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
-import UIKit
 import MessageUI
 import StoreKit
+import UIKit
 
-class ReviewHandler: NSObject{
-    
+class ReviewHandler: NSObject {
     weak var viewController: UIViewController?
-    
+
     let user = ApplicationUserManager.manager.applicationUser
-    
-    init(presentOn viewController: UIViewController){
+
+    init(presentOn viewController: UIViewController) {
         self.viewController = viewController
     }
-    
-    func askForReview(){
-        if #available(iOS 10.3, *){
+
+    func askForReview() {
+        if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
-        }
-        else {
+        } else {
             guard let viewController = self.viewController, viewController.isViewLoaded
-                    else {
+            else {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10), execute: askForReview)
                 return
             }
@@ -36,54 +34,53 @@ class ReviewHandler: NSObject{
             viewController.present(reviewViewController, animated: true, completion: nil)
         }
     }
-    
+
     func mayAskForReview() -> Bool {
         return !user.canceledReviewReminder && (user.timesOpenedApp >= 7)
     }
-    
-    func triggerReview(){
+
+    func triggerReview() {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(getAppStoreURL(), options: [:]){
+            UIApplication.shared.open(getAppStoreURL(), options: [:]) {
                 success in
                 self.user.canceledReviewReminder = success
                 ApplicationUserManager.manager.save()
             }
-        }
-        else {
+        } else {
             // Fallback on earlier versions
             let success = UIApplication.shared.openURL(getAppStoreURL())
-            self.user.canceledReviewReminder = success
+            user.canceledReviewReminder = success
             ApplicationUserManager.manager.save()
         }
     }
-    
-    func postponeReviewReminder(){
+
+    func postponeReviewReminder() {
         user.timesOpenedApp = 0
         ApplicationUserManager.manager.save()
     }
-    
-    func endReviewReminder(){
+
+    func endReviewReminder() {
         user.canceledReviewReminder = true
         ApplicationUserManager.manager.save()
     }
-    
-    private func getAppStoreURL() -> URL{
+
+    private func getAppStoreURL() -> URL {
         var parameter = ""
         if #available(iOS 10.3, *) {
             parameter = "?action=write-review"
         }
         return URL(string: "itms-apps://itunes.apple.com/app/id" + getAppStoreID() + parameter)!
     }
-    
-    private func getAppStoreID() -> String{
+
+    private func getAppStoreID() -> String {
         guard let url = Bundle.main.url(forResource: "Config", withExtension: "plist"),
-              let dict = NSDictionary(contentsOf: url)
-            else { return "" }
-        
+            let dict = NSDictionary(contentsOf: url)
+        else { return "" }
+
         return dict.object(forKey: "App Store ID") as? String ?? ""
     }
-    
-    func openMailComposer(with feedback: String){
+
+    func openMailComposer(with feedback: String) {
         let mailComposer = MFMailComposeViewController()
         mailComposer.setMessageBody(feedback, isHTML: false)
         mailComposer.setSubject("JenkinsiOS Feedback")
@@ -93,32 +90,32 @@ class ReviewHandler: NSObject{
     }
 }
 
-extension ReviewHandler: MFMailComposeViewControllerDelegate{
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?){
+extension ReviewHandler: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_: MFMailComposeViewController, didFinishWith _: MFMailComposeResult, error _: Error?) {
         user.canceledReviewReminder = true
         ApplicationUserManager.manager.save()
         viewController?.dismiss(animated: true, completion: nil)
     }
 }
 
-extension ReviewHandler: ReviewReminderViewControllerDelegate{
+extension ReviewHandler: ReviewReminderViewControllerDelegate {
     func review() {
         triggerReview()
     }
-    
+
     func stopReminding() {
         endReviewReminder()
     }
-    
+
     func feedback(feedback: String) {
         openMailComposer(with: feedback)
     }
-    
-    func minimumNumberOfStarsForReview() -> Int{
+
+    func minimumNumberOfStarsForReview() -> Int {
         return 4
     }
-    
-    func postponeReminder(){
+
+    func postponeReminder() {
         postponeReviewReminder()
     }
 }
