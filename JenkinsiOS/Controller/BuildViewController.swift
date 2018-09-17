@@ -154,7 +154,7 @@ class BuildViewController: UITableViewController {
             else { return }
         
         let size = header
-            .systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         header.frame = CGRect(origin: header.frame.origin, size: CGSize(width: header.frame.width, height: size.height))
     }
     

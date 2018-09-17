@@ -38,7 +38,7 @@ class TestResultTableViewController: UITableViewController {
         title = "Test Case"
         
         self.tableView.estimatedRowHeight = 80
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         self.tableView.register(UINib(nibName: "DetailTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.testResultCell)
         

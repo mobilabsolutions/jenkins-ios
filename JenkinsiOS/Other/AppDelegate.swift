@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         (window?.rootViewController as? UINavigationController)?.setNavigationBarHidden(false, animated: true)
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
             else { return false }

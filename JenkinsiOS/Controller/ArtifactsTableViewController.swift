@@ -157,7 +157,7 @@ class ArtifactsTableViewController: UITableViewController {
         } catch {
             self.displayError(title: "Error", message: "Could not save file",
                               textFieldConfigurations: [],
-                              actions: [UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: nil)])
+                              actions: [UIAlertAction(title: "Done", style: UIAlertAction.Style.cancel, handler: nil)])
             return
         }
         

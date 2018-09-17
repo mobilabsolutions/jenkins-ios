@@ -28,9 +28,25 @@ import UIKit
             }
         }
     }
+
+    var actionTitle: String? {
+        didSet {
+            if let button = emptyTableViewActionButton, let text = actionTitle {
+                button.setTitle(text, for: .normal)
+            }
+            else if actionTitle == nil {
+                emptyTableViewActionButton?.removeFromSuperview()
+            }
+            else if let contentView = emptyTableViewContentView {
+                addEmptyTableViewActionButton(to: contentView)
+            }
+        }
+    }
     
     /// The view that the text and image should be displayed in, if the table view is empty
     private var emptyTableViewLabel: UILabel?
+    
+    private var emptyTableViewActionButton: UIButton?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -131,6 +147,21 @@ import UIKit
         label.sizeToFit()
     }
     
+    private func addEmptyTableViewActionButton(to contentView: UIView) {
+        let button = BigButton(type: .custom)
+        button.setTitle(self.actionTitle, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(button)
+        
+        button.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
+        button.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
+        button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        self.emptyTableViewActionButton = button
+    }
+    
     private func addEmptyTableViewContentView(in container: UIView, relativeTo label: UIView) {
         guard let contentView = self.emptyTableViewContentView
             else { return }
@@ -173,7 +204,7 @@ import UIKit
         tableView.separatorStyle = empty ? .none : separatorStyleForNonEmpty()
     }
     
-    func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .singleLine
     }
     

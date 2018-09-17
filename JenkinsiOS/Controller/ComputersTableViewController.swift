@@ -96,7 +96,7 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         return 74
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

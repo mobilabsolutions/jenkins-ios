@@ -221,7 +221,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         let imageName = !job.isFavorite ? "fav" : "fav-fill"
         
         let image = UIImage(named: imageName)
-        return UIBarButtonItem(image: image, style: UIBarButtonItemStyle.plain, target: self, action: #selector(favorite))
+        return UIBarButtonItem(image: image, style: UIBarButtonItem.Style.plain, target: self, action: #selector(favorite))
     }
     
     @objc private func favorite() {
@@ -405,7 +405,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     
     private func didSelectViewChangeButton() {
         
-        guard self.childViewControllers.isEmpty
+        guard self.children.isEmpty
             else { return }
         
         let valueSelectionViewController = ValueSelectionTableViewController<JobsTableViewController>()
@@ -413,7 +413,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         valueSelectionViewController.selectedValue = self.currentView
         valueSelectionViewController.values = self.jobs?.views ?? []
         
-        addChildViewController(valueSelectionViewController)
+        addChild(valueSelectionViewController)
         view.addSubview(valueSelectionViewController.view)
         self.tableView.isScrollEnabled = false
         
@@ -432,7 +432,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         valueSelectionViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor,
                                                                constant: self.tableView.rectForRow(at: jobsHeaderIndexPath).maxY).isActive = true
         
-        valueSelectionViewController.didMove(toParentViewController: self)
+        valueSelectionViewController.didMove(toParent: self)
     }
     
     @objc private func presentFilterDialog() {
@@ -531,10 +531,10 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
     func didSelect(value: JobsTableViewController.ValueSelectionTableViewControllerType) {
         self.currentView = value
         
-        let child = self.childViewControllers.first
-        child?.willMove(toParentViewController: nil)
+        let child = self.children.first
+        child?.willMove(toParent: nil)
         child?.view.removeFromSuperview()
-        child?.removeFromParentViewController()
+        child?.removeFromParent()
         
         self.tableView.isScrollEnabled = true
         self.tableView.reloadSections([2, 3], with: .automatic)

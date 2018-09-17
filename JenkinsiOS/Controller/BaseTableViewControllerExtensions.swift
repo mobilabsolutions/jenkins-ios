@@ -16,22 +16,26 @@ extension BaseTableViewController {
         case error = "An error occurred"
     }
     
-    func emptyTableView(for reason: EmptyTableViewReason, customString: String? = nil){
-        switch reason{
-            case .noData: emptyTableViewForNoData(text: customString ?? reason.rawValue)
-            case .loading: emptyTableViewForLoading(text: customString ?? reason.rawValue)
-            case .error: emptyTableViewForError(text: customString ?? reason.rawValue)
+    struct ActionDescriptor {
+        let actionTitle: String
+    }
+    
+    func emptyTableView(for reason: EmptyTableViewReason, customString: String? = nil, action: ActionDescriptor? = nil) {
+        switch reason {
+        case .noData: emptyTableViewForNoData(text: customString ?? reason.rawValue, action: action)
+        case .loading: emptyTableViewForLoading(text: customString ?? reason.rawValue, action: action)
+        case .error: emptyTableViewForError(text: customString ?? reason.rawValue, action: action)
         }
     }
 
-    private func emptyTableViewForLoading(text: String){
+    private func emptyTableViewForLoading(text: String, action: ActionDescriptor?) {
         emptyTableViewText = text
         let loader = LoadingIndicatorView()
         emptyTableViewContentView = loader
         loader.startAnimating()
     }
     
-    private func emptyTableViewForNoData(text: String){
+    private func emptyTableViewForNoData(text: String, action: ActionDescriptor?) {
         emptyTableViewText = text
         
         guard let image = UIImage(named: "ic-empty-jobs")
@@ -40,8 +44,10 @@ extension BaseTableViewController {
         emptyTableViewContentView = imageViewForEmptyTableView(image: image)
     }
     
-    private func emptyTableViewForError(text: String){
+    private func emptyTableViewForError(text: String, action: ActionDescriptor?) {
         emptyTableViewText = text
+        
+        actionTitle = action?.actionTitle
         
         guard let image = UIImage(named: "sadFace")
             else { return }

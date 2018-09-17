@@ -231,7 +231,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         return cases.count == 0
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
 

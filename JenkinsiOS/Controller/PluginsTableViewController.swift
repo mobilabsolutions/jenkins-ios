@@ -80,7 +80,7 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
         return pluginList?.plugins.isEmpty ?? true
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

@@ -35,10 +35,10 @@ class OnBoardingContainerViewController: UIViewController, UIPageViewControllerD
     }
     
     private func addPageViewController() {
-        self.addChildViewController(pageViewController)
+        self.addChild(pageViewController)
         pageViewController.view.frame = container.bounds
         self.container.addSubview(pageViewController.view)
-        pageViewController.didMove(toParentViewController: self)
+        pageViewController.didMove(toParent: self)
         
         if let first = onboardingViewControllers.first {
             pageViewController.setViewControllers([first], direction: .forward, animated: true, completion: nil)

@@ -27,7 +27,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         tabBarController?.navigationItem.title = "Build Queue"
         emptyTableViewText = "Loading Build Queue"
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
         tableView.backgroundColor = Constants.UI.backgroundColor
 
@@ -106,7 +106,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         return cell
     }
 
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

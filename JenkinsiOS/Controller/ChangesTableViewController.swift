@@ -14,7 +14,7 @@ class ChangesTableViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         title = "Changes"
         emptyTableView(for: .noData, customString: "There don't seem to be any changes here")

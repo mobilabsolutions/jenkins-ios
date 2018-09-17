@@ -80,7 +80,7 @@ class UsersTableViewController: RefreshingTableViewController, AccountProvidable
         return 1
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

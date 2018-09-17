@@ -23,9 +23,9 @@ class LoadingIndicatorView: UIView, Animatable {
 
         animation.duration = 1
         animation.keyPath = "startPoint"
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         animation.repeatCount = .infinity
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         
         return animation
     }()
