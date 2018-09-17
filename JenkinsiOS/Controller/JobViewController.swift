@@ -26,7 +26,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
             else { return }
 
         if job.parameters.isEmpty{
-            buildWithoutParameters()
+            triggerBuildWithoutParameters()
         }
         else{
             prepareForBuildWithParameters()
@@ -166,18 +166,35 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         performSegue(withIdentifier: Constants.Identifiers.showParametersSegue, sender: nil)
     }
 
-    private func buildWithoutParameters(){
+    private func triggerBuildWithoutParameters(){
+        // TODO: This is somewhat hacky. Is there a nicer solution?
+        let alert = UIAlertController(title: "Start Build", message: "Do you want to trigger a build?\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Start", style: .default, handler: { [weak self] (_) in
+            self?.buildWithoutParameters()
+        }))
+        
+        let imageView = UIImageView(image: UIImage(named: "ic-rocket"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addSubview(imageView)
+        
+        imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: alert.view.widthAnchor, constant: -100).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func buildWithoutParameters() {
         guard let job = job, let account = account
             else { return }
-
-        let modalViewController = presentModalInformationViewController()
-
+        
         if account.password == nil || account.username == nil{
-            modalViewController?.dismiss(animated: true, completion: { 
-                self.displayInputTokenError(for: job, with: account, modalViewController: modalViewController)
-            })
+            self.displayInputTokenError(for: job, with: account)
         }
-        else{
+        else {
+            let modalViewController = presentModalInformationViewController()
             performBuild(job: job, account: account, token: nil, parameters: nil){ result, error in
                 DispatchQueue.main.async { [unowned self] in
                     self.completionForBuild()(modalViewController, result, error)
@@ -186,35 +203,40 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    private func displayInputTokenError(for job: Job, with account: Account, modalViewController: ModalInformationViewController?){
+    private func displayInputTokenError(for job: Job, with account: Account){
         var tokenTextField: UITextField!
+        
+        let useAction = UIAlertAction(title: "Use", style: .default, handler: { [weak self] (_) in
+            self?.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
+                self?.completionForBuild()(self?.createModalInformationViewController(), $0, $1)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         displayError(title: "Please Input a token",
                      message: "To start a build without username or password, a token is required",
                      textFieldConfigurations: [{ (textField) in
-            textField.placeholder = "Token"
-            tokenTextField = textField
-            }],
-                     actions: [
-                UIAlertAction(title: "Use", style: .default, handler: { (_) in
-                    self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
-                        self.completionForBuild()(modalViewController, $0, $1)
-                    }
-                }),
-                UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            ])
+                            textField.placeholder = "Token"
+                            tokenTextField = textField
+                        }], actions: [useAction, cancelAction])
 
     }
     
-    private func presentModalInformationViewController() -> ModalInformationViewController?{
-        if self.isViewLoaded && view.window != nil{
-            let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
-            present(modalViewController, animated: true)
-            
-            modalViewController.dismissOnTap = false
-            
-            return modalViewController
-        }
-        return nil
+    private func presentModalInformationViewController() -> ModalInformationViewController? {
+        guard let modal = createModalInformationViewController()
+            else { return nil }
+        present(modal, animated: true, completion: nil)
+        return modal
+    }
+
+    private func createModalInformationViewController() -> ModalInformationViewController? {
+        guard self.isViewLoaded && view.window != nil
+            else { return nil }
+        let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
+        modalViewController.dismissOnTap = false
+        
+        return modalViewController
     }
 
     private func completionForBuild() -> (ModalInformationViewController?, AnyObject?, Error?) ->(){
@@ -314,6 +336,8 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         self.tableView.backgroundColor = Constants.UI.backgroundColor
         self.view.backgroundColor = Constants.UI.backgroundColor
         self.tableView.separatorStyle = .none
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.view.frame.height - self.buildButton.frame.minY, right: 0)
         
         self.buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
         

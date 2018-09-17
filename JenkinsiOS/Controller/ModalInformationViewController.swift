@@ -35,6 +35,10 @@ class ModalInformationViewController: UIViewController {
         
         addDetailView()
         setBackgroundTransparent()
+        
+        if let animatable = detailView as? Animatable {
+            animatable.startAnimating()
+        }
     }
     
     //MARK: - Initializers
@@ -54,8 +58,8 @@ class ModalInformationViewController: UIViewController {
         set(title: title, detailView: detailView)
     }
     
-    static func withLoadingIndicator(title: String?) -> ModalInformationViewController{
-        return ModalInformationViewController(title: title, detailView: LoadingIndicatorImageView(image: nil))
+    static func withLoadingIndicator(title: String?) -> ModalInformationViewController {
+        return ModalInformationViewController(title: title, detailView: LoadingIndicatorView())
     }
     
     func set(title: String?, detailView: UIView?){
@@ -92,7 +96,7 @@ class ModalInformationViewController: UIViewController {
         return !self.containerView.frame.contains(point)
     }
     
-    private func setBackgroundTransparent(){
+    private func setBackgroundTransparent() {
         self.containerView.layer.cornerRadius = 20
         self.containerView.clipsToBounds = true
         self.containerView.alpha = 1.0
@@ -101,13 +105,12 @@ class ModalInformationViewController: UIViewController {
         self.view.isOpaque = false
     }
     
-    private func addGestureRecognizer(){
+    private func addGestureRecognizer() {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(registeredTapOutside))
         self.view.addGestureRecognizer(gestureRecognizer)
     }
     
-    private func addDetailView(){
-
+    private func addDetailView() {
         centerView?.subviews.forEach{
             $0.removeFromSuperview()
         }
@@ -117,11 +120,6 @@ class ModalInformationViewController: UIViewController {
         
         centerView?.addSubview(detailView)
         addConstraintsTo(detailView: detailView)
-        
-        if let loadingView = detailView as? LoadingIndicatorImageView{
-            loadingView.stopAnimation()
-            loadingView.startAnimation()
-        }
     }
 
 }

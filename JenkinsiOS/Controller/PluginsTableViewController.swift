@@ -49,15 +49,15 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
                         
                             self.performRequest()
                         })
-                        self.emptyTableView(for: .error)
-                        self.tableView.tableHeaderView?.isHidden = true
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                        self.tableView.reloadData()
                         return
                 }
                 
                 self.pluginList = pluginList
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.tableView.tableHeaderView?.isHidden = false
             }
         }
@@ -80,12 +80,12 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
         return pluginList?.plugins.isEmpty ?? true
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : pluginList?.plugins.count ?? 0
+        return section == 0 ? pluginList != nil ? 1 : 0 : pluginList?.plugins.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

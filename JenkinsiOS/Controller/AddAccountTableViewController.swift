@@ -145,9 +145,9 @@ class AddAccountTableViewController: UITableViewController {
         // The add button should not be enabled when there is no text in the mandatory textfields
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
         // For every mandatory textfield, add an event handler
-        urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControlEvents.allEditingEvents)
+        urlTextField.addTarget(self, action: #selector(textFieldChanged), for: UIControl.Event.allEditingEvents)
     
-        schemeControl.addTarget(self, action: #selector(toggleTrustAllCertificatesCell), for: UIControlEvents.valueChanged)
+        schemeControl.addTarget(self, action: #selector(toggleTrustAllCertificatesCell), for: UIControl.Event.valueChanged)
         
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
         addKeyboardHandling()
@@ -169,9 +169,9 @@ class AddAccountTableViewController: UITableViewController {
         
         var movedBy: CGFloat = 0.0
         
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil){
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil){
             notification in
-            guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
                 else { return }
             
             guard let footerViewRect = self.tableView.tableFooterView?.frame
@@ -184,7 +184,7 @@ class AddAccountTableViewController: UITableViewController {
             self.tableView.contentInset.top = (inset > 0) ? movedBy : 0
         }
         
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { (notification) in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { (notification) in
             self.tableView.contentInset.top = -movedBy
         }
         

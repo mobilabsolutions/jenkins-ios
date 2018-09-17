@@ -29,9 +29,9 @@ class AppearanceManager{
         UINavigationBar.appearance().shadowImage = UIImage()
     }
     
-    private func getTitleTextAttributes(font: String, qualifier: UIFont.FontTypeQualifier, size: CGFloat) -> [NSAttributedStringKey: Any]{
+    private func getTitleTextAttributes(font: String, qualifier: UIFont.FontTypeQualifier, size: CGFloat) -> [NSAttributedString.Key: Any]{
         return [
-            NSAttributedStringKey.font :  UIFont.font(name: font, qualifier: qualifier, size: size) as Any
+            NSAttributedString.Key.font :  UIFont.font(name: font, qualifier: qualifier, size: size) as Any
         ]
     }
 }

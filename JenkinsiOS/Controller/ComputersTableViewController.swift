@@ -30,6 +30,8 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         
         performRequest()
         emptyTableView(for: .loading)
+        
+        self.contentType = .nodes
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +45,6 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         emptyTableView(for: .loading)
          _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
-                self.emptyTableView(for: .noData)
                 
                 if let error = error{
                     self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -52,7 +53,10 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
                         
                         self.performRequest()
                     })
-                    self.emptyTableView(for: .error)
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                }
+                else {
+                    self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 }
 
                 self.computerList = computerList
@@ -65,7 +69,6 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
     
     override func refresh() {
         self.computerList = nil
-        emptyTableView(for: .loading)
         performRequest()
     }
     
@@ -94,7 +97,7 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         return 74
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

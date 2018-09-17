@@ -5,14 +5,18 @@
 
 import UIKit
 
-class RefreshingTableViewController: BaseTableViewController{
+class RefreshingTableViewController: BaseTableViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         addRefreshControl(action: #selector(refresh))
     }
 
-    @objc func refresh(){}
+    @objc func refresh() { }
 
+    var defaultRefreshingAction: ActionDescriptor {
+        return ActionDescriptor(actionTitle: "HIT REFRESH TO GET LUCKY", callback: self.refresh)
+    }
+    
     /// Add a refresh control to the given table view controller
     ///
     /// - parameter action: The action that should be taken once the user tries to refresh

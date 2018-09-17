@@ -27,11 +27,12 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         tabBarController?.navigationItem.title = "Build Queue"
         emptyTableViewText = "Loading Build Queue"
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
         tableView.backgroundColor = Constants.UI.backgroundColor
 
         performRequest()
+        emptyTableView(for: .loading)
 
         contentType = .buildQueue
     }
@@ -63,13 +64,14 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
                                 
                                 self.performRequest()
                             })
-                            self.emptyTableView(for: .error)
+                            self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                            self.tableView.reloadData()
                         }
                         return
                 }
                 
                 self.queue = queue
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
@@ -104,7 +106,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         return cell
     }
 
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
     

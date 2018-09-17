@@ -102,7 +102,7 @@ class ConsoleOutputViewController: UIViewController {
     }
 
     private func addIndicatorView(){
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
@@ -175,7 +175,7 @@ extension ConsoleOutputViewController: WKNavigationDelegate{
         if navigationAction.navigationType == .linkActivated{
             if let url = navigationAction.request.url, UIApplication.shared.canOpenURL(url){
                 if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 } else {
                     UIApplication.shared.openURL(url)
                 }
@@ -187,4 +187,9 @@ extension ConsoleOutputViewController: WKNavigationDelegate{
         }
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

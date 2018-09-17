@@ -115,7 +115,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
                 
                 if let error = error {
                     if let networkManagerError = error as? NetworkManagerError, networkManagerError.code == 404 {
-                        self.emptyTableView(for: .noData)
+                        self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                     }
                     else {
                         self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
@@ -124,7 +124,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
                             
                             self.loadTestResults()
                         })
-                        self.emptyTableView(for: .error)
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
                     }
                     
                     return
@@ -132,7 +132,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
                 
                 self.testResults = testResult
                 self.fillUI()
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
             }
         }
     }
@@ -231,7 +231,7 @@ class TestResultsTableViewController: RefreshingTableViewController {
         return cases.count == 0
     }
     
-    override func separatorStyleForNonEmpty() -> UITableViewCellSeparatorStyle {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
         return .none
     }
 

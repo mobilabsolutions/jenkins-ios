@@ -32,6 +32,12 @@ class JobTableViewCell: UITableViewCell {
         if let icon = jobResult.data.healthReport.first?.iconClassName {
             self.healthView.image = UIImage(named: icon)
         }
+        else if jobResult.color == .folder {
+            self.healthView.image = UIImage(named: "icon-health-folder")
+        }
+        else {
+            self.healthView.image = UIImage(named: "icon-health-unknown")
+        }
         
         containerView.layer.cornerRadius = 5
     }

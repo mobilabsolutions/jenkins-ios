@@ -44,9 +44,8 @@ class JobOverviewTableViewCell: UITableViewCell {
         guard let job = self.job
             else { setupCellForEmptyJob(); return }
         
-        // FIXME: Update the strings here to account for correct prefix of those values
         testResultContentLabel.text = job.healthReport.first(where: { $0.description.localizedCaseInsensitiveContains("test") })?.description ?? "Unknown"
-        buildStabilityContentLabel.text = job.healthReport.first(where: { $0.description.lowercased().starts(with: "build stability") })?.description ?? "Unknown"
+        buildStabilityContentLabel.text = job.healthReport.first(where: { $0.description.localizedCaseInsensitiveContains("build") })?.description ?? "Unknown"
         lastDurationContentLabel.text = job.lastBuild?.duration?.toString() ?? "Unknown"
         
         if let healthReportImageName = job.healthReport.first?.iconClassName {

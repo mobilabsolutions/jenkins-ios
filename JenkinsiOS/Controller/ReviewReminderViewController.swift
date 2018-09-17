@@ -81,8 +81,8 @@ class ReviewReminderViewController: UIViewController {
     }
     
     private func addKeyboardHandling(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func makeViewSeeThrough(){
@@ -217,7 +217,7 @@ class ReviewReminderViewController: UIViewController {
 
 extension ReviewReminderViewController{
     @objc func keyboardWillShow(notification: Notification){
-        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             else { return }
         getYPositionConstraint()?.constant = -(keyboardRect.height / 2)
     }

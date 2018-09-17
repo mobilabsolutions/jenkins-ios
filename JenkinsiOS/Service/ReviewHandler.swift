@@ -38,8 +38,7 @@ class ReviewHandler: NSObject{
     }
     
     func mayAskForReview() -> Bool {
-        // TODO: Remove false
-        return false && !user.canceledReviewReminder && (user.timesOpenedApp >= 7)
+        return !user.canceledReviewReminder && (user.timesOpenedApp >= 7)
     }
     
     func triggerReview(){

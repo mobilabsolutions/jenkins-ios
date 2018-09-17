@@ -26,7 +26,7 @@ class ParametersTableViewController: UITableViewController {
         
         parameterValues = parameters.filter{ $0.type != .unknown }.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 130
         tableView.keyboardDismissMode = .onDrag
         
