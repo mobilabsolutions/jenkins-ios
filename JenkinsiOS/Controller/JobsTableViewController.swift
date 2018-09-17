@@ -344,7 +344,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
             cell.loader = FavoritesLoader(with: cell)
             cell.favorites = ApplicationUserManager.manager.applicationUser.favorites
         }
-        else if shouldReloadFavorites {
+        else if shouldReloadFavorites || cell.favorites.count != ApplicationUserManager.manager.applicationUser.favorites.count {
             cell.favorites = ApplicationUserManager.manager.applicationUser.favorites
         }
         

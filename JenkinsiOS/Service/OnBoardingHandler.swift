@@ -29,7 +29,7 @@ class OnBoardingHandler: OnBoardingViewControllerDelegate {
     private weak var presentedViewController: UINavigationController?
 
     func shouldStartOnBoarding() -> Bool {
-        return ApplicationUserManager.manager.applicationUser.timesOpenedApp <= 1
+        return ApplicationUserManager.manager.applicationUser.timesOpenedApp <= 1 && AccountManager.manager.accounts.isEmpty
     }
     
     func startOnBoarding(on viewController: UIViewController, delegate: OnBoardingDelegate) {
