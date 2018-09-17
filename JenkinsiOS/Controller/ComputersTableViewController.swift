@@ -30,6 +30,8 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         
         performRequest()
         emptyTableView(for: .loading)
+        
+        self.contentType = .nodes
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +45,7 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         emptyTableView(for: .loading)
          _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
             DispatchQueue.main.async {
+                
                 self.emptyTableView(for: .noData)
                 
                 if let error = error{
@@ -65,7 +68,6 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
     
     override func refresh() {
         self.computerList = nil
-        emptyTableView(for: .loading)
         performRequest()
     }
     

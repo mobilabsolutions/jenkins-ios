@@ -58,7 +58,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         
         init(jobList: JobList?, folderJob: Job?) {
             guard let list = jobList
-                else { self = .noFolder; return }
+                else { self = folderJob != nil ? .folderNoMultiBranch : .noFolder; return }
             if list.isMultibranch {
                 self = .folderMultiBranch
             }

@@ -17,6 +17,7 @@ class LoggingManager{
             case .buildList: logBuildListView()
             case .buildQueue: logBuildQueueView()
             case .favorites: logFavoritesView()
+            case .nodes: logNodesView()
         }
     }
 
@@ -42,6 +43,10 @@ class LoggingManager{
 
     func logFavoritesView(){
         Answers.logContentView(withName: "Favorites View", contentType: "Favorites", contentId: "favorites")
+    }
+    
+    func logNodesView() {
+        Answers.logContentView(withName: "Nodes View", contentType: "Nodes", contentId: "nodes")
     }
 
     func logAccountCreation(https: Bool, allowsEveryCertificate: Bool){

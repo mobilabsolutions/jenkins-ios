@@ -315,6 +315,8 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         self.view.backgroundColor = Constants.UI.backgroundColor
         self.tableView.separatorStyle = .none
         
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.view.frame.height - self.buildButton.frame.minY, right: 0)
+        
         self.buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
         
         performRequest()

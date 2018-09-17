@@ -5,7 +5,7 @@
 
 import UIKit
 
-class RefreshingTableViewController: BaseTableViewController{
+class RefreshingTableViewController: BaseTableViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         addRefreshControl(action: #selector(refresh))

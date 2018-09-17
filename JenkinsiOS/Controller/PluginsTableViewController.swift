@@ -50,7 +50,7 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
                             self.performRequest()
                         })
                         self.emptyTableView(for: .error)
-                        self.tableView.tableHeaderView?.isHidden = true
+                        self.tableView.reloadData()
                         return
                 }
                 
@@ -85,7 +85,7 @@ class PluginsTableViewController: RefreshingTableViewController, AccountProvidab
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : pluginList?.plugins.count ?? 0
+        return section == 0 ? pluginList != nil ? 1 : 0 : pluginList?.plugins.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

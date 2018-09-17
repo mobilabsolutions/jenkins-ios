@@ -19,47 +19,26 @@ import UIKit
             emptyTableViewLabel?.text = emptyTableViewText
         }
     }
-    /// The image that should be displayed if the table view is empty
-    @IBInspectable var emptyTableViewImages: [UIImage] = []{
+    
+    var emptyTableViewContentView: UIView? {
         didSet {
-            setImageForEmptyTableViewImageView(view: emptyTableViewImageView)
+            if oldValue?.superview != nil, let container = tableView.backgroundView, let label = emptyTableViewLabel {
+                oldValue?.removeFromSuperview()
+                addEmptyTableViewContentView(in: container, relativeTo: label)
+            }
         }
     }
     
     /// The view that the text and image should be displayed in, if the table view is empty
-    var viewForEmptyMessage: UIView?
-    
-    /// Whether or not the image should rotate
-    @IBInspectable var emptyTableViewImageViewIsForLoading: Bool = false {
-        didSet {
-            
-            // Did anything change?
-            guard emptyTableViewImageViewIsForLoading != oldValue
-                else { return }
-            
-            if emptyTableViewImageViewIsForLoading {
-                let loadingIndicatorView = LoadingIndicatorImageView(images: emptyTableViewImages)
-                emptyTableViewImageView = loadingIndicatorView
-            }
-            else {
-                emptyTableViewImageView = UIImageView()
-                setUpTableView(empty: tableViewIsEmpty())
-            }
-        }
-    }
-    
-    private var emptyTableViewImageView: UIImageView?
     private var emptyTableViewLabel: UILabel?
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let loadingIndicator = emptyTableViewImageView as? LoadingIndicatorImageView {
-            loadingIndicator.stopAnimation()
-            loadingIndicator.startAnimation()
+        if let animatable = emptyTableViewContentView as? Animatable {
+            animatable.startAnimating()
         }
-
+        
         guard let contentView = contentType
               else { return }
 
@@ -105,14 +84,14 @@ import UIKit
         addContainerToEmptyMessageView(container: container)
         addEmptyTableViewText(in: container)
         
-        guard let label = emptyTableViewLabel
+        guard let emptyTableViewLabel = emptyTableViewLabel
             else { return }
         
-        addEmptyTableViewImage(in: container, relativeTo: label)
+        addEmptyTableViewContentView(in: container, relativeTo: emptyTableViewLabel)
     }
     
     private func addContainerToEmptyMessageView(container: UIView) {
-        if let view = viewForEmptyMessage {
+        if let view = tableView.backgroundView {
             view.addSubview(container)
             addConstraintsToEmptyTableView(container: container, in: view)
         }
@@ -140,48 +119,36 @@ import UIKit
         addConstraintsToEmptyTableView(label: label, in: view)
     }
     
-    private func addEmptyTableViewImage(in view: UIView, relativeTo label: UIView) {
-        let imageView = getImageViewForEmptyTableView()
-        setImageForEmptyTableViewImageView(view: imageView)
-        
-        view.addSubview(imageView)
-        addConstraintsToEmptyTableView(imageView: imageView, in: view, relativeTo: label)
-    }
-    
-    private func setImageForEmptyTableViewImageView(view: UIImageView?) {
-        
-        view?.stopAnimating()
-        
-        if emptyTableViewImages.count > 1{
-            view?.animationImages = emptyTableViewImages
-            view?.animationDuration = 0.4 * Double(emptyTableViewImages.count)
-            view?.startAnimating()
-        }
-        else{
-            view?.image = emptyTableViewImages.first
-        }
-    }
-    
-    private func addConstraintsToEmptyTableView(imageView: UIView, in view: UIView, relativeTo label: UIView){
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let guide = view.layoutMarginsGuide
-        
-        imageView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
-    }
-    
     private func addConstraintsToEmptyTableView(label: UIView, in view: UIView){
         let guide = view.layoutMarginsGuide
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: 70).isActive = true
+        label.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
         
         label.sizeToFit()
+    }
+    
+    private func addEmptyTableViewContentView(in container: UIView, relativeTo label: UIView) {
+        guard let contentView = self.emptyTableViewContentView
+            else { return }
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(contentView)
+        addConstraintsToEmptyTableView(contentView: contentView, in: container, relativeTo: label)
+    }
+    
+    private func addConstraintsToEmptyTableView(contentView: UIView, in view: UIView, relativeTo label: UIView){
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let guide = view.layoutMarginsGuide
+        
+        contentView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
     }
     
     private func getContainerViewForEmptyTableView() -> UIView{
@@ -190,23 +157,14 @@ import UIKit
         return container
     }
     
-    private func getImageViewForEmptyTableView() -> UIImageView{
-        let imageView = emptyTableViewImageView ?? UIImageView()
-        emptyTableViewImageView = imageView
-        
-        imageView.contentMode = .scaleAspectFit
-        imageView.alpha = 0.5
-        
-        return imageView
-    }
-    
-    private func getLabelForEmptyTableView() -> UILabel{
+    private func getLabelForEmptyTableView() -> UILabel {
         
         let label = emptyTableViewLabel ?? UILabel()
         emptyTableViewLabel = label
         
         label.numberOfLines = 0
         label.textColor = UIColor.black
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         return label
     }

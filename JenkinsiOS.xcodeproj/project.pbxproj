@@ -190,7 +190,6 @@
 		DCC2E17C1DA01A1300491B98 /* ChildReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E17B1DA01A1300491B98 /* ChildReport.swift */; };
 		DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */; };
 		DCCF35591DF0741B00432EB6 /* URLSessionTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */; };
-		DCD196471DEC822300940C75 /* LoadingIndicatorImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */; };
 		DCDB97A21DAE6E9A007BCBCC /* ComputersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */; };
 		DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */; };
 		DCDB97A61DAE6EB0007BCBCC /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */; };
@@ -243,6 +242,7 @@
 		E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */; };
 		E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */; };
 		E1D396EB212EB51A0056FE0E /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D396EA212EB51A0056FE0E /* FavoriteTableViewCell.swift */; };
+		E1D396ED212EFCE10056FE0E /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */; };
 		E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */; };
 		E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */; };
 		E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */; };
@@ -420,7 +420,6 @@
 		DCC2E17B1DA01A1300491B98 /* ChildReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildReport.swift; sourceTree = "<group>"; };
 		DCC9CEE01DE06CD10053F8A2 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		DCCF35581DF0741B00432EB6 /* URLSessionTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTaskController.swift; sourceTree = "<group>"; };
-		DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorImageView.swift; sourceTree = "<group>"; };
 		DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputersTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
 		DCDB97A51DAE6EB0007BCBCC /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
@@ -473,6 +472,7 @@
 		E1D267092119BCF300C4D6BB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
 		E1D396EA212EB51A0056FE0E /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
 		E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImageTableViewCell.swift; sourceTree = "<group>"; };
 		E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -701,7 +701,6 @@
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
 				DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */,
-				DCD196461DEC822300940C75 /* LoadingIndicatorImageView.swift */,
 				DC1D9FDB1DB8F97400441752 /* ModalInformationViewController.swift */,
 				DC9D79E91DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift */,
 				DC8C83821E054D540071EC50 /* NavigationController.swift */,
@@ -913,6 +912,7 @@
 				E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */,
 				E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */,
 				E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */,
+				E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1302,9 +1302,9 @@
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
 				E1D266DE210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift in Sources */,
-				DCD196471DEC822300940C75 /* LoadingIndicatorImageView.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
+				E1D396ED212EFCE10056FE0E /* LoadingIndicatorView.swift in Sources */,
 				DC6F07991DB4ED5B00C77FAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				DC169FD91DE340340015A499 /* ParameterType.swift in Sources */,
 				E1E6321E211D835C00CBBB86 /* DetailTableViewCell.swift in Sources */,

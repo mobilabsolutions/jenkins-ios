@@ -74,6 +74,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         buildStabilityLabel.text = "Build Stability"
         buildStabilityContentLabel.text = "..."
         lastBuildLabel.text = "..."
+        healthImageView.image = nil
         setGradientLayerColor(with: UIColor.lightGray.withAlphaComponent(0.7))
     }
 
@@ -82,6 +83,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         buildStabilityLabel.text = ""
         buildStabilityContentLabel.text = ""
         lastBuildLabel.text = ""
+        healthImageView.image = nil
         setGradientLayerColor(with: UIColor.darkGray)
     }
 
@@ -90,8 +92,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         if let imageName = job.healthReport.first?.iconClassName {
             healthImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
         }
+        else if job.color == .folder {
+            healthImageView.image = UIImage(named: "icon-health-folder")
+        }
         else {
-            healthImageView.image = nil
+            healthImageView.image = UIImage(named: "icon-health-unknown")
         }
         
         nameLabel.text = job.name

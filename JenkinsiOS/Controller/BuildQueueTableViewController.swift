@@ -32,6 +32,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         tableView.backgroundColor = Constants.UI.backgroundColor
 
         performRequest()
+        emptyTableView(for: .loading)
 
         contentType = .buildQueue
     }
@@ -64,6 +65,7 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
                                 self.performRequest()
                             })
                             self.emptyTableView(for: .error)
+                            self.tableView.reloadData()
                         }
                         return
                 }

@@ -26,12 +26,9 @@ extension BaseTableViewController {
 
     private func emptyTableViewForLoading(text: String){
         emptyTableViewText = text
-        
-        guard let image = UIImage(named: "Jenkins_Loader")
-            else { return }
-        
-        emptyTableViewImageViewIsForLoading = true
-        emptyTableViewImages = [ image ]
+        let loader = LoadingIndicatorView()
+        emptyTableViewContentView = loader
+        loader.startAnimating()
     }
     
     private func emptyTableViewForNoData(text: String){
@@ -40,8 +37,7 @@ extension BaseTableViewController {
         guard let image = UIImage(named: "ic-empty-jobs")
             else { return }
         
-        emptyTableViewImageViewIsForLoading = false
-        emptyTableViewImages = [ image ]
+        emptyTableViewContentView = imageViewForEmptyTableView(image: image)
     }
     
     private func emptyTableViewForError(text: String){
@@ -50,7 +46,12 @@ extension BaseTableViewController {
         guard let image = UIImage(named: "sadFace")
             else { return }
         
-        emptyTableViewImageViewIsForLoading = false
-        emptyTableViewImages = [ image ]
+        emptyTableViewContentView = imageViewForEmptyTableView(image: image)
+    }
+    
+    private func imageViewForEmptyTableView(image: UIImage) -> UIImageView {
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }
 }
