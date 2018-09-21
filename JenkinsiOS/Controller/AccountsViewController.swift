@@ -50,7 +50,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         tableView.tableHeaderView?.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
 
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.maxY - newAccountButton.frame.maxY, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.maxY - newAccountButton.frame.minY, right: 0)
 
         newAccountButton.addTarget(self, action: #selector(showAddAccountViewController), for: .touchUpInside)
     }

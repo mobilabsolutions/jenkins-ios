@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,20 +22,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-account-created" translatesAutoresizingMaskIntoConstraints="NO" id="rDM-Xn-uyT">
-                    <rect key="frame" x="88.5" y="144.5" width="198" height="198"/>
+                    <rect key="frame" x="88.5" y="149.5" width="198" height="198"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="rDM-Xn-uyT" secondAttribute="height" multiplier="1:1" id="3Jv-nN-HmM"/>
                         <constraint firstAttribute="width" constant="198" id="VLT-N9-6oe"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account created!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyY-gc-h0v">
-                    <rect key="frame" x="90.5" y="398.5" width="194" height="29"/>
+                    <rect key="frame" x="90.5" y="403.5" width="194" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <color key="textColor" red="0.41960784309999999" green="0.47058823529999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can add more accounts by going to the settings menu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gem-jt-vKY">
-                    <rect key="frame" x="32" y="443.5" width="311" height="36"/>
+                    <rect key="frame" x="32" y="448.5" width="311" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.41960784309999999" green="0.47058823529999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -57,8 +56,9 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="btj-HU-JRy" secondAttribute="bottom" constant="66" id="MUC-GG-G1W"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="btj-HU-JRy" secondAttribute="trailing" constant="8" id="Q5E-Z4-6xZ"/>
                 <constraint firstItem="rDM-Xn-uyT" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="QFR-8H-xji"/>
-                <constraint firstItem="rDM-Xn-uyT" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-100" id="RmW-uF-aNO"/>
+                <constraint firstItem="rDM-Xn-uyT" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-95" id="RmW-uF-aNO"/>
                 <constraint firstItem="gem-jt-vKY" firstAttribute="top" secondItem="hyY-gc-h0v" secondAttribute="bottom" constant="16" id="S92-5O-L28"/>
+                <constraint firstItem="btj-HU-JRy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gem-jt-vKY" secondAttribute="bottom" constant="10" id="daf-rt-19h"/>
                 <constraint firstItem="gem-jt-vKY" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-32" id="hrw-Z4-cB5"/>
                 <constraint firstItem="hyY-gc-h0v" firstAttribute="top" secondItem="rDM-Xn-uyT" secondAttribute="bottom" constant="56" id="isC-M4-ttg"/>
             </constraints>

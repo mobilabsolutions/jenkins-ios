@@ -69,7 +69,11 @@ class ConsoleOutputViewController: UIViewController {
 
         header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
         header.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
-        header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8).isActive = true
+        if #available(iOS 11.0, *) {
+            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        } else {
+            header.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
+        }
         header.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
         header.layer.borderColor = Constants.UI.paleGreyColor.cgColor
