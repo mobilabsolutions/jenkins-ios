@@ -435,7 +435,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     }
 
     @objc private func presentFilterDialog() {
-        let alert = UIAlertController(title: "Filter", message: "Filter jobs by", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sort", message: "Sort jobs by", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Date", style: .default, handler: { _ in
             self.sortJobs(by: .date)
         }))
@@ -449,38 +449,12 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         present(alert, animated: true, completion: nil)
     }
 
-    private enum JobSortingOption {
-        case date
-        case status
-        case health
-    }
-
-    private func sortJobs(by option: JobSortingOption) {
+    private func sortJobs(by option: JobSorter.JobSortingOption) {
         guard let views = jobs?.views
         else { return }
 
-        for view in views {
-            view.jobResults.sort(by: { (first, second) -> Bool in
-                switch option {
-                case .status:
-                    guard let firstColor = first.color, let secondColor = second.color
-                    else { return first.color != nil }
-                    return firstColor < secondColor
-                case .health:
-                    guard let firstHealthReport = first.data.healthReport.first,
-                        let secondHealthReport = second.data.healthReport.first
-                    else { return first.data.healthReport.first != nil }
-                    return firstHealthReport.score > secondHealthReport.score
-                case .date:
-                    guard let firstDate = first.data.lastBuild?.timeStamp,
-                        let secondDate = second.data.lastBuild?.timeStamp
-                    else { return first.data.lastBuild?.timeStamp != nil }
-                    // Sort by date closest to now
-                    return firstDate > secondDate
-                }
-            })
-        }
-
+        let sorter = JobSorter()
+        sorter.sortJobsInPlace(by: option, views: views)
         tableView.reloadSections([3], with: .automatic)
     }
 }
@@ -536,29 +510,5 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
 
         self.tableView.isScrollEnabled = true
         self.tableView.reloadSections([2, 3], with: .automatic)
-    }
-}
-
-extension JenkinsColor: Comparable {
-    static func < (lhs: JenkinsColor, rhs: JenkinsColor) -> Bool {
-        return lhs.priorityForColor() > rhs.priorityForColor()
-    }
-
-    private func priorityForColor() -> Int {
-        switch self {
-        case .aborted: fallthrough
-        case .abortedAnimated: return 0
-        case .disabled: fallthrough
-        case .disabledAnimated: return 1
-        case .notBuilt: fallthrough
-        case .notBuiltAnimated: return 2
-        case .red: fallthrough
-        case .redAnimated: return 3
-        case .yellow: fallthrough
-        case .yellowAnimated: return 4
-        case .folder: return 5
-        case .blue: fallthrough
-        case .blueAnimated: return 6
-        }
     }
 }

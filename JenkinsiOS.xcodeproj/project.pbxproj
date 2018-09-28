@@ -202,6 +202,7 @@
 		DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */; };
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
+		E1062738215E6241005ACD06 /* JobSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1062737215E6241005ACD06 /* JobSorter.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
 		E131DA41212BF04800DF2B8A /* OnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */; };
@@ -432,6 +433,7 @@
 		DCF691D91E02FA2900AA98D4 /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BuildTestsFullResource.json; sourceTree = "<group>"; };
 		E101F0BE211DC6B100613132 /* CorneredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorneredView.swift; sourceTree = "<group>"; };
+		E1062737215E6241005ACD06 /* JobSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSorter.swift; sourceTree = "<group>"; };
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 				BC91B4D46AFC477931816CB9 /* LoggableContentView.swift */,
 				E131DA46212BFA7500DF2B8A /* OnBoardingHandler.swift */,
 				E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */,
+				E1062737215E6241005ACD06 /* JobSorter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1312,6 +1315,7 @@
 				DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
+				E1062738215E6241005ACD06 /* JobSorter.swift in Sources */,
 				E1D266FE2111CBE900C4D6BB /* ValueSelectionTableViewController.swift in Sources */,
 				DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */,
 				DC66CED51D9D40DF00808ED0 /* Author.swift in Sources */,
