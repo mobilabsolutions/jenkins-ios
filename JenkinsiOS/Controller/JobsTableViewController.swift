@@ -42,12 +42,22 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
     /// The identifier and number of rows for a given section and a row in that section as well as the height for that row. Based on the current JobListResults
     private typealias SectionInformation = (identifier: String, rows: Int, rowHeight: CGFloat)
-    private typealias SectionInformationClosure = ([JobListResult]?, FolderState) -> SectionInformation
+    private typealias SectionInformationClosure = (View?, FolderState) -> SectionInformation
     private lazy var sections: [SectionInformationClosure] = [
         { _, state in (Constants.Identifiers.favoritesHeaderCell, state == .noFolder ? 1 : 0, 72) },
         { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 160) },
-        { results, state in (Constants.Identifiers.jobsHeaderCell, (results?.isEmpty ?? true) && state != .folderMultiBranch ? 0 : 1, 72) },
-        { results, _ in (Constants.Identifiers.jobCell, results?.count ?? 0, 74) },
+        { currentView, state in
+            let numberOfRows: Int
+            if currentView == nil {
+                numberOfRows = 0
+            } else if currentView?.jobResults.isEmpty == true && state != .folderMultiBranch && state != .noFolder {
+                numberOfRows = 0
+            } else {
+                numberOfRows = 1
+            }
+            return (Constants.Identifiers.jobsHeaderCell, numberOfRows, 72)
+        },
+        { currentView, _ in (Constants.Identifiers.jobCell, currentView?.jobResults.count ?? 0, 74) },
     ]
 
     private enum FolderState {
@@ -290,7 +300,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     // MARK: - Tableview datasource and delegate
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return prepareCellWithIdentifier(identifier: sections[indexPath.section](currentView?.jobResults, FolderState(jobList: jobs, folderJob: folderJob)).identifier, indexPath: indexPath)
+        return prepareCellWithIdentifier(identifier: sections[indexPath.section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).identifier, indexPath: indexPath)
     }
 
     private func prepareCellWithIdentifier(identifier: String, indexPath: IndexPath) -> UITableViewCell {
@@ -355,7 +365,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section](currentView?.jobResults, FolderState(jobList: jobs, folderJob: folderJob)).rows
+        return sections[section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).rows
     }
 
     override func numberOfSections() -> Int {
@@ -363,11 +373,11 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     }
 
     override func tableViewIsEmpty() -> Bool {
-        return sections.last!(currentView?.jobResults, FolderState(jobList: jobs, folderJob: folderJob)).rows == 0
+        return sections.last!(currentView, FolderState(jobList: jobs, folderJob: folderJob)).rows == 0
     }
 
     override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return sections[indexPath.section](currentView?.jobResults, FolderState(jobList: jobs, folderJob: folderJob)).rowHeight
+        return sections[indexPath.section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).rowHeight
     }
 
     override func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
