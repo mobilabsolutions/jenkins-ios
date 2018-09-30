@@ -22,6 +22,10 @@ class AccountCreatedViewController: UIViewController {
         view.backgroundColor = Constants.UI.backgroundColor
         doneButton.setTitle("DONE", for: .normal)
         doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
+
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.isNavigationBarHidden = true
+        navigationItem.hidesBackButton = true
     }
 
     @objc private func doneButtonPressed() {
