@@ -20,8 +20,8 @@ enum ANSIColor: String {
     case none = "\u{001B}[0;0m"
 }
 
-extension String{
-    func colorized(with color: ANSIColor) -> String{
+extension String {
+    func colorized(with color: ANSIColor) -> String {
         return color.rawValue + self + ANSIColor.none.rawValue
     }
 }

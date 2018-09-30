@@ -8,117 +8,102 @@
 
 import UIKit
 
-class PluginsTableViewController: RefreshingTableViewController {
-
-    var account: Account?
-    var pluginList: PluginList?{
-        didSet{
-            guard let pluginList = pluginList
-                else { return }
-            
-            pluginData = pluginList.plugins.map({ (plugin) -> [(String, String, UIColor)] in
-                return data(for: plugin)
-            })
-        }
-    }
-    
-    var pluginData: [[(String, String, UIColor)]] = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "Plugins"
-        emptyTableView(for: .loading)
-        performRequest()
-    }
-
-    override func refresh(){
-        performRequest()
-    }
-
-    @objc private func performRequest(){
-        
-        guard let account = account
-            else { return }
-        
-        _ = NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { (pluginList, error) in
-            
-            DispatchQueue.main.async {
-                guard error == nil
-                    else {
-                        self.displayNetworkError(error: error!, onReturnWithTextFields: { (returnData) in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-                        
-                            self.performRequest()
-                        })
-                        self.emptyTableView(for: .error)
-                        return
-                }
-                
-                self.pluginList = pluginList
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
-                self.emptyTableView(for: .noData)
+class PluginsTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if oldValue == nil && account != nil && pluginList == nil {
+                performRequest()
             }
         }
     }
 
-    private func data(for plugin: Plugin) -> [(String, String, UIColor)]{
-        var data = [
-            ("Name", plugin.longName ?? plugin.shortName, UIColor.clear),
-            ("Active", "\(plugin.active)", UIColor.clear),
-            ("Has Update", "\((plugin.hasUpdate).textify())", UIColor.clear),
-            ("Enabled", "\((plugin.enabled).textify())", UIColor.clear),
-            ("Version", "\((plugin.version).textify())", UIColor.clear),
-            ("Supports Dynamic Load", "\((plugin.supportsDynamicLoad).textify())", UIColor.clear)
-        ]
-        
-        if plugin.dependencies.count > 0{
-            data.append(("Dependencies", "", UIColor.groupTableViewBackground))
-        }
-        
-        for dependency in plugin.dependencies{
-            data.append(("", "\(dependency.shortName) at v\(dependency.version)", UIColor.groupTableViewBackground))
-        }
-        
-        return data
+    private var pluginList: PluginList?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Plugins"
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        tableView.separatorStyle = .none
+        emptyTableView(for: .loading)
+        performRequest()
     }
-    
+
+    override func refresh() {
+        performRequest()
+    }
+
+    @objc private func performRequest() {
+        guard let account = account
+        else { return }
+
+        _ = NetworkManager.manager.getPlugins(userRequest: UserRequest.userRequestForPlugins(account: account)) { pluginList, error in
+
+            DispatchQueue.main.async {
+                guard error == nil
+                else {
+                    self.displayNetworkError(error: error!, onReturnWithTextFields: { returnData in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+
+                        self.performRequest()
+                    })
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                    self.tableView.reloadData()
+                    return
+                }
+
+                self.pluginList = pluginList
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
+                self.tableView.tableHeaderView?.isHidden = false
+            }
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? PluginTableViewController, let plugin = sender as? Plugin {
+            dest.plugin = plugin
+            dest.allPlugins = pluginList?.plugins ?? []
+        }
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections() -> Int {
-        return pluginList?.plugins.count ?? 0
+        return 2
     }
 
     override func tableViewIsEmpty() -> Bool {
-        return (pluginList?.plugins.count ?? 0) == 0
+        return pluginList?.plugins.isEmpty ?? true
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pluginData[section].count
+
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
+        return .none
+    }
+
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? pluginList != nil ? 1 : 0 : pluginList?.plugins.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.pluginCell, for: indexPath)
-        
-        cell.textLabel?.text = pluginData[indexPath.section][indexPath.row].0
-        cell.detailTextLabel?.text = pluginData[indexPath.section][indexPath.row].1
-        cell.backgroundColor = pluginData[indexPath.section][indexPath.row].2
-        
-        if pluginData[indexPath.section][indexPath.row].2 == UIColor.groupTableViewBackground {
-            let attributedString = NSAttributedString(string: pluginData[indexPath.section][indexPath.row].0, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17)])
-            cell.textLabel?.attributedText = attributedString
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.headerCell, for: indexPath)
+            cell.textLabel?.text = "PLUGINS INSTALLED"
+            return cell
         }
-        
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.pluginCell, for: indexPath) as! BasicTableViewCell
+        cell.nextImageType = .next
+        cell.title = pluginList?.plugins[indexPath.row].shortName ?? ""
         return cell
     }
- 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return pluginList?.plugins[section].longName ?? pluginList?.plugins[section].shortName
+
+    override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 48 : 44
     }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showPluginSegue, sender: pluginList?.plugins[indexPath.row])
     }
 }

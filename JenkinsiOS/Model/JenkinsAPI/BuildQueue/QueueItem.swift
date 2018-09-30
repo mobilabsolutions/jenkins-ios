@@ -8,10 +8,10 @@
 
 import Foundation
 
-class QueueItem{
+class QueueItem {
     /// The actions associated with the queue item
     var actions: Actions?
-    
+
     /// Whether or not the item is blocked
     var blocked: Bool
     /// Whether or not the item is buildable
@@ -32,13 +32,13 @@ class QueueItem{
     var task: Job?
     /// When the queue item is buildable
     var buildableStartMilliseconds: Double
-    
+
     /// Optionally initialise a Queue Item
     ///
     /// - parameter json: The json to initialise the queue item from
     ///
     /// - returns: A queue item or nil, if the initialization failed
-    init?(json: [String: AnyObject]){
+    init?(json: [String: AnyObject]) {
         guard let blocked = json[Constants.JSON.blocked] as? Bool,
             let buildable = json[Constants.JSON.buildable] as? Bool,
             let id = json[Constants.JSON.id] as? Int,
@@ -48,23 +48,23 @@ class QueueItem{
             let stuck = json[Constants.JSON.stuck] as? Bool,
             let why = json[Constants.JSON.why] as? String,
             let buildableStartMilliseconds = json[Constants.JSON.buildableStartMilliseconds] as? Double
-            else { return nil }
-        
+        else { return nil }
+
         self.blocked = blocked
         self.buildable = buildable
         self.id = id
         self.inQueueSince = inQueueSince
         self.params = params
         self.stuck = stuck
-        self.url = URL(string: urlString)
+        url = URL(string: urlString)
         self.why = why
         self.buildableStartMilliseconds = buildableStartMilliseconds
-        
-        if let taskJson = json[Constants.JSON.task] as? [String: AnyObject]{
+
+        if let taskJson = json[Constants.JSON.task] as? [String: AnyObject] {
             task = Job(json: taskJson, minimalVersion: true)
         }
-        
-        if let actionsJson = json[Constants.JSON.actions] as? [[String: AnyObject]]{
+
+        if let actionsJson = json[Constants.JSON.actions] as? [[String: AnyObject]] {
             actions = Actions(json: actionsJson)
         }
     }

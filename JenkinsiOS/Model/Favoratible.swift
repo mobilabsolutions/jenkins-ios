@@ -21,13 +21,12 @@ extension Favoratible {
     /// - returns: The type of the favoritable
     private func getType() -> Favorite.FavoriteType? {
         var type: Favorite.FavoriteType?
-        
+
         switch self {
         case is Job:
             if (self as? Job)?.color != .folder {
                 type = .job
-            }
-            else {
+            } else {
                 type = .folder
             }
         case is Build:
@@ -35,10 +34,10 @@ extension Favoratible {
         default:
             type = nil
         }
-        
+
         return type
     }
-    
+
     /// Set the Favoritable to favorite if it isn't, else set it to not favorite
     ///
     /// - parameter account: The account that is associated with the favorite
@@ -47,20 +46,20 @@ extension Favoratible {
             if let index = ApplicationUserManager.manager.applicationUser.favorites.index(of: Favorite(url: self.url, type: type, account: account)) {
                 ApplicationUserManager.manager.applicationUser.favorites.remove(at: index)
                 LoggingManager.loggingManager.logunfavoritedFavoritable(type: type)
-            }
-            else {
-                ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: self.url, type: type, account: account))
+            } else {
+                ApplicationUserManager.manager.applicationUser.favorites.append(Favorite(url: url, type: type, account: account))
                 LoggingManager.loggingManager.logfavoritedFavoritable(type: type)
             }
-            
+
             ApplicationUserManager.manager.save()
+            NotificationCenter.default.post(name: Constants.Identifiers.favoriteStatusToggledNotification, object: self)
         }
     }
-    
+
     /// A flag indicating whether or not the current favoritable is a favorite
     var isFavorite: Bool {
         guard let type = getType()
         else { return false }
-        return ApplicationUserManager.manager.applicationUser.favorites.contains(Favorite(url: self.url, type: type, account: nil))
+        return ApplicationUserManager.manager.applicationUser.favorites.contains(Favorite(url: url, type: type, account: nil))
     }
 }

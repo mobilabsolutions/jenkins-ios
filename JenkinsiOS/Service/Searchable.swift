@@ -8,18 +8,17 @@
 
 import Foundation
 
-class Searchable{
-    
+class Searchable {
     /// The object associated with the given searchable
     private(set) var data: AnyObject
     /// The string that identifies the given object to the Searcher
     private(set) var searchString: String
     /// The action that should be taken once the searchable is selected
-    private(set) var action: () -> ()
-    
+    private(set) var action: () -> Void
+
     /// The lowercased search string for better string comparability, as case typically does not matter for search
     private(set) var lowerCasedSearchString: String
-    
+
     /// Initialiser for Searchable
     ///
     /// - parameter searchString: The string that identifies the given object to the Searcher
@@ -27,10 +26,10 @@ class Searchable{
     /// - parameter action:       The action that should be taken once the searchable is selected
     ///
     /// - returns: An initialised Searchable
-    init(searchString: String, data: AnyObject, action: @escaping () -> ()) {
+    init(searchString: String, data: AnyObject, action: @escaping () -> Void) {
         self.searchString = searchString
         self.data = data
         self.action = action
-        self.lowerCasedSearchString = searchString.lowercased()
+        lowerCasedSearchString = searchString.lowercased()
     }
 }

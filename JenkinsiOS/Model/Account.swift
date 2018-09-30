@@ -8,8 +8,7 @@
 
 import Foundation
 
-class Account: NSObject, NSCoding{
-
+class Account: NSObject, NSCoding {
     /// The account's name
     var displayName: String?
     /// The account's base url
@@ -32,7 +31,7 @@ class Account: NSObject, NSCoding{
     /// - parameter displayName: The account's name
     ///
     /// - returns: An initialised Account object
-    init(baseUrl: URL, username: String?, password: String?, port: Int?, displayName: String?, trustAllCertificates: Bool = false){
+    init(baseUrl: URL, username: String?, password: String?, port: Int?, displayName: String?, trustAllCertificates: Bool = false) {
         self.displayName = displayName
         self.baseUrl = baseUrl
         self.username = username
@@ -40,18 +39,18 @@ class Account: NSObject, NSCoding{
         self.port = port
         self.trustAllCertificates = trustAllCertificates
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         guard let baseUrl = aDecoder.decodeObject(forKey: "baseUrl") as? URL
-            else { return nil }
-        
+        else { return nil }
+
         self.baseUrl = baseUrl
         port = aDecoder.decodeObject(forKey: "port") as? Int
         username = aDecoder.decodeObject(forKey: "username") as? String
         displayName = aDecoder.decodeObject(forKey: "displayName") as? String
         trustAllCertificates = aDecoder.decodeBool(forKey: "trustAllCertificates")
     }
-    
+
     /// Encode an account object
     ///
     /// - parameter aCoder: The coder that should be used to encode the account
@@ -65,10 +64,12 @@ class Account: NSObject, NSCoding{
 
     override func isEqual(_ object: Any?) -> Bool {
         guard let otherAccount = object as? Account
-            else { return false }
-        return baseUrl == otherAccount.baseUrl
+        else { return false }
+        return baseUrl == otherAccount.baseUrl && username == otherAccount.username
+            && password == otherAccount.password && port == otherAccount.port
+            && trustAllCertificates == otherAccount.trustAllCertificates
     }
-    
+
     override func copy() -> Any {
         return Account(baseUrl: baseUrl, username: username, password: password, port: port, displayName: displayName, trustAllCertificates: trustAllCertificates)
     }

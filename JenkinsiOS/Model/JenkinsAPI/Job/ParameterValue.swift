@@ -8,11 +8,11 @@
 
 import Foundation
 
-class ParameterValue{
+class ParameterValue {
     var parameter: Parameter
     var value: String?
-    
-    init(parameter: Parameter, value: String? = nil){
+
+    init(parameter: Parameter, value: String? = nil) {
         self.parameter = parameter
         self.value = value
     }

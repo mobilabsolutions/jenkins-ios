@@ -6,69 +6,66 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
-import UIKit
 import NotificationCenter
+import UIKit
 
 class TodayViewController: UITableViewController, NCWidgetProviding {
-    
     var favorites: [Favorite] = []
     var favoritables: [[Favoratible]] = [[], []]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.rowHeight = 50
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        tableView.backgroundColor = .clear
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         ApplicationUserManager.manager.update()
-        
+
         guard let favorites = DataRetriever.retriever.getSharedApplicationUser()?.favorites
-            else { return }
-        
+        else { return }
+
         self.favorites = favorites
         // We even want to display the "empty" cells, as in showing that content is loading
         tableView.reloadData()
         requestData()
     }
-    
+
     @nonobjc func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         requestData()
         completionHandler(NCUpdateResult.newData)
     }
-    
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+
+    func widgetActiveDisplayModeDidChange(_: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         let maximumCellCount = floor(maxSize.height / tableView.rowHeight)
         let showCellCount = min(maximumCellCount, CGFloat(favorites.count))
         preferredContentSize = CGSize(width: maxSize.width, height: showCellCount * tableView.rowHeight)
     }
-    
-    func requestData(){
+
+    func requestData() {
         guard let favorites = DataRetriever.retriever.getSharedApplicationUser()?.favorites
-            else { return }
-        
+        else { return }
+
         self.favorites = favorites
-        favorites.forEach { (favorite) in
+        favorites.forEach { favorite in
             switch favorite.type {
-                case .job, .folder:
-                    getJob(favorite: favorite)
-                case .build:
-                    getBuild(favorite: favorite)
+            case .job, .folder:
+                getJob(favorite: favorite)
+            case .build:
+                getBuild(favorite: favorite)
             }
         }
     }
-    
-    private func getJob(favorite: Favorite){
-        
+
+    private func getJob(favorite: Favorite) {
         guard let account = favorite.account
-            else { return }
-        
+        else { return }
+
         let request = UserRequest(requestUrl: favorite.url, account: account)
-        _ = NetworkManager.manager.getJob(userRequest: request, completion: { (job, _) in
-            if let job = job{
+        _ = NetworkManager.manager.getJob(userRequest: request, completion: { job, _ in
+            if let job = job {
                 self.favoritables[0].append(job)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -76,80 +73,49 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             }
         })
     }
-    
-    private func getBuild(favorite: Favorite){
+
+    private func getBuild(favorite: Favorite) {
         guard let account = favorite.account
-            else { return }
-        
+        else { return }
+
         let request = UserRequest(requestUrl: favorite.url, account: account)
-        _ = NetworkManager.manager.getBuild(userRequest: request) { (build, _) in
+        _ = NetworkManager.manager.getBuild(userRequest: request) { build, _ in
             guard let build = build
-                else { return }
-            
+            else { return }
+
             self.favoritables[1].append(build)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    
-    //MARK: - Tableview data source and delegate
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
+
+    // MARK: - Tableview data source and delegate
+
+    override func numberOfSections(in _: UITableView) -> Int {
         return favoritables.count
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? favorites.filter{ $0.type != .build }.count : favorites.filter{ $0.type == .build }.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath)
 
-        guard favoritables[indexPath.section].count > indexPath.row
-            else {
-                cell.textLabel?.text = "Loading..."
-                cell.detailTextLabel?.text = "Loading \(indexPath.section == 0 ? "Job" : "Build")"
-                cell.imageView?.image = UIImage(named: "emptyCircle")
-                cell.selectionStyle = .none
-                
-                return cell
-        }
-        
-        if let job = favoritables[indexPath.section][indexPath.row] as? Job {
-            cell.textLabel?.text = job.name
-            cell.detailTextLabel?.text = job.healthReport.first?.description
-            
-            if let color = job.color?.rawValue{
-                cell.imageView?.image = UIImage(named: color + "Circle")
-            }
-        }
-        else if let build = favoritables[indexPath.section][indexPath.row] as? Build {
-            cell.textLabel?.text = build.fullDisplayName ?? build.displayName ?? "Build #\(build.number)"
-            
-            if let duration = build.duration{
-                cell.detailTextLabel?.text = build.duration != nil ? "Duration: \(duration.toString())" : nil
-            }
-            
-            if let result = build.result?.lowercased(){
-                cell.imageView?.image = UIImage(named: result + "Circle")
-            }
-        }
-        
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? favorites.filter { $0.type != .build }.count : favorites.filter { $0.type == .build }.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.favoritesCell, for: indexPath) as! FavoriteTableViewCell
+        cell.favoritable = favoritables[indexPath.section].count > indexPath.row ? favoritables[indexPath.section][indexPath.row] : nil
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard favoritables[indexPath.section].count > indexPath.row
-            else { return }
-        
+        else { return }
+
         let favoritable = favoritables[indexPath.section][indexPath.row]
-        
+
         var components = URLComponents()
         components.scheme = "jenkinsios"
         components.host = "present"
-        
+
         let favoritableType: String
         switch favoritable {
         case is Job:
@@ -157,15 +123,19 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         default:
             favoritableType = "Build"
         }
-        
+
         components.queryItems = [
             URLQueryItem(name: "url", value: favoritable.url.absoluteString),
-            URLQueryItem(name: "type", value: favoritableType)
+            URLQueryItem(name: "type", value: favoritableType),
         ]
-        
+
         guard let url = components.url
-            else { return }
-        
+        else { return }
+
         extensionContext?.open(url, completionHandler: nil)
+    }
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 55
     }
 }

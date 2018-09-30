@@ -8,16 +8,16 @@
 
 import Foundation
 
-class Author{
+class Author {
     /// The absolute url describing the author
     var absoluteUrl: URL
     /// The author's full name
     var fullName: String
-    
-    init?(json: [String: Any]){
+
+    init?(json: [String: Any]) {
         guard let absoluteUrlString = json[Constants.JSON.absoluteUrl] as? String, let fullName = json[Constants.JSON.fullName] as? String, let absoluteUrl = URL(string: absoluteUrlString)
-            else { return nil }
-        
+        else { return nil }
+
         self.absoluteUrl = absoluteUrl
         self.fullName = fullName
     }

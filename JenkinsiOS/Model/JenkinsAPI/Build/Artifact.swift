@@ -8,20 +8,18 @@
 
 import Foundation
 
-class Artifact{
-    
+class Artifact {
     var filename: String
     var url: URL
-    
-    var size: Int64?
-    
-    init?(json: [String: AnyObject], with buildUrl: URL){
+
+    var size: Int?
+
+    init?(json: [String: AnyObject], with buildUrl: URL) {
         guard let filename = json["fileName"] as? String,
-              let relativePath = json["relativePath"] as? String
-            else { return nil }
-        
+            let relativePath = json["relativePath"] as? String
+        else { return nil }
+
         self.filename = filename
-        self.url = buildUrl.appendingPathComponent(Constants.API.artifact, isDirectory: true).appendingPathComponent(relativePath)
+        url = buildUrl.appendingPathComponent(Constants.API.artifact, isDirectory: true).appendingPathComponent(relativePath)
     }
-    
 }

@@ -9,25 +9,24 @@
 import UIKit
 
 class AboutViewController: UIViewController {
-
     @IBOutlet var aboutTextView: UITextView!
     @IBOutlet var creditsTextView: UITextView!
-    
+
     let aboutInformationManager = AboutInformationManager()
     var reviewHandler: ReviewHandler?
-    
-    @IBAction func review(_ sender: Any) {
+
+    @IBAction func review(_: Any) {
         reviewHandler?.triggerReview()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         automaticallyAdjustsScrollViewInsets = false
-        
+
         aboutTextView.text = aboutInformationManager.getAboutText() ?? ""
         creditsTextView.text = aboutInformationManager.getCreditsText() ?? ""
-        
+
         reviewHandler = ReviewHandler(presentOn: self)
     }
 }

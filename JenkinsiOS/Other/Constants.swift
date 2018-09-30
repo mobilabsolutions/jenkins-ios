@@ -9,41 +9,51 @@
 import Foundation
 import UIKit
 
-struct Constants{
-    struct Defaults{
+struct Constants {
+    struct Defaults {
         /// The default port that should be used. 443 because the default protocol is https
         static let defaultPort = 443
     }
-    
-    struct Paths{
+
+    struct Paths {
         static let userPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("User")
         static let sharedUserPath = PersistenceUtils.getSharedDirectory()?.appendingPathComponent("Storage").appendingPathComponent("User")
         static let accountsPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("Account")
         static let sharedAccountsPath = PersistenceUtils.getSharedDirectory()?.appendingPathComponent("Storage").appendingPathComponent("Account")
     }
-    
-    struct Config{
-        static var keychainAccessGroup: String?{
+
+    struct Config {
+        static var keychainAccessGroup: String? {
             guard let dict = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Config", ofType: "plist")!)
-                else { return nil }
+            else { return nil }
             guard let prefix = dict.value(forKey: "App ID Prefix") as? String, let identifier = dict.value(forKey: "Shared Keychain Identifier") as? String
-                else { return nil }
+            else { return nil }
             return "\(prefix).\(identifier)"
-            
         }
     }
-    
-    struct UI{
-        static let bigButtonColor = UIColor(red: 125/255, green: 151/255, blue: 255/255, alpha: 1.0)
-        static let defaultLabelFont = "SourceSansPro"
+
+    struct UI {
+        static let defaultLabelFont = "Lato"
+        static let paleGreyColor = UIColor(red: 229.0 / 255.0, green: 236.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
+        static let darkGrey = UIColor(red: 140.0 / 255.0, green: 150.0 / 255.0, blue: 171.0 / 255.0, alpha: 1.0)
+        static let silver = UIColor(red: 198.0 / 255.0, green: 203.0 / 255.0, blue: 213.0 / 255.0, alpha: 1.0)
+        static let greyBlue = UIColor(red: 107.0 / 255.0, green: 120.0 / 255.0, blue: 151.0 / 255.0, alpha: 1.0)
+        static let skyBlue = UIColor(red: 96.0 / 255.0, green: 205.0 / 255.0, blue: 1.0, alpha: 1.0)
+        static let steel = UIColor(red: 108.0 / 255.0, green: 117.0 / 255.0, blue: 155.0 / 255.0, alpha: 1.0)
+        static let backgroundColor = UIColor(red: 244.0 / 255.0, green: 245 / 255.0, blue: 248 / 255.0, alpha: 1.0)
+        static let brightAqua = UIColor(red: 8.0 / 255.0, green: 232.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0)
+        static let clearBlue = UIColor(red: 46.0 / 255.0, green: 126.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
     }
-    
-    struct Identifiers{
+
+    struct Identifiers {
         static let accountCell = "accountCell"
         static let jobCell = "jobCell"
         static let folderCell = "folderCell"
         static let buildCell = "buildCell"
+        static let buildQueueCell = "buildQueueCell"
         static let favoritesCell = "favoritesCell"
+        static let favoritesHeaderCell = "favoritesHeaderCell"
+        static let jobsHeaderCell = "jobsHeaderCell"
         static let jenkinsCell = "jenkinsCell"
         static let staticBuildInfoCell = "staticBuildInfoCell"
         static let longBuildInfoCell = "longBuildInfoCell"
@@ -56,7 +66,16 @@ struct Constants{
         static let userCell = "userCell"
         static let artifactsCell = "artifactsCell"
         static let parameterCell = "parameterCell"
-        
+        static let buildsFilteringCell = "buildsFilteringCell"
+        static let titleCell = "titleCell"
+        static let jobOverViewCell = "jobOverViewCell"
+        static let specialBuildCell = "specialBuildCell"
+        static let headerCell = "headerCell"
+        static let settingsCell = "settingsCell"
+        static let actionCell = "actionCell"
+        static let buildCauseCell = "buildCauseCell"
+        static let dependencyDataCell = "dependencyDataCell"
+
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
         static let showBuildsSegue = "showBuildsSegue"
@@ -68,6 +87,7 @@ struct Constants{
         static let showTestResultsSegue = "showTestResultsSegue"
         static let showTestResultSegue = "showTestResultSegue"
         static let showComputersSegue = "showComputersSegue"
+        static let showComputerSegue = "showComputerSegue"
         static let showUsersSegue = "showUsersSegue"
         static let showPluginsSegue = "showPluginsSegue"
         static let editAccountSegue = "editAccountSegue"
@@ -76,10 +96,17 @@ struct Constants{
         static let showParametersSegue = "showParametersSegue"
         static let didAddAccountSegue = "didAddAccountSegue"
         static let showInformationSegue = "showInformationSegue"
-        
+        static let showAccountsSegue = "showAccountsSegue"
+        static let showUserSegue = "showUserSegue"
+        static let showPluginSegue = "showPluginSegue"
+
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
+
+        static let currentAccountBaseUrlUserDefaultsKey = "currentAccountBaseUrlUserDefaultsKey"
+
+        static let favoriteStatusToggledNotification: Notification.Name = .init(rawValue: "favoriteStatusToggledNotification")
     }
-    
+
     struct JSON {
         static let allViews = "All"
         static let views = "views"
@@ -166,33 +193,45 @@ struct Constants{
         static let choices = "choices"
         static let projectName = "projectName"
     }
-    
-    struct Networking{
+
+    struct Networking {
         static let successCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226]
     }
-    
-    struct API{
+
+    struct API {
         static let consoleOutput = "/consoleText"
         static let jobListAdditionalQueryItems = [
-            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color]],nodeDescription,nodeName,mode,description")
+            URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color,healthReport[description,score,iconClassName],lastBuild[timestamp,number,url]]],nodeDescription,nodeName,mode,description"),
         ]
+        static let jobAdditionalQueryItems: [URLQueryItem] = {
+            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath]"
+            return [
+                URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)],property[parameterDefinitions[*],actions[*[*]]]"),
+        ] }()
+
         static let testReport = "/testReport"
         static let testReportAdditionalQueryItems = [
-            URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount")
+            URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount"),
         ]
         static let buildQueue = "/queue"
+        static let buildQueueAdditionalQueryItems = [URLQueryItem(name: "tree", value: "items[url,why,blocked,buildable,id,inQueueSince,params,stuck,task[name,url,color,healthReport[description,score,iconClassName]],actions[causes[shortDescription,userId,username],failCount,skipCount,totalCount,urlName],buildableStartMilliseconds]")]
         static let computer = "/computer"
         static let plugins = "/pluginManager"
         static let pluginsAdditionalQueryItems = [
-            URLQueryItem(name: "depth", value: "2")
+            URLQueryItem(name: "depth", value: "2"),
         ]
         static let users = "/asynchPeople"
+        static let usersAdditionalQueryItems = [
+            URLQueryItem(name: "tree", value: "users[*,user[id,fullName,description,absoluteUrl]]"),
+        ]
         static let artifact = "/artifact"
         static let crumbIssuer = "/crumbIssuer"
-        
+
         static let quietDown = "/quietDown"
         static let cancelQuietDown = "/cancelQuietDown"
         static let restart = "/restart"
         static let safeRestart = "/safeRestart"
+        static let exit = "/exit"
+        static let safeExit = "/safeExit"
     }
 }

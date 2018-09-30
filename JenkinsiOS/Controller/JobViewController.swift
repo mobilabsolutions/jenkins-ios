@@ -8,142 +8,276 @@
 
 import UIKit
 
-class JobViewController: UIViewController {
+class JobViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var buildButton: BigButton!
 
     var account: Account?
     var job: Job?
 
-    //MARK: - Outlets
-
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var urlLabel: UILabel!
-    @IBOutlet weak var colorImageView: UIImageView!
-    @IBOutlet weak var descriptionWebView: UIWebView!
-    @IBOutlet weak var healthReportLabel: UILabel!
-    @IBOutlet weak var showBuildsCell: UIView!
-
     var viewWillAppearCalled = false
-    var buildProvidable: BuildProvidable? = nil
-    
-    //MARK: - Actions
+    private var showAllBuilds = false
+
+    // MARK: - Actions
 
     @objc func triggerBuild() {
         guard let job = job
-            else { return }
+        else { return }
 
-        if job.parameters.isEmpty{
-            buildWithoutParameters()
-        }
-        else{
+        if job.parameters.isEmpty {
+            triggerBuildWithoutParameters()
+        } else {
             prepareForBuildWithParameters()
         }
     }
 
-    private func prepareForBuildWithParameters(){
+    // MARK: - UITableViewDataSource and Delegate
+
+    private enum JobSection: Int {
+        case overview = 0
+        case specialBuild = 1
+        case otherBuilds = 2
+    }
+
+    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let section = JobSection(rawValue: indexPath.section)
+        else { return UITableViewCell() }
+
+        switch section {
+        case .overview:
+            return cellForOverView(indexPath: indexPath)
+        case .specialBuild:
+            return cellForSpecialBuild(indexPath: indexPath)
+        case .otherBuilds:
+            return cellForOtherBuilds(indexPath: indexPath)
+        }
+    }
+
+    private func cellForOverView(indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            return cellForSimpleHeader(title: job?.name ?? "JOB", indexPath: indexPath)
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.jobOverViewCell, for: indexPath) as! JobOverviewTableViewCell
+        cell.job = job
+        return cell
+    }
+
+    private func cellForSpecialBuild(indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            return cellForSimpleHeader(title: "LAST BUILD", indexPath: indexPath)
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.specialBuildCell, for: indexPath) as! SpecialBuildTableViewCell
+        cell.build = job?.lastBuild
+        cell.delegate = self
+        return cell
+    }
+
+    private func cellForOtherBuilds(indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            return cellForSelectableBuildsHeader(indexPath: indexPath)
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath) as! BuildTableViewCell
+
+        if let builds = job?.builds, indexPath.row - 1 < builds.count {
+            cell.build = builds[indexPath.row - 1]
+        }
+
+        return cell
+    }
+
+    private func cellForSimpleHeader(title: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.titleCell, for: indexPath)
+        cell.textLabel?.text = title
+        return cell
+    }
+
+    private func cellForSelectableBuildsHeader(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildsFilteringCell, for: indexPath) as! FilteringHeaderTableViewCell
+        cell.delegate = self
+        cell.title = "OTHER BUILDS"
+        cell.canDeselectAllOptions = true
+        cell.options = ["SHOW ALL (\(job?.builds.count ?? 0))"]
+        cell.select(where: { _ in showAllBuilds })
+        return cell
+    }
+
+    func numberOfSections(in _: UITableView) -> Int {
+        guard let _ = job
+        else { return 0 }
+        return 3
+    }
+
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let job = job, let section = JobSection(rawValue: section)
+        else { return 0 }
+
+        switch section {
+        case .overview:
+            return 2
+        case .specialBuild:
+            return 2
+        case .otherBuilds:
+            return 1 + (showAllBuilds ? job.builds.count : 0)
+        }
+    }
+
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = JobSection(rawValue: indexPath.section)
+        else { return }
+
+        switch (section, indexPath.row) {
+        case (.overview, _):
+            return
+        case (.specialBuild, 0):
+            return
+        case (.specialBuild, _):
+            performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: job?.lastBuild)
+        case (.otherBuilds, 0):
+            return
+        case (.otherBuilds, _):
+            performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: job?.builds[indexPath.row - 1])
+        }
+    }
+
+    func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let section = JobSection(rawValue: indexPath.section)
+        else { return 0 }
+
+        switch section {
+        case .overview:
+            return indexPath.row == 0 ? 36 : 180
+        case .specialBuild:
+            return indexPath.row == 0 ? 36 : 129
+        case .otherBuilds:
+            return indexPath.row == 0 ? 67 : 74
+        }
+    }
+
+    // MARK: - Building
+
+    private func prepareForBuildWithParameters() {
         performSegue(withIdentifier: Constants.Identifiers.showParametersSegue, sender: nil)
     }
 
-    private func buildWithoutParameters(){
+    private func triggerBuildWithoutParameters() {
+        // TODO: This is somewhat hacky. Is there a nicer solution?
+        let alert = UIAlertController(title: "Start Build", message: "Do you want to trigger a build?\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Start", style: .default, handler: { [weak self] _ in
+            self?.buildWithoutParameters()
+        }))
+
+        let imageView = UIImageView(image: UIImage(named: "ic-rocket"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addSubview(imageView)
+
+        imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: alert.view.widthAnchor, constant: -100).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func buildWithoutParameters() {
         guard let job = job, let account = account
-            else { return }
+        else { return }
 
-        let modalViewController = presentModalInformationViewController()
-
-        if account.password == nil || account.username == nil{
-            modalViewController?.dismiss(animated: true, completion: { 
-                self.displayInputTokenError(for: job, with: account, modalViewController: modalViewController)
-            })
-        }
-        else{
-            performBuild(job: job, account: account, token: nil, parameters: nil){ result, error in
+        if account.password == nil || account.username == nil {
+            displayInputTokenError(for: job, with: account)
+        } else {
+            let modalViewController = presentModalInformationViewController()
+            performBuild(job: job, account: account, token: nil, parameters: nil) { result, error in
                 DispatchQueue.main.async { [unowned self] in
                     self.completionForBuild()(modalViewController, result, error)
                 }
             }
         }
     }
-    
-    private func displayInputTokenError(for job: Job, with account: Account, modalViewController: ModalInformationViewController?){
+
+    private func displayInputTokenError(for job: Job, with account: Account) {
         var tokenTextField: UITextField!
+
+        let useAction = UIAlertAction(title: "Use", style: .default, handler: { [weak self] _ in
+            self?.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil) {
+                self?.completionForBuild()(self?.createModalInformationViewController(), $0, $1)
+            }
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
         displayError(title: "Please Input a token",
                      message: "To start a build without username or password, a token is required",
-                     textFieldConfigurations: [{ (textField) in
-            textField.placeholder = "Token"
-            tokenTextField = textField
-            }],
-                     actions: [
-                UIAlertAction(title: "Use", style: .default, handler: { (_) in
-                    self.performBuild(job: job, account: account, token: tokenTextField.text, parameters: nil){
-                        self.completionForBuild()(modalViewController, $0, $1)
-                    }
-                }),
-                UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            ])
-
-    }
-    
-    private func presentModalInformationViewController() -> ModalInformationViewController?{
-        if self.isViewLoaded && view.window != nil{
-            let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
-            present(modalViewController, animated: true)
-            
-            modalViewController.dismissOnTap = false
-            
-            return modalViewController
-        }
-        return nil
+                     textFieldConfigurations: [{ textField in
+                         textField.placeholder = "Token"
+                         tokenTextField = textField
+        }], actions: [useAction, cancelAction])
     }
 
-    private func completionForBuild() -> (ModalInformationViewController?, AnyObject?, Error?) ->(){
+    private func presentModalInformationViewController() -> ModalInformationViewController? {
+        guard let modal = createModalInformationViewController()
+        else { return nil }
+        present(modal, animated: true, completion: nil)
+        return modal
+    }
+
+    private func createModalInformationViewController() -> ModalInformationViewController? {
+        guard isViewLoaded && view.window != nil
+        else { return nil }
+        let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
+        modalViewController.dismissOnTap = false
+
+        return modalViewController
+    }
+
+    private func completionForBuild() -> (ModalInformationViewController?, AnyObject?, Error?) -> Void {
         return {
+            modalViewController, _, error in
 
-            modalViewController, data, error in
-
-            if let error = error{
-                if self.presentedViewController == modalViewController{
+            if let error = error {
+                if self.presentedViewController == modalViewController {
                     modalViewController?.dismiss(animated: true, completion: {
                         self.displayError(error: error)
                     })
-                }
-                else{
+                } else {
                     self.displayError(error: error)
                 }
-            }
-            else{
-                if self.presentedViewController == modalViewController{
+            } else {
+                if self.presentedViewController == modalViewController {
                     modalViewController?.dismiss(animated: true, completion: nil)
                 }
             }
         }
     }
 
-    private func displayError(error: Error){
-        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+    private func displayError(error: Error) {
+        displayNetworkError(error: error, onReturnWithTextFields: { returnData in
             self.account?.username = returnData["username"]!
             self.account?.password = returnData["password"]!
-            
+
             self.triggerBuild()
         })
     }
-    
-    private func performBuild(job: Job, account: Account, token: String?){
 
+    private func performBuild(job: Job, account: Account, token: String?) {
         let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
         present(modalViewController, animated: true)
 
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { (data, error) in
+        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { _, error in
             DispatchQueue.main.async {
-                if let error = error{
+                if let error = error {
                     modalViewController.dismiss(animated: true, completion: {
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
                             self.account?.username = returnData["username"]!
                             self.account?.password = returnData["password"]!
 
                             self.performBuild(job: job, account: account, token: token)
                         })
                     })
-                }
-                else{
+                } else {
                     let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
                     successImageView.contentMode = .scaleAspectFit
                     modalViewController.set(title: "Success", detailView: successImageView)
@@ -152,41 +286,49 @@ class JobViewController: UIViewController {
                     })
                 }
             }
-
         }
     }
 
-    fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> ()){
+    fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> Void) {
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
             LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
-        }
-        catch let error{
+        } catch let error {
             completion(nil, error)
         }
     }
 
-    //MARK: - Refreshing
+    // MARK: - Refreshing
 
-    func updateData(completion: @escaping (Error?) -> ()){
-        if let account = account, let job = job{
-            let userRequest = UserRequest(requestUrl: job.url, account: account)
-
-            _ = NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { (_, error) in
+    func updateData(completion: @escaping (Error?) -> Void) {
+        if let account = account, let job = job {
+            let userRequest = UserRequest.userRequestForJob(account: account, requestUrl: job.url)
+            _ = NetworkManager.manager.completeJobInformation(userRequest: userRequest, job: job, completion: { _, error in
                 completion(error)
             })
         }
     }
 
-    //MARK: - Viewcontroller lifecycle
+    // MARK: - Viewcontroller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        let filteringHeaderViewNib = UINib(nibName: "FilteringHeaderTableViewCell", bundle: .main)
+        tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.buildsFilteringCell)
+
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        view.backgroundColor = Constants.UI.backgroundColor
+        tableView.separatorStyle = .none
+
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height - buildButton.frame.minY, right: 0)
+
+        buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
+
         performRequest()
-        let tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer.addTarget(self, action: #selector(openUrl))
-        urlLabel.addGestureRecognizer(tapRecognizer)
-        urlLabel.isUserInteractionEnabled = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -195,213 +337,126 @@ class JobViewController: UIViewController {
         viewWillAppearCalled = true
     }
 
-    @objc func openUrl(){
+    @objc func openUrl() {
         guard let job = self.job
-              else { return }
+        else { return }
         UIApplication.shared.openURL(job.url)
     }
 
-    @objc func favorite(){
-        if let account = account, job != nil{
+    @objc func favorite() {
+        if let account = account, job != nil {
             job?.toggleFavorite(account: account)
-            let imageName = !job!.isFavorite ? "HeartEmpty" : "HeartFull"
-            (navigationItem.titleView as? UIImageView)?.image = UIImage(named: imageName)
+            let imageName = !job!.isFavorite ? "fav" : "fav-fill"
+            navigationItem.rightBarButtonItem?.image = UIImage(named: imageName)
         }
     }
 
-    func performRequest(){
-        updateData { (error) in
+    func performRequest() {
+        updateData { error in
             DispatchQueue.main.async {
                 guard error == nil
-                    else {
-                        if let error = error{
-                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                                self.updateAccount(data: returnData)
-                                self.performRequest()
-                            })
-                        }
-                        return
+                else {
+                    if let error = error {
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
+                            self.updateAccount(data: returnData)
+                            self.performRequest()
+                        })
+                    }
+                    return
                 }
-                
-                self.buildProvidable?.setBuilds(builds: self.job?.builds ?? [], specialBuilds: self.specialBuilds() ?? [])
-                self.buildProvidable?.buildsAlreadyLoaded = true
 
                 LoggingManager.loggingManager.log(contentView: .job)
 
-                if self.viewWillAppearCalled{
+                if self.viewWillAppearCalled {
                     self.updateUI()
                 }
             }
         }
     }
 
-    private func setupUI(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Build", style: .plain, target: self, action: #selector(triggerBuild))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+    private func setupUI() {
+        let imageName = (job == nil || !job!.isFavorite) ? "fav" : "fav-fill"
+        let favoriteBarButtonItem = UIBarButtonItem(image: UIImage(named: imageName), style: .plain, target: self, action: #selector(favorite))
+        navigationItem.rightBarButtonItem = favoriteBarButtonItem
 
-        descriptionWebView.allowsLinkPreview = true
-        descriptionWebView.delegate = self
+        title = "Jobs"
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(segueToNextViewController))
-        showBuildsCell.addGestureRecognizer(tapRecognizer)
-        
-        registerForPreviewing(with: self, sourceView: showBuildsCell)
-        
         updateUI()
-        
-        guard job?.healthReport.first == nil
-            else { stopIndicator(); return }
-        addLoadingIndicator()
-    }
-    
-    private func addLoadingIndicator(){
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        colorImageView.addSubview(indicator)
-        
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.centerXAnchor.constraint(equalTo: colorImageView.centerXAnchor).isActive = true
-        indicator.centerYAnchor.constraint(equalTo: colorImageView.centerYAnchor).isActive = true
-        
-        indicator.startAnimating()
-    }
-    
-    func updateUI(){
-        nameLabel.text = job?.name
-        urlLabel.text = (job?.url).textify()
-
-        let imageName = (job == nil || !job!.isFavorite) ? "HeartEmpty" : "HeartFull"
-
-        if let titleView = navigationItem.titleView as? UIImageView{
-            titleView.image = UIImage(named: imageName)
-        }
-        else{
-            navigationItem.titleView = UIImageView(image: UIImage(named: imageName))
-        }
-
-        navigationItem.titleView?.sizeToFit()
-        navigationItem.titleView?.isUserInteractionEnabled = true
-        navigationItem.titleView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favorite)))
-
-        guard let job = job
-            else { return }
-
-        let description = (job.description == nil || job.description!.isEmpty) ? "No description" : job.description!
-        self.descriptionWebView.loadHTMLString("<span style=\"font-family:'Source Sans Pro', helvetica\">" + description + "</span>", baseURL: nil)
-        self.descriptionWebView.sizeToFit()
-
-        if job.healthReport.count > 0{
-            self.healthReportLabel.text = job.healthReport.map{ $0.description }.joined(separator: "\n")
-        }
-        else {
-            self.healthReportLabel.text = "No health report"
-        }
-
-        if let icon = job.healthReport.first?.iconClassName{
-            self.colorImageView.image = UIImage(named: icon)
-        }
-        else if job.isFullVersion{
-            self.colorImageView.image = UIImage(named: "Jenkins_Loader")
-        }
-        
-        if job.healthReport.first != nil || job.isFullVersion == true{
-            stopIndicator()
-        }
-
-        navigationItem.rightBarButtonItem?.isEnabled = job.isFullVersion
     }
 
-    private func stopIndicator(){
-        if let indicator = colorImageView.subviews.first as? UIActivityIndicatorView{
-            indicator.stopAnimating()
-        }
+    func updateUI() {
+        tableView.reloadData()
+        navigationItem.rightBarButtonItem?.isEnabled = job?.isFullVersion ?? false
+        buildButton.isEnabled = job?.isFullVersion ?? false
     }
-    
-    //MARK: - ViewController Navigation
+
+    // MARK: - ViewController Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? BuildsTableViewController, segue.identifier == Constants.Identifiers.showBuildsSegue{
-            prepareBuildsTableViewController(viewController: dest)
-        }
-        else if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue{
+        if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue {
             dest.parameters = job?.parameters ?? []
             dest.delegate = self
+        } else if let dest = segue.destination as? BuildViewController, segue.identifier == Constants.Identifiers.showBuildSegue, let build = sender as? Build {
+            dest.account = account
+            dest.build = build
+        } else if let dest = segue.destination as? ArtifactsTableViewController, segue.identifier == Constants.Identifiers.showArtifactsSegue,
+            let build = sender as? Build {
+            dest.account = account
+            dest.build = build
+        } else if let dest = segue.destination as? TestResultsTableViewController, segue.identifier == Constants.Identifiers.showTestResultsSegue,
+            let build = sender as? Build {
+            dest.account = account
+            dest.build = build
+        } else if let dest = segue.destination as? ConsoleOutputViewController, segue.identifier == Constants.Identifiers.showConsoleOutputSegue,
+            let build = sender as? Build, let account = self.account {
+            dest.request = NetworkManager.manager.getConsoleOutputUserRequest(build: build, account: account)
         }
-    }
-
-    fileprivate func prepareBuildsTableViewController(viewController: BuildsTableViewController){
-        viewController.account = account
-        viewController.buildsAlreadyLoaded = (job?.isFullVersion != nil && job!.isFullVersion)
-        viewController.setBuilds(builds: job?.builds ?? [], specialBuilds: specialBuilds() ?? [])
-        viewController.dataSource = self
-        self.buildProvidable = viewController
-    }
-
-    @objc private func segueToNextViewController(){
-        performSegue(withIdentifier: Constants.Identifiers.showBuildsSegue, sender: nil)
-    }
-
-    //MARK: - Helpers
-    fileprivate func specialBuilds() -> [(String, Build)]?{
-        return job?.specialBuilds.filter{ $0.1 != nil }.map{ ($0.0, $0.1!) }
-    }
-
-}
-
-extension JobViewController: UIWebViewDelegate{
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-
-        if navigationType != .other, let url = request.url{
-            UIApplication.shared.openURL(url)
-        }
-
-        return navigationType == .other
     }
 }
 
-extension JobViewController: ParametersViewControllerDelegate{
-    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> ()) {
-
+extension JobViewController: ParametersViewControllerDelegate {
+    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> Void) {
         guard let job = job, let account = account
-            else { completion(BuildError.notEnoughDataError); return }
+        else { completion(BuildError.notEnoughDataError); return }
 
-
-        performBuild(job: job, account: account, token: nil, parameters: parameters){
+        performBuild(job: job, account: account, token: nil, parameters: parameters) {
             _, error in
             completion(error)
         }
     }
 
-    func updateAccount(data: [String : String?]) {
-        self.account?.username = data["username"]!
-        self.account?.password = data["password"]!
+    func updateAccount(data: [String: String?]) {
+        account?.username = data["username"]!
+        account?.password = data["password"]!
     }
 }
 
-extension JobViewController: BuildsTableViewControllerDataSource{
-    func loadBuilds(completion: @escaping ([Build]?, [(String, Build)]?) -> ()){
-        updateData { (error) in
-            DispatchQueue.main.async {
-                guard error == nil
-                    else { completion(nil, nil); return }
-                completion(self.job?.builds, self.specialBuilds())
-            }
+extension JobViewController: BuildsInformationOpeningDelegate {
+    func showLogs(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showConsoleOutputSegue, sender: build)
+    }
+
+    func showArtifacts(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showArtifactsSegue, sender: build)
+    }
+
+    func showTestResults(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showTestResultsSegue, sender: build)
+    }
+}
+
+extension JobViewController: FilteringHeaderTableViewCellDelegate {
+    func didSelect(selected _: CustomStringConvertible, cell _: FilteringHeaderTableViewCell) {
+        if !showAllBuilds {
+            showAllBuilds = true
+            tableView.reloadSections([JobSection.otherBuilds.rawValue], with: .automatic)
         }
     }
-}
 
-extension JobViewController: UIViewControllerPreviewingDelegate{
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        navigationController?.pushViewController(viewControllerToCommit, animated: false)
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else { return nil }
-        guard let buildsViewController = appDelegate.getViewController(name: "BuildsTableViewController") as? BuildsTableViewController
-            else { return nil }
-        
-        prepareBuildsTableViewController(viewController: buildsViewController)
-        return buildsViewController
+    func didDeselectAll() {
+        if showAllBuilds {
+            showAllBuilds = false
+            tableView.reloadSections([JobSection.otherBuilds.rawValue], with: .automatic)
+        }
     }
 }

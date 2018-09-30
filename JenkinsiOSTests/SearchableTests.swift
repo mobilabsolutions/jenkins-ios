@@ -9,12 +9,10 @@
 import XCTest
 
 class SearchableTests: XCTestCase {
-    
-    func testInitializesProperly(){
+    func testInitializesProperly() {
         let searchable = Searchable(searchString: "TestString", data: "This is data" as AnyObject, action: {})
         XCTAssertEqual(searchable.searchString, "TestString")
         XCTAssertEqual(searchable.data as? NSObject, "This is data" as NSObject)
         XCTAssertEqual(searchable.lowerCasedSearchString, "teststring")
     }
-    
 }

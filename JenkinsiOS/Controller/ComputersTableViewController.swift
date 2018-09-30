@@ -8,104 +8,103 @@
 
 import UIKit
 
-class ComputersTableViewController: BaseTableViewController {
-
-    var account: Account?
-    var computerList: ComputerList?{
-        didSet{
-            guard let computers = computerList?.computers
-                else { return }
-            computerData = computers.map({ (computer) -> [(String, String)] in
-                return data(for: computer)
-            })
-        }
-    }
-    
-    private var computerData: [[(String, String)]] = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        performRequest()
-        emptyTableView(for: .loading)
-    }
-    
-    private func performRequest(){
-        guard let account = account
-            else { return }
-        emptyTableView(for: .loading)
-         _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { (computerList, error) in
-            DispatchQueue.main.async {
-                self.emptyTableView(for: .noData)
-                if let error = error{
-                    self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                        self.account?.username = returnData["username"]!
-                        self.account?.password = returnData["password"]!
-                        
-                        self.performRequest()
-                    })
-                    self.emptyTableView(for: .error)
-                }
-
-                self.computerList = computerList
-                self.title = computerList?.displayName ?? "Computers"
-                self.tableView.reloadData()
+class ComputersTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if account != nil && oldValue != account {
+                computerList = nil
+                tableView.reloadData()
+                performRequest()
             }
         }
     }
-    
-    private func data(for computer: Computer) -> [(String, String)]{
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        
-        let gbOfTotalPhysicalMemory = computer.monitorData?.totalPhysicalMemory?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
-        let gbOfAvailablePhysicalMemory = computer.monitorData?.availablePhysicalMemory?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
-        let gbOfTotalSwapMemory = computer.monitorData?.totalSwapSpace?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
-        let gbOfAvailableSwapMemory = computer.monitorData?.availableSwapSpace?.bytesToGigabytesString(numberFormatter: numberFormatter) ?? "Unknown"
 
-        
-        return [
-            ("Name", computer.displayName),
-            ("Executors", "\(computer.numExecutors)"),
-            ("Idle", "\(computer.idle)"),
-            ("JNLP Agent", "\(computer.jnlpAgent)"),
-            ("Offline", "\(computer.offline)"),
-            ("Temporarily Offline", "\((computer.temporarilyOffline).textify())"),
-            ("Launch Supported", "\(computer.launchSupported)"),
-            ("Available Physical Memory", gbOfAvailablePhysicalMemory),
-            ("Physical Memory", gbOfTotalPhysicalMemory),
-            ("Available Swap Space", gbOfAvailableSwapMemory),
-            ("Swap Space", gbOfTotalSwapMemory)
-        ]
+    private var computerList: ComputerList?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.register(UINib(nibName: "BasicImageTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.computerCell)
+        tableView.backgroundColor = Constants.UI.backgroundColor
+
+        performRequest()
+        emptyTableView(for: .loading)
+
+        contentType = .nodes
     }
-    
-    //MARK: - Tableview data source and delegate
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let computer = computerList?.computers[section]{
-            return data(for: computer).count
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.navigationItem.title = "Nodes"
+    }
+
+    private func performRequest() {
+        guard let account = account
+        else { return }
+        emptyTableView(for: .loading)
+        _ = NetworkManager.manager.getComputerList(userRequest: UserRequest.userRequestForComputers(account: account)) { computerList, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
+                        self.account?.username = returnData["username"]!
+                        self.account?.password = returnData["password"]!
+
+                        self.performRequest()
+                    })
+                    self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                } else {
+                    self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
+                }
+
+                self.computerList = computerList
+                self.tabBarController?.navigationItem.title = computerList?.displayName ?? "Nodes"
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
         }
-        return 0
     }
-    
+
+    override func refresh() {
+        computerList = nil
+        performRequest()
+    }
+
+    // MARK: - Tableview data source and delegate
+
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return computerList?.computers.count ?? 0
+    }
+
     override func tableViewIsEmpty() -> Bool {
         return (computerList?.computers.count ?? 0) == 0
     }
-    
+
     override func numberOfSections() -> Int {
-        return computerList?.computers.count ?? 0
+        return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.computerCell, for: indexPath)
-        
-        cell.textLabel?.text = computerData[indexPath.section][indexPath.row].0
-        cell.detailTextLabel?.text = computerData[indexPath.section][indexPath.row].1
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.computerCell, for: indexPath) as! BasicImageTableViewCell
+        cell.iconImageView.image = UIImage(named: "nodesCellImage")
+        cell.titleLabel.text = computerList?.computers[indexPath.row].displayName ?? "Node #\(indexPath.row)"
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return computerList?.computers[section].displayName
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 74
+    }
+
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
+        return .none
+    }
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showComputerSegue, sender: computerList?.computers[indexPath.row])
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? ComputerTableViewController, let computer = sender as? Computer {
+            dest.computer = computer
+        }
     }
 }

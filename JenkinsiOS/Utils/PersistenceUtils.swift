@@ -8,19 +8,18 @@
 
 import Foundation
 
-class PersistenceUtils{
-    
+class PersistenceUtils {
     /// Get the url for the document directory with a path component added
     ///
     /// - returns: The URL describing the document directory with the added path component
-    static func getDocumentDirectory() -> URL?{
+    static func getDocumentDirectory() -> URL? {
         return (try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
     }
-    
+
     /// Get the url of the app group's shared directory
     ///
     /// - returns: The URL describing the directory of the shared app group
-    static func getSharedDirectory() -> URL?{
+    static func getSharedDirectory() -> URL? {
         return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.mobilabsolutions.jenkins.client.shared")
     }
 }

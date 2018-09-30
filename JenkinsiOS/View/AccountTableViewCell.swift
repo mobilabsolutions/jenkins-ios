@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountTableViewCell: UITableViewCell{
-    @IBOutlet weak var accountNameLabel: UILabel!
-    @IBOutlet weak var urlLabel: UILabel!
+class AccountTableViewCell: UITableViewCell {
+    @IBOutlet var accountNameLabel: UILabel!
+    @IBOutlet var urlLabel: UILabel!
 }

@@ -8,67 +8,80 @@
 
 import UIKit
 
-class JenkinsInformationTableViewController: UITableViewController {
-
+class JenkinsInformationTableViewController: UITableViewController, AccountProvidable {
     var account: Account?
-    var actions: [JenkinsAction] = [.safeRestart, .restart, .quietDown, .cancelQuietDown]
-    
-    func performAction(action: JenkinsAction){
-        
+    var actions: [JenkinsAction] = [.restart, .safeRestart, .exit, .safeExit, .quietDown, .cancelQuietDown]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        tableView.separatorStyle = .none
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.navigationItem.title = "Actions"
+    }
+
+    func performAction(action: JenkinsAction) {
         // Methods for presenting messages to the user
-        func showSuccessMessage(){
-            self.displayError(title: "Success", message: "The action was completed", textFieldConfigurations: [], actions: [
-                UIAlertAction(title: "Alright", style: .cancel, handler: nil)
-                ])
+        func showSuccessMessage() {
+            displayError(title: "Success", message: "The action was completed", textFieldConfigurations: [], actions: [
+                UIAlertAction(title: "Alright", style: .cancel, handler: nil),
+            ])
         }
-        
-        func showFailureMessage(error: Error){
-            self.displayNetworkError(error: error, onReturnWithTextFields: { (data) in
+
+        func showFailureMessage(error: Error) {
+            displayNetworkError(error: error, onReturnWithTextFields: { data in
                 self.account?.password = data["password"]!
                 self.account?.username = data["username"]!
                 self.performAction(action: action)
             })
         }
-        
+
         guard let account = account
-            else { return }
+        else { return }
         // Perform request
-        NetworkManager.manager.perform(action: action, on: account) { (error) in
+        NetworkManager.manager.perform(action: action, on: account) { error in
             DispatchQueue.main.async {
-                if let error = error{
-                    if let networkManagerError = error as? NetworkManagerError, case let .HTTPResponseNoSuccess(code, _) = networkManagerError, Constants.Networking.successCodes.contains(code) || code == 503{
+                if let error = error {
+                    if let networkManagerError = error as? NetworkManagerError, case let .HTTPResponseNoSuccess(code, _) = networkManagerError, Constants.Networking.successCodes.contains(code) || code == 503 {
                         showSuccessMessage()
-                    }
-                    else {
+                    } else {
                         showFailureMessage(error: error)
                     }
-                }
-                else{
+                } else {
                     showSuccessMessage()
+                    LoggingManager.loggingManager.logTriggeredAction(action: action)
                 }
             }
         }
     }
-    
+
     // MARK: - Table view delegate and datasource
+
+    override func numberOfSections(in _: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return actions.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.actionCell, for: indexPath) as! ActionTableViewCell
+        cell.setup(for: actions[indexPath.row])
+        return cell
+    }
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 74
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard account != nil, indexPath.section == 1
-            else { return }
+        guard account != nil
+        else { return }
         performAction(action: actions[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Identifiers.showComputersSegue, let dest = segue.destination as? ComputersTableViewController{
-            dest.account = account
-        }
-        else if segue.identifier == Constants.Identifiers.showPluginsSegue, let dest = segue.destination as? PluginsTableViewController{
-            dest.account = account
-        }
-        else if segue.identifier == Constants.Identifiers.showUsersSegue, let dest = segue.destination as? UsersTableViewController{
-            dest.account = account
-        }
     }
 }

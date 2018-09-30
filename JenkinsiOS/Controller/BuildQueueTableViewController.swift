@@ -8,95 +8,117 @@
 
 import UIKit
 
-class BuildQueueTableViewController: RefreshingTableViewController {
+class BuildQueueTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if account != nil && account != oldValue {
+                queue = nil
+                tableView.reloadData()
+                performRequest()
+            }
+        }
+    }
 
-    var queue: BuildQueue?
-    var account: Account?
-    
+    private var queue: BuildQueue?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Build Queue"
+        tabBarController?.navigationItem.title = "Build Queue"
         emptyTableViewText = "Loading Build Queue"
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
+
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
+        tableView.backgroundColor = Constants.UI.backgroundColor
 
         performRequest()
+        emptyTableView(for: .loading)
 
         contentType = .buildQueue
     }
 
-    override func refresh(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.navigationItem.title = "Build Queue"
+    }
+
+    override func refresh() {
         performRequest()
     }
 
-    func performRequest(){
-        
+    func performRequest() {
         guard let account = account
-            else { return }
-        
+        else { return }
+
         emptyTableView(for: .loading)
-        
-        _ = NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { (queue, error) in
+
+        _ = NetworkManager.manager.getBuildQueue(userRequest: UserRequest.userRequestForBuildQueue(account: account)) { queue, error in
             DispatchQueue.main.async {
                 guard let queue = queue, error == nil
-                    else {
-                        if let error = error{
-                            self.displayNetworkError(error: error, onReturnWithTextFields: { (returnData) in
-                                self.account?.username = returnData["username"]!
-                                self.account?.password = returnData["password"]!
-                                
-                                self.performRequest()
-                            })
-                            self.emptyTableView(for: .error)
-                        }
-                        return
+                else {
+                    if let error = error {
+                        self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
+                            self.account?.username = returnData["username"]!
+                            self.account?.password = returnData["password"]!
+
+                            self.performRequest()
+                        })
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
+                        self.tableView.reloadData()
+                    }
+                    return
                 }
-                
+
                 self.queue = queue
-                self.emptyTableView(for: .noData)
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
         }
     }
 
-    // MARK: - Table view data source    
-    
+    // MARK: - Table view data source
+
     override func tableViewIsEmpty() -> Bool {
         return queue == nil || queue?.items.count == 0
     }
-    
+
     override func numberOfSections() -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return queue?.items.count ?? 0
     }
-    
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 104
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildCell, for: indexPath) as! BuildQueueTableViewCell
-        
-        cell.nameLabel.text = queue?.items[indexPath.row].task?.name
-        
-        if let colorString = queue?.items[indexPath.row].task?.color?.rawValue{
-            cell.itemImageView?.image = UIImage(named: "\(colorString)Circle")
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.buildQueueCell, for: indexPath) as! BuildQueueTableViewCell
+
+        if let item = queue?.items[indexPath.row] {
+            cell.queueItem = item
         }
-        
-        cell.detailLabel?.text = queue?.items[indexPath.row].why
-        
+
         return cell
     }
 
-    //MARK: - View controller navigation
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
+        return .none
+    }
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: queue?.items[indexPath.row])
+    }
+
+    // MARK: - View controller navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? JobViewController, let cell = sender as? UITableViewCell, let index = tableView.indexPath(for: cell){
+        if let dest = segue.destination as? JobViewController, let queueItem = sender as? QueueItem {
             dest.account = account
-            dest.job = queue?.items[index.row].task
+            dest.job = queueItem.task
         }
     }
-
 }

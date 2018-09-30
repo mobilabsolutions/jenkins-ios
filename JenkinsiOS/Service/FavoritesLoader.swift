@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol FavoritesLoading {
+protocol FavoritesLoading: class {
     func didLoadFavorite(favoritable: Favoratible, from favorite: Favorite)
     func didFailToLoad(favorite: Favorite, reason: FavoriteLoadingFailure)
 }
@@ -17,7 +17,7 @@ enum FavoriteLoadingFailure {
 }
 
 class FavoritesLoader {
-    private var delegate: FavoritesLoading
+    private unowned var delegate: FavoritesLoading
 
     init(with delegate: FavoritesLoading) {
         self.delegate = delegate
@@ -28,11 +28,11 @@ class FavoritesLoader {
             guard let account = favorite.account
             else { delegate.didFailToLoad(favorite: favorite, reason: .noAccount); continue }
             switch favorite.type {
-                case .build:
-                    loadBuild(favorite: favorite, with: account)
-                // Folders are in essence just jobs themselves
-                case .job, .folder:
-                    loadJob(favorite: favorite, with: account)
+            case .build:
+                loadBuild(favorite: favorite, with: account)
+            // Folders are in essence just jobs themselves
+            case .job, .folder:
+                loadJob(favorite: favorite, with: account)
             }
         }
     }
@@ -58,7 +58,7 @@ class FavoritesLoader {
     }
 
     private func loadJob(favorite: Favorite, with account: Account) {
-        let userRequest = UserRequest(requestUrl: favorite.url, account: account)
+        let userRequest = UserRequest.userRequestForJob(account: account, requestUrl: favorite.url)
         _ = NetworkManager.manager.getJob(userRequest: userRequest) { job, error in
             self.didLoadFavoritable(favoritable: job, error: error, for: favorite)
         }

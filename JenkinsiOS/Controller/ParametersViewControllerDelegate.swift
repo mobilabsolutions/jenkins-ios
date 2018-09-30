@@ -9,6 +9,6 @@
 import Foundation
 
 protocol ParametersViewControllerDelegate {
-    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> ())
+    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> Void)
     func updateAccount(data: [String: String?])
 }

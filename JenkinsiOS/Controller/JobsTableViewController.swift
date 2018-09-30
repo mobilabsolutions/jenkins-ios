@@ -8,72 +8,132 @@
 
 import UIKit
 
-class JobsTableViewController: RefreshingTableViewController {
-    var account: Account?
+class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
+    var account: Account? {
+        didSet {
+            if account != nil && account != oldValue && folderJob == nil {
+                userRequest = nil
+                jobs = nil
+                currentView = nil
+                loadJobs()
+                tableView.reloadData()
+            }
+        }
+    }
+
     var userRequest: UserRequest?
-    
+
     var jobs: JobList?
     var currentView: View?
-    
-    var viewPicker: UIPickerView!
-    
+
     var folderJob: Job? {
         didSet {
             navigationItem.rightBarButtonItem = folderJob != nil ? favoriteBarButtonItem() : nil
-            self.title = folderJob?.name ?? "Jobs"
+            title = folderJob?.name ?? "Jobs"
         }
     }
-    
+
     private var searchController: UISearchController?
     private var isInitialLoad: Bool = true
-    
-    /// The identifier and number of rows for a given section and a row in that section. Based on the current JobListResults
-    lazy var sections: [(Int?, [JobListResult]?) -> (identifier: String, rows: Int)] = [{ _, _ in (Constants.Identifiers.jenkinsCell, self.jenkinsCellSegues.count) }, {
-        row, jobResults in
-        guard let row = row, let jobResult = jobResults?[row]
-        else { return ("", jobResults?.count ?? 0) }
-        
-        switch jobResult {
-            case .job: return (Constants.Identifiers.jobCell, jobResults?.count ?? 0)
-            case .folder: return (Constants.Identifiers.folderCell, jobResults?.count ?? 0)
+
+    private var shouldReloadFavorites = false
+
+    private var currentFavoritesSection: AllFavoritesTableViewCell.FavoritesSections?
+
+    /// The identifier and number of rows for a given section and a row in that section as well as the height for that row. Based on the current JobListResults
+    private typealias SectionInformation = (identifier: String, rows: Int, rowHeight: CGFloat)
+    private typealias SectionInformationClosure = (View?, FolderState) -> SectionInformation
+    private lazy var sections: [SectionInformationClosure] = [
+        { _, state in (Constants.Identifiers.favoritesHeaderCell, state == .noFolder ? 1 : 0, 72) },
+        { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 160) },
+        { currentView, state in
+            let numberOfRows: Int
+            if currentView == nil {
+                numberOfRows = 0
+            } else if currentView?.jobResults.isEmpty == true && state != .folderMultiBranch && state != .noFolder {
+                numberOfRows = 0
+            } else {
+                numberOfRows = 1
+            }
+            return (Constants.Identifiers.jobsHeaderCell, numberOfRows, 72)
+        },
+        { currentView, _ in (Constants.Identifiers.jobCell, currentView?.jobResults.count ?? 0, 74) },
+    ]
+
+    private enum FolderState {
+        case folderNoMultiBranch
+        case folderMultiBranch
+        case noFolder
+        case unknown
+
+        init(jobList: JobList?, folderJob: Job?) {
+            guard let list = jobList
+            else { self = folderJob != nil ? .folderNoMultiBranch : .noFolder; return }
+            if list.isMultibranch {
+                self = .folderMultiBranch
+            } else if folderJob != nil {
+                self = .folderNoMultiBranch
+            } else {
+                self = .noFolder
+            }
         }
-    }]
-    
-    let jenkinsCellSegues = [("Build Queue", Constants.Identifiers.showBuildQueueSegue), ("Jenkins Settings", Constants.Identifiers.showJenkinsSegue)]
-    
+    }
+
     // MARK: - View controller lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let filteringHeaderViewNib = UINib(nibName: "FilteringHeaderTableViewCell", bundle: .main)
+
+        tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.favoritesHeaderCell)
+        tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.jobsHeaderCell)
+
         loadJobs()
-        setUpPicker()
-        
+
         emptyTableView(for: .loading)
-        title = title ?? account?.displayName ?? "Jobs"
         contentType = .jobList
+
+        tableView.backgroundColor = Constants.UI.backgroundColor
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFavorites), name: Constants.Identifiers.favoriteStatusToggledNotification, object: nil)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.isUserInteractionEnabled = true
         searchController?.searchBar.text = ""
+        tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
+
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal),
+                                                                              style: .plain, target: self, action: #selector(presentFilterDialog))
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.navigationItem.rightBarButtonItem = nil
+    }
+
     override func refresh() {
         loadJobs()
         emptyTableView(for: .loading)
     }
-    
+
     // MARK: - Data loading and displaying
-    
+
     /// Load the jobs from the remote server
-    @objc private func loadJobs() {        
+    @objc private func loadJobs() {
         guard let account = account
         else { return }
-        
+
+        emptyTableView(for: .loading)
+        tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = false
+
+        let folderStateBefore = FolderState(jobList: jobs, folderJob: folderJob)
+
         userRequest = userRequest ?? UserRequest.userRequestForJobList(account: account)
-        
         _ = NetworkManager.manager.getJobs(userRequest: userRequest!) { jobList, error in
-            
+
             DispatchQueue.main.async {
                 guard jobList != nil && error == nil
                 else {
@@ -81,295 +141,321 @@ class JobsTableViewController: RefreshingTableViewController {
                         self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
                             self.account?.username = returnData["username"]!
                             self.account?.password = returnData["password"]!
-                            
+
                             self.loadJobs()
                         })
-                        
-                        self.emptyTableView(for: .error)
+
+                        self.emptyTableView(for: .error, action: self.defaultRefreshingAction)
                     }
-                    
+
                     self.refreshControl?.endRefreshing()
                     return
                 }
-                
+
                 self.jobs = jobList
                 let filterViews: (View) -> Bool = {
                     $0.name == self.currentView?.name && $0.url == self.currentView?.url
                 }
                 if let view = jobList?.views.filter(filterViews).first {
                     self.currentView = view
-                }
-                else {
+                } else {
                     self.currentView = jobList?.allJobsView ?? jobList?.views.first
                 }
-                
-                self.viewPicker.reloadAllComponents()
-                if self.isInitialLoad {
-                    self.isInitialLoad = false
-                    self.scrollToInitialPickerView()
+
+                self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
+                self.shouldReloadFavorites = true
+                // If the folder state has changed, we might want to hide the favorites sections and therefore
+                // we reload all data, while if it is the same, there won't be any changes in those sections.
+                if folderStateBefore != FolderState(jobList: self.jobs, folderJob: self.folderJob) {
+                    self.tableView.reloadData()
+                } else {
+                    self.tableView.reloadSections([2, 3], with: .automatic)
                 }
-                self.emptyTableView(for: .noData)
-                self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
+                self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = true
             }
         }
     }
-    
+
     private func setupSearchController() {
         let searchData = getSearchData()
-        
+
         guard !searchData.isEmpty
         else { return }
-        
-        let searchResultsController = SearchResultsTableViewController(searchData: searchData)
+
+        let searchResultsController = SearchResultsTableViewController(searchData: searchData, cellNib: UINib(nibName: "JobTableViewCell", bundle: .main))
         searchResultsController.delegate = self
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController?.searchResultsUpdater = searchResultsController.searcher
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
     }
-    
+
     private func getSearchData() -> [Searchable] {
         guard let jobs = jobs else { return [] }
         let jobResults: [JobListResult]
         if let allResults = jobs.allJobsView?.jobResults {
             jobResults = allResults
-        }
-        else {
+        } else {
             jobResults = jobs.views.flatMap { $0.jobResults }
         }
-        
+
         return jobResults.map { (job) -> Searchable in
             Searchable(searchString: job.name, data: job as AnyObject) {
                 self.searchController?.dismiss(animated: true, completion: nil)
-                
+
                 let identifier: String!
-                
+
                 switch job {
-                    case .folder:
-                        identifier = Constants.Identifiers.showFolderSegue
-                    case .job:
-                        identifier = Constants.Identifiers.showJobSegue
+                case .folder:
+                    identifier = Constants.Identifiers.showFolderSegue
+                case .job:
+                    identifier = Constants.Identifiers.showJobSegue
                 }
-                
+
                 self.performSegue(withIdentifier: identifier, sender: job)
             }
         }
     }
-    
-    private func setUpPicker() {
-        viewPicker = UIPickerView()
-        viewPicker.dataSource = self
-        viewPicker.delegate = self
-        viewPicker.backgroundColor = UIColor.clear
-    }
-    
-    private func scrollToInitialPickerView() {
-        if let jobs = jobs, let currentView = currentView, let index = jobs.views.index(where: { $0.name == currentView.name }) {
-            viewPicker.selectRow(index, inComponent: 0, animated: true)
-        }
-    }
-    
+
     private func favoriteBarButtonItem() -> UIBarButtonItem? {
         guard let job = folderJob
         else { return nil }
-        
-        let imageName = !job.isFavorite ? "HeartEmpty" : "HeartFull"
-        
+
+        let imageName = !job.isFavorite ? "fav" : "fav-fill"
+
         let image = UIImage(named: imageName)
-        return UIBarButtonItem(image: image, style: UIBarButtonItemStyle.plain, target: self, action: #selector(favorite))
+        return UIBarButtonItem(image: image, style: UIBarButtonItem.Style.plain, target: self, action: #selector(favorite))
     }
-    
+
     @objc private func favorite() {
         guard let account = account, let job = folderJob
-            else { return }
+        else { return }
         job.toggleFavorite(account: account)
-        navigationItem.rightBarButtonItem?.image = UIImage(named: !job.isFavorite ? "HeartEmpty" : "HeartFull")
+
+        navigationItem.rightBarButtonItem?.image = UIImage(named: !job.isFavorite ? "fav" : "fav-fill")
     }
-    
+
     // MARK: - Viewcontroller navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Identifiers.showJobSegue,
             let jobCell = sender as? UITableViewCell,
             let indexPath = tableView.indexPath(for: jobCell),
             let jobResult = currentView?.jobResults[indexPath.row] {
             prepare(vc: segue.destination, for: jobResult)
-        }
-        else if segue.identifier == Constants.Identifiers.showJobSegue, let jobResult = sender as? JobListResult {
+        } else if segue.identifier == Constants.Identifiers.showJobSegue, let jobResult = sender as? JobListResult {
             prepare(vc: segue.destination, for: jobResult)
-        }
-        else if let dest = segue.destination as? BuildQueueTableViewController, segue.identifier == Constants.Identifiers.showBuildQueueSegue {
-            dest.account = account
-        }
-        else if let dest = segue.destination as? JenkinsInformationTableViewController, segue.identifier == Constants.Identifiers.showJenkinsSegue {
-            dest.account = account
-        }
-        else if segue.identifier == Constants.Identifiers.showFolderSegue,
+        } else if segue.identifier == Constants.Identifiers.showFolderSegue,
             let cell = sender as? UITableViewCell,
             let path = tableView.indexPath(for: cell),
             let jobResult = currentView?.jobResults[path.row] {
             prepare(vc: segue.destination, for: jobResult)
-        }
-        else if segue.identifier == Constants.Identifiers.showFolderSegue, let jobResult = sender as? JobListResult {
+        } else if segue.identifier == Constants.Identifiers.showFolderSegue, let jobResult = sender as? JobListResult {
             prepare(vc: segue.destination, for: jobResult)
+        } else if segue.identifier == Constants.Identifiers.showBuildSegue, let favoriteValues = sender as? (Favoratible, Favorite), let build = favoriteValues.0 as? Build, let dest = segue.destination as? BuildViewController {
+            dest.build = build
+            dest.account = favoriteValues.1.account ?? account
+        } else if segue.identifier == Constants.Identifiers.showJobSegue, let favoriteValues = sender as? (Favoratible, Favorite),
+            let favoritable = favoriteValues.0 as? Job {
+            prepare(vc: segue.destination, for: .job(job: favoritable), account: favoriteValues.1.account)
+        } else if segue.identifier == Constants.Identifiers.showFolderSegue, let favoriteValues = sender as? (Favoratible, Favorite), let favoritable = favoriteValues.0 as? Job {
+            prepare(vc: segue.destination, for: .folder(folder: favoritable), account: favoriteValues.1.account)
         }
     }
-    
-    private func prepare(vc: UIViewController, for jobListResult: JobListResult) {
+
+    private func prepare(vc: UIViewController, for jobListResult: JobListResult, account: Account? = nil) {
         switch jobListResult {
-            case .folder(let folder):
-                prepare(vc: vc, forFolder: folder)
-            case .job(let job):
-                prepare(vc: vc, forJob: job)
+        case let .folder(folder):
+            prepare(vc: vc, forFolder: folder, account: account)
+        case let .job(job):
+            prepare(vc: vc, forJob: job, account: account)
         }
     }
-    
-    private func prepare(vc: UIViewController, forJob job: Job) {
+
+    private func prepare(vc: UIViewController, forJob job: Job, account: Account?) {
         guard let dest = vc as? JobViewController
         else { return }
-        
+
         dest.job = job
-        dest.account = account
+        dest.account = account ?? self.account
     }
-    
-    private func prepare(vc: UIViewController, forFolder folder: Job) {
-        guard let dest = vc as? JobsTableViewController, let account = self.account
+
+    private func prepare(vc: UIViewController, forFolder folder: Job, account: Account?) {
+        guard let dest = vc as? JobsTableViewController, let account = account ?? self.account
         else { return }
-        
-        dest.account = account
-        dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
-        let emptySection: (Int?, [JobListResult]?) -> (String, Int) = { _, _ in ("empty", 0) }
-        dest.sections = [emptySection, sections.lazy.last!]
-        dest.title = folder.name
+
         dest.folderJob = folder
+        dest.userRequest = UserRequest.userRequestForJobList(account: account, requestUrl: folder.url)
+        dest.title = folder.name
+        dest.account = account
     }
-    
+
+    @objc private func reloadFavorites() {
+        shouldReloadFavorites = true
+        tableView.reloadSections([0, 1], with: .none)
+    }
+
     // MARK: - Tableview datasource and delegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if sections[indexPath.section](indexPath.row, currentView?.jobResults).identifier == Constants.Identifiers.jenkinsCell {
-            performSegue(withIdentifier: jenkinsCellSegues[indexPath.row].1, sender: nil)
-        }
+
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return prepareCellWithIdentifier(identifier: sections[indexPath.section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).identifier, indexPath: indexPath)
     }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = sections[indexPath.section](indexPath.row, currentView?.jobResults).identifier
-        return prepareCellWithIdentifier(identifier: identifier, indexPath: indexPath)
-    }
-    
+
     private func prepareCellWithIdentifier(identifier: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        
+
         switch identifier {
-            case Constants.Identifiers.jobCell, Constants.Identifiers.folderCell:
-                prepareCellForJobListResult(cell: cell, indexPath: indexPath)
-            case Constants.Identifiers.jenkinsCell:
-                prepareCellForJenkins(cell: cell, indexPath: indexPath)
-            default: return cell
+        case Constants.Identifiers.favoritesHeaderCell:
+            prepareCellForFavoritesHeader(cell: cell as! FilteringHeaderTableViewCell)
+        case Constants.Identifiers.favoritesCell:
+            prepareCellForFavorites(cell: cell as! AllFavoritesTableViewCell)
+        case Constants.Identifiers.jobsHeaderCell:
+            prepareCellForJobsHeader(cell: cell as! FilteringHeaderTableViewCell)
+        default:
+            prepareCellForJobListResult(cell: cell as! JobTableViewCell, indexPath: indexPath)
         }
-        
+
         return cell
     }
-    
-    private func prepareCellForJobListResult(cell: UITableViewCell, indexPath: IndexPath) {
+
+    private func prepareCellForFavoritesHeader(cell: FilteringHeaderTableViewCell) {
+        let options: [AllFavoritesTableViewCell.FavoritesSections] = [
+            .all(count: ApplicationUserManager.manager.applicationUser.favorites.count),
+            .job, .build,
+        ]
+        cell.options = options
+        cell.title = "FAVORITES"
+        cell.delegate = self
+    }
+
+    private func prepareCellForJobsHeader(cell: FilteringHeaderTableViewCell) {
+        guard let jobs = jobs
+        else { cell.options = []; return }
+
+        cell.options = jobs.views
+        cell.title = "JOBS"
+        cell.delegate = self
+        cell.options = [currentView == jobs.allJobsView ? "SHOW ALL (\(jobs.views.count))" : currentView?.description.uppercased() ?? "View"]
+    }
+
+    private func prepareCellForFavorites(cell: AllFavoritesTableViewCell) {
+        if cell.loader == nil {
+            cell.loader = FavoritesLoader(with: cell)
+            cell.favorites = ApplicationUserManager.manager.applicationUser.favorites
+        } else if shouldReloadFavorites || cell.favorites.count != ApplicationUserManager.manager.applicationUser.favorites.count {
+            cell.favorites = ApplicationUserManager.manager.applicationUser.favorites
+        }
+
+        shouldReloadFavorites = false
+
+        cell.delegate = self
+        cell.currentSectionFilter = currentFavoritesSection ?? .all(count: cell.favorites.count)
+    }
+
+    private func prepareCellForJobListResult(cell: JobTableViewCell, indexPath: IndexPath) {
         guard let jobResult = currentView?.jobResults[indexPath.row]
         else { return }
         prepare(cell: cell, for: jobResult)
     }
-    
-    fileprivate func prepare(cell: UITableViewCell, for jobResult: JobListResult) {
-        cell.textLabel?.text = jobResult.name
-        cell.detailTextLabel?.text = jobResult.description
-        
-        if let color = jobResult.color {
-            cell.imageView?.image = UIImage(named: color.rawValue + "Circle")
-        }
+
+    fileprivate func prepare(cell: JobTableViewCell, for jobResult: JobListResult) {
+        cell.setup(with: jobResult)
     }
-    
-    private func prepareCellForJenkins(cell: UITableViewCell, indexPath: IndexPath) {
-        cell.textLabel?.text = jenkinsCellSegues[indexPath.row].0
+
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).rows
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section](nil, currentView?.jobResults).rows
-    }
-    
+
     override func numberOfSections() -> Int {
         return sections.count
     }
-    
-    override func tableViewIsEmpty() -> Bool {
-        return sections.last!(nil, currentView?.jobResults).rows == 0
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let jobs = jobs,
-            jobs.views.count > 1,
-            section == 1
-        else { return nil }
-        
-        let viewPickerSuperView = UIView()
-        
-        viewPicker.frame = viewPickerSuperView.bounds
-        viewPicker.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
-        if UIAccessibilityIsReduceTransparencyEnabled() == false {
-            let effect = UIBlurEffect(style: .light)
-            let effectView = UIVisualEffectView(effect: effect)
-            
-            effectView.frame = viewPicker.bounds
-            effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            viewPickerSuperView.addSubview(effectView)
-        }
-        
-        viewPickerSuperView.addSubview(viewPicker)
-        
-        viewPicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        viewPicker.leftAnchor.constraint(equalTo: viewPickerSuperView.leftAnchor).isActive = true
-        viewPicker.rightAnchor.constraint(equalTo: viewPickerSuperView.rightAnchor).isActive = true
-        viewPicker.bottomAnchor.constraint(equalTo: viewPickerSuperView.bottomAnchor).isActive = true
-        viewPicker.topAnchor.constraint(equalTo: viewPickerSuperView.topAnchor).isActive = true
-        
-        return viewPickerSuperView
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let jobs = jobs,
-            jobs.views.count > 1,
-            section == 1
-        else { return 0 }
-        return 100
-    }
-}
 
-extension JobsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return jobs?.views.count ?? 0
+    override func tableViewIsEmpty() -> Bool {
+        return sections.last!(currentView, FolderState(jobList: jobs, folderJob: folderJob)).rows == 0
     }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+
+    override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return sections[indexPath.section](currentView, FolderState(jobList: jobs, folderJob: folderJob)).rowHeight
     }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let jobs = jobs else { return nil }
-        switch jobs.views[row].name {
-            case "change-requests" where jobs.isMultibranch:
-                return "Pull Requests"
-            case "default" where jobs.isMultibranch:
-                return "Branches"
-            default:
-                return jobs.views[row].name
+
+    override func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        // Only select cells in the jobs section
+        return indexPath.section == 3 || folderJob != nil ? indexPath : nil
+    }
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // We only want to segue if a folder or job cell was selected
+        guard indexPath.section > 0 && indexPath.row < currentView?.jobResults.count ?? 0, let job = currentView?.jobResults[indexPath.row]
+        else { return }
+
+        switch job {
+        case .folder(folder: _):
+            performSegue(withIdentifier: Constants.Identifiers.showFolderSegue, sender: job)
+        case .job(job: _):
+            performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: job)
         }
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        currentView = jobs?.views[row]
-        tableView.reloadData()
+
+    private func didSelectFavoriteSection(section: AllFavoritesTableViewCell.FavoritesSections) {
+        currentFavoritesSection = section
+        tableView.reloadSections([1], with: .automatic)
+    }
+
+    private func didSelectViewChangeButton() {
+        guard children.isEmpty
+        else { return }
+
+        let valueSelectionViewController = ValueSelectionTableViewController<JobsTableViewController>()
+        valueSelectionViewController.delegate = self
+        valueSelectionViewController.selectedValue = currentView
+        valueSelectionViewController.values = jobs?.views ?? []
+
+        addChild(valueSelectionViewController)
+        view.addSubview(valueSelectionViewController.view)
+        tableView.isScrollEnabled = false
+
+        valueSelectionViewController.view.layer.cornerRadius = 15
+        valueSelectionViewController.view.layer.masksToBounds = true
+
+        valueSelectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        let jobsHeaderIndexPath = IndexPath(row: 0, section: 2)
+
+        valueSelectionViewController.view.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 8).isActive = true
+        valueSelectionViewController.view.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -16).isActive = true
+        valueSelectionViewController.view.heightAnchor.constraint(equalTo: tableView.heightAnchor,
+                                                                  constant: -tableView.rectForRow(at: jobsHeaderIndexPath).maxY - 32).isActive = true
+
+        valueSelectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor,
+                                                               constant: tableView.rectForRow(at: jobsHeaderIndexPath).maxY).isActive = true
+
+        valueSelectionViewController.didMove(toParent: self)
+    }
+
+    @objc private func presentFilterDialog() {
+        let alert = UIAlertController(title: "Sort", message: "Sort jobs by", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Date", style: .default, handler: { _ in
+            self.sortJobs(by: .date)
+        }))
+        alert.addAction(UIAlertAction(title: "Status", style: .default, handler: { _ in
+            self.sortJobs(by: .status)
+        }))
+        alert.addAction(UIAlertAction(title: "Health", style: .default, handler: { _ in
+            self.sortJobs(by: .health)
+        }))
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func sortJobs(by option: JobSorter.JobSortingOption) {
+        guard let views = jobs?.views
+        else { return }
+
+        let sorter = JobSorter()
+        sorter.sortJobsInPlace(by: option, views: views)
+        tableView.reloadSections([3], with: .automatic)
     }
 }
 
@@ -377,6 +463,52 @@ extension JobsTableViewController: SearchResultsControllerDelegate {
     func setup(cell: UITableViewCell, for searchable: Searchable) {
         guard let jobListResult = searchable.data as? JobListResult
         else { return }
-        prepare(cell: cell, for: jobListResult)
+        prepare(cell: cell as! JobTableViewCell, for: jobListResult)
+    }
+}
+
+extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
+    func didSelectErroredFavorite(favorite: Favorite) {
+        UIApplication.shared.openURL(favorite.url)
+    }
+
+    func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
+        switch favorite.type {
+        case .build:
+            performSegue(withIdentifier: Constants.Identifiers.showBuildSegue, sender: (favoritable, favorite))
+        case .job:
+            performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: JobListResult.job(job: favoritable as! Job))
+        case .folder:
+            performSegue(withIdentifier: Constants.Identifiers.showFolderSegue, sender: JobListResult.folder(folder: favoritable as! Job))
+        }
+    }
+}
+
+extension JobsTableViewController: FilteringHeaderTableViewCellDelegate {
+    func didDeselectAll() {
+        // This should never happen
+    }
+
+    func didSelect(selected: CustomStringConvertible, cell _: FilteringHeaderTableViewCell) {
+        if let selected = selected as? AllFavoritesTableViewCell.FavoritesSections {
+            self.didSelectFavoriteSection(section: selected)
+        } else {
+            self.didSelectViewChangeButton()
+        }
+    }
+}
+
+extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
+    typealias ValueSelectionTableViewControllerType = View
+    func didSelect(value: JobsTableViewController.ValueSelectionTableViewControllerType) {
+        self.currentView = value
+
+        let child = self.children.first
+        child?.willMove(toParent: nil)
+        child?.view.removeFromSuperview()
+        child?.removeFromParent()
+
+        self.tableView.isScrollEnabled = true
+        self.tableView.reloadSections([2, 3], with: .automatic)
     }
 }

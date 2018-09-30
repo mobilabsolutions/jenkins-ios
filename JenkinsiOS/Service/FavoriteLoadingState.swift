@@ -3,7 +3,7 @@
 // Copyright (c) 2017 MobiLab Solutions. All rights reserved.
 //
 
-enum FavoriteLoadingState{
+enum FavoriteLoadingState {
     case loaded(favoritable: Favoratible)
     case errored
     case loading

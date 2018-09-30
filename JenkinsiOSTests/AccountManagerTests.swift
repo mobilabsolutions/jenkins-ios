@@ -9,7 +9,6 @@
 import XCTest
 
 class AccountManagerTests: XCTestCase {
-
     private var removedAccounts: [Account] = []
 
     override func setUp() {
@@ -24,7 +23,7 @@ class AccountManagerTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
 
-        removedAccounts.forEach{
+        removedAccounts.forEach {
             account in
             _ = try? AccountManager.manager.addAccount(account: account)
         }
@@ -32,20 +31,19 @@ class AccountManagerTests: XCTestCase {
         removedAccounts = []
     }
 
-
-    func testAddsAccountProperly(){
+    func testAddsAccountProperly() {
         let accounts = addGenericAccounts()
         assertAccountsAreEqualWith(accounts: accounts)
     }
 
-    func testUpdatesProperly(){
+    func testUpdatesProperly() {
         let accounts = addGenericAccounts()
         AccountManager.manager.accounts = []
         AccountManager.manager.update()
         assertAccountsAreEqualWith(accounts: accounts)
     }
 
-    func testDeletesProperly(){
+    func testDeletesProperly() {
         var accounts = addGenericAccounts()
         do {
             try AccountManager.manager.deleteAccount(account: accounts.first!)
@@ -59,7 +57,7 @@ class AccountManagerTests: XCTestCase {
         }
     }
 
-    func testSavesProperly(){
+    func testSavesProperly() {
         _ = addGenericAccounts()
 
         let url = AccountManager.manager.accounts.first!.baseUrl
@@ -68,14 +66,14 @@ class AccountManagerTests: XCTestCase {
 
         AccountManager.manager.accounts = []
         AccountManager.manager.update()
-        let changed = AccountManager.manager.accounts.first{ $0.baseUrl == url }?.username == "OtherUsernameThanBefore"
+        let changed = AccountManager.manager.accounts.first { $0.baseUrl == url }?.username == "OtherUsernameThanBefore"
         XCTAssertTrue(changed, "The username should have changed")
     }
 
-    private func addGenericAccounts() -> [Account]{
+    private func addGenericAccounts() -> [Account] {
         let accounts = [
-                getGenericAccount(with: "test1"),
-                getGenericAccount(with: "test2")
+            getGenericAccount(with: "test1"),
+            getGenericAccount(with: "test2"),
         ]
 
         accounts.forEach {
@@ -85,23 +83,22 @@ class AccountManagerTests: XCTestCase {
         return accounts
     }
 
-    private func assertAccountsAreEqualWith(accounts: [Account]){
-
+    private func assertAccountsAreEqualWith(accounts: [Account]) {
         guard accounts.count == AccountManager.manager.accounts.count
         else { XCTFail("There should be an equal number of accounts! Instead: given \(accounts.count)" +
                 " wanted: \(AccountManager.manager.accounts.count)"); return }
 
-        for (index, account) in AccountManager.manager.accounts.enumerated(){
+        for (index, account) in AccountManager.manager.accounts.enumerated() {
             XCTAssertTrue(account.isEqual(accounts[index]))
         }
     }
 
-    private func getGenericURL(with pathComponent: String) -> URL{
+    private func getGenericURL(with pathComponent: String) -> URL {
         return URL(string: "https://www.test.com")!.appendingPathComponent(pathComponent)
     }
 
-    private func getGenericAccount(with pathComponent: String) -> Account{
+    private func getGenericAccount(with pathComponent: String) -> Account {
         return Account(baseUrl: getGenericURL(with: pathComponent),
-                username: nil, password: nil, port: nil, displayName: nil)
+                       username: nil, password: nil, port: nil, displayName: nil)
     }
 }

@@ -8,42 +8,41 @@
 
 import Foundation
 
-enum JobListResult{
+enum JobListResult {
     case job(job: Job)
     case folder(folder: Job)
-    
-    init?(json: [String: AnyObject]){
+
+    init?(json: [String: AnyObject]) {
         guard let job = Job(json: json, minimalVersion: true)
-            else { return nil }
-        
+        else { return nil }
+
         if job.color == .folder {
             self = JobListResult.folder(folder: job)
-        }
-        else{
+        } else {
             self = JobListResult.job(job: job)
         }
     }
-    
-    var data: Job{
-        switch self{
-            case .job(let job): return job
-            case .folder(let folder): return folder
+
+    var data: Job {
+        switch self {
+        case let .job(job): return job
+        case let .folder(folder): return folder
         }
     }
-    
-    var name: String{
+
+    var name: String {
         return data.name
     }
-    
-    var url: URL{
+
+    var url: URL {
         return data.url
     }
-    
-    var color: JenkinsColor?{
+
+    var color: JenkinsColor? {
         return data.color
     }
-    
-    var description: String?{
+
+    var description: String? {
         return data.description
     }
 }
