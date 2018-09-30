@@ -1048,7 +1048,7 @@
 					DC99C3E41D955C910031DBE4 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = S722Z9XR48;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DC99C3D01D955C8F0031DBE4;
 					};
@@ -1661,7 +1661,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "MobiLab-Solutions.JenkinsiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JenkinsiOS.app/JenkinsiOS";
 			};
 			name = Debug;
@@ -1677,7 +1677,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MobiLab-Solutions.JenkinsiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JenkinsiOS.app/JenkinsiOS";
 			};
 			name = Release;

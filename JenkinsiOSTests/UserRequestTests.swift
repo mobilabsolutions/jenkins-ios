@@ -63,7 +63,7 @@ class UserRequestTests: ModelTestCase {
         let userRequest = UserRequest.userRequestForUsers(account: account)
 
         assureValuesAreExpected(values: [
-            (userRequest.apiURL, URL(string: "https://www.test-url.test:8080/asynchPeople/api/json?pretty=false")!),
+            (userRequest.apiURL, URL(string: "https://www.test-url.test:8080/asynchPeople/api/json?pretty=false&tree=" + Constants.API.usersAdditionalQueryItems.first!.value!)!),
             (userRequest.requestUrl, url.using(scheme: "https", at: 8080)?.appendingPathComponent("asynchPeople")),
             (userRequest.account, account),
         ])
@@ -83,7 +83,7 @@ class UserRequestTests: ModelTestCase {
         let userRequest = UserRequest.userRequestForBuildQueue(account: account)
 
         assureValuesAreExpected(values: [
-            (userRequest.apiURL, URL(string: "https://www.test-url.test:8080/queue/api/json?pretty=false")!),
+            (userRequest.apiURL, URL(string: "https://www.test-url.test:8080/queue/api/json?pretty=false&tree=" + (Constants.API.buildQueueAdditionalQueryItems.first?.value ?? ""))!),
             (userRequest.requestUrl, url.using(scheme: "https", at: 8080)?.appendingPathComponent("queue")),
             (userRequest.account, account),
         ])
