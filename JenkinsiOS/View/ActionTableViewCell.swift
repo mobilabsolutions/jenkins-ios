@@ -61,7 +61,7 @@ private extension JenkinsAction {
         case .safeExit:
             return "Safe Exit"
         case .safeRestart:
-            return "Safe Exit"
+            return "Safe Restart"
         }
     }
 }

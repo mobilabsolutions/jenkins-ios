@@ -58,6 +58,8 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         tabBarController?.navigationItem.title = "Settings"
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
+
+        setBottomContentInsetForOlderDevices()
     }
 
     // MARK: - Table view data source

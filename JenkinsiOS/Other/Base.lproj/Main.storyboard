@@ -554,7 +554,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-3V-yER">
-                                                    <rect key="frame" x="8" y="4" width="304" height="67.5"/>
+                                                    <rect key="frame" x="8" y="4" width="304" height="68"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cez-co-vSL">
                                                             <rect key="frame" x="0.0" y="0.0" width="48" height="68"/>
@@ -564,7 +564,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hD5-7X-6bG">
-                                                            <rect key="frame" x="48" y="0.0" width="1" height="67.5"/>
+                                                            <rect key="frame" x="48" y="0.0" width="1" height="68"/>
                                                             <color key="backgroundColor" red="0.8862745098" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="1" id="skn-be-JzJ"/>

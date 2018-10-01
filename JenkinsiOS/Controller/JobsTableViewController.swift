@@ -97,6 +97,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         tableView.backgroundColor = Constants.UI.backgroundColor
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadFavorites), name: Constants.Identifiers.favoriteStatusToggledNotification, object: nil)
+
+        setBottomContentInsetForOlderDevices()
     }
 
     override func viewWillAppear(_ animated: Bool) {

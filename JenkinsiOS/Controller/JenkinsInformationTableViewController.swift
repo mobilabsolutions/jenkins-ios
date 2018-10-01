@@ -16,6 +16,8 @@ class JenkinsInformationTableViewController: UITableViewController, AccountProvi
         super.viewDidLoad()
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
+
+        setBottomContentInsetForOlderDevices()
     }
 
     override func viewWillAppear(_ animated: Bool) {
