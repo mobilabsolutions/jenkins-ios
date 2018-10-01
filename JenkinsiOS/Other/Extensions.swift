@@ -209,6 +209,16 @@ extension UIViewController {
     }
 }
 
+extension UITableViewController {
+    /// Update the bottom content inset for devices that do not have safe area insets
+    func setBottomContentInsetForOlderDevices() {
+        if #available(iOS 11.0, *) {}
+        else {
+            tableView.contentInset.bottom = tabBarController?.tabBar.frame.height ?? tableView.contentInset.bottom
+        }
+    }
+}
+
 extension UIImageView {
     /// Set an image view's image to an image, resized by a scale factor
     ///

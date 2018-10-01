@@ -34,6 +34,8 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         emptyTableView(for: .loading)
 
         contentType = .buildQueue
+
+        setBottomContentInsetForOlderDevices()
     }
 
     override func viewWillAppear(_ animated: Bool) {

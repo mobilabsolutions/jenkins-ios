@@ -31,6 +31,8 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
         emptyTableView(for: .loading)
 
         contentType = .nodes
+
+        setBottomContentInsetForOlderDevices()
     }
 
     override func viewWillAppear(_ animated: Bool) {
