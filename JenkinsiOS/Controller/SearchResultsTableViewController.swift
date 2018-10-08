@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultsTableViewController: UITableViewController {
+class SearchResultsTableViewController: BaseTableViewController {
     var searcher: Searcher?
     var searchData: [Searchable] = []
     var delegate: SearchResultsControllerDelegate?
@@ -34,12 +34,25 @@ class SearchResultsTableViewController: UITableViewController {
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
 
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableView.automaticDimension
+
         automaticallyAdjustsScrollViewInsets = false
         edgesForExtendedLayout = []
+
+        emptyTableView(for: .noData, customString: "No results")
     }
 
-    override func numberOfSections(in _: UITableView) -> Int {
+    override func separatorStyleForNonEmpty() -> UITableViewCell.SeparatorStyle {
+        return .none
+    }
+
+    override func numberOfSections() -> Int {
         return 1
+    }
+
+    override func tableViewIsEmpty() -> Bool {
+        return displayingData.isEmpty
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {

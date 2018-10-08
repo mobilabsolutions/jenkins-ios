@@ -190,8 +190,16 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         searchResultsController.delegate = self
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController?.searchResultsUpdater = searchResultsController.searcher
-        tableView.tableHeaderView = searchController?.searchBar
-        tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = searchController
+        } else {
+            tableView.tableHeaderView = searchController?.searchBar
+            tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
+            searchController?.hidesNavigationBarDuringPresentation = false
+            searchResultsController.tableView.contentInset.top += (navigationController?.navigationBar.frame.height ?? 0)
+                + (searchController?.searchBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
+        }
     }
 
     private func getSearchData() -> [Searchable] {
@@ -203,20 +211,20 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
             jobResults = jobs.views.flatMap { $0.jobResults }
         }
 
-        return jobResults.map { (job) -> Searchable in
+        return jobResults.map { job -> Searchable in
             Searchable(searchString: job.name, data: job as AnyObject) {
-                self.searchController?.dismiss(animated: true, completion: nil)
+                self.searchController?.dismiss(animated: true, completion: { [unowned self] in
+                    let identifier: String!
 
-                let identifier: String!
+                    switch job {
+                    case .folder:
+                        identifier = Constants.Identifiers.showFolderSegue
+                    case .job:
+                        identifier = Constants.Identifiers.showJobSegue
+                    }
 
-                switch job {
-                case .folder:
-                    identifier = Constants.Identifiers.showFolderSegue
-                case .job:
-                    identifier = Constants.Identifiers.showJobSegue
-                }
-
-                self.performSegue(withIdentifier: identifier, sender: job)
+                    self.performSegue(withIdentifier: identifier, sender: job)
+                })
             }
         }
     }
