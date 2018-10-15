@@ -21,12 +21,16 @@ import UIKit
 
     var emptyTableViewContentView: UIView? {
         didSet {
-            if oldValue?.superview != nil, let container = tableView.backgroundView, let label = emptyTableViewLabel {
-                oldValue?.removeFromSuperview()
-                addEmptyTableViewContentView(in: container, relativeTo: label)
+            guard oldValue?.superview != nil, let container = tableView.backgroundView,
+                let label = emptyTableViewLabel else {
+                return
             }
+            oldValue?.removeFromSuperview()
+            addEmptyTableViewContentView(in: container, relativeTo: label)
         }
     }
+
+    var minimumEmptyContainerOffset: CGFloat = 0
 
     struct ActionDescriptor {
         let actionTitle: String
@@ -137,9 +141,9 @@ import UIKit
 
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: 70).isActive = true
         label.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
         label.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
+        label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -5).isActive = true
 
         label.sizeToFit()
     }
@@ -156,6 +160,10 @@ import UIKit
         button.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -8).isActive = true
         button.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -120).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        if let label = emptyTableViewLabel {
+            button.topAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 20).isActive = true
+        }
 
         emptyTableViewActionButton = button
     }
@@ -174,9 +182,11 @@ import UIKit
 
         let guide = view.layoutMarginsGuide
 
+        let topOffset = minimumEmptyContainerOffset > 0.0 ? 25 + view.frame.midX - minimumEmptyContainerOffset : -200
+
+        contentView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: topOffset).isActive = true
         contentView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6).isActive = true
         contentView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
     }
 
