@@ -37,7 +37,6 @@ class FilteringHeaderTableViewCell: UITableViewCell {
         super.awakeFromNib()
         stackView?.alignment = .fill
         stackView?.distribution = .equalSpacing
-        titleLabel?.textColor = Constants.UI.greyBlue
         titleLabel?.text = title
     }
 
