@@ -11,106 +11,114 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version "2.64.0"
+fastlane_version '2.64.0'
 
 default_platform :ios
 
 platform :ios do
-
   before_all do
     carthage
   end
 
-  desc "Runs all the tests"
+  desc 'Runs all the tests'
   lane :test do
     scan(
-        scheme: "JenkinsiOSTests",
-        device: "iPhone SE"
+      scheme: 'JenkinsiOSTests',
+      device: 'iPhone SE'
     )
   end
 
-  desc "This will also make sure the profile is up to date"
+  desc 'This will also make sure the profile is up to date'
   lane :beta do
-
-    keychain_name = "ci-example-certs"
+    keychain_name = 'ci-example-certs'
     prepare_distribution(keychain_name: keychain_name)
 
-    gym(scheme: "JenkinsiOS") # Build your app - more options available
+    gym(scheme: 'JenkinsiOS') # Build your app - more options available
     notes = changelog_from_git_commits
     crashlytics(
-        api_token: ENV["CRASHLYTICS_API_KEY"],
-        build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
-        notes: notes
+      api_token: ENV['CRASHLYTICS_API_KEY'],
+      build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
+      notes: notes
     )
 
     delete_keychain(
-        name: keychain_name
+      name: keychain_name
     )
-
   end
 
-  desc "Deploy a new version to the App Store"
+  desc 'Deploy a new version to the App Store'
   lane :release do
-    keychain_name = "ci-example-certs"
+    keychain_name = 'ci-example-certs'
     prepare_distribution(keychain_name: keychain_name)
-    increment_build_number(build_number: ENV["TRAVIS_BUILD_NUMBER"])
-    unless ENV["TRAVIS_TAG"].nil?
-        increment_version_number(
-            version_number: ENV["TRAVIS_TAG"]
-        )
+    increment_build_number(build_number: ENV['TRAVIS_BUILD_NUMBER'])
+    unless ENV['TRAVIS_TAG'].nil?
+      increment_version_number(
+        version_number: ENV['TRAVIS_TAG']
+      )
     end
-    gym(scheme: "JenkinsiOS") # Build your app - more options available
-    deliver(username: ENV["FASTLANE_USER"], dev_portal_team_id: ENV["DEV_PORTAL_TEAM_ID"],
-	team_name: ENV["TEAM_NAME"], force: true)
+    gym(scheme: 'JenkinsiOS') # Build your app - more options available
+    deliver(username: ENV['FASTLANE_USER'], dev_portal_team_id: ENV['DEV_PORTAL_TEAM_ID'],
+            team_name: ENV['TEAM_NAME'], force: true)
 
     delete_keychain(
-        name: keychain_name
+      name: keychain_name
     )
   end
 
   lane :documentation do
-      sh "cd .. && python3 update-jazzy-yaml.py"
-      jazzy
-      sh "cd .. && cp -R images docs/"
+    sh 'cd .. && python3 update-jazzy-yaml.py'
+    jazzy
+    sh 'cd .. && cp -R images docs/'
   end
 
-  desc "Prepares the build for distribution"
+  desc 'Prepares the build for distribution'
   lane :prepare_distribution do |options|
-      keychain_name = options[:keychain_name]
-      keychain_password = SecureRandom.base64
-      create_keychain(
-            name: keychain_name,
-            default_keychain: true,
-            unlock: true,
-            timeout: 3600,
-            lock_when_sleeps: true,
-            password: keychain_password
-      )
+    keychain_name = options[:keychain_name]
+    keychain_password = SecureRandom.base64
+    create_keychain(
+      name: keychain_name,
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: true,
+      password: keychain_password
+    )
 
-      # Import distribution certificate
-        import_certificate(
-            certificate_path: "fastlane/Certificates/distribution.p12",
-            certificate_password: ENV["KEY_PASSWORD"],
-            keychain_name: keychain_name,
-            keychain_password: keychain_password,
-            log_output: true
-        )
+    # Import distribution certificate
+    import_certificate(
+      certificate_path: 'fastlane/Certificates/distribution.p12',
+      certificate_password: ENV['KEY_PASSWORD'],
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      log_output: true
+    )
 
-         sigh(
-             username: ENV["FASTLANE_USER"],
-             team_id: ENV["TEAM_NAME"],
-             provisioning_name: "Jenkins App Store",
-             cert_id: ENV["CERTIFICATE_ID"]
-         )
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      provisioning_name: 'Jenkins App Store',
+      cert_id: ENV['CERTIFICATE_ID']
+    )
 
-         sigh(
-             username: ENV["FASTLANE_USER"],
-             team_id: ENV["TEAM_NAME"],
-             app_identifier: "com.mobilabsolutions.jenkins.client.extension",
-             # provisioning_name: "Jenkins Extension App Store",
-             cert_id: ENV["CERTIFICATE_ID"]
-         )
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
+      cert_id: ENV['CERTIFICATE_ID']
+    )
+
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      provisioning_name: 'Jenkins Development',
+      cert_id: ENV['CERTIFICATE_ID']
+    )
+    
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      provisioning_name: 'Jenkins Extension Development',
+      cert_id: ENV['CERTIFICATE_ID']
+    )
   end
-
-
 end
