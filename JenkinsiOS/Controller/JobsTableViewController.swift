@@ -34,8 +34,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     }
 
     private var searchController: UISearchController?
-    private var isInitialLoad: Bool = true
-
+    private var isInitialLoad = true
     private var shouldReloadFavorites = false
 
     private var currentFavoritesSection: AllFavoritesTableViewCell.FavoritesSections?
@@ -45,7 +44,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     private typealias SectionInformationClosure = (View?, FolderState) -> SectionInformation
     private lazy var sections: [SectionInformationClosure] = [
         { _, state in (Constants.Identifiers.favoritesHeaderCell, state == .noFolder ? 1 : 0, 72) },
-        { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 160) },
+        { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 150) },
         { currentView, state in
             let numberOfRows: Int
             if currentView == nil {
@@ -93,6 +92,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
         emptyTableView(for: .loading)
         contentType = .jobList
+
+        updateMinimumLabelOffset()
 
         tableView.backgroundColor = Constants.UI.backgroundColor
 
@@ -307,6 +308,11 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         tableView.reloadSections([0, 1], with: .none)
     }
 
+    private func updateMinimumLabelOffset() {
+        let folderState = FolderState(jobList: jobs, folderJob: folderJob)
+        minimumEmptyContainerOffset = sections[0 ... 1].reduce(0, { $0 + $1(self.currentView, folderState).rowHeight })
+    }
+
     // MARK: - Tableview datasource and delegate
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -421,6 +427,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         valueSelectionViewController.delegate = self
         valueSelectionViewController.selectedValue = currentView
         valueSelectionViewController.values = jobs?.views ?? []
+        valueSelectionViewController.tableView.contentInset.bottom = 100
 
         addChild(valueSelectionViewController)
         view.addSubview(valueSelectionViewController.view)
