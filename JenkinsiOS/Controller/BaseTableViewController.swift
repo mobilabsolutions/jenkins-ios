@@ -158,11 +158,11 @@ import UIKit
 
         button.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 8).isActive = true
         button.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -8).isActive = true
-        button.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -120).isActive = true
+        button.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -0.15 * container.frame.height).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
         if let label = emptyTableViewLabel {
-            button.topAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 20).isActive = true
+            button.topAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
         }
 
         emptyTableViewActionButton = button
