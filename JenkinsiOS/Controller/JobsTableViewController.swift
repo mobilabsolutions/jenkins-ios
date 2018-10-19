@@ -11,10 +11,11 @@ import UIKit
 class JobsTableViewController: RefreshingTableViewController, AccountProvidable {
     var account: Account? {
         didSet {
-            if account != nil && account != oldValue && folderJob == nil {
+            if let account = account, !account.isEqual(oldValue) && folderJob == nil {
                 userRequest = nil
                 jobs = nil
                 currentView = nil
+                shouldReloadFavorites = true
                 loadJobs()
                 tableView.reloadData()
             }

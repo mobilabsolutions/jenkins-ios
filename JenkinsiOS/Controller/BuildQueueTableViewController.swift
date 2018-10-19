@@ -11,7 +11,7 @@ import UIKit
 class BuildQueueTableViewController: RefreshingTableViewController, AccountProvidable {
     var account: Account? {
         didSet {
-            if account != nil && account != oldValue {
+            if let account = account, !account.isEqual(oldValue) {
                 queue = nil
                 tableView.reloadData()
                 performRequest()

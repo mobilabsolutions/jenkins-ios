@@ -11,7 +11,7 @@ import UIKit
 class ComputersTableViewController: RefreshingTableViewController, AccountProvidable {
     var account: Account? {
         didSet {
-            if account != nil && oldValue != account {
+            if let account = account, !account.isEqual(oldValue) {
                 computerList = nil
                 tableView.reloadData()
                 performRequest()

@@ -90,7 +90,7 @@ class OnBoardingHandler: OnBoardingViewControllerDelegate {
 }
 
 extension OnBoardingHandler: AddAccountTableViewControllerDelegate {
-    func didEditAccount(account: Account) {
+    func didEditAccount(account: Account, oldAccount _: Account?) {
         if var accountProvidable = presentedViewController?.presentingViewController as? AccountProvidable {
             accountProvidable.account = account
         }

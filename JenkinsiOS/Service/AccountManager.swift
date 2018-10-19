@@ -53,6 +53,13 @@ class AccountManager {
         save(account: account)
     }
 
+    func editAccount(newAccount: Account, oldAccount: Account) throws {
+        ApplicationUserManager.manager.applicationUser.favorites.filter({ $0.account?.isEqual(oldAccount) ?? false }).forEach { $0.account = newAccount }
+        ApplicationUserManager.manager.save()
+        try AccountManager.manager.deleteAccount(account: oldAccount)
+        try AccountManager.manager.addAccount(account: newAccount)
+    }
+
     /// Return the full list of accounts
     ///
     /// - returns: The list of user added accounts
@@ -156,6 +163,9 @@ class AccountManager {
 
         try FileManager.default.removeItem(at: url)
         try FileManager.default.removeItem(at: sharedUrl)
+
+        ApplicationUserManager.manager.applicationUser.favorites.removeAll(where: { $0.account?.isEqual(account) ?? false })
+        ApplicationUserManager.manager.save()
 
         if let username = account.username {
             let query = SAMKeychainQuery()

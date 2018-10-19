@@ -111,14 +111,14 @@ platform :ios do
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       provisioning_name: 'Jenkins Development',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
     )
     
     sigh(
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       provisioning_name: 'Jenkins Extension Development',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
     )
   end
 end
