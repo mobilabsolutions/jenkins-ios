@@ -93,8 +93,6 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         emptyTableView(for: .loading)
         contentType = .jobList
 
-        updateMinimumLabelOffset()
-
         tableView.backgroundColor = Constants.UI.backgroundColor
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadFavorites), name: Constants.Identifiers.favoriteStatusToggledNotification, object: nil)
@@ -110,6 +108,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal),
                                                                               style: .plain, target: self, action: #selector(presentFilterDialog))
+        updateMinimumLabelOffset()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -174,6 +173,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                 } else {
                     self.tableView.reloadSections([2, 3], with: .automatic)
                 }
+
                 self.refreshControl?.endRefreshing()
                 self.setupSearchController()
                 self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -310,7 +310,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
     private func updateMinimumLabelOffset() {
         let folderState = FolderState(jobList: jobs, folderJob: folderJob)
-        minimumEmptyContainerOffset = sections[0 ... 1].reduce(0, { $0 + $1(self.currentView, folderState).rowHeight })
+        minimumEmptyContainerOffset = sections[0 ... 1].filter({ $0(self.currentView, folderState).rows > 0 })
+            .reduce(0, { $0 + $1(self.currentView, folderState).rowHeight })
     }
 
     // MARK: - Tableview datasource and delegate
