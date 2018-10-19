@@ -462,6 +462,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         alert.addAction(UIAlertAction(title: "Health", style: .default, handler: { _ in
             self.sortJobs(by: .health)
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         present(alert, animated: true, completion: nil)
     }
