@@ -30,7 +30,15 @@ import UIKit
         }
     }
 
-    var minimumEmptyContainerOffset: CGFloat = 0
+    var minimumEmptyContainerOffset: CGFloat = 0 {
+        didSet {
+            guard let container = emptyTableViewContentView?.superview else {
+                return
+            }
+            let topOffset = minimumEmptyContainerOffset > 0.0 ? 25 + container.frame.midX - minimumEmptyContainerOffset : -200
+            emptyTableViewContentViewTopConstraint?.constant = topOffset
+        }
+    }
 
     struct ActionDescriptor {
         let actionTitle: String
@@ -51,8 +59,8 @@ import UIKit
 
     /// The view that the text and image should be displayed in, if the table view is empty
     private var emptyTableViewLabel: UILabel?
-
     private var emptyTableViewActionButton: UIButton?
+    private var emptyTableViewContentViewTopConstraint: NSLayoutConstraint?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -184,7 +192,8 @@ import UIKit
 
         let topOffset = minimumEmptyContainerOffset > 0.0 ? 25 + view.frame.midX - minimumEmptyContainerOffset : -200
 
-        contentView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: topOffset).isActive = true
+        emptyTableViewContentViewTopConstraint = contentView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: topOffset)
+        emptyTableViewContentViewTopConstraint?.isActive = true
         contentView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6).isActive = true
         contentView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
