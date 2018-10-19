@@ -346,6 +346,11 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         cell.options = options
         cell.title = "FAVORITES"
         cell.delegate = self
+        cell.select(where: {
+            guard let favoritesSection = self.currentFavoritesSection, let option = $0 as? AllFavoritesTableViewCell.FavoritesSections
+            else { return false }
+            return favoritesSection == option
+        })
     }
 
     private func prepareCellForJobsHeader(cell: FilteringHeaderTableViewCell) {
