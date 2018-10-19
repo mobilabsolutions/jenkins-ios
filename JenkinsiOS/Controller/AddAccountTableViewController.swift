@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddAccountTableViewControllerDelegate: class {
-    func didEditAccount(account: Account)
+    func didEditAccount(account: Account, oldAccount: Account?)
 }
 
 class AddAccountTableViewController: UITableViewController {
@@ -43,7 +43,7 @@ class AddAccountTableViewController: UITableViewController {
         let success = addAccountWith(account: account)
         if success {
             LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
-            delegate?.didEditAccount(account: account)
+            delegate?.didEditAccount(account: account, oldAccount: nil)
         }
     }
 
@@ -82,42 +82,17 @@ class AddAccountTableViewController: UITableViewController {
     }
 
     @objc func saveAccount() {
-        guard let newAccount = createAccount()
+        guard let newAccount = createAccount(), let oldAccount = account
         else { return }
 
-        var didDeleteOldAccount = false
-        let oldAccount = account?.copy() as! Account?
-
-        if let account = account, newAccount.baseUrl != account.baseUrl {
-            do {
-                try AccountManager.manager.deleteAccount(account: account)
-                didDeleteOldAccount = true
-            } catch {
-                print(error)
-            }
-        }
-
-        account?.displayName = newAccount.displayName
-        account?.password = newAccount.password
-        account?.username = newAccount.username
-        account?.port = newAccount.port
-        account?.trustAllCertificates = newAccount.trustAllCertificates
-        account?.baseUrl = newAccount.baseUrl
-
-        if didDeleteOldAccount, let account = account {
-            let success = addAccountWith(account: account)
-
-            if !success {
-                if let oldAccount = oldAccount {
-                    _ = try? AccountManager.manager.addAccount(account: oldAccount)
-                }
-                return
-            }
-
-            delegate?.didEditAccount(account: account)
-        } else if let account = account {
-            AccountManager.manager.save()
-            delegate?.didEditAccount(account: account)
+        do {
+            try AccountManager.manager.editAccount(newAccount: newAccount, oldAccount: oldAccount)
+            delegate?.didEditAccount(account: newAccount, oldAccount: oldAccount)
+        } catch {
+            print("Could not save account: \(error)")
+            let alert = UIAlertController(title: "Error", message: "Could not save the account", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 

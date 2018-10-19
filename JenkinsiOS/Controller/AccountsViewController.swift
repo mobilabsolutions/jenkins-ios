@@ -58,6 +58,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        setBackNavigation(enabled: account != nil)
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -88,9 +89,13 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nil)
     }
 
-    func didEditAccount(account: Account) {
+    func didEditAccount(account: Account, oldAccount: Account?) {
         if account.baseUrl == self.account?.baseUrl {
             // The current account was edited
+            currentAccountDelegate?.didChangeCurrentAccount(current: account)
+        } else if oldAccount?.baseUrl == self.account?.baseUrl {
+            // The old account's base url was updated
+            self.account = account
             currentAccountDelegate?.didChangeCurrentAccount(current: account)
         }
 
@@ -130,6 +135,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
             account = selectedAccount
             currentAccountDelegate?.didChangeCurrentAccount(current: selectedAccount)
             AccountManager.manager.currentAccount = selectedAccount
+            setBackNavigation(enabled: true)
             tableView.reloadSections([0], with: .automatic)
         }
     }
@@ -175,20 +181,31 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
 
     private func deleteAccount(at indexPath: IndexPath) {
         do {
-            try AccountManager.manager.deleteAccount(account: AccountManager.manager.accounts[indexPath.row])
+            let accountToDelete = AccountManager.manager.accounts[indexPath.row]
+            let deletingSelectedAccount = account == accountToDelete
+            try AccountManager.manager.deleteAccount(account: accountToDelete)
+            account = nil
             tableView.reloadData()
 
             if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
                 let navigationController = UINavigationController()
                 present(navigationController, animated: false, completion: nil)
                 handler.showAccountCreationViewController(on: navigationController, delegate: self)
+            } else if !AccountManager.manager.accounts.isEmpty && deletingSelectedAccount {
+                setBackNavigation(enabled: false)
             }
+
         } catch {
             displayError(title: "Error", message: "Something went wrong", textFieldConfigurations: [], actions: [
                 UIAlertAction(title: "Alright", style: .cancel, handler: nil),
             ])
             tableView.reloadData()
         }
+    }
+
+    private func setBackNavigation(enabled: Bool) {
+        navigationItem.hidesBackButton = !enabled
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = enabled
     }
 }
 
