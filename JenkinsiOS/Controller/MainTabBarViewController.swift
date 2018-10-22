@@ -116,3 +116,13 @@ extension MainTabBarViewController: OnBoardingDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
+
+extension MainTabBarViewController: AccountDeletionNotified {
+    func didDeleteAccount(account: Account) {
+        viewControllers?.forEach {
+            if let deletionDelegate = $0 as? AccountDeletionNotified {
+                deletionDelegate.didDeleteAccount(account: account)
+            }
+        }
+    }
+}

@@ -59,7 +59,6 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
                 }
 
                 self.computerList = computerList
-                self.tabBarController?.navigationItem.title = computerList?.displayName ?? "Nodes"
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }

@@ -45,7 +45,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     private typealias SectionInformationClosure = (View?, FolderState) -> SectionInformation
     private lazy var sections: [SectionInformationClosure] = [
         { _, state in (Constants.Identifiers.favoritesHeaderCell, state == .noFolder ? 1 : 0, 72) },
-        { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 150) },
+        { _, state in (Constants.Identifiers.favoritesCell, state == .noFolder ? 1 : 0, 156) },
         { currentView, state in
             let numberOfRows: Int
             if currentView == nil {
@@ -535,5 +535,12 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
 
         self.tableView.isScrollEnabled = true
         self.tableView.reloadSections([2, 3], with: .automatic)
+    }
+}
+
+extension JobsTableViewController: AccountDeletionNotified {
+    func didDeleteAccount(account _: Account) {
+        shouldReloadFavorites = true
+        tableView.reloadSections([0, 1], with: .automatic)
     }
 }

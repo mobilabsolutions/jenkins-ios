@@ -17,9 +17,18 @@ protocol CurrentAccountProvidingDelegate: class {
     func didChangeCurrentAccount(current: Account)
 }
 
+protocol AccountDeletionNotified: class {
+    func didDeleteAccount(account: Account)
+}
+
+protocol AccountDeletionNotifying: class {
+    var accountDeletionDelegate: AccountDeletionNotified? { get set }
+}
+
 class AccountsViewController: UIViewController, AccountProvidable, UITableViewDelegate, UITableViewDataSource,
-    CurrentAccountProviding, AddAccountTableViewControllerDelegate {
+    CurrentAccountProviding, AddAccountTableViewControllerDelegate, AccountDeletionNotifying {
     weak var currentAccountDelegate: CurrentAccountProvidingDelegate?
+    weak var accountDeletionDelegate: AccountDeletionNotified?
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var newAccountButton: BigButton!
@@ -184,7 +193,11 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
             let accountToDelete = AccountManager.manager.accounts[indexPath.row]
             let deletingSelectedAccount = account == accountToDelete
             try AccountManager.manager.deleteAccount(account: accountToDelete)
-            account = nil
+
+            if deletingSelectedAccount {
+                account = nil
+            }
+
             tableView.reloadData()
 
             if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
@@ -195,6 +208,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
                 setBackNavigation(enabled: false)
             }
 
+            accountDeletionDelegate?.didDeleteAccount(account: accountToDelete)
         } catch {
             displayError(title: "Error", message: "Something went wrong", textFieldConfigurations: [], actions: [
                 UIAlertAction(title: "Alright", style: .cancel, handler: nil),
