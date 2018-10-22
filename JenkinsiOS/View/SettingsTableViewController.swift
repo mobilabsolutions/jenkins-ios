@@ -62,6 +62,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         setBottomContentInsetForOlderDevices()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.navigationItem.title = "Settings"
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in _: UITableView) -> Int {
@@ -114,6 +119,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
     func didChangeCurrentAccount(current: Account) {
         currentAccountDelegate?.didChangeCurrentAccount(current: current)
         account = current
+
         tableView.reloadData()
     }
 
@@ -124,6 +130,10 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
 
         if var dest = segue.destination as? CurrentAccountProviding {
             dest.currentAccountDelegate = self
+        }
+
+        if let dest = segue.destination as? AccountDeletionNotifying {
+            dest.accountDeletionDelegate = tabBarController as? AccountDeletionNotified
         }
     }
 }

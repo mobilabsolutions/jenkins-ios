@@ -47,6 +47,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
         healthImageView.image = nil
         healthImageView.tintColor = .white
+
+        nameLabel.textColor = Constants.UI.greyBlue
     }
 
     override func awakeFromNib() {
@@ -95,7 +97,13 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
         nameLabel.text = job.name
         buildStabilityLabel.text = "Build Stability"
-        buildStabilityContentLabel.text = job.healthReport.first?.description ?? "Unknown Build Stability"
+
+        let buildStability = job.healthReport
+            .first { $0.description.starts(with: "Build stability:") }?
+            .description.replacingOccurrences(of: "Build stability:", with: "").trimmingCharacters(in: .whitespaces)
+            ?? job.healthReport.first?.description ?? "Unknown"
+
+        buildStabilityContentLabel.text = buildStability
 
         if let timeStamp = job.lastBuild?.timeStamp, let describingString = dateFormatter.string(from: timeStamp, to: Date()) {
             lastBuildLabel.text = describingString + " ago"

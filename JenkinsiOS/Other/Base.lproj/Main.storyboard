@@ -19,11 +19,11 @@
                         <color key="backgroundColor" red="0.94901960784313721" green="0.95294117647058818" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="favoritesCell" rowHeight="172" id="4qm-HP-wF9" customClass="AllFavoritesTableViewCell" customModule="JenkinsiOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="172"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="favoritesCell" rowHeight="182" id="4qm-HP-wF9" customClass="AllFavoritesTableViewCell" customModule="JenkinsiOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="182"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4qm-HP-wF9" id="CSl-xk-X8K">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="172"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-favorite" translatesAutoresizingMaskIntoConstraints="NO" id="YgM-bX-wnb">
@@ -46,7 +46,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VHS-ma-grO">
-                                            <rect key="frame" x="0.0" y="-3" width="320" height="172"/>
+                                            <rect key="frame" x="0.0" y="-3" width="320" height="182"/>
                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HBp-dk-7eE">
                                                 <size key="itemSize" width="259" height="156"/>
@@ -56,7 +56,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoritesCell" id="jR1-L3-RhJ" customClass="FavoriteCollectionViewCell" customModule="JenkinsiOS" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="259" height="156"/>
+                                                    <rect key="frame" x="8" y="13" width="259" height="156"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="259" height="156"/>
@@ -178,7 +178,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="jobCell" rowHeight="78" id="gDc-i8-eRE" customClass="JobTableViewCell" customModule="JenkinsiOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="200" width="320" height="78"/>
+                                <rect key="frame" x="0.0" y="210" width="320" height="78"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gDc-i8-eRE" id="zsp-ON-ePb">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
@@ -262,7 +262,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="shy-jW-cpk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2102" y="868"/>
+            <point key="canvasLocation" x="2101.875" y="867.25352112676057"/>
         </scene>
         <!--JobsTableViewController-->
         <scene sceneID="ZJr-Gq-hx0">
@@ -2693,7 +2693,7 @@
         <segue reference="MVd-nB-ywD"/>
         <segue reference="bRt-MD-0Ng"/>
         <segue reference="Eeb-5l-59h"/>
-        <segue reference="8wT-IP-ngG"/>
+        <segue reference="56L-7d-x3g"/>
         <segue reference="1H2-sN-Iqz"/>
     </inferredMetricsTieBreakers>
 </document>
