@@ -119,7 +119,7 @@ platform :ios do
       team_id: ENV['TEAM_NAME'],
       development: true,
       provisioning_name: 'Jenkins Development',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+      cert_id: ENV['CERTIFICATE_ID']
     )
     
     sigh(
@@ -127,7 +127,7 @@ platform :ios do
       team_id: ENV['TEAM_NAME'],
       development: true,
       provisioning_name: 'Jenkins Extension Development',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+      cert_id: ENV['CERTIFICATE_ID']
     )
   end
 end
