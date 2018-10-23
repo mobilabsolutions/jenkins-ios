@@ -33,7 +33,8 @@ platform :ios do
     keychain_name = 'ci-example-certs'
     prepare_distribution(keychain_name: keychain_name)
 
-    gym(scheme: 'JenkinsiOS',     
+    gym(scheme: 'JenkinsiOS',
+      export_method: "development",     
       export_options: {
         provisioningProfiles: { 
           "com.mobilabsolutions.jenkins.client" => "Jenkins Development",
