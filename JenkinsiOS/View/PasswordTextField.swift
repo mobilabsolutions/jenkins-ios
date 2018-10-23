@@ -11,10 +11,10 @@ import UIKit
 @IBDesignable class PasswordTextField: UITextField {
     private var toggleSecureTextButton: UIButton?
 
-    @IBInspectable var openImage = UIImage(named: "openEye")
-    @IBInspectable var closedImage = UIImage(named: "key")
+    @IBInspectable var openImage = UIImage(named: "ic-showpassword")?.withRenderingMode(.alwaysTemplate)
+    @IBInspectable var closedImage = UIImage(named: "key")?.withRenderingMode(.alwaysTemplate)
 
-    var buttonInset: (x: Int, y: Int) = (10, 7)
+    var buttonInset: (x: CGFloat, y: CGFloat) = (10, 7)
 
     override var text: String? {
         didSet {
@@ -42,9 +42,9 @@ import UIKit
     private func addSubViews() {
         let button = UIButton(type: .custom)
 
-        leftView = button
+        rightView = button
         toggleSecureTextButton = button
-        leftViewMode = .always
+        rightViewMode = .always
 
         setButtonImage()
 
@@ -60,6 +60,7 @@ import UIKit
 
     private func setButtonImage() {
         toggleSecureTextButton?.setImage(imageForSecureTextState(), for: .normal)
+        toggleSecureTextButton?.imageView?.tintColor = Constants.UI.silver
     }
 
     private func imageForSecureTextState() -> UIImage? {
@@ -73,12 +74,12 @@ import UIKit
         setButtonImage()
     }
 
-    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         if text == nil || text!.isEmpty {
             return CGRect(x: 0, y: 0, width: 0, height: 0)
         }
 
-        let widthAndHeight = Int(bounds.height) - buttonInset.y * 2
-        return CGRect(x: buttonInset.x, y: buttonInset.y, width: widthAndHeight, height: widthAndHeight)
+        let widthAndHeight = bounds.height - buttonInset.y * 2
+        return CGRect(x: bounds.maxX - buttonInset.x - widthAndHeight, y: buttonInset.y, width: widthAndHeight, height: widthAndHeight)
     }
 }
