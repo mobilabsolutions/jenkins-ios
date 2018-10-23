@@ -10,7 +10,7 @@ import UIKit
 
 extension BaseTableViewController {
     enum EmptyTableViewReason: String {
-        case noData = "There does not seem to be anything here"
+        case noData = "There seems to be nothing here"
         case loading = "Loading data..."
         case error = "An error occurred"
     }
