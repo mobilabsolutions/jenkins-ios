@@ -106,9 +106,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         tableView.isUserInteractionEnabled = true
         searchController?.searchBar.text = ""
         tabBarController?.navigationItem.title = account?.displayName ?? "Jobs"
+        addFilterButton()
 
-        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal),
-                                                                              style: .plain, target: self, action: #selector(presentFilterDialog))
         updateMinimumLabelOffset()
     }
 
@@ -120,6 +119,15 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
     override func refresh() {
         loadJobs()
         emptyTableView(for: .loading)
+    }
+
+    private func addFilterButton() {
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter")?
+            .withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(presentFilterDialog))
+    }
+
+    private func removeFilterButton() {
+        tabBarController?.navigationItem.rightBarButtonItem = nil
     }
 
     // MARK: - Data loading and displaying
@@ -192,6 +200,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         searchResultsController.delegate = self
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController?.searchResultsUpdater = searchResultsController.searcher
+        searchController?.delegate = self
 
         if #available(iOS 11.0, *) {
             tabBarController?.navigationItem.searchController = searchController
@@ -542,5 +551,15 @@ extension JobsTableViewController: AccountDeletionNotified {
     func didDeleteAccount(account _: Account) {
         shouldReloadFavorites = true
         tableView.reloadSections([0, 1], with: .automatic)
+    }
+}
+
+extension JobsTableViewController: UISearchControllerDelegate {
+    func willPresentSearchController(_: UISearchController) {
+        removeFilterButton()
+    }
+
+    func willDismissSearchController(_: UISearchController) {
+        addFilterButton()
     }
 }
