@@ -8,10 +8,15 @@ if [ $? -eq 0 ]; then
     mkdir fastlane/Certificates;
     touch fastlane/Certificates/distribution.p12;
     touch fastlane/Certificates/distribution_base64;
+    touch fastlane/Certificates/development.p12;
+    touch fastlane/Certificates/development_base64;
 
     echo "${CERTIFICATE}" > fastlane/Certificates/distribution_base64;
+    echo "${DEVELOPMENT_CERTIFICATE}" > fastlane/Certificates/development_base64;
 
     base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
+    base64 -D fastlane/Certificates/development_base64 -o fastlane/Certificates/development.p12;
+
     echo "Testing succeeded. Next steps will be taken";
 
     OPERATION_RESULT=0;

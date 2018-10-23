@@ -114,12 +114,21 @@ platform :ios do
       cert_id: ENV['CERTIFICATE_ID']
     )
 
+    # Import development certificate
+    import_certificate(
+      certificate_path: 'fastlane/Certificates/development.p12',
+      certificate_password: ENV['DEVELOPMENT_KEY_PASSWORD'],
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      log_output: true
+    )
+
     sigh(
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       development: true,
       provisioning_name: 'Jenkins Development',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
     )
     
     sigh(
@@ -127,7 +136,7 @@ platform :ios do
       team_id: ENV['TEAM_NAME'],
       development: true,
       provisioning_name: 'Jenkins Extension Development',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
     )
   end
 end
