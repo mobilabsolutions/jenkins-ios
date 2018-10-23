@@ -117,7 +117,7 @@ platform :ios do
     sigh(
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
-      development: true
+      development: true,
       provisioning_name: 'Jenkins Development',
       cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
     )
