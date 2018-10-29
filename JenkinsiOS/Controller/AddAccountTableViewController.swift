@@ -35,6 +35,8 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet var topBackgroundView: UIView!
     @IBOutlet var bottomMostBackgroundView: UIView!
 
+    @IBOutlet var textFields: [UITextField]!
+
     private var errorBanner: ErrorBanner?
 
     private var actionButtonTitle: String {
@@ -134,6 +136,8 @@ class AddAccountTableViewController: UITableViewController {
 
         trustAllCertificatesSwitch.addTarget(self, action: #selector(didToggleTrustAllCertificates), for: .allEditingEvents)
 
+        textFields.forEach { $0.delegate = self }
+
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
     }
@@ -208,9 +212,9 @@ class AddAccountTableViewController: UITableViewController {
 
         switch error {
         case let NetworkManagerError.HTTPResponseNoSuccess(code, _) where code == 401 || code == 403:
-            banner.errorDetails = "The username or password entered are incorrect.\nPlease try again"
+            banner.errorDetails = "The username or password entered are incorrect.\nPlease confirm that the values are correct"
         default:
-            banner.errorDetails = "An error occurred.\nPlease try again"
+            banner.errorDetails = "Something failed!\nPlease confirm that the fields below are filled correctly"
         }
 
         tableView.addSubview(banner)
@@ -289,5 +293,17 @@ class AddAccountTableViewController: UITableViewController {
         // The port text field's text should either be empty or a valid integer
 
         return urlTextField.text != nil && URL(string: urlTextField.text!) != nil && (portTextField.text == "" || Int(portTextField.text!) != nil)
+    }
+}
+
+extension AddAccountTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let index = textFields.firstIndex(of: textField), index.advanced(by: 1) < textFields.endIndex {
+            textFields[index.advanced(by: 1)].becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
     }
 }
