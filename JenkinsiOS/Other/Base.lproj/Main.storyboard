@@ -2469,6 +2469,11 @@
                         <outlet property="trustAllCertificatesWarning" destination="CYd-J8-g7E" id="HTC-Fe-4pG"/>
                         <outlet property="urlTextField" destination="oSM-Ni-XTa" id="oLl-mU-vzN"/>
                         <outlet property="usernameTextField" destination="icJ-wq-R6x" id="KcK-pq-CPm"/>
+                        <outletCollection property="textFields" destination="5Bv-rn-ffi" collectionClass="NSMutableArray" id="M2x-ue-Utt"/>
+                        <outletCollection property="textFields" destination="oSM-Ni-XTa" collectionClass="NSMutableArray" id="w3t-oS-z47"/>
+                        <outletCollection property="textFields" destination="icJ-wq-R6x" collectionClass="NSMutableArray" id="ABH-2f-PYk"/>
+                        <outletCollection property="textFields" destination="EcS-WL-E3y" collectionClass="NSMutableArray" id="9BT-iZ-88X"/>
+                        <outletCollection property="textFields" destination="MXV-yg-4TS" collectionClass="NSMutableArray" id="pqQ-Uf-aoc"/>
                         <segue destination="XdZ-dp-4cJ" kind="unwind" identifier="didAddAccountSegue" unwindAction="prepareForUnwindWithSegue:" id="ovL-Ta-gRd"/>
                     </connections>
                 </tableViewController>
