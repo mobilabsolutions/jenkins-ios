@@ -12,11 +12,16 @@ class NetworkManager: NSObject {
     static let manager = NetworkManager()
 
     private var session: URLSession!
+    private var verificationSession: URLSession?
     fileprivate var accounts: [URLSessionTask: Account] = [:]
 
     private override init() {
         super.init()
         session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+
+        let verificationConfiguration = URLSessionConfiguration.default
+        verificationConfiguration.timeoutIntervalForResource = 5
+        verificationSession = URLSession(configuration: verificationConfiguration, delegate: self, delegateQueue: nil)
     }
 
     // MARK: - Enumerations
@@ -57,6 +62,12 @@ class NetworkManager: NSObject {
                 completion(nil, error)
             }
         }
+    }
+
+    func verifyAccount(userRequest: UserRequest, completion: @escaping (Error?) -> Void) -> URLSessionTaskController {
+        return performRequest(userRequest: userRequest, method: .HEAD, useAPIURL: true, session: verificationSession, completion: { _, error, _ in
+            completion(error)
+        })
     }
 
     /// Get a job from a given user request
@@ -410,8 +421,11 @@ class NetworkManager: NSObject {
     /// - parameter method:      The HTTP method that should be used
     /// - parameter useAPIURL:   Whether or not the userRequest's api url should be used
     /// - parameter completion:  A completion handler that takes an optional data and an optional error
-    private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, completion: @escaping (Data?, Error?, URLResponse?) -> Void) -> URLSessionTaskController {
+    private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, session: URLSession? = nil, completion: @escaping (Data?, Error?, URLResponse?) -> Void) -> URLSessionTaskController {
         let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
+
+        guard let session = session ?? self.session
+        else { fatalError("No suitable URL session provided") }
 
         let task = session.dataTask(with: request) { data, response, error in
 

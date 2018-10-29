@@ -203,6 +203,7 @@
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
 		E1062738215E6241005ACD06 /* JobSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1062737215E6241005ACD06 /* JobSorter.swift */; };
+		E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A48282186EAF2008EB747 /* ErrorBanner.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
 		E131DA41212BF04800DF2B8A /* OnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */; };
@@ -436,6 +437,7 @@
 		E1062737215E6241005ACD06 /* JobSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSorter.swift; sourceTree = "<group>"; };
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
+		E12A48282186EAF2008EB747 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
 		E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		E131DA3F212BF04800DF2B8A /* OnBoardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingViewController.xib; sourceTree = "<group>"; };
@@ -916,6 +918,7 @@
 				E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */,
 				E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */,
 				E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */,
+				E12A48282186EAF2008EB747 /* ErrorBanner.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1232,6 +1235,7 @@
 				E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
+				E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */,
 				DCC2E1711DA0196200491B98 /* TestResult.swift in Sources */,
 				DC66CEDB1D9D545900808ED0 /* JobViewController.swift in Sources */,
 				DCC9CEE11DE06CD10053F8A2 /* BaseTableViewController.swift in Sources */,
