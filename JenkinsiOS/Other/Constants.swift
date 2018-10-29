@@ -43,6 +43,7 @@ struct Constants {
         static let backgroundColor = UIColor(red: 244.0 / 255.0, green: 245 / 255.0, blue: 248 / 255.0, alpha: 1.0)
         static let brightAqua = UIColor(red: 8.0 / 255.0, green: 232.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0)
         static let clearBlue = UIColor(red: 46.0 / 255.0, green: 126.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
+        static let grapefruit = UIColor(red: 255.0 / 255.0, green: 98.0 / 255.0, blue: 96.0 / 255.0, alpha: 1.0)
     }
 
     struct Identifiers {
