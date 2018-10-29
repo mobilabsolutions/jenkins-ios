@@ -169,25 +169,23 @@ class AddAccountTableViewController: UITableViewController {
     }
 
     private func addKeyboardHandling() {
-        var movedBy: CGFloat = 0.0
-
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self]
             notification in
             guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             else { return }
 
-            guard let footerViewRect = self.tableView.tableFooterView?.frame
+            guard let footerViewRect = self?.tableView.tableFooterView?.frame
             else { return }
 
             let inset = keyboardRect.minY - footerViewRect.minY
 
-            movedBy = -inset - 20
+            let movedTableViewBy = -inset - 20
 
-            self.tableView.contentInset.top = (inset > 0) ? movedBy : 0
+            self?.tableView.contentInset.top = (inset > 0) ? movedTableViewBy : 0
         }
 
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { _ in
-            self.tableView.contentInset.top = -movedBy
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.tableView.contentInset.top = 0
         }
 
         tableView.keyboardDismissMode = .onDrag
