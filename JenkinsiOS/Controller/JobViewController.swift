@@ -18,6 +18,8 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var viewWillAppearCalled = false
     private var showAllBuilds = false
 
+    private var reloadTimer: Timer?
+
     // MARK: - Actions
 
     @objc func triggerBuild() {
@@ -29,6 +31,49 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else {
             prepareForBuildWithParameters()
         }
+    }
+
+    // MARK: - Viewcontroller lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        let filteringHeaderViewNib = UINib(nibName: "FilteringHeaderTableViewCell", bundle: .main)
+        tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.buildsFilteringCell)
+
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        view.backgroundColor = Constants.UI.backgroundColor
+        tableView.separatorStyle = .none
+
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height - buildButton.frame.minY, right: 0)
+
+        buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
+
+        performRequest()
+        setupReload()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupUI()
+        viewWillAppearCalled = true
+
+        if reloadTimer?.isValid != true {
+            setupReload()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        reloadTimer?.invalidate()
+    }
+
+    private func setupReload() {
+        reloadTimer = Timer.scheduledTimer(timeInterval: Constants.Defaults.defaultReloadInterval, target: self,
+                                           selector: #selector(performRequest), userInfo: nil, repeats: true)
     }
 
     // MARK: - UITableViewDataSource and Delegate
@@ -163,7 +208,6 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     private func triggerBuildWithoutParameters() {
-        // TODO: This is somewhat hacky. Is there a nicer solution?
         let alert = UIAlertController(title: "Start Build", message: "Do you want to trigger a build?\n\n\n\n\n\n", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Start", style: .default, handler: { [weak self] _ in
@@ -309,38 +353,10 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
 
-    // MARK: - Viewcontroller lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        let filteringHeaderViewNib = UINib(nibName: "FilteringHeaderTableViewCell", bundle: .main)
-        tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.buildsFilteringCell)
-
-        tableView.backgroundColor = Constants.UI.backgroundColor
-        view.backgroundColor = Constants.UI.backgroundColor
-        tableView.separatorStyle = .none
-
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height - buildButton.frame.minY, right: 0)
-
-        buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
-
-        performRequest()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupUI()
-        viewWillAppearCalled = true
-    }
-
     @objc func openUrl() {
         guard let job = self.job
         else { return }
-        UIApplication.shared.openURL(job.url)
+        UIApplication.shared.open(job.url, options: [:], completionHandler: nil)
     }
 
     @objc func favorite() {
@@ -351,7 +367,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
 
-    func performRequest() {
+    @objc func performRequest() {
         updateData { error in
             DispatchQueue.main.async {
                 guard error == nil

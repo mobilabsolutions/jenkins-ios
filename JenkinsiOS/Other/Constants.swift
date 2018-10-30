@@ -13,6 +13,7 @@ struct Constants {
     struct Defaults {
         /// The default port that should be used. 443 because the default protocol is https
         static let defaultPort = 443
+        static let defaultReloadInterval: TimeInterval = 4
     }
 
     struct Paths {
