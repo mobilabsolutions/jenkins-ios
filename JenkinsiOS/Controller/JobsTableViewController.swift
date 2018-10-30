@@ -90,7 +90,6 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         tableView.register(filteringHeaderViewNib, forCellReuseIdentifier: Constants.Identifiers.jobsHeaderCell)
 
         loadJobs()
-
         emptyTableView(for: .loading)
         contentType = .jobList
 
@@ -503,7 +502,7 @@ extension JobsTableViewController: SearchResultsControllerDelegate {
 
 extension JobsTableViewController: AllFavoritesTableViewCellDelegate {
     func didSelectErroredFavorite(favorite: Favorite) {
-        UIApplication.shared.openURL(favorite.url)
+        UIApplication.shared.open(favorite.url, options: [:], completionHandler: nil)
     }
 
     func didSelectLoadedFavoritable(favoritable: Favoratible, for favorite: Favorite) {
