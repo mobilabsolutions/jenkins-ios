@@ -17,6 +17,8 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                 currentView = nil
                 shouldReloadFavorites = true
                 loadJobs()
+                removeFirstChildViewController()
+                tableView.isScrollEnabled = true
                 tableView.reloadData()
             }
         }
@@ -108,11 +110,19 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         addFilterButton()
 
         updateMinimumLabelOffset()
+
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = searchController
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.navigationItem.rightBarButtonItem = nil
+
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = nil
+        }
     }
 
     override func refresh() {
@@ -159,6 +169,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                     }
 
                     self.refreshControl?.endRefreshing()
+                    self.updateMinimumLabelOffset()
                     return
                 }
 
@@ -172,6 +183,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
                     self.currentView = jobList?.allJobsView ?? jobList?.views.first
                 }
 
+                self.updateMinimumLabelOffset()
                 self.emptyTableView(for: .noData, action: self.defaultRefreshingAction)
                 self.shouldReloadFavorites = true
                 // If the folder state has changed, we might want to hide the favorites sections and therefore
@@ -319,7 +331,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
     private func updateMinimumLabelOffset() {
         let folderState = FolderState(jobList: jobs, folderJob: folderJob)
-        minimumEmptyContainerOffset = sections[0 ... 1].filter({ $0(self.currentView, folderState).rows > 0 })
+        minimumEmptyContainerOffset = sections[0 ... 2].filter({ $0(self.currentView, folderState).rows > 0 })
             .reduce(0, { $0 + $1(self.currentView, folderState).rowHeight })
     }
 
@@ -457,8 +469,11 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
 
         valueSelectionViewController.view.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 8).isActive = true
         valueSelectionViewController.view.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -16).isActive = true
+
+        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
+
         valueSelectionViewController.view.heightAnchor.constraint(equalTo: tableView.heightAnchor,
-                                                                  constant: -tableView.rectForRow(at: jobsHeaderIndexPath).maxY - 32).isActive = true
+                                                                  constant: -tableView.rectForRow(at: jobsHeaderIndexPath).maxY - 32 - tabBarHeight).isActive = true
 
         valueSelectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor,
                                                                constant: tableView.rectForRow(at: jobsHeaderIndexPath).maxY).isActive = true
@@ -536,13 +551,17 @@ extension JobsTableViewController: ValueSelectionTableViewControllerDelegate {
     func didSelect(value: JobsTableViewController.ValueSelectionTableViewControllerType) {
         self.currentView = value
 
+        removeFirstChildViewController()
+
+        self.tableView.isScrollEnabled = true
+        self.tableView.reloadSections([2, 3], with: .automatic)
+    }
+
+    private func removeFirstChildViewController() {
         let child = self.children.first
         child?.willMove(toParent: nil)
         child?.view.removeFromSuperview()
         child?.removeFromParent()
-
-        self.tableView.isScrollEnabled = true
-        self.tableView.reloadSections([2, 3], with: .automatic)
     }
 }
 

@@ -12,6 +12,11 @@ protocol AddAccountTableViewControllerDelegate: class {
     func didEditAccount(account: Account, oldAccount: Account?)
 }
 
+protocol VerificationFailurePresenting: class {
+    func showVerificationFailure(error: Error)
+    func hideVerificationFailure()
+}
+
 class AddAccountTableViewController: UITableViewController {
 
     // MARK: - Instance variables
@@ -19,6 +24,7 @@ class AddAccountTableViewController: UITableViewController {
     var account: Account?
 
     weak var delegate: AddAccountTableViewControllerDelegate?
+    weak var verificationFailurePresenter: VerificationFailurePresenting?
 
     // MARK: - Outlets
 
@@ -36,8 +42,6 @@ class AddAccountTableViewController: UITableViewController {
     @IBOutlet var bottomMostBackgroundView: UIView!
 
     @IBOutlet var textFields: [UITextField]!
-
-    private var errorBanner: ErrorBanner?
 
     private var actionButtonTitle: String {
         return account != nil ? "SAVE" : "DONE"
@@ -146,7 +150,7 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.alpha = 0.7
         addAccountButton.setTitle("Verifying...", for: .normal)
 
-        hideErrorBanner()
+        verificationFailurePresenter?.hideVerificationFailure()
 
         _ = NetworkManager.manager.verifyAccount(userRequest: UserRequest.userRequestForJobList(account: account)) { error in
             DispatchQueue.main.async { [weak self] in
@@ -157,7 +161,7 @@ class AddAccountTableViewController: UITableViewController {
                 else { onSuccess(); return }
 
                 self?.addAccountButton.isEnabled = false
-                self?.presentVerificationFailure(error: error)
+                self?.verificationFailurePresenter?.showVerificationFailure(error: error)
             }
         }
     }
@@ -207,39 +211,6 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
     }
 
-    private func presentVerificationFailure(error: Error) {
-        let banner = ErrorBanner()
-
-        switch error {
-        case let NetworkManagerError.HTTPResponseNoSuccess(code, _) where code == 401 || code == 403:
-            banner.errorDetails = "The username or password entered are incorrect.\nPlease confirm that the values are correct"
-        default:
-            banner.errorDetails = "Something failed!\nPlease confirm that the fields below are filled correctly"
-        }
-
-        tableView.addSubview(banner)
-
-        banner.translatesAutoresizingMaskIntoConstraints = false
-
-        let topLayoutConstraint: NSLayoutConstraint
-
-        if #available(iOS 11.0, *) {
-            topLayoutConstraint = banner.topAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.topAnchor)
-        } else {
-            let topOffset = (navigationController?.navigationBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
-            topLayoutConstraint = banner.topAnchor.constraint(equalTo: tableView.topAnchor, constant: topOffset)
-        }
-
-        NSLayoutConstraint.activate([
-            banner.leftAnchor.constraint(equalTo: tableView.leftAnchor),
-            banner.rightAnchor.constraint(equalTo: tableView.rightAnchor),
-            banner.widthAnchor.constraint(equalTo: tableView.widthAnchor),
-            topLayoutConstraint,
-        ])
-
-        errorBanner = banner
-    }
-
     private func prepareUI(for account: Account) {
         addAccountButton.setTitle(actionButtonTitle, for: .normal)
         addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
@@ -258,22 +229,6 @@ class AddAccountTableViewController: UITableViewController {
         usernameTextField.text = ""
         apiKeyTextField.text = ""
         portTextField.placeholder = "Default Port"
-    }
-
-    private func hideErrorBanner() {
-        guard let errorBanner = errorBanner
-        else { return }
-
-        errorBanner.layoutIfNeeded()
-        errorBanner.heightAnchor.constraint(equalToConstant: 0).isActive = true
-
-        UIView.animate(withDuration: 0.1, animations: {
-            errorBanner.layoutIfNeeded()
-            errorBanner.alpha = 0.2
-        }) { _ in
-            errorBanner.removeFromSuperview()
-            self.errorBanner = nil
-        }
     }
 
     @objc private func didToggleTrustAllCertificates() {
@@ -299,7 +254,9 @@ class AddAccountTableViewController: UITableViewController {
 extension AddAccountTableViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let index = textFields.firstIndex(of: textField), index.advanced(by: 1) < textFields.endIndex {
+            textField.resignFirstResponder()
             textFields[index.advanced(by: 1)].becomeFirstResponder()
+            return false
         } else {
             textField.resignFirstResponder()
         }

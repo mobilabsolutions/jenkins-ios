@@ -211,6 +211,7 @@
 		E131DA49212BFB5E00DF2B8A /* OnBoardingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */; };
 		E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA4C212C09F600DF2B8A /* OnBoardingContainerViewController.swift */; };
 		E131DA4F212C09F600DF2B8A /* OnBoardingContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */; };
+		E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */; };
 		E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164530A212C588F00750C17 /* AccountCreatedViewController.swift */; };
 		E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E164530B212C588F00750C17 /* AccountCreatedViewController.xib */; };
 		E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */; };
@@ -447,6 +448,7 @@
 		E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingContainerViewController.xib; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountContainerViewController.swift; sourceTree = "<group>"; };
 		E164530A212C588F00750C17 /* AccountCreatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreatedViewController.swift; sourceTree = "<group>"; };
 		E164530B212C588F00750C17 /* AccountCreatedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCreatedViewController.xib; sourceTree = "<group>"; };
 		E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
@@ -729,6 +731,7 @@
 				E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */,
 				E164530A212C588F00750C17 /* AccountCreatedViewController.swift */,
 				E164530B212C588F00750C17 /* AccountCreatedViewController.xib */,
+				E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
 				E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */,
+				E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
 				E16BDECA2121D30100837E44 /* ArtifactTableViewCell.swift in Sources */,
 				DC9BAE371DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,

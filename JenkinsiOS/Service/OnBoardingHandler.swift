@@ -64,16 +64,16 @@ class OnBoardingHandler: OnBoardingViewControllerDelegate {
         showAccountCreationViewController(viewController: accountCreationViewController, in: navigationController)
     }
 
-    private func showAccountCreationViewController(viewController: AddAccountTableViewController,
+    private func showAccountCreationViewController(viewController: AddAccountContainerViewController,
                                                    in navigationController: UINavigationController) {
         navigationController.interactivePopGestureRecognizer?.isEnabled = false
         navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(viewController, animated: true)
     }
 
-    private func accountCreationViewController() -> AddAccountTableViewController? {
+    private func accountCreationViewController() -> AddAccountContainerViewController? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let accountViewController = appDelegate.getViewController(name: "AddAccountViewController") as? AddAccountTableViewController
+            let accountViewController = appDelegate.getViewController(name: "AddAccountContainerViewController") as? AddAccountContainerViewController
         else { return nil }
 
         accountViewController.delegate = self
