@@ -63,7 +63,14 @@ platform :ios do
         version_number: ENV['TRAVIS_TAG']
       )
     end
-    gym(scheme: 'JenkinsiOS') # Build your app - more options available
+    gym(scheme: 'JenkinsiOS',
+      export_method: "app-store",     
+      export_options: {
+        provisioningProfiles: { 
+          "com.mobilabsolutions.jenkins.client" => "Jenkins App Store",
+          "com.mobilabsolutions.jenkins.client.extension" => "Jenkins Extension App Store"
+        }
+    }) # Build your app - more options available
     deliver(username: ENV['FASTLANE_USER'], dev_portal_team_id: ENV['DEV_PORTAL_TEAM_ID'],
             team_name: ENV['TEAM_NAME'], force: true)
 
