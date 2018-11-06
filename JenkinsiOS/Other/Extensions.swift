@@ -207,6 +207,21 @@ extension UIViewController {
             displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [doneAction])
         }
     }
+
+    func alertWithImage(image: UIImage?, title: String, message: String, height: CGFloat, widthInset: CGFloat = 50) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message + "\n\n\n\n\n\n", preferredStyle: .alert)
+
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addSubview(imageView)
+
+        imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: alert.view.widthAnchor, constant: -2 * widthInset).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
+
+        return alert
+    }
 }
 
 extension UITableViewController {

@@ -208,20 +208,12 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     private func triggerBuildWithoutParameters() {
-        let alert = UIAlertController(title: "Start Build", message: "Do you want to trigger a build?\n\n\n\n\n\n", preferredStyle: .alert)
+        let alert = alertWithImage(image: UIImage(named: "ic-rocket"), title: "Start Build",
+                                   message: "Do you want to trigger a build?", height: 64)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Start", style: .default, handler: { [weak self] _ in
             self?.buildWithoutParameters()
         }))
-
-        let imageView = UIImageView(image: UIImage(named: "ic-rocket"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        alert.view.addSubview(imageView)
-
-        imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalTo: alert.view.widthAnchor, constant: -100).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
 
         present(alert, animated: true, completion: nil)
     }
