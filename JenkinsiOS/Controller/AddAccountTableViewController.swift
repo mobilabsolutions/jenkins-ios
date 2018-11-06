@@ -142,6 +142,8 @@ class AddAccountTableViewController: UITableViewController {
 
         textFields.forEach { $0.delegate = self }
 
+        addDoneButtonInputAccessory(to: portTextField)
+
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
     }
@@ -248,6 +250,16 @@ class AddAccountTableViewController: UITableViewController {
         // The port text field's text should either be empty or a valid integer
 
         return urlTextField.text != nil && URL(string: urlTextField.text!) != nil && (portTextField.text == "" || Int(portTextField.text!) != nil)
+    }
+
+    private func addDoneButtonInputAccessory(to textField: UITextField) {
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: 50)))
+        let doneItem = UIBarButtonItem(title: "Done", style: .plain, target: textField, action: #selector(resignFirstResponder))
+        doneItem.tintColor = Constants.UI.greyBlue
+        toolbar.setItems([
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), doneItem,
+        ], animated: false)
+        textField.inputAccessoryView = toolbar
     }
 }
 
