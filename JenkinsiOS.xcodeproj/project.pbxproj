@@ -132,7 +132,7 @@
 		DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */; };
 		DC7B2F141DB797930090DD10 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */; };
-		DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */; };
+		DC85AE091DABDB3E00D20059 /* ActionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */; };
 		DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE0A1DABDE8700D20059 /* QueueItem.swift */; };
 		DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256A1DA90DD200EB7867 /* UserList.swift */; };
 		DC86256D1DA90DD900EB7867 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256C1DA90DD900EB7867 /* User.swift */; };
@@ -366,7 +366,7 @@
 		DC6F079E1DB502BB00C77FAE /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtifactsTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewController.swift; sourceTree = "<group>"; };
-		DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JenkinsInformationTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE0A1DABDE8700D20059 /* QueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		DC86256A1DA90DD200EB7867 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		DC86256C1DA90DD900EB7867 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -703,7 +703,7 @@
 				DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */,
 				DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */,
 				DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */,
-				DC85AE081DABDB3E00D20059 /* JenkinsInformationTableViewController.swift */,
+				DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */,
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
 				DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */,
@@ -1343,7 +1343,7 @@
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
 				E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */,
 				E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */,
-				DC85AE091DABDB3E00D20059 /* JenkinsInformationTableViewController.swift in Sources */,
+				DC85AE091DABDB3E00D20059 /* ActionsTableViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,

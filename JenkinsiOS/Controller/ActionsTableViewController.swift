@@ -1,5 +1,5 @@
 //
-//  JenkinsInformationTableViewController.swift
+//  ActionsTableViewController.swift
 //  JenkinsiOS
 //
 //  Created by Robert on 10.10.16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JenkinsInformationTableViewController: UITableViewController, AccountProvidable {
+class ActionsTableViewController: UITableViewController, AccountProvidable {
     var account: Account?
     var actions: [JenkinsAction] = [.restart, .safeRestart, .exit, .safeExit, .quietDown, .cancelQuietDown]
 
@@ -83,7 +83,69 @@ class JenkinsInformationTableViewController: UITableViewController, AccountProvi
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard account != nil
         else { return }
-        performAction(action: actions[indexPath.row])
+        verifyAction(action: actions[indexPath.row]) { [unowned self] action in
+            self.performAction(action: action)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    private func verifyAction(action: JenkinsAction, onSuccess completion: @escaping (JenkinsAction) -> Void) {
+        let alert = alertWithImage(image: UIImage(named: action.alertImageName), title: action.alertTitle,
+                                   message: action.alertMessage, height: 49)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in completion(action) }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+private extension JenkinsAction {
+    var alertTitle: String {
+        switch self {
+        case .exit:
+            return "Exit"
+        case .safeExit:
+            return "Safe Exit"
+        case .quietDown:
+            return "Quiet Down"
+        case .cancelQuietDown:
+            return "Cancel Quiet Down"
+        case .restart:
+            return "Restart"
+        case .safeRestart:
+            return "Safe Restart"
+        }
+    }
+
+    var alertMessage: String {
+        let operation: String
+        switch self {
+        case .exit:
+            operation = "shutdown"
+        case .safeExit:
+            operation = "safely shutdown"
+        case .quietDown:
+            operation = "quiet down"
+        case .cancelQuietDown:
+            operation = "cancel quieting down"
+        case .restart:
+            operation = "restart"
+        case .safeRestart:
+            operation = "safely restart"
+        }
+
+        return "Do you want to \(operation) the server?"
+    }
+
+    var alertImageName: String {
+        switch self {
+        case .safeRestart:
+            return "safe-restart-server-illustration"
+        case .safeExit:
+            return "exit-server-illustration"
+        default:
+            // TODO: Add missing illustrations
+            return "exit-server-illustration"
+        }
     }
 }
