@@ -7,144 +7,175 @@ theme: fullwidth
 
 
     #############################################################################################################################################
-    ### This is an auto-generated file! To edit the above, please edit .jazzy-base.yaml, to edit the structure, please edit update-jazzy-yaml.py!
+    ### This is an auto-generated file! To edit the above, please edit .jazzy-base.yaml, to edit custom_categories, please edit update-jazzy-yaml.py!
     #############################################################################################################################################
 
 custom_categories:
 - children:
-  - AboutViewController
-  - AccountsTableViewController
-  - AddAccountTableViewController
-  - ArtifactsTableViewController
-  - BaseTableViewController
-  - BaseTableViewControllerExtensions
-  - BuildProvidable
-  - BuildQueueTableViewController
-  - BuildsTableViewController
-  - BuildsTableViewControllerDataSource
-  - BuildViewController
-  - ChangesTableViewController
-  - ComputersTableViewController
-  - ConsoleOutputViewController
-  - FavoritesTableViewController
-  - JenkinsInformationTableViewController
-  - JobsTableViewController
-  - JobViewController
-  - LoadingIndicatorImageView
-  - ModalInformationViewController
-  - ModalInformationViewControllerDelegate
-  - NavigationController
-  - ParametersTableViewController
-  - ParametersViewControllerDelegate
-  - PluginsTableViewController
-  - RefreshingTableViewController
-  - ReviewReminderViewController
-  - SearchResultsTableViewController
-  - TestResultsTableViewController
+  - Constants
+  - ColorPrinter
+  - Extensions
+  - Errors
+  - AppDelegate
+  name: JenkinsiOS Other
+- children:
+  - PersistenceUtils
+  name: JenkinsiOS Utils
+- children:
   - TestResultTableViewController
+  - ArtifactsTableViewController
+  - BaseTableViewControllerExtensions
+  - TestResultsTableViewController
+  - ComputersTableViewController
+  - ModalInformationViewControllerDelegate
+  - AccountProvidable
+  - ParametersTableViewController
+  - BuildProvidable
+  - BaseTableViewController
+  - PluginsTableViewController
+  - AddAccountContainerViewController
+  - SearchResultsTableViewController
+  - ReviewReminderViewController
   - UsersTableViewController
+  - ComputerTableViewController
+  - OnBoardingContainerViewController
+  - AccountCreatedViewController
+  - ChangesTableViewController
+  - OnBoardingViewController
+  - BuildsTableViewController
+  - ConsoleOutputViewController
+  - ParametersViewControllerDelegate
+  - UserViewController
+  - JobsTableViewController
+  - ValueSelectionTableViewController
+  - AccountsViewController
+  - BuildViewController
+  - MainTabBarViewController
+  - RefreshingTableViewController
+  - PluginTableViewController
+  - AboutViewController
+  - ActionsTableViewController
+  - ModalInformationViewController
+  - AccountsTableViewController
+  - NavigationController
+  - BuildQueueTableViewController
+  - JobViewController
+  - AddAccountTableViewController
+  - BuildsTableViewControllerDataSource
   name: JenkinsiOS Controller
 - children:
-  - Account
   - ApplicationUser
   - Favoratible
-  - Favorite
   - UserRequest
+  - Favorite
+  - Account
   name: JenkinsiOS Model
 - children:
-  - DescribingColor
   - JenkinsColor
+  - DescribingColor
   name: JenkinsiOS Model JenkinsAPI
 - children:
-  - Actions
-  - Artifact
-  - Author
-  - Build+DescribingColor
-  - Build
-  - Cause
-  - ChangeSet
-  - Item
-  name: JenkinsiOS Model JenkinsAPI Build
+  - Dependency
+  - PluginList
+  - Plugin
+  name: JenkinsiOS Model JenkinsAPI Plugin
+- children:
+  - TestResult
+  - Suite
+  - Result
+  - Child
+  - Case
+  - ChildReport
+  name: JenkinsiOS Model JenkinsAPI TestResult
+- children:
+  - User
+  - Project
+  - UserList
+  name: JenkinsiOS Model JenkinsAPI User
+- children:
+  - View
+  - JobListResult
+  - Parameter
+  - ParameterValue
+  - ParameterType
+  - JobListQuietingDown
+  - JobList
+  - HealthReportResult
+  - Job+DescribingColor
+  - Job
+  name: JenkinsiOS Model JenkinsAPI Job
 - children:
   - BuildQueue
   - QueueItem
   name: JenkinsiOS Model JenkinsAPI BuildQueue
 - children:
-  - Computer
+  - Item
+  - Cause
+  - Author
+  - Build
+  - Build+DescribingColor
+  - ChangeSet
+  - Actions
+  - Artifact
+  name: JenkinsiOS Model JenkinsAPI Build
+- children:
   - ComputerList
   - MonitorData
+  - Computer
   name: JenkinsiOS Model JenkinsAPI Computer
 - children:
-  - HealthReportResult
-  - Job+DescribingColor
-  - Job
-  - JobList
-  - JobListResult
-  - Parameter
-  - ParameterType
-  - ParameterValue
-  - View
-  name: JenkinsiOS Model JenkinsAPI Job
-- children:
-  - Dependency
-  - Plugin
-  - PluginList
-  name: JenkinsiOS Model JenkinsAPI Plugin
-- children:
-  - Case
-  - Child
-  - ChildReport
-  - Result
-  - Suite
-  - TestResult
-  name: JenkinsiOS Model JenkinsAPI TestResult
-- children:
-  - Project
-  - User
-  - UserList
-  name: JenkinsiOS Model JenkinsAPI User
-- children:
-  - AppDelegate
-  - ColorPrinter
-  - Constants
-  - Errors
-  - Extensions
-  name: JenkinsiOS Other
-- children:
-  - AboutInformationManager
-  - AccountManager
-  - AppearanceManager
-  - ApplicationUserManager
-  - FavoriteLoadingState
-  - FavoritesLoader
-  - JenkinsAction
-  - LoggableContentView
-  - LoggingManager
-  - NetworkActivityIndicatorManager
-  - NetworkManager
-  - ReviewHandler
-  - Searchable
-  - Searcher
-  - URLSessionTaskController
-  name: JenkinsiOS Service
-- children:
-  - PersistenceUtils
-  name: JenkinsiOS Utils
-- children:
-  - AccountTableViewCell
-  - AllFavoritesTableViewCell
-  - BigButton
-  - BuildQueueTableViewCell
-  - FavoriteCollectionViewCell
-  - LongBuildInfoTableViewCell
-  - ParameterTableViewCell
-  - ParameterTableViewCellDelegate
+  - BuildCauseTableViewCell
+  - DetailTableViewCell
   - PasswordTextField
-  - StarRatingView
-  - StarRatingViewDelegate
+  - FilteringHeaderTableViewCell
+  - SettingsTableViewController
+  - JobOverviewTableViewCell
+  - BasicImageTableViewCell
   - TestResultTableViewCell
+  - SpecialBuildTableViewCell
+  - ErrorBanner
+  - AllFavoritesTableViewCell
+  - LongBuildInfoTableViewCell
+  - BuildQueueTableViewCell
+  - AccountTableViewCell
+  - FavoriteCollectionViewCell
+  - CorneredView
+  - ParameterTableViewCell
+  - StarRatingViewDelegate
+  - UserTableViewCell
+  - ActionTableViewCell
+  - BuildTableViewCell
+  - BasicTableViewCell
+  - LoadingIndicatorView
+  - BigButton
+  - RoundedButton
+  - ArtifactTableViewCell
+  - JobTableViewCell
+  - StarRatingView
+  - ParameterTableViewCellDelegate
   name: JenkinsiOS View
 - children:
-  - DataRetriever
+  - LoggingManager
+  - AboutInformationManager
+  - JenkinsAction
+  - NetworkManager
+  - AccountManager
+  - NetworkActivityIndicatorManager
+  - URLSessionTaskController
+  - Searcher
+  - OnBoardingOption
+  - AppearanceManager
+  - FavoritesLoader
+  - Searchable
+  - OnBoardingHandler
+  - ReviewHandler
+  - FavoriteLoadingState
+  - ApplicationUserManager
+  - JobSorter
+  - LoggableContentView
+  name: JenkinsiOS Service
+- children:
   - TodayViewController
+  - DataRetriever
+  - FavoriteTableViewCell
   name: JenkinsiOSTodayExtension
