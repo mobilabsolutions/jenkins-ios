@@ -205,6 +205,9 @@ struct Constants {
         static let jobListAdditionalQueryItems = [
             URLQueryItem(name: "tree", value: "views[name,url,jobs[name,url,color,healthReport[description,score,iconClassName],lastBuild[timestamp,number,url]]],nodeDescription,nodeName,mode,description"),
         ]
+        static let jobListQuietingDownAdditionalQueryItems = [
+            URLQueryItem(name: "tree", value: "quietingDown"),
+        ]
         static let jobAdditionalQueryItems: [URLQueryItem] = {
             let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath]"
             return [

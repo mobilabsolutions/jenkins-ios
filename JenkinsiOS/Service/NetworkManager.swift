@@ -20,7 +20,7 @@ class NetworkManager: NSObject {
         session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
 
         let verificationConfiguration = URLSessionConfiguration.default
-        verificationConfiguration.timeoutIntervalForResource = 5
+        verificationConfiguration.timeoutIntervalForResource = 10
         verificationSession = URLSession(configuration: verificationConfiguration, delegate: self, delegateQueue: nil)
     }
 
@@ -329,12 +329,24 @@ class NetworkManager: NSObject {
     /// - parameter token:      The user's token that is set up in the job configuration
     /// - parameter parameters: The build's parameters
     /// - parameter completion: A closure handling the returned data and an (optional) error
-    func performBuild(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: ((AnyObject?, Error?) -> Void)?) throws {
+    func performBuild(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: ((JobListQuietingDown?, Error?) -> Void)?) throws {
         configureBuildRequest(account: account, job: job, token: token, parameters: parameters) { request, error in
             guard let userRequest = request, error == nil
             else { completion?(nil, error); return }
-            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { data, error, _ in
-                completion?(data as AnyObject, error)
+            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { [weak self] data, error, _ in
+                guard let strongSelf = self, error == nil
+                else { completion?(nil, error); return }
+                _ = strongSelf.performRequest(userRequest: UserRequest.userRequestForJobListQuietingDown(account: account),
+                                              method: .GET, useAPIURL: true, completion: { data, error, _ in
+                                                  guard error == nil, let data = data
+                                                  else { completion?(nil, nil); return }
+
+                                                  let decoder = JSONDecoder()
+
+                                                  guard let quietingDown = try? decoder.decode(JobListQuietingDown.self, from: data)
+                                                  else { completion?(nil, nil); return }
+                                                  completion?(quietingDown, nil)
+                })
             }
         }
     }

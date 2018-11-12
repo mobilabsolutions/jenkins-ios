@@ -277,21 +277,30 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         return modalViewController
     }
 
-    private func completionForBuild() -> (ModalInformationViewController?, AnyObject?, Error?) -> Void {
-        return {
-            modalViewController, _, error in
+    private func completionForBuild() -> (ModalInformationViewController?, JobListQuietingDown?, Error?) -> Void {
+        return { [weak self]
+            modalViewController, quietingDown, error in
 
             if let error = error {
-                if self.presentedViewController == modalViewController {
+                if self?.presentedViewController == modalViewController {
                     modalViewController?.dismiss(animated: true, completion: {
-                        self.displayError(error: error)
+                        self?.displayError(error: error)
                     })
                 } else {
-                    self.displayError(error: error)
+                    self?.displayError(error: error)
                 }
             } else {
-                if self.presentedViewController == modalViewController {
-                    modalViewController?.dismiss(animated: true, completion: nil)
+                func showQuietingDownModal() {
+                    if quietingDown?.quietingDown == true {
+                        self?.displayError(title: "Quieting Down", message: "The server is currently quieting down.\nThe build was added to the queue.",
+                                           textFieldConfigurations: [], actions: [UIAlertAction(title: "OK", style: .default)])
+                    }
+                }
+
+                if self?.presentedViewController == modalViewController {
+                    modalViewController?.dismiss(animated: true, completion: showQuietingDownModal)
+                } else {
+                    showQuietingDownModal()
                 }
             }
         }
@@ -306,34 +315,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         })
     }
 
-    private func performBuild(job: Job, account: Account, token: String?) {
-        let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
-        present(modalViewController, animated: true)
-
-        try? NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: nil) { _, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    modalViewController.dismiss(animated: true, completion: {
-                        self.displayNetworkError(error: error, onReturnWithTextFields: { returnData in
-                            self.account?.username = returnData["username"]!
-                            self.account?.password = returnData["password"]!
-
-                            self.performBuild(job: job, account: account, token: token)
-                        })
-                    })
-                } else {
-                    let successImageView = UIImageView(image: UIImage(named: "passedTestCase"))
-                    successImageView.contentMode = .scaleAspectFit
-                    modalViewController.set(title: "Success", detailView: successImageView)
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(500), execute: {
-                        modalViewController.dismiss(animated: true, completion: nil)
-                    })
-                }
-            }
-        }
-    }
-
-    fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (AnyObject?, Error?) -> Void) {
+    fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (JobListQuietingDown?, Error?) -> Void) {
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
             LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
@@ -431,14 +413,11 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
 }
 
 extension JobViewController: ParametersViewControllerDelegate {
-    func build(parameters: [ParameterValue], completion: @escaping (Error?) -> Void) {
+    func build(parameters: [ParameterValue], completion: @escaping (JobListQuietingDown?, Error?) -> Void) {
         guard let job = job, let account = account
-        else { completion(BuildError.notEnoughDataError); return }
+        else { completion(nil, BuildError.notEnoughDataError); return }
 
-        performBuild(job: job, account: account, token: nil, parameters: parameters) {
-            _, error in
-            completion(error)
-        }
+        performBuild(job: job, account: account, token: nil, parameters: parameters, completion: completion)
     }
 
     func updateAccount(data: [String: String?]) {
