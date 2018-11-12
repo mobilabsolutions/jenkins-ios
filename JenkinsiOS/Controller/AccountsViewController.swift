@@ -108,7 +108,17 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
             currentAccountDelegate?.didChangeCurrentAccount(current: account)
         }
 
-        navigationController?.popViewController(animated: true)
+        if oldAccount == nil {
+            let confirmationController = AccountCreatedViewController(nibName: "AccountCreatedViewController", bundle: .main)
+            confirmationController.delegate = self
+            navigationController?.pushViewController(confirmationController, animated: true)
+            var viewControllers = navigationController?.viewControllers ?? []
+            // Remove the add account view controller from the navigation controller stack
+            viewControllers.remove(at: viewControllers.count - 2)
+            navigationController?.setViewControllers(viewControllers, animated: false)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 
     // MARK: - Tableview datasource and delegate
@@ -226,5 +236,11 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
 extension AccountsViewController: OnBoardingDelegate {
     func didFinishOnboarding(didAddAccount _: Bool) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AccountsViewController: AccountCreatedViewControllerDelegate {
+    func doneButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
 }
