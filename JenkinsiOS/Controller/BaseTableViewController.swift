@@ -32,11 +32,9 @@ import UIKit
 
     var minimumEmptyContainerOffset: CGFloat = 0 {
         didSet {
-            guard let container = emptyTableViewContentView?.superview else {
-                return
-            }
-            let topOffset = minimumEmptyContainerOffset > 0.0 ? 25 + container.frame.midX - minimumEmptyContainerOffset : -200
-            emptyTableViewContentViewTopConstraint?.constant = topOffset
+            let statusBarOffset = UIApplication.shared.statusBarFrame.height
+            let navigationControllerOffset = self.navigationController?.navigationBar.frame.height ?? 0
+            emptyTableViewContentViewTopConstraint?.constant = max(minimumEmptyContainerOffset, view.frame.height / 5) + navigationControllerOffset + statusBarOffset + 10
         }
     }
 
@@ -151,7 +149,8 @@ import UIKit
 
         label.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
         label.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
-        label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -5).isActive = true
+        let tabBarOffset = tabBarController?.tabBar.frame.height ?? 0
+        label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -5 - tabBarOffset).isActive = true
 
         label.sizeToFit()
     }
@@ -190,9 +189,11 @@ import UIKit
 
         let guide = view.layoutMarginsGuide
 
-        let topOffset = minimumEmptyContainerOffset > 0.0 ? 25 + view.frame.midX - minimumEmptyContainerOffset : -200
+        let statusBarOffset = UIApplication.shared.statusBarFrame.height
+        let navigationControllerOffset = navigationController?.navigationBar.frame.height ?? 0
+        let topOffset = max(minimumEmptyContainerOffset, view.frame.height / 5) + navigationControllerOffset + statusBarOffset + 10
 
-        emptyTableViewContentViewTopConstraint = contentView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: topOffset)
+        emptyTableViewContentViewTopConstraint = contentView.topAnchor.constraint(equalTo: view.topAnchor, constant: topOffset)
         emptyTableViewContentViewTopConstraint?.isActive = true
         contentView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6).isActive = true
