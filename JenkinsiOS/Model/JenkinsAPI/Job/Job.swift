@@ -147,7 +147,7 @@ class Job: Favoratible {
 
         for possibleParameterDefinitionPlace in possibleParameterDefinitionPlaces {
             if let properties = json[possibleParameterDefinitionPlace] as? [[String: Any]],
-                let parametersJson = properties.first?[Constants.JSON.parameterDefinitions] as? [[String: Any]] {
+                let parametersJson = properties.first(where: { $0[Constants.JSON.parameterDefinitions] != nil })?[Constants.JSON.parameterDefinitions] as? [[String: Any]] {
                 for parameterJson in parametersJson {
                     guard let parameter = Parameter(json: parameterJson)
                     else { continue }

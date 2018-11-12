@@ -36,27 +36,36 @@ class ParametersTableViewController: UITableViewController {
     @objc private func triggerBuild() {
         buildButton.isEnabled = false
 
-        delegate?.build(parameters: parameterValues, completion: { error in
+        delegate?.build(parameters: parameterValues, completion: { quietingDown, error in
 
-            DispatchQueue.main.async {
-                if error == nil {
-                    self.tableView.visibleCells.forEach({ cell in
-                        cell.subviews.forEach({ view in
-                            if view.isFirstResponder {
-                                view.resignFirstResponder()
-                            }
-                        })
-                    })
-
-                    self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async { [unowned self] in
+                if let error = error {
+                    self.handleBuildError(error: error)
                 } else {
-                    self.buildButton.isEnabled = true
-                    self.displayNetworkError(error: error!, onReturnWithTextFields: { data in
-                        self.delegate?.updateAccount(data: data)
-                        self.triggerBuild()
-                    })
+                    self.handleBuildSuccess(quietingDown: quietingDown)
                 }
             }
+        })
+    }
+
+    private func handleBuildSuccess(quietingDown: JobListQuietingDown?) {
+        view.endEditing(true)
+        if quietingDown?.quietingDown == true {
+            displayError(title: "Quieting Down", message: "The server is currently quieting down.\nThe build was added to the queue.", textFieldConfigurations: [], actions: [
+                UIAlertAction(title: "OK", style: .default) { _ in
+                    self.dismiss(animated: true, completion: nil)
+                },
+            ])
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+
+    private func handleBuildError(error: Error) {
+        buildButton.isEnabled = true
+        displayNetworkError(error: error, onReturnWithTextFields: { data in
+            self.delegate?.updateAccount(data: data)
+            self.triggerBuild()
         })
     }
 

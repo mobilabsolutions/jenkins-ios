@@ -81,6 +81,13 @@ extension UserRequest {
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
 
+    static func userRequestForJobListQuietingDown(account: Account, requestUrl: URL? = nil) -> UserRequest {
+        let url = requestUrl ?? account.baseUrl
+        let additionalComponents = Constants.API.jobListQuietingDownAdditionalQueryItems
+
+        return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
+    }
+
     static func userRequestForJob(account: Account, requestUrl: URL) -> UserRequest {
         return UserRequest(requestUrl: requestUrl, account: account, additionalQueryItems: Constants.API.jobAdditionalQueryItems)
     }

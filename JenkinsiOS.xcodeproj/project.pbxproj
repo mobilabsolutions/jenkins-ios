@@ -203,6 +203,8 @@
 		DCFB9CD01DD4C10C00C07D8E /* BuildTestsFullResource.json in Resources */ = {isa = PBXBuildFile; fileRef = DCFB9CCF1DD4C10C00C07D8E /* BuildTestsFullResource.json */; };
 		E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101F0BE211DC6B100613132 /* CorneredView.swift */; };
 		E1062738215E6241005ACD06 /* JobSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1062737215E6241005ACD06 /* JobSorter.swift */; };
+		E1085DF22191FAB300B718D4 /* JobListQuietingDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */; };
+		E1085DF32191FAED00B718D4 /* JobListQuietingDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */; };
 		E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A48282186EAF2008EB747 /* ErrorBanner.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
@@ -438,6 +440,7 @@
 		E1062737215E6241005ACD06 /* JobSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSorter.swift; sourceTree = "<group>"; };
 		E10857181F20F473005363D2 /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
+		E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListQuietingDown.swift; sourceTree = "<group>"; };
 		E12A48282186EAF2008EB747 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
 		E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -811,6 +814,7 @@
 				DC99C3F41D955E1B0031DBE4 /* Job.swift */,
 				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 				DC8B5C641DC2694800A01D6E /* JobListResult.swift */,
+				E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */,
 			);
 			path = Job;
 			sourceTree = "<group>";
@@ -1201,6 +1205,7 @@
 				DC2045F01DB12E98009CF232 /* ApplicationUser.swift in Sources */,
 				DC2045C61DB129AB009CF232 /* PersistenceUtils.swift in Sources */,
 				DC169FDA1DE340340015A499 /* ParameterType.swift in Sources */,
+				E1085DF32191FAED00B718D4 /* JobListQuietingDown.swift in Sources */,
 				DC2045E81DB12DB2009CF232 /* Dependency.swift in Sources */,
 				DC2045D91DB12D59009CF232 /* Errors.swift in Sources */,
 				DC2045E91DB12DB6009CF232 /* UserList.swift in Sources */,
@@ -1355,6 +1360,7 @@
 				BC91B00373116270C5248BEF /* DescribingColor.swift in Sources */,
 				BC91BF03ADB79DCF6EC4BE3A /* Build+DescribingColor.swift in Sources */,
 				BC91B5F9F7A5BDC2FBF5F973 /* FavoriteLoadingState.swift in Sources */,
+				E1085DF22191FAB300B718D4 /* JobListQuietingDown.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

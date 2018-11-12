@@ -60,5 +60,6 @@ class JobTests: ModelTestCase {
         XCTAssertNotNil(job.lastUnsuccessfulBuild)
         XCTAssertNotNil(job.lastStableBuild)
         XCTAssertNotNil(job.lastUnstableBuild)
+        XCTAssertTrue(job.parameters.count == 1)
     }
 }

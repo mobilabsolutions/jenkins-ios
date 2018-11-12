@@ -13,7 +13,6 @@
 {
 
 },
-null,
 {
 
 },
@@ -43,6 +42,20 @@ null,
 },
 {
 "_class" : "com.cloudbees.plugins.credentials.ViewCredentialsAction"
+},
+{
+    "_class": "hudson.model.ParametersDefinitionProperty",
+    "parameterDefinitions": [
+        {
+            "_class": "hudson.model.BooleanParameterDefinition",
+            "defaultParameterValue": {
+                "_class": "hudson.model.BooleanParameterValue"
+            },
+            "description": "Skip cleanup of build artifacts",
+            "name": "skip_cleanup",
+            "type": "BooleanParameterDefinition"
+        }
+    ]
 }
 ],
 "description" : "<img src=\"http://activemq.apache.org/images/activemq-logo.png\" />\r\n<p>\r\n<a href=\"http://activemq.apache.org\">http://activemq.apache.org</a>",
