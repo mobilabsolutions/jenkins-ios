@@ -92,7 +92,7 @@ class ActionsTableViewController: UITableViewController, AccountProvidable {
     private func verifyAction(action: JenkinsAction, onSuccess completion: @escaping (JenkinsAction) -> Void) {
         let alert = alertWithImage(image: UIImage(named: action.alertImageName), title: action.alertTitle,
                                    message: action.alertMessage, height: 49)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in completion(action) }))
+        alert.addAction(UIAlertAction(title: "Yes, do it", style: .default, handler: { _ in completion(action) }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         present(alert, animated: true, completion: nil)
@@ -138,14 +138,22 @@ private extension JenkinsAction {
     }
 
     var alertImageName: String {
+        let identifier: String
         switch self {
         case .safeRestart:
-            return "safe-restart-server-illustration"
+            identifier = "safe-restart"
         case .safeExit:
-            return "exit-server-illustration"
-        default:
-            // TODO: Add missing illustrations
-            return "exit-server-illustration"
+            identifier = "safe-exit"
+        case .exit:
+            identifier = "exit"
+        case .restart:
+            identifier = "restart"
+        case .quietDown:
+            identifier = "quiet-down"
+        case .cancelQuietDown:
+            identifier = "cancel-quiet-down"
         }
+
+        return "\(identifier)-server-illustration"
     }
 }
