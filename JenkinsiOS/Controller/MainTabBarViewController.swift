@@ -45,7 +45,7 @@ class MainTabBarViewController: UITabBarController, AccountProvidable, CurrentAc
             handler.startOnBoarding(on: self, delegate: self)
         } else if handler.shouldShowAccountCreationViewController() {
             let navigationController = UINavigationController()
-            present(navigationController, animated: true, completion: nil)
+            present(navigationController, animated: false, completion: nil)
             handler.showAccountCreationViewController(on: navigationController, delegate: self)
         }
     }
