@@ -12,7 +12,9 @@ class NetworkManager: NSObject {
     static let manager = NetworkManager()
 
     private var session: URLSession!
-    private var verificationSession: URLSession?
+    private var verificationSession: URLSession!
+    private var actionSession: URLSession!
+    private let actionSessionDelegate = PerformActionURLSessionDelegate()
     fileprivate var accounts: [URLSessionTask: Account] = [:]
 
     private override init() {
@@ -22,6 +24,11 @@ class NetworkManager: NSObject {
         let verificationConfiguration = URLSessionConfiguration.default
         verificationConfiguration.timeoutIntervalForResource = 10
         verificationSession = URLSession(configuration: verificationConfiguration, delegate: self, delegateQueue: nil)
+
+        actionSessionDelegate.accountForTask = { [weak self] task in
+            self?.accounts[task]
+        }
+        actionSession = URLSession(configuration: .default, delegate: actionSessionDelegate, delegateQueue: nil)
     }
 
     // MARK: - Enumerations
@@ -307,7 +314,7 @@ class NetworkManager: NSObject {
     /// - parameter completion: A closure handling an optional error
     func perform(action: JenkinsAction, on account: Account, completion: @escaping (Error?) -> Void) {
         var components = URLComponents(url: account.baseUrl.appendingPathComponent(action.apiConstant()), resolvingAgainstBaseURL: false)
-        getCrumb(account: account) { item in
+        getCrumb(account: account) { [unowned self] item in
             if let queryItem = item {
                 components?.queryItems = [queryItem]
             }
@@ -316,7 +323,7 @@ class NetworkManager: NSObject {
             else { completion(NetworkManagerError.URLBuildingError); return }
 
             let userRequest = UserRequest(requestUrl: url, account: account)
-            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { _, error, _ in
+            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false, session: self.actionSession) { _, error, _ in
                 completion(error)
             }
         }
@@ -488,6 +495,19 @@ class NetworkManager: NSObject {
             request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
         }
         return request
+    }
+
+    /// Create an HTTP Basic Authentication Header for a given account
+    ///
+    /// - Parameter account: The account to create the header for
+    /// - Returns: An empty dictionary if no header could be created or ["Authorization" : "{basic auth header value}"]
+    func basicAuthenticationHeader(account: Account) -> [String: String] {
+        guard let username = account.username, let password = account.password
+        else {
+            return [:]
+        }
+
+        return basicAuthenticationHeader(username: username, password: password)
     }
 
     /// Create an HTTP Basic Authentication Header from a given username and password
