@@ -223,6 +223,8 @@
 		E16C57B51F27822500B88A70 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E135158F1F20F6F8002847BF /* Crashlytics.framework */; };
 		E16C57B61F27822500B88A70 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13515911F20F6FB002847BF /* Fabric.framework */; };
 		E16C57B71F27822500B88A70 /* SAMKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E108571A1F20F51D005363D2 /* SAMKeychain.framework */; };
+		E16CE5D6219B25B3009D7985 /* PerformActionURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */; };
+		E16CE5D7219B2725009D7985 /* PerformActionURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */; };
 		E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */; };
 		E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */; };
 		E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB62126EEB900F73B91 /* UserViewController.swift */; };
@@ -458,6 +460,7 @@
 		E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCauseTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDECB2122CAE200837E44 /* TestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestResultTableViewCell.xib; sourceTree = "<group>"; };
+		E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformActionURLSessionDelegate.swift; sourceTree = "<group>"; };
 		E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		E1C32CB62126EEB900F73B91 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -873,6 +876,7 @@
 				E131DA46212BFA7500DF2B8A /* OnBoardingHandler.swift */,
 				E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */,
 				E1062737215E6241005ACD06 /* JobSorter.swift */,
+				E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1170,6 +1174,7 @@
 				E1D266D52102046000C4D6BB /* JobTableViewCell.swift in Sources */,
 				DC2045C91DB129C2009CF232 /* Actions.swift in Sources */,
 				DC2045CF1DB129D6009CF232 /* HealthReportResult.swift in Sources */,
+				E16CE5D7219B2725009D7985 /* PerformActionURLSessionDelegate.swift in Sources */,
 				DC2045DE1DB12D7F009CF232 /* Result.swift in Sources */,
 				DCA206E51DF0767C00FBDDD7 /* URLSessionTaskController.swift in Sources */,
 				DC2045CD1DB129C2009CF232 /* Item.swift in Sources */,
@@ -1313,6 +1318,7 @@
 				DC6DB1941DF09283005548A3 /* ReviewHandler.swift in Sources */,
 				DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */,
 				DC169FD51DE3401D0015A499 /* ParameterTableViewCell.swift in Sources */,
+				E16CE5D6219B25B3009D7985 /* PerformActionURLSessionDelegate.swift in Sources */,
 				DC99C3F51D955E1B0031DBE4 /* Job.swift in Sources */,
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
