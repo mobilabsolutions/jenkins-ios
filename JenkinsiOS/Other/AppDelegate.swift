@@ -6,8 +6,7 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
-import Crashlytics
-import Fabric
+import Firebase
 import UIKit
 
 @UIApplicationMain
@@ -25,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_: UIApplication) {
-        Fabric.with([Crashlytics.self])
+        FirebaseApp.configure()
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
 
