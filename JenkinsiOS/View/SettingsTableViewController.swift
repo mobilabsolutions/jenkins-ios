@@ -23,6 +23,8 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
 
     var currentAccountDelegate: CurrentAccountProvidingDelegate?
 
+    @IBOutlet var versionLabel: UILabel!
+
     private enum SettingsSection {
         case plugins
         case users
@@ -60,11 +62,17 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         tableView.separatorStyle = .none
 
         setBottomContentInsetForOlderDevices()
+        setVersionNumberText()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Settings"
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        resizeFooter()
     }
 
     // MARK: - Table view data source
@@ -92,11 +100,12 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = Constants.UI.backgroundColor
             cell.textLabel?.backgroundColor = Constants.UI.backgroundColor
-            cell.textLabel?.textColor = Constants.UI.greyBlue
+            cell.textLabel?.textColor = Constants.UI.skyBlue
             cell.textLabel?.font = UIFont.boldDefaultFont(ofSize: 13)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.settingsCell, for: indexPath) as! BasicTableViewCell
+            cell.contentView.backgroundColor = .white
             cell.title = sections[indexPath.section].actionTitle
             return cell
         }
@@ -135,5 +144,22 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         if let dest = segue.destination as? AccountDeletionNotifying {
             dest.accountDeletionDelegate = tabBarController as? AccountDeletionNotified
         }
+    }
+
+    private func setVersionNumberText() {
+        let provider = VersionNumberBuilder()
+        versionLabel.text = provider.fullVersionNumberDescription
+    }
+
+    private func resizeFooter() {
+        guard let footer = tableView.tableFooterView
+        else { return }
+        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
+        let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let additionalHeight = tabBarHeight + navigationBarHeight + statusBarHeight
+        let newMinimumHeight = tableView.frame.height - tableView.visibleCells.reduce(0, { $0 + $1.bounds.height }) - additionalHeight
+        footer.frame = CGRect(x: footer.frame.minX, y: footer.frame.minY, width: footer.frame.width,
+                              height: max(20, newMinimumHeight))
     }
 }

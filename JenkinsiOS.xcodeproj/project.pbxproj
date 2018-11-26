@@ -225,6 +225,7 @@
 		E16CE5D7219B2725009D7985 /* PerformActionURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */; };
 		E170EB8421A4670500F24471 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E170EB8321A4670500F24471 /* GoogleService-Info.plist */; };
 		E170EB8521A4670500F24471 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E170EB8321A4670500F24471 /* GoogleService-Info.plist */; };
+		E180534B21AC518C0041CEAD /* VersionNumberBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */; };
 		E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */; };
 		E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */; };
 		E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB62126EEB900F73B91 /* UserViewController.swift */; };
@@ -469,6 +470,7 @@
 		E16BDECB2122CAE200837E44 /* TestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestResultTableViewCell.xib; sourceTree = "<group>"; };
 		E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformActionURLSessionDelegate.swift; sourceTree = "<group>"; };
 		E170EB8321A4670500F24471 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumberBuilder.swift; sourceTree = "<group>"; };
 		E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		E1C32CB62126EEB900F73B91 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -901,6 +903,7 @@
 				E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */,
 				E1062737215E6241005ACD06 /* JobSorter.swift */,
 				E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */,
+				E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1451,6 +1454,7 @@
 				DC66CEC91D981D8A00808ED0 /* Cause.swift in Sources */,
 				DC66CED91D9D507900808ED0 /* ChangeSet.swift in Sources */,
 				E1D266DE210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift in Sources */,
+				E180534B21AC518C0041CEAD /* VersionNumberBuilder.swift in Sources */,
 				DCC2E16F1D9FFD3D00491B98 /* PersistenceUtils.swift in Sources */,
 				DC169FDE1DE341230015A499 /* BigButton.swift in Sources */,
 				E1D396ED212EFCE10056FE0E /* LoadingIndicatorView.swift in Sources */,
