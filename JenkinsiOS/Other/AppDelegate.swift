@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import FirebasePerformance
 import UIKit
 
 @UIApplicationMain
@@ -15,16 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_: UIApplication) {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     func applicationWillTerminate(_: UIApplication) {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     func applicationDidFinishLaunching(_: UIApplication) {
+        Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
+
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
 
@@ -127,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func saveOnce() {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     private func saveIndefinitely() {

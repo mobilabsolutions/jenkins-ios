@@ -15,17 +15,29 @@ class AccountManagerTests: XCTestCase {
         super.setUp()
         AccountManager.manager.accounts.forEach {
             account in
-            _ = try? AccountManager.manager.deleteAccount(account: account)
-            self.removedAccounts.append(account)
+            do {
+                _ = try AccountManager.manager.deleteAccount(account: account)
+                self.removedAccounts.append(account)
+            } catch {
+                print("Error while setting up account manager tests: \(error)")
+            }
         }
     }
 
     override func tearDown() {
         super.tearDown()
 
+        AccountManager.manager.accounts.forEach {
+            _ = try? AccountManager.manager.deleteAccount(account: $0)
+        }
+
         removedAccounts.forEach {
             account in
-            _ = try? AccountManager.manager.addAccount(account: account)
+            do {
+                _ = try AccountManager.manager.addAccount(account: account)
+            } catch {
+                print("Error while readding account in tearDown: \(error)")
+            }
         }
 
         removedAccounts = []
@@ -53,16 +65,16 @@ class AccountManagerTests: XCTestCase {
             AccountManager.manager.update()
             assertAccountsAreEqualWith(accounts: accounts)
         } catch {
-            XCTFail("Should be able to delete account: \(accounts.first!)")
+            XCTFail("Should be able to delete account: \(accounts.first!) but got error \(error)")
         }
     }
 
-    func testSavesProperly() {
+    func testSavesProperly() throws {
         _ = addGenericAccounts()
 
         let url = AccountManager.manager.accounts.first!.baseUrl
         AccountManager.manager.accounts.first!.username = "OtherUsernameThanBefore"
-        AccountManager.manager.save()
+        try AccountManager.manager.save()
 
         AccountManager.manager.accounts = []
         AccountManager.manager.update()
@@ -77,7 +89,11 @@ class AccountManagerTests: XCTestCase {
         ]
 
         accounts.forEach {
-            _ = try? AccountManager.manager.addAccount(account: $0)
+            do {
+                _ = try AccountManager.manager.addAccount(account: $0)
+            } catch {
+                print("Error while adding account in tests: \(error)")
+            }
         }
 
         return accounts
@@ -86,10 +102,10 @@ class AccountManagerTests: XCTestCase {
     private func assertAccountsAreEqualWith(accounts: [Account]) {
         guard accounts.count == AccountManager.manager.accounts.count
         else { XCTFail("There should be an equal number of accounts! Instead: given \(accounts.count)" +
-                " wanted: \(AccountManager.manager.accounts.count)"); return }
+                " wanted: \(AccountManager.manager.accounts.count)\n Given accounts: \(accounts.map { $0.baseUrl }) Wanted accounts: \(AccountManager.manager.accounts.map { $0.baseUrl })"); return }
 
         for (index, account) in AccountManager.manager.accounts.enumerated() {
-            XCTAssertTrue(account.isEqual(accounts[index]))
+            XCTAssertTrue(account.isEqual(accounts[index]), "Account from manager \(account.baseUrl) should be equal to given account \(accounts[index].baseUrl)")
         }
     }
 

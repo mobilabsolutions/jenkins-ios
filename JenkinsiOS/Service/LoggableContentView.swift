@@ -11,6 +11,5 @@ enum LoggableContentView {
     case jobList
     case buildList
     case buildQueue
-    case favorites
     case nodes
 }

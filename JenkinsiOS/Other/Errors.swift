@@ -53,11 +53,14 @@ enum BuildError: Error {
 
 enum AccountManagerError: Error {
     case accountAlreadyExists
+    case urlEncodingError
 
     var localizedDescription: String {
         switch self {
         case .accountAlreadyExists:
             return "An account with that url already exists"
+        case .urlEncodingError:
+            return "Could not properly encode the given url"
         }
     }
 }

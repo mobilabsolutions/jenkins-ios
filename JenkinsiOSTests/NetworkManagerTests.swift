@@ -49,8 +49,6 @@ class NetworkManagerTests: XCTestCase {
     }
 
     private func testJobListHasAllNecessaryValues(jobList: JobList) {
-        XCTAssertNotNil(jobList.allJobsView)
-
         for view in jobList.views {
             testViewHasAllNecessaryValues(view: view)
         }

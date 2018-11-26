@@ -310,7 +310,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     fileprivate func performBuild(job: Job, account: Account, token: String?, parameters: [ParameterValue]?, completion: @escaping (JobListQuietingDown?, Error?) -> Void) {
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
-            LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters != nil && !parameters!.isEmpty)
+            LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters?.map { $0.parameter.type } ?? [])
         } catch let error {
             completion(nil, error)
         }
