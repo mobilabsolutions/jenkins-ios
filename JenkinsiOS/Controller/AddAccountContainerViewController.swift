@@ -8,17 +8,29 @@
 
 import UIKit
 
-class AddAccountContainerViewController: UIViewController, VerificationFailurePresenting {
+protocol VerificationFailureNotifying: class {
+    var verificationFailurePresenter: VerificationFailurePresenting? { get set }
+}
+
+class AddAccountContainerViewController: UIViewController, VerificationFailurePresenting, AccountProvidable {
     var account: Account?
+    var editingCurrentAccount = false
     var delegate: AddAccountTableViewControllerDelegate?
 
     private var errorBanner: ErrorBanner?
 
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if var dest = segue.destination as? AccountProvidable {
+            dest.account = account
+        }
+
+        if let dest = segue.destination as? VerificationFailureNotifying {
+            dest.verificationFailurePresenter = self
+        }
+
         if let addAccountViewController = segue.destination as? AddAccountTableViewController {
-            addAccountViewController.account = account
             addAccountViewController.delegate = delegate
-            addAccountViewController.verificationFailurePresenter = self
+            addAccountViewController.isCurrentAccount = editingCurrentAccount
         }
     }
 

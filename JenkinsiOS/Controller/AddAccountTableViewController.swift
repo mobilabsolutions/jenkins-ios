@@ -10,6 +10,7 @@ import UIKit
 
 protocol AddAccountTableViewControllerDelegate: class {
     func didEditAccount(account: Account, oldAccount: Account?)
+    func didDeleteAccount(account: Account)
 }
 
 protocol VerificationFailurePresenting: class {
@@ -17,39 +18,72 @@ protocol VerificationFailurePresenting: class {
     func hideVerificationFailure()
 }
 
-class AddAccountTableViewController: UITableViewController {
+class AddAccountTableViewController: UITableViewController, VerificationFailureNotifying, AccountProvidable {
 
     // MARK: - Instance variables
 
     var account: Account?
+    var isCurrentAccount = false
 
     weak var delegate: AddAccountTableViewControllerDelegate?
     weak var verificationFailurePresenter: VerificationFailurePresenting?
 
+    let shouldShowNameField = false
+
     // MARK: - Outlets
 
     @IBOutlet var addAccountButton: UIButton!
+    @IBOutlet var nameTextField: UITextField?
     @IBOutlet var urlTextField: UITextField!
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var apiKeyTextField: UITextField!
-    @IBOutlet var portTextField: UITextField!
-    @IBOutlet var nameTextField: UITextField!
-    @IBOutlet var schemeControl: UISegmentedControl!
     @IBOutlet var trustAllCertificatesSwitch: UISwitch!
     @IBOutlet var trustAllCertificatesWarning: UILabel!
-
-    @IBOutlet var topBackgroundView: UIView!
     @IBOutlet var bottomMostBackgroundView: UIView!
+    @IBOutlet var deleteAccountCell: UITableViewCell!
+    @IBOutlet var useGithubAccountContainer: UIView!
+    @IBOutlet var githubTokenButton: UIButton!
 
     @IBOutlet var textFields: [UITextField]!
 
     private var actionButtonTitle: String {
-        return account != nil ? "SAVE" : "DONE"
+        if account == nil {
+            return "DONE"
+        }
+        return isCurrentAccount ? "SAVE" : "SAVE AND SWITCH"
+    }
+
+    // MARK: - Nested Types
+
+    private enum Section: Int {
+        case name = 0
+        case url
+        case github
+        case separator
+        case username
+        case apiKey
+        case trustCertificates
+        case delete
+
+        func heightForRowInSection(currentAccount: Account?, showName: Bool) -> CGFloat {
+            switch self {
+            case .name where showName: return 50.0
+            case .name: return 0.0
+            case .url: return 50
+            case .github: return 70
+            case .separator: return 30
+            case .username: return 50
+            case .apiKey: return 50
+            case .trustCertificates: return 83
+            case .delete where currentAccount != nil: return 50
+            case .delete: return 48
+            }
+        }
     }
 
     // MARK: - Actions
 
-    @objc func addAccount() {
+    @objc func verifyAndAddAccount() {
         guard let account = createAccount()
         else { return }
 
@@ -57,15 +91,13 @@ class AddAccountTableViewController: UITableViewController {
             let success = self?.addAccountWith(account: account)
             if success == true {
                 LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
-                self?.delegate?.didEditAccount(account: account, oldAccount: nil)
             }
         })
     }
 
     private func addAccountWith(account: Account) -> Bool {
         do {
-            try AccountManager.manager.addAccount(account: account)
-            ApplicationUserManager.manager.save()
+            try addOrUpdateAccount(account: account)
             return true
         } catch let error as AccountManagerError {
             displayError(title: "Error", message: error.localizedDescription, textFieldConfigurations: [], actions: [
@@ -77,33 +109,38 @@ class AddAccountTableViewController: UITableViewController {
     }
 
     private func createAccount() -> Account? {
-        guard let url = createAccountURL()
+        guard let url = createAccountURL(), var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         else { return nil }
 
-        let port = Int(portTextField.text!)
         let username = usernameTextField.text != "" ? usernameTextField.text : nil
         let password = apiKeyTextField.text != "" ? apiKeyTextField.text : nil
-
-        let displayName = nameTextField.text != "" ? nameTextField.text : nil
         let trustAllCertificates = trustAllCertificatesSwitch.isOn
 
-        return Account(baseUrl: url, username: username, password: password, port: port, displayName: displayName,
+        let displayName = nameTextField?.text?.isEmpty == false ? nameTextField?.text : nil
+        let port = components.port
+
+        components.port = nil
+
+        guard let baseUrl = components.url
+        else { return nil }
+
+        return Account(baseUrl: baseUrl, username: username, password: password, port: port, displayName: displayName,
                        trustAllCertificates: trustAllCertificates)
     }
 
     private func createAccountURL() -> URL? {
-        let schemeString = schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) ?? "https://"
-        return URL(string: schemeString + urlTextField.text!)
+        guard let urlText = urlTextField.text
+        else { return nil }
+        return URL(string: urlText)
     }
 
-    @objc func saveAccount() {
-        guard let newAccount = createAccount(), let oldAccount = account
+    @objc func verifyAndSaveAccount() {
+        guard let newAccount = createAccount()
         else { return }
 
         verify(account: newAccount, onSuccess: { [weak self] in
             do {
-                try AccountManager.manager.editAccount(newAccount: newAccount, oldAccount: oldAccount)
-                self?.delegate?.didEditAccount(account: newAccount, oldAccount: oldAccount)
+                try self?.addOrUpdateAccount(account: newAccount)
             } catch {
                 print("Could not save account: \(error)")
                 let alert = UIAlertController(title: "Error", message: "Could not save the account", preferredStyle: .alert)
@@ -116,8 +153,13 @@ class AddAccountTableViewController: UITableViewController {
     // MARK: - View Controller lifecycle
 
     override func viewDidLoad() {
-        topBackgroundView.layer.cornerRadius = 5
         bottomMostBackgroundView.layer.cornerRadius = 5
+        useGithubAccountContainer.layer.cornerRadius = 6
+
+        useGithubAccountContainer.layer.shadowOffset = CGSize(width: 0, height: 2)
+        useGithubAccountContainer.layer.shadowOpacity = 0.2
+        useGithubAccountContainer.layer.shadowColor = Constants.UI.paleGreyColor.cgColor
+        useGithubAccountContainer.layer.shadowRadius = 4
 
         // Write all known data into the text fields
         if let account = account {
@@ -132,9 +174,6 @@ class AddAccountTableViewController: UITableViewController {
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
         usernameTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
         apiKeyTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
-        portTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
-
-        schemeControl.addTarget(self, action: #selector(toggleTrustAllCertificatesCell), for: .valueChanged)
 
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
 
@@ -142,8 +181,7 @@ class AddAccountTableViewController: UITableViewController {
 
         textFields.forEach { $0.delegate = self }
 
-        addDoneButtonInputAccessory(to: portTextField)
-
+        addDoneButtonInputAccessory(to: apiKeyTextField)
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
     }
@@ -169,7 +207,10 @@ class AddAccountTableViewController: UITableViewController {
     }
 
     @objc private func toggleTrustAllCertificatesCell() {
-        if schemeControl.titleForSegment(at: schemeControl.selectedSegmentIndex) == "http://" {
+        guard let url = createAccountURL()
+        else { return }
+
+        if url.scheme == "http" {
             trustAllCertificatesSwitch.setOn(false, animated: true)
             trustAllCertificatesSwitch.isEnabled = false
         } else {
@@ -213,43 +254,84 @@ class AddAccountTableViewController: UITableViewController {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
     }
 
+    @IBAction func deleteAccount(_: Any) {
+        guard let account = account
+        else { return }
+        do {
+            _ = try AccountManager.manager.deleteAccount(account: account)
+            delegate?.didDeleteAccount(account: account)
+        } catch {
+            print("An error occurred deleting the current account: \(error)")
+        }
+    }
+
     private func prepareUI(for account: Account) {
+        let url: URL
+
+        if let port = account.port, var components = URLComponents(url: account.baseUrl, resolvingAgainstBaseURL: false) {
+            components.port = port
+            guard let urlWithPort = components.url
+            else { return }
+            url = urlWithPort
+        } else {
+            url = account.baseUrl
+        }
+
         addAccountButton.setTitle(actionButtonTitle, for: .normal)
-        addAccountButton.addTarget(self, action: #selector(saveAccount), for: .touchUpInside)
+        addAccountButton.addTarget(self, action: #selector(verifyAndSaveAccount), for: .touchUpInside)
         usernameTextField.text = account.username ?? ""
         apiKeyTextField.text = account.password ?? ""
-        urlTextField.text = account.baseUrl.absoluteString.replacingOccurrences(of: account.baseUrl.scheme?.appending("://") ?? "", with: "")
-        nameTextField.text = account.displayName ?? ""
-        portTextField.text = account.port != nil ? "\(account.port!)" : ""
-        schemeControl.selectedSegmentIndex = account.baseUrl.scheme == "http" ? 1 : 0
+        urlTextField.text = url.absoluteString
         trustAllCertificatesSwitch.isOn = account.trustAllCertificates
+        deleteAccountCell.isHidden = false
+        nameTextField?.text = account.displayName
+        setGithubTokenButtonEnabledState()
     }
 
     private func prepareUIWithoutAccount() {
-        addAccountButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
+        addAccountButton.addTarget(self, action: #selector(verifyAndAddAccount), for: .touchUpInside)
         addAccountButton.setTitle(actionButtonTitle, for: .normal)
         usernameTextField.text = ""
         apiKeyTextField.text = ""
-        portTextField.placeholder = "Default Port"
+        urlTextField.placeholder = "https://jenkins.example.com:8080"
+        deleteAccountCell.isHidden = true
+        setGithubTokenButtonEnabledState()
     }
 
     @objc private func didToggleTrustAllCertificates() {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
     }
 
+    override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let section = Section(rawValue: indexPath.section)
+        else { return 0 }
+        return section.heightForRowInSection(currentAccount: account, showName: shouldShowNameField)
+    }
+
     // MARK: - Textfield methods
 
     @objc private func textFieldChanged() {
         addAccountButton.isEnabled = addButtonShouldBeEnabled()
+        setGithubTokenButtonEnabledState()
+        toggleTrustAllCertificatesCell()
     }
 
-    func addButtonShouldBeEnabled() -> Bool {
+    private func addButtonShouldBeEnabled() -> Bool {
         // Attention: a textField's text property is *never* nil, unless set to nil by the programmer
 
         // The urlTextField's text should be a valid URL
         // The port text field's text should either be empty or a valid integer
 
-        return urlTextField.text != nil && URL(string: urlTextField.text!) != nil && (portTextField.text == "" || Int(portTextField.text!) != nil)
+        return urlTextField.text != nil && URL(string: urlTextField.text!) != nil
+    }
+
+    private func githubTokenButtonShouldBeEnabled() -> Bool {
+        return urlTextField.text != nil && URL(string: urlTextField.text!) != nil
+    }
+
+    private func setGithubTokenButtonEnabledState() {
+        githubTokenButton.isEnabled = githubTokenButtonShouldBeEnabled()
+        githubTokenButton.alpha = githubTokenButton.isEnabled ? 1.0 : 0.3
     }
 
     private func addDoneButtonInputAccessory(to textField: UITextField) {
@@ -260,6 +342,16 @@ class AddAccountTableViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), doneItem,
         ], animated: false)
         textField.inputAccessoryView = toolbar
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if var dest = segue.destination as? AccountProvidable {
+            dest.account = createAccount()
+        }
+
+        if let dest = segue.destination as? GitHubTokenContainerViewController {
+            dest.accountAdder = self
+        }
     }
 }
 
@@ -274,5 +366,18 @@ extension AddAccountTableViewController: UITextFieldDelegate {
         }
 
         return true
+    }
+}
+
+extension AddAccountTableViewController: AccountAdder {
+    func addOrUpdateAccount(account: Account) throws {
+        if let oldAccount = self.account {
+            try AccountManager.manager.editAccount(newAccount: account, oldAccount: oldAccount)
+            delegate?.didEditAccount(account: account, oldAccount: oldAccount)
+        } else {
+            try AccountManager.manager.addAccount(account: account)
+            ApplicationUserManager.manager.save()
+            delegate?.didEditAccount(account: account, oldAccount: nil)
+        }
     }
 }

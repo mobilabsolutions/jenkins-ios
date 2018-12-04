@@ -225,7 +225,11 @@
 		E16CE5D7219B2725009D7985 /* PerformActionURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */; };
 		E170EB8421A4670500F24471 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E170EB8321A4670500F24471 /* GoogleService-Info.plist */; };
 		E170EB8521A4670500F24471 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E170EB8321A4670500F24471 /* GoogleService-Info.plist */; };
+		E174F17721B596590079A0AC /* GitHubTokenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174F17621B596590079A0AC /* GitHubTokenTableViewController.swift */; };
+		E174F17921B5A7310079A0AC /* GitHubTokenContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174F17821B5A7310079A0AC /* GitHubTokenContainerViewController.swift */; };
 		E180534B21AC518C0041CEAD /* VersionNumberBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */; };
+		E180534E21AD4F760041CEAD /* CreationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180534C21AD4F760041CEAD /* CreationTableViewCell.swift */; };
+		E180534F21AD4F760041CEAD /* CreationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E180534D21AD4F760041CEAD /* CreationTableViewCell.xib */; };
 		E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */; };
 		E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */; };
 		E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB62126EEB900F73B91 /* UserViewController.swift */; };
@@ -470,7 +474,11 @@
 		E16BDECB2122CAE200837E44 /* TestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestResultTableViewCell.xib; sourceTree = "<group>"; };
 		E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformActionURLSessionDelegate.swift; sourceTree = "<group>"; };
 		E170EB8321A4670500F24471 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E174F17621B596590079A0AC /* GitHubTokenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTokenTableViewController.swift; sourceTree = "<group>"; };
+		E174F17821B5A7310079A0AC /* GitHubTokenContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTokenContainerViewController.swift; sourceTree = "<group>"; };
 		E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumberBuilder.swift; sourceTree = "<group>"; };
+		E180534C21AD4F760041CEAD /* CreationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTableViewCell.swift; sourceTree = "<group>"; };
+		E180534D21AD4F760041CEAD /* CreationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreationTableViewCell.xib; sourceTree = "<group>"; };
 		E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		E1C32CB62126EEB900F73B91 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -764,6 +772,8 @@
 				E164530A212C588F00750C17 /* AccountCreatedViewController.swift */,
 				E164530B212C588F00750C17 /* AccountCreatedViewController.xib */,
 				E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */,
+				E174F17621B596590079A0AC /* GitHubTokenTableViewController.swift */,
+				E174F17821B5A7310079A0AC /* GitHubTokenContainerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -957,6 +967,8 @@
 				E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */,
 				E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */,
 				E12A48282186EAF2008EB747 /* ErrorBanner.swift */,
+				E180534C21AD4F760041CEAD /* CreationTableViewCell.swift */,
+				E180534D21AD4F760041CEAD /* CreationTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1139,6 +1151,7 @@
 				DC1D9FDE1DB8F97400441752 /* ModalInformationViewController.xib in Resources */,
 				E170EB8421A4670500F24471 /* GoogleService-Info.plist in Resources */,
 				E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */,
+				E180534F21AD4F760041CEAD /* CreationTableViewCell.xib in Resources */,
 				DC2CB8A71DF9B73100661806 /* AboutText in Resources */,
 				DC6F079F1DB502BB00C77FAE /* Config.plist in Resources */,
 				E1E6321F211D835C00CBBB86 /* DetailTableViewCell.xib in Resources */,
@@ -1421,6 +1434,8 @@
 				DC99C3FB1D9561D60031DBE4 /* BuildQueue.swift in Sources */,
 				DC169FD61DE3401D0015A499 /* ParameterTableViewCellDelegate.swift in Sources */,
 				DC66CEC51D98069F00808ED0 /* Constants.swift in Sources */,
+				E174F17721B596590079A0AC /* GitHubTokenTableViewController.swift in Sources */,
+				E180534E21AD4F760041CEAD /* CreationTableViewCell.swift in Sources */,
 				DCC2E1651D9FF2BA00491B98 /* Favorite.swift in Sources */,
 				E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */,
 				E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */,
@@ -1485,6 +1500,7 @@
 				DC169FE01DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift in Sources */,
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
 				E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */,
+				E174F17921B5A7310079A0AC /* GitHubTokenContainerViewController.swift in Sources */,
 				E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */,
 				DC85AE091DABDB3E00D20059 /* ActionsTableViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,

@@ -9,14 +9,14 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController, AccountProvidable, CurrentAccountProviding, CurrentAccountProvidingDelegate {
+    var shouldUseDirectAccountDesign = false
+
     var account: Account? {
         didSet {
             guard let account = account
             else { return }
-            sections = [
-                .plugins, .users,
-                .accounts(currentAccountName: account.displayName ?? account.baseUrl.absoluteString),
-            ]
+
+            updateSections(for: account)
             tableView.reloadData()
         }
     }
@@ -29,6 +29,18 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         case plugins
         case users
         case accounts(currentAccountName: String)
+        case currentAccount(currentAccountName: String)
+        case otherAccounts(otherAccountNames: [String])
+
+        struct Cell {
+            enum CellType {
+                case contentCell
+                case creationCell
+            }
+
+            let actionTitle: String
+            let type: CellType
+        }
 
         var title: String {
             switch self {
@@ -38,17 +50,26 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
                 return "USERS"
             case .accounts(currentAccountName: _):
                 return "ACCOUNTS"
+            case .currentAccount(currentAccountName: _):
+                return "ACTIVE ACCOUNT"
+            case .otherAccounts(otherAccountNames: _):
+                return "OTHER ACCOUNTS"
             }
         }
 
-        var actionTitle: String {
+        var cells: [Cell] {
             switch self {
             case .plugins:
-                return "View Plugins"
+                return [Cell(actionTitle: "View Plugins", type: .contentCell)]
             case .users:
-                return "View Users"
+                return [Cell(actionTitle: "View Users", type: .contentCell)]
             case let .accounts(currentAccountName):
-                return currentAccountName
+                return [Cell(actionTitle: currentAccountName, type: .contentCell)]
+            case let .currentAccount(currentAccountName):
+                return [Cell(actionTitle: currentAccountName, type: .contentCell)]
+            case let .otherAccounts(otherAccountNames):
+                return otherAccountNames.map { Cell(actionTitle: $0, type: .contentCell) }
+                    + [Cell(actionTitle: "Add account", type: .creationCell)]
             }
         }
     }
@@ -60,6 +81,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         tabBarController?.navigationItem.title = "Settings"
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: "CreationTableViewCell", bundle: .main), forCellReuseIdentifier: Constants.Identifiers.creationCell)
 
         setBottomContentInsetForOlderDevices()
         setVersionNumberText()
@@ -68,6 +90,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Settings"
+        tableView.reloadData()
     }
 
     override func viewWillLayoutSubviews() {
@@ -81,13 +104,13 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         return sections.count
     }
 
-    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 2
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 + sections[section].cells.count
     }
 
     override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 38
+            return 47
         }
 
         return 42
@@ -103,10 +126,15 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             cell.textLabel?.textColor = Constants.UI.skyBlue
             cell.textLabel?.font = UIFont.boldDefaultFont(ofSize: 13)
             return cell
+        } else if sections[indexPath.section].cells[indexPath.row - 1].type == .creationCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.creationCell, for: indexPath) as! CreationTableViewCell
+            cell.contentView.backgroundColor = .white
+            cell.titleLabel.text = sections[indexPath.section].cells[indexPath.row - 1].actionTitle
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.settingsCell, for: indexPath) as! BasicTableViewCell
             cell.contentView.backgroundColor = .white
-            cell.title = sections[indexPath.section].actionTitle
+            cell.title = sections[indexPath.section].cells[indexPath.row - 1].actionTitle
             return cell
         }
     }
@@ -115,6 +143,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         guard indexPath.row != 0
         else { return }
 
+        if sections[indexPath.section].cells[indexPath.row - 1].type == .creationCell {
+            performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: sections[indexPath.section].cells[indexPath.row - 1])
+            return
+        }
+
         switch sections[indexPath.section] {
         case .plugins:
             performSegue(withIdentifier: Constants.Identifiers.showPluginsSegue, sender: nil)
@@ -122,6 +155,13 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             performSegue(withIdentifier: Constants.Identifiers.showUsersSegue, sender: nil)
         case .accounts:
             performSegue(withIdentifier: Constants.Identifiers.showAccountsSegue, sender: nil)
+        case .currentAccount:
+            performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: account)
+        case .otherAccounts:
+            guard let current = account
+            else { return }
+            let nonCurrent = nonCurrentAccounts(currentAccount: current)
+            performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nonCurrent[indexPath.row - 1])
         }
     }
 
@@ -132,8 +172,12 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         tableView.reloadData()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-        if var dest = segue.destination as? AccountProvidable {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let providedAccount = sender as? Account, var dest = segue.destination as? AccountProvidable {
+            dest.account = providedAccount
+        } else if let cell = sender as? SettingsSection.Cell, cell.type == .creationCell, var dest = segue.destination as? AccountProvidable {
+            dest.account = nil
+        } else if var dest = segue.destination as? AccountProvidable {
             dest.account = account
         }
 
@@ -144,6 +188,35 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         if let dest = segue.destination as? AccountDeletionNotifying {
             dest.accountDeletionDelegate = tabBarController as? AccountDeletionNotified
         }
+
+        if let dest = segue.destination as? AddAccountContainerViewController {
+            dest.delegate = self
+        }
+
+        if let dest = segue.destination as? AddAccountContainerViewController, let account = sender as? Account {
+            dest.editingCurrentAccount = account == self.account
+        }
+    }
+
+    private func updateSections(for account: Account) {
+        if shouldUseDirectAccountDesign {
+            sections = [
+                .plugins, .users,
+                .currentAccount(currentAccountName: account.displayName ?? account.baseUrl.absoluteString),
+                .otherAccounts(otherAccountNames: nonCurrentAccounts(currentAccount: account).map { $0.displayName ?? $0.baseUrl.absoluteString }),
+            ]
+        } else {
+            sections = [
+                .plugins, .users,
+                .accounts(currentAccountName: account.displayName ?? account.baseUrl.absoluteString),
+            ]
+        }
+    }
+
+    private func nonCurrentAccounts(currentAccount account: Account) -> [Account] {
+        return AccountManager.manager.accounts.filter { !$0.isEqual(account) }.sorted(by: { (first, second) -> Bool in
+            (first.displayName ?? first.baseUrl.absoluteString) < (second.displayName ?? second.baseUrl.absoluteString)
+        })
     }
 
     private func setVersionNumberText() {
@@ -161,5 +234,49 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         let newMinimumHeight = tableView.frame.height - tableView.visibleCells.reduce(0, { $0 + $1.bounds.height }) - additionalHeight
         footer.frame = CGRect(x: footer.frame.minX, y: footer.frame.minY, width: footer.frame.width,
                               height: max(20, newMinimumHeight))
+    }
+}
+
+extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
+    func didEditAccount(account: Account, oldAccount: Account?) {
+        self.account = account
+        currentAccountDelegate?.didChangeCurrentAccount(current: account)
+
+        var shouldAnimateNavigationStackChanges = true
+
+        if oldAccount == nil {
+            let confirmationController = AccountCreatedViewController(nibName: "AccountCreatedViewController", bundle: .main)
+            confirmationController.delegate = self
+            navigationController?.pushViewController(confirmationController, animated: true)
+            shouldAnimateNavigationStackChanges = false
+        }
+
+        var viewControllers = navigationController?.viewControllers ?? []
+        // Remove the add account view controller from the navigation controller stack
+        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) && !($0 is GitHubTokenContainerViewController) }
+        navigationController?.setViewControllers(viewControllers, animated: shouldAnimateNavigationStackChanges)
+
+        if let currentAccount = self.account {
+            updateSections(for: currentAccount)
+        }
+        tableView.reloadData()
+    }
+
+    func didDeleteAccount(account: Account) {
+        if account == self.account {
+            self.account = AccountManager.manager.accounts.first
+        }
+
+        if let currentAccount = self.account {
+            updateSections(for: currentAccount)
+        }
+        tableView.reloadData()
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension SettingsTableViewController: AccountCreatedViewControllerDelegate {
+    func doneButtonPressed() {
+        navigationController?.popViewController(animated: true)
     }
 }
