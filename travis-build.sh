@@ -5,6 +5,21 @@ REAL_TEST_DEVICE="model=iphonex,version=12.0,locale=en_US,orientation=portrait"
 echo "Starting Test run";
 fastlane test;
 
+firebase_test_lab() {
+    if [ ! -d ${HOME}/google-cloud-sdk ]; then
+        curl https://sdk.cloud.google.com | bash;
+    fi
+
+    touch service-key.json;
+    echo "${FIREBASE_KEY}" | base64 -D -o service-key.json;
+    gcloud auth activate-service-account --key-file service-key.json;
+
+    xcodebuild -workspace ./JenkinsiOS.xcworkspace -scheme JenkinsiOSTests -derivedDataPath ./tests -sdk iphoneos build-for-testing;
+    (cd tests/Build/Products && zip -r ../../../tests.zip Debug-iphoneos *.xctestrun);
+    gcloud firebase test ios run --test tests.zip --device ${REAL_TEST_DEVICE};
+    rm -rf ./tests ./tests.zip;
+}
+
 if [ $? -eq 0 ]; then
 
     mkdir fastlane/Certificates;
@@ -29,10 +44,7 @@ if [ $? -eq 0 ]; then
 	    let OPERATION_RESULT="$?";
     elif [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
         echo "Testing on Firebase Test Lab"
-        xcodebuild -workspace ./JenkinsiOS.xcworkspace -scheme JenkinsiOSTests -derivedDataPath ./tests -sdk iphoneos build-for-testing;
-        (cd tests/Build/Products && zip -r ../../../tests.zip Debug-iphoneos *.xctestrun)
-        gcloud firebase test ios run --test tests.zip --device ${REAL_TEST_DEVICE};
-        rm -rf ./tests ./tests.zip;
+        firebase_test_lab
         echo "Will distribute application to Beta";
         fastlane beta;
         let OPERATION_RESULT="$?";
