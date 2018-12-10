@@ -14,6 +14,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    let remoteConfigurationManager = RemoteConfigurationManager()
+
     func applicationDidEnterBackground(_: UIApplication) {
         ApplicationUserManager.manager.save()
         try? AccountManager.manager.save()
@@ -36,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setCurrentAccountForRootViewController()
         handleReviewReminder()
+
+        remoteConfigurationManager.activateRemoteConfiguration()
+        LoggingManager.loggingManager.logNumberOfAccounts(accounts: AccountManager.manager.accounts.count)
     }
 
     func applicationDidBecomeActive(_: UIApplication) {

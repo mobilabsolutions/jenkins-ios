@@ -110,6 +110,9 @@ struct Constants {
         static let currentAccountBaseUrlUserDefaultsKey = "currentAccountBaseUrlUserDefaultsKey"
 
         static let favoriteStatusToggledNotification: Notification.Name = .init(rawValue: "favoriteStatusToggledNotification")
+
+        static let remoteConfigNewAccountDesignKey = "new_account_design_active"
+        static let remoteConfigShowDisplayNameFieldKey = "display_name_field_active"
     }
 
     struct JSON {

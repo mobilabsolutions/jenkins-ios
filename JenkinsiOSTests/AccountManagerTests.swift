@@ -104,8 +104,12 @@ class AccountManagerTests: XCTestCase {
         else { XCTFail("There should be an equal number of accounts! Instead: given \(accounts.count)" +
                 " wanted: \(AccountManager.manager.accounts.count)\n Given accounts: \(accounts.map { $0.baseUrl }) Wanted accounts: \(AccountManager.manager.accounts.map { $0.baseUrl })"); return }
 
-        for (index, account) in AccountManager.manager.accounts.enumerated() {
-            XCTAssertTrue(account.isEqual(accounts[index]), "Account from manager \(account.baseUrl) should be equal to given account \(accounts[index].baseUrl)")
+        let sortedAccounts = accounts.sorted(by: { $0.baseUrl.absoluteString < $1.baseUrl.absoluteString })
+        let sortedManagedAccounts = AccountManager.manager.accounts
+            .sorted(by: { $0.baseUrl.absoluteString < $1.baseUrl.absoluteString })
+
+        for (index, account) in sortedManagedAccounts.enumerated() {
+            XCTAssertTrue(account.isEqual(sortedAccounts[index]), "Account from manager \(account.baseUrl) should be equal to given account \(sortedAccounts[index].baseUrl)")
         }
     }
 

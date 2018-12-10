@@ -28,7 +28,11 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     weak var delegate: AddAccountTableViewControllerDelegate?
     weak var verificationFailurePresenter: VerificationFailurePresenting?
 
-    let shouldShowNameField = false
+    private let remoteConfigManager = RemoteConfigurationManager()
+
+    private var shouldShowNameField: Bool {
+        return remoteConfigManager.configuration.shouldPresentDisplayNameField
+    }
 
     // MARK: - Outlets
 

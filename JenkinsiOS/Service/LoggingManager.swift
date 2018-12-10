@@ -63,4 +63,8 @@ class LoggingManager {
     func logTriggeredAction(action: JenkinsAction) {
         Analytics.logEvent("triggered_action", parameters: ["action_type": action.apiConstant()])
     }
+
+    func logNumberOfAccounts(accounts: Int) {
+        Analytics.setUserProperty(String(accounts), forName: "account_number")
+    }
 }

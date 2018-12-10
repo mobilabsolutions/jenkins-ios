@@ -261,6 +261,7 @@
 		E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */; };
 		E1E6321E211D835C00CBBB86 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */; };
 		E1E6321F211D835C00CBBB86 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */; };
+		E1E776CE21B6E1B400B14855 /* RemoteConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E776CD21B6E1B400B14855 /* RemoteConfigurationManager.swift */; };
 		EB3F65E8E0CCABF41B787CD1 /* Pods_JenkinsiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F5391661DDE560049294DB /* Pods_JenkinsiOSTests.framework */; };
 		EE8377CB5704F117D3898431 /* Pods_JenkinsiOSTodayExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B123ABD0AF819EC56C5B4581 /* Pods_JenkinsiOSTodayExtension.framework */; };
 /* End PBXBuildFile section */
@@ -509,6 +510,7 @@
 		E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerTableViewController.swift; sourceTree = "<group>"; };
 		E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
+		E1E776CD21B6E1B400B14855 /* RemoteConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigurationManager.swift; sourceTree = "<group>"; };
 		E3A7F0F76398F414899917F0 /* Pods-JenkinsiOSTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsiOSTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsiOSTodayExtension/Pods-JenkinsiOSTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -914,6 +916,7 @@
 				E1062737215E6241005ACD06 /* JobSorter.swift */,
 				E16CE5D5219B25B3009D7985 /* PerformActionURLSessionDelegate.swift */,
 				E180534A21AC518C0041CEAD /* VersionNumberBuilder.swift */,
+				E1E776CD21B6E1B400B14855 /* RemoteConfigurationManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1480,6 +1483,7 @@
 				DC56A5091DF09452000D1A15 /* ReviewReminderViewController.swift in Sources */,
 				DC26C85A1DAE34C800B98880 /* TestResultTableViewCell.swift in Sources */,
 				DC86256D1DA90DD900EB7867 /* User.swift in Sources */,
+				E1E776CE21B6E1B400B14855 /* RemoteConfigurationManager.swift in Sources */,
 				E1062738215E6241005ACD06 /* JobSorter.swift in Sources */,
 				E1D266FE2111CBE900C4D6BB /* ValueSelectionTableViewController.swift in Sources */,
 				DC169FE21DE358950015A499 /* PasswordTextField.swift in Sources */,

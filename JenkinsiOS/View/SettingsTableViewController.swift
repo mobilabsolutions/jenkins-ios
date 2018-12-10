@@ -9,8 +9,6 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController, AccountProvidable, CurrentAccountProviding, CurrentAccountProvidingDelegate {
-    var shouldUseDirectAccountDesign = false
-
     var account: Account? {
         didSet {
             guard let account = account
@@ -19,6 +17,12 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             updateSections(for: account)
             tableView.reloadData()
         }
+    }
+
+    private let remoteConfigManager = RemoteConfigurationManager()
+
+    private var shouldUseDirectAccountDesign: Bool {
+        return remoteConfigManager.configuration.shouldUseNewAccountDesign
     }
 
     var currentAccountDelegate: CurrentAccountProvidingDelegate?
