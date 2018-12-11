@@ -2,6 +2,9 @@
 
 REAL_TEST_DEVICE="model=iphonex,version=12.0,locale=en_US,orientation=portrait"
 
+echo "Writing Google Info Plist";
+echo "${GOOGLE_INFO_PLIST}" | base64 -D -o JenkinsiOS/Other/Resources/GoogleService-Info.plist;
+
 echo "Starting Test run";
 fastlane test;
 
@@ -13,7 +16,6 @@ firebase_test_lab() {
     touch service-key.json;
     touch JenkinsiOS/Other/Resources/GoogleService-Info.plist;
     echo "${FIREBASE_KEY}" | base64 -D -o service-key.json;
-    echo "${GOOGLE_INFO_PLIST}" | base64 -D -o JenkinsiOS/Other/Resources/GoogleService-Info.plist;
 
     source /home/travis/google-cloud-sdk/path.bash.inc;
     gcloud auth activate-service-account --key-file service-key.json;
