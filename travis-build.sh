@@ -7,6 +7,18 @@ REAL_TEST_DEVICE="model=iphonex,version=12.0,locale=en_US,orientation=portrait"
 echo "Writing Google Info Plist";
 echo "${GOOGLE_INFO_PLIST}" | base64 -D -o JenkinsiOS/Other/Resources/GoogleService-Info.plist;
 
+mkdir fastlane/Certificates;
+touch fastlane/Certificates/distribution.p12;
+touch fastlane/Certificates/distribution_base64;
+touch fastlane/Certificates/development.p12;
+touch fastlane/Certificates/development_base64;
+
+echo "${CERTIFICATE}" > fastlane/Certificates/distribution_base64;
+echo "${DEVELOPMENT_CERTIFICATE}" > fastlane/Certificates/development_base64;
+
+base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
+base64 -D fastlane/Certificates/development_base64 -o fastlane/Certificates/development.p12;
+
 echo "Starting Test run";
 fastlane test;
 
@@ -29,19 +41,6 @@ firebase_test_lab() {
 }
 
 if [ $? -eq 0 ]; then
-
-    mkdir fastlane/Certificates;
-    touch fastlane/Certificates/distribution.p12;
-    touch fastlane/Certificates/distribution_base64;
-    touch fastlane/Certificates/development.p12;
-    touch fastlane/Certificates/development_base64;
-
-    echo "${CERTIFICATE}" > fastlane/Certificates/distribution_base64;
-    echo "${DEVELOPMENT_CERTIFICATE}" > fastlane/Certificates/development_base64;
-
-    base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
-    base64 -D fastlane/Certificates/development_base64 -o fastlane/Certificates/development.p12;
-
     echo "Testing succeeded. Next steps will be taken";
 
     OPERATION_RESULT=0;
