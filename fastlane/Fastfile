@@ -16,6 +16,14 @@ fastlane_version '2.64.0'
 default_platform :ios
 
 platform :ios do
+
+  keychain_name = 'ci-example-certs'
+
+  before_all do |lane, options|
+    prepare_distribution(keychain_name)
+  end
+
+
   desc 'Runs all the tests'
   lane :test do
     scan(
@@ -26,9 +34,6 @@ platform :ios do
 
   desc 'This will also make sure the profile is up to date'
   lane :beta do
-    keychain_name = 'ci-example-certs'
-    prepare_distribution(keychain_name: keychain_name)
-
     gym(scheme: 'JenkinsiOS',
       export_method: "development",     
       export_options: {
@@ -51,8 +56,6 @@ platform :ios do
 
   desc 'Deploy a new version to the App Store'
   lane :release do
-    keychain_name = 'ci-example-certs'
-    prepare_distribution(keychain_name: keychain_name)
     increment_build_number(build_number: ENV['TRAVIS_BUILD_NUMBER'])
     unless ENV['TRAVIS_TAG'].nil?
       increment_version_number(
