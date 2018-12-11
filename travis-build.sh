@@ -34,7 +34,7 @@ firebase_test_lab() {
     source ${HOME}/google-cloud-sdk/path.bash.inc;
     gcloud auth activate-service-account --key-file service-key.json --project butler-client-for-jenkins;
 
-    fastlane scan --scheme="JenkinsiOSTests" --build_for_testing=true --derived_data_path=tests --sdk iphoneos
+    fastlane scan --scheme="JenkinsiOSTests" --build_for_testing=true --derived_data_path=tests --sdk=iphoneos --destination=generic/platform=iOS
     (cd tests/Build/Products && zip -r ../../../tests.zip Debug-iphoneos *.xctestrun);
     gcloud firebase test ios run --test tests.zip --device ${REAL_TEST_DEVICE};
     rm -rf ./tests ./tests.zip;
