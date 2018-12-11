@@ -94,7 +94,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         verify(account: account, onSuccess: { [weak self] in
             let success = self?.addAccountWith(account: account)
             if success == true {
-                LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates)
+                LoggingManager.loggingManager.logAccountCreation(https: account.baseUrl.host == "https", allowsEveryCertificate: account.trustAllCertificates, github: false, displayName: account.displayName)
             }
         })
     }
@@ -188,6 +188,11 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         addDoneButtonInputAccessory(to: apiKeyTextField)
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LoggingManager.loggingManager.logAddAccountView(displayNameHidden: shouldShowNameField)
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {

@@ -97,6 +97,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         tableView.reloadData()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LoggingManager.loggingManager.logSettingsView(accountsIncluded: shouldUseDirectAccountDesign)
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         resizeFooter()

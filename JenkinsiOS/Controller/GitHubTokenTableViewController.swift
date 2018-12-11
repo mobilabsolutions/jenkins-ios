@@ -35,11 +35,16 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
         doneButton.setTitle("SAVE", for: .normal)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LoggingManager.loggingManager.logGithubAccountView()
+    }
+
     @objc private func generateToken() {
         guard let githubTokenPage = self.githubTokenPage
         else { return }
         let viewController = SFSafariViewController(url: githubTokenPage)
-        present(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: LoggingManager.loggingManager.logOpenGithubTokenUrl)
     }
 
     @objc private func updateDoneButtonState() {
@@ -54,6 +59,9 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
         verify(account: accountToAdd) { [weak self] in
             do {
                 try self?.accountAdder?.addOrUpdateAccount(account: accountToAdd)
+                LoggingManager.loggingManager.logAccountCreation(https: accountToAdd.baseUrl.scheme == "https",
+                                                                 allowsEveryCertificate: accountToAdd.trustAllCertificates,
+                                                                 github: true, displayName: account.displayName)
             } catch {
                 let notification = UIAlertController(title: "An error occurred", message: "The account could not be saved", preferredStyle: .alert)
                 notification.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

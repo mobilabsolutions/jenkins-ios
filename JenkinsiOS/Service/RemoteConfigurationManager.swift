@@ -32,7 +32,6 @@ class RemoteConfigurationManager {
     }
 
     func activateRemoteConfiguration() {
-        config.configSettings = RemoteConfigSettings(developerModeEnabled: true)
         setDefaultValues()
         activateConfiguration()
         fetchNewConfiguration()
@@ -50,6 +49,6 @@ class RemoteConfigurationManager {
     }
 
     private func fetchNewConfiguration() {
-        config.fetch(withExpirationDuration: 0)
+        config.fetch()
     }
 }

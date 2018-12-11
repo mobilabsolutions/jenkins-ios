@@ -66,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let nav = window?.rootViewController as? UINavigationController {
             nav.popToRootViewController(animated: false)
             nav.pushViewController(viewController(for: type, with: favorite), animated: false)
+            LoggingManager.loggingManager.logOpenFavoriteFromWidget()
         }
 
         return true

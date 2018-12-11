@@ -21,31 +21,62 @@ class LoggingManager {
     }
 
     func logJobView() {
-        Analytics.logEvent(AnalyticsEventViewItem, parameters: [AnalyticsParameterContentType: "job"])
+        Analytics.logEvent("view_job", parameters: nil)
     }
 
     func logJobListView() {
-        Analytics.logEvent(AnalyticsEventViewItemList, parameters: [AnalyticsParameterContentType: "job_list"])
+        Analytics.logEvent("view_job_list", parameters: nil)
     }
 
     func logBuildListView() {
-        Analytics.logEvent(AnalyticsEventViewItemList, parameters: [AnalyticsParameterContentType: "build_list"])
+        Analytics.logEvent("view_build_list", parameters: nil)
     }
 
     func logBuildView() {
-        Analytics.logEvent(AnalyticsEventViewItem, parameters: [AnalyticsParameterContentType: "build"])
+        Analytics.logEvent("view_build_view", parameters: nil)
     }
 
     func logBuildQueueView() {
-        Analytics.logEvent(AnalyticsEventViewItemList, parameters: [AnalyticsParameterContentType: "build_queue"])
+        Analytics.logEvent("view_build_queue", parameters: nil)
     }
 
     func logNodesView() {
-        Analytics.logEvent(AnalyticsEventViewItemList, parameters: [AnalyticsParameterContentType: "nodes_list"])
+        Analytics.logEvent("view_nodes_list", parameters: nil)
     }
 
-    func logAccountCreation(https: Bool, allowsEveryCertificate: Bool) {
-        Analytics.logEvent(AnalyticsEventLogin, parameters: ["https_enabled": https, "all_certs": allowsEveryCertificate])
+    func logSettingsView(accountsIncluded: Bool) {
+        Analytics.logEvent("view_settings", parameters: ["accounts_included": accountsIncluded])
+    }
+
+    func logAccountOverviewView() {
+        Analytics.logEvent("view_accounts_overview", parameters: nil)
+    }
+
+    func logAddAccountView(displayNameHidden: Bool) {
+        Analytics.logEvent("view_add_account_view", parameters: ["display_name_hidden": displayNameHidden])
+    }
+
+    func logGithubAccountView() {
+        Analytics.logEvent("view_add_github_account", parameters: nil)
+    }
+
+    func logOpenGithubTokenUrl() {
+        Analytics.logEvent("open_github_token_url", parameters: nil)
+    }
+
+    func logOpenFavorite() {
+        Analytics.logEvent("open_favorite", parameters: nil)
+    }
+
+    func logOpenFavoriteFromWidget() {
+        Analytics.logEvent("open_favorite_from_widget", parameters: nil)
+    }
+
+    func logAccountCreation(https: Bool, allowsEveryCertificate: Bool, github: Bool, displayName: String?) {
+        Analytics.logEvent(AnalyticsEventLogin, parameters: [
+            "https_enabled": https, "all_certs": allowsEveryCertificate,
+            "github": github, "display_name_nil": displayName == nil,
+        ])
     }
 
     func logfavoritedFavoritable(type: Favorite.FavoriteType) {
