@@ -32,7 +32,7 @@ firebase_test_lab() {
     echo "${FIREBASE_KEY}" | base64 -D -o service-key.json;
 
     source ${HOME}/google-cloud-sdk/path.bash.inc;
-    gcloud auth activate-service-account --key-file service-key.json;
+    gcloud auth activate-service-account --key-file service-key.json --project butler-client-for-jenkins;
 
     fastlane scan --scheme="JenkinsiOSTests" --build_for_testing=true --derived_data_path=tests
     (cd tests/Build/Products && zip -r ../../../tests.zip Debug-iphoneos *.xctestrun);

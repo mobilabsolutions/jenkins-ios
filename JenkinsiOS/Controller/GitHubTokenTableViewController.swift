@@ -35,6 +35,9 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
         doneButton.setTitle("SAVE", for: .normal)
         tableView.keyboardDismissMode = .interactive
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+
+        tokenTextField.delegate = self
+        usernameTextField.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -94,5 +97,17 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
                 self?.verificationFailurePresenter?.showVerificationFailure(error: error)
             }
         }
+    }
+}
+
+extension GitHubTokenTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            usernameTextField.resignFirstResponder()
+            tokenTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
