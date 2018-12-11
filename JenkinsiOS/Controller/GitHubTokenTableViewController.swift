@@ -33,6 +33,8 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
         usernameTextField.addTarget(self, action: #selector(updateDoneButtonState), for: .editingChanged)
         updateDoneButtonState()
         doneButton.setTitle("SAVE", for: .normal)
+        tableView.keyboardDismissMode = .interactive
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +70,10 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
                 self?.present(notification, animated: true, completion: nil)
             }
         }
+    }
+
+    @objc private func endEditing() {
+        view.endEditing(true)
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {

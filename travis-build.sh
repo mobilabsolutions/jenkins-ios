@@ -34,7 +34,7 @@ firebase_test_lab() {
     source ${HOME}/google-cloud-sdk/path.bash.inc;
     gcloud auth activate-service-account --key-file service-key.json;
 
-    xcodebuild -workspace ./JenkinsiOS.xcworkspace -scheme JenkinsiOSTests -derivedDataPath ./tests -destination generic/platform=iOS -sdk iphoneos build-for-testing;
+    fastlane scan --scheme="JenkinsiOSTests" --build_for_testing=true --derived_data_path=tests
     (cd tests/Build/Products && zip -r ../../../tests.zip Debug-iphoneos *.xctestrun);
     gcloud firebase test ios run --test tests.zip --device ${REAL_TEST_DEVICE};
     rm -rf ./tests ./tests.zip;
