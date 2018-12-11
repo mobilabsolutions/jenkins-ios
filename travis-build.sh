@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e;
+
 REAL_TEST_DEVICE="model=iphonex,version=12.0,locale=en_US,orientation=portrait"
 
 echo "Writing Google Info Plist";
@@ -17,7 +19,7 @@ firebase_test_lab() {
     touch JenkinsiOS/Other/Resources/GoogleService-Info.plist;
     echo "${FIREBASE_KEY}" | base64 -D -o service-key.json;
 
-    source /home/travis/google-cloud-sdk/path.bash.inc;
+    source ${HOME}/google-cloud-sdk/path.bash.inc;
     gcloud auth activate-service-account --key-file service-key.json;
 
     xcodebuild -workspace ./JenkinsiOS.xcworkspace -scheme JenkinsiOSTests -derivedDataPath ./tests -sdk iphoneos build-for-testing;
