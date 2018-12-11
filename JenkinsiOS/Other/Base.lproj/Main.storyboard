@@ -2776,7 +2776,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="exK-9H-AYK">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="exK-9H-AYK">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="261"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2787,9 +2787,9 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK0-gj-2wT">
-                                    <rect key="frame" x="46" y="126" width="354" height="42"/>
+                                    <rect key="frame" x="46" y="126" width="354" height="89.666666666666686"/>
                                     <string key="text">In order to login with your Github account,
-please generate a Github token. Please make sure to set the right permissions.
+please generate a Github token. Please make sure that the token includes user and repo scopes.
 Note: you need to provide your Github token only once. </string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.5490196078431373" green="0.58823529411764708" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
