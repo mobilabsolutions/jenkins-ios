@@ -19,8 +19,8 @@ platform :ios do
 
   keychain_name = 'ci-example-certs'
 
-  before_all do |lane, options|
-    prepare_distribution(keychain_name)
+  before_all do
+    prepare_distribution(keychain_name: keychain_name)
   end
 
 
