@@ -90,6 +90,10 @@ class OnBoardingHandler: OnBoardingViewControllerDelegate {
 }
 
 extension OnBoardingHandler: AddAccountTableViewControllerDelegate {
+    func didDeleteAccount(account _: Account) {
+        fatalError("You should not be able to delete an account from the onboarding flow")
+    }
+
     func didEditAccount(account: Account, oldAccount _: Account?) {
         if var accountProvidable = presentedViewController?.presentingViewController as? AccountProvidable {
             accountProvidable.account = account

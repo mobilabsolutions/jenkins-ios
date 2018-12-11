@@ -50,7 +50,7 @@ class AccountManager {
         else { throw AccountManagerError.accountAlreadyExists }
 
         accounts.append(account)
-        save(account: account)
+        try save(account: account)
     }
 
     func editAccount(newAccount: Account, oldAccount: Account) throws {
@@ -119,16 +119,16 @@ class AccountManager {
     }
 
     /// Persist all accounts to disk
-    func save() {
+    func save() throws {
         for account in accounts {
-            save(account: account)
+            try save(account: account)
         }
     }
 
     /// Persist a given account
     ///
     /// - parameter account: The account that should be saved
-    private func save(account: Account) {
+    private func save(account: Account) throws {
         let query = SAMKeychainQuery()
         query.account = account.username
         query.password = account.password
@@ -143,10 +143,13 @@ class AccountManager {
             _ = try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
 
-        url.appendPathComponent(encodedUrlPath(for: account.baseUrl)!)
+        guard let encodedBaseUrl = encodedUrlPath(for: account.baseUrl)
+        else { throw AccountManagerError.urlEncodingError }
+
+        url.appendPathComponent(encodedBaseUrl)
 
         NSKeyedArchiver.archiveRootObject(account, toFile: url.path)
-        guard let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(encodedUrlPath(for: account.baseUrl)!)
+        guard let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(encodedBaseUrl)
         else { return }
 
         _ = try? FileManager.default.createDirectory(at: Constants.Paths.sharedAccountsPath!, withIntermediateDirectories: true, attributes: [:])
@@ -158,11 +161,16 @@ class AccountManager {
     ///
     /// - parameter account: The account to delete
     func deleteAccount(account: Account) throws {
-        let url = Constants.Paths.accountsPath.appendingPathComponent(account.baseUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!)
-        let sharedUrl = Constants.Paths.sharedAccountsPath!.appendingPathComponent(encodedUrlPath(for: account.baseUrl)!)
+        guard let encodedBaseURL = encodedUrlPath(for: account.baseUrl)
+        else { throw AccountManagerError.urlEncodingError }
+
+        let url = Constants.Paths.accountsPath.appendingPathComponent(encodedBaseURL)
 
         try FileManager.default.removeItem(at: url)
-        try FileManager.default.removeItem(at: sharedUrl)
+
+        if let sharedUrl = Constants.Paths.sharedAccountsPath?.appendingPathComponent(encodedBaseURL) {
+            try FileManager.default.removeItem(at: sharedUrl)
+        }
 
         ApplicationUserManager.manager.applicationUser.favorites.removeAll(where: { $0.account?.isEqual(account) ?? false })
         ApplicationUserManager.manager.save()

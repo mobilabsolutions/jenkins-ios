@@ -45,6 +45,7 @@ struct Constants {
         static let brightAqua = UIColor(red: 8.0 / 255.0, green: 232.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0)
         static let clearBlue = UIColor(red: 46.0 / 255.0, green: 126.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
         static let grapefruit = UIColor(red: 255.0 / 255.0, green: 98.0 / 255.0, blue: 96.0 / 255.0, alpha: 1.0)
+        static let weirdGreen = UIColor(red: 59.0 / 255, green: 222.0 / 255, blue: 134.0 / 255, alpha: 1.0)
     }
 
     struct Identifiers {
@@ -77,6 +78,7 @@ struct Constants {
         static let actionCell = "actionCell"
         static let buildCauseCell = "buildCauseCell"
         static let dependencyDataCell = "dependencyDataCell"
+        static let creationCell = "creationCell"
 
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -101,12 +103,16 @@ struct Constants {
         static let showAccountsSegue = "showAccountsSegue"
         static let showUserSegue = "showUserSegue"
         static let showPluginSegue = "showPluginSegue"
+        static let githubAccountSegue = "githubAccountSegue"
 
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
 
         static let currentAccountBaseUrlUserDefaultsKey = "currentAccountBaseUrlUserDefaultsKey"
 
         static let favoriteStatusToggledNotification: Notification.Name = .init(rawValue: "favoriteStatusToggledNotification")
+
+        static let remoteConfigNewAccountDesignKey = "new_account_design_active"
+        static let remoteConfigShowDisplayNameFieldKey = "display_name_field_active"
     }
 
     struct JSON {

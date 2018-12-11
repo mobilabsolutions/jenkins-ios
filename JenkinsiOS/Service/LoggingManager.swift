@@ -3,7 +3,7 @@
 // Copyright (c) 2017 MobiLab Solutions. All rights reserved.
 //
 
-import Crashlytics
+import FirebaseAnalytics
 import Foundation
 
 class LoggingManager {
@@ -16,56 +16,86 @@ class LoggingManager {
         case .jobList: logJobListView()
         case .buildList: logBuildListView()
         case .buildQueue: logBuildQueueView()
-        case .favorites: logFavoritesView()
         case .nodes: logNodesView()
         }
     }
 
     func logJobView() {
-        Answers.logContentView(withName: "Job View", contentType: "Job", contentId: "job")
+        Analytics.logEvent("view_job", parameters: nil)
     }
 
     func logJobListView() {
-        Answers.logContentView(withName: "Job List View", contentType: "Joblist", contentId: "joblist")
+        Analytics.logEvent("view_job_list", parameters: nil)
     }
 
     func logBuildListView() {
-        Answers.logContentView(withName: "Build List View", contentType: "Buildlist", contentId: "buildlist")
+        Analytics.logEvent("view_build_list", parameters: nil)
     }
 
     func logBuildView() {
-        Answers.logContentView(withName: "Build View", contentType: "Build", contentId: "build")
+        Analytics.logEvent("view_build_view", parameters: nil)
     }
 
     func logBuildQueueView() {
-        Answers.logContentView(withName: "Build Queue View", contentType: "BuildQueue", contentId: "buildqueue")
-    }
-
-    func logFavoritesView() {
-        Answers.logContentView(withName: "Favorites View", contentType: "Favorites", contentId: "favorites")
+        Analytics.logEvent("view_build_queue", parameters: nil)
     }
 
     func logNodesView() {
-        Answers.logContentView(withName: "Nodes View", contentType: "Nodes", contentId: "nodes")
+        Analytics.logEvent("view_nodes_list", parameters: nil)
     }
 
-    func logAccountCreation(https: Bool, allowsEveryCertificate: Bool) {
-        Answers.logCustomEvent(withName: "Account Creation", customAttributes: ["https": "\(https)", "allCerts": "\(allowsEveryCertificate)"])
+    func logSettingsView(accountsIncluded: Bool) {
+        Analytics.logEvent("view_settings", parameters: ["accounts_included": accountsIncluded])
+    }
+
+    func logAccountOverviewView() {
+        Analytics.logEvent("view_accounts_overview", parameters: nil)
+    }
+
+    func logAddAccountView(displayNameHidden: Bool) {
+        Analytics.logEvent("view_add_account_view", parameters: ["display_name_hidden": displayNameHidden])
+    }
+
+    func logGithubAccountView() {
+        Analytics.logEvent("view_add_github_account", parameters: nil)
+    }
+
+    func logOpenGithubTokenUrl() {
+        Analytics.logEvent("open_github_token_url", parameters: nil)
+    }
+
+    func logOpenFavorite() {
+        Analytics.logEvent("open_favorite", parameters: nil)
+    }
+
+    func logOpenFavoriteFromWidget() {
+        Analytics.logEvent("open_favorite_from_widget", parameters: nil)
+    }
+
+    func logAccountCreation(https: Bool, allowsEveryCertificate: Bool, github: Bool, displayName: String?) {
+        Analytics.logEvent(AnalyticsEventLogin, parameters: [
+            "https_enabled": https, "all_certs": allowsEveryCertificate,
+            "github": github, "display_name_nil": displayName == nil,
+        ])
     }
 
     func logfavoritedFavoritable(type: Favorite.FavoriteType) {
-        Answers.logCustomEvent(withName: "Favorited", customAttributes: ["type": type.rawValue])
+        Analytics.logEvent("favorited_item", parameters: ["item_type": type.rawValue])
     }
 
     func logunfavoritedFavoritable(type: Favorite.FavoriteType) {
-        Answers.logCustomEvent(withName: "Unfavorited", customAttributes: ["type": type.rawValue])
+        Analytics.logEvent("unfavorited_item", parameters: ["item_type": type.rawValue])
     }
 
-    func logTriggeredBuild(withParameters: Bool) {
-        Answers.logCustomEvent(withName: "Build Triggered", customAttributes: ["withParameters": "\(withParameters)"])
+    func logTriggeredBuild(withParameters parameters: [ParameterType]) {
+        Analytics.logEvent("triggered_build", parameters: ["parameter_types": parameters.map { $0.rawValue }])
     }
 
     func logTriggeredAction(action: JenkinsAction) {
-        Answers.logCustomEvent(withName: "Action Triggered", customAttributes: ["type": action.apiConstant()])
+        Analytics.logEvent("triggered_action", parameters: ["action_type": action.apiConstant()])
+    }
+
+    func logNumberOfAccounts(accounts: Int) {
+        Analytics.setUserProperty(String(accounts), forName: "account_number")
     }
 }

@@ -6,26 +6,30 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
-import Crashlytics
-import Fabric
+import Firebase
+import FirebasePerformance
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    let remoteConfigurationManager = RemoteConfigurationManager()
+
     func applicationDidEnterBackground(_: UIApplication) {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     func applicationWillTerminate(_: UIApplication) {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     func applicationDidFinishLaunching(_: UIApplication) {
         Fabric.with([Crashlytics.self])
+        FirebaseApp.configure()
+
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()
 
@@ -34,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setCurrentAccountForRootViewController()
         handleReviewReminder()
+
+        remoteConfigurationManager.activateRemoteConfiguration()
+        LoggingManager.loggingManager.logNumberOfAccounts(accounts: AccountManager.manager.accounts.count)
     }
 
     func applicationDidBecomeActive(_: UIApplication) {
@@ -59,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let nav = window?.rootViewController as? UINavigationController {
             nav.popToRootViewController(animated: false)
             nav.pushViewController(viewController(for: type, with: favorite), animated: false)
+            LoggingManager.loggingManager.logOpenFavoriteFromWidget()
         }
 
         return true
@@ -128,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func saveOnce() {
         ApplicationUserManager.manager.save()
-        AccountManager.manager.save()
+        try? AccountManager.manager.save()
     }
 
     private func saveIndefinitely() {

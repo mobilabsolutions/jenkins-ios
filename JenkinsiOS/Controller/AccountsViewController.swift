@@ -70,6 +70,11 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         setBackNavigation(enabled: account != nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LoggingManager.loggingManager.logAccountOverviewView()
+    }
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.reloadData()
@@ -99,26 +104,40 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     }
 
     func didEditAccount(account: Account, oldAccount: Account?) {
-        if account.baseUrl == self.account?.baseUrl {
-            // The current account was edited
-            currentAccountDelegate?.didChangeCurrentAccount(current: account)
-        } else if oldAccount?.baseUrl == self.account?.baseUrl {
-            // The old account's base url was updated
-            self.account = account
-            currentAccountDelegate?.didChangeCurrentAccount(current: account)
-        }
+        self.account = account
+        currentAccountDelegate?.didChangeCurrentAccount(current: account)
+
+        var shouldAnimateNavigationStackChanges = true
 
         if oldAccount == nil {
             let confirmationController = AccountCreatedViewController(nibName: "AccountCreatedViewController", bundle: .main)
             confirmationController.delegate = self
             navigationController?.pushViewController(confirmationController, animated: true)
-            var viewControllers = navigationController?.viewControllers ?? []
-            // Remove the add account view controller from the navigation controller stack
-            viewControllers.remove(at: viewControllers.count - 2)
-            navigationController?.setViewControllers(viewControllers, animated: false)
-        } else {
-            navigationController?.popViewController(animated: true)
+            shouldAnimateNavigationStackChanges = false
         }
+
+        var viewControllers = navigationController?.viewControllers ?? []
+        // Remove the add account view controller from the navigation controller stack
+        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) && !($0 is GitHubTokenContainerViewController) }
+        navigationController?.setViewControllers(viewControllers, animated: shouldAnimateNavigationStackChanges)
+
+        tableView.reloadData()
+    }
+
+    func didDeleteAccount(account: Account) {
+        let didDeleteSelectedAccount = account == self.account
+
+        tableView.reloadData()
+
+        if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
+            let navigationController = UINavigationController()
+            present(navigationController, animated: false, completion: nil)
+            handler.showAccountCreationViewController(on: navigationController, delegate: self)
+        } else if !AccountManager.manager.accounts.isEmpty && didDeleteSelectedAccount {
+            setBackNavigation(enabled: false)
+        }
+
+        accountDeletionDelegate?.didDeleteAccount(account: account)
     }
 
     // MARK: - Tableview datasource and delegate
@@ -201,24 +220,9 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
     private func deleteAccount(at indexPath: IndexPath) {
         do {
             let accountToDelete = AccountManager.manager.accounts[indexPath.row]
-            let deletingSelectedAccount = account == accountToDelete
             try AccountManager.manager.deleteAccount(account: accountToDelete)
 
-            if deletingSelectedAccount {
-                account = nil
-            }
-
-            tableView.reloadData()
-
-            if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
-                let navigationController = UINavigationController()
-                present(navigationController, animated: false, completion: nil)
-                handler.showAccountCreationViewController(on: navigationController, delegate: self)
-            } else if !AccountManager.manager.accounts.isEmpty && deletingSelectedAccount {
-                setBackNavigation(enabled: false)
-            }
-
-            accountDeletionDelegate?.didDeleteAccount(account: accountToDelete)
+            didDeleteAccount(account: accountToDelete)
         } catch {
             displayError(title: "Error", message: "Something went wrong", textFieldConfigurations: [], actions: [
                 UIAlertAction(title: "Alright", style: .cancel, handler: nil),
