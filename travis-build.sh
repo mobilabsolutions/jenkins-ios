@@ -11,7 +11,11 @@ firebase_test_lab() {
     fi
 
     touch service-key.json;
+    touch JenkinsiOS/Other/Resources/GoogleService-Info.plist;
     echo "${FIREBASE_KEY}" | base64 -D -o service-key.json;
+    echo "${GOOGLE_INFO_PLIST}" | base64 -D -o JenkinsiOS/Other/Resources/GoogleService-Info.plist;
+
+    source /home/travis/google-cloud-sdk/path.bash.inc;
     gcloud auth activate-service-account --key-file service-key.json;
 
     xcodebuild -workspace ./JenkinsiOS.xcworkspace -scheme JenkinsiOSTests -derivedDataPath ./tests -sdk iphoneos build-for-testing;
