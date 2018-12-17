@@ -29,6 +29,13 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
+
+  end
+
+  desc 'This will also make sure the profile is up to date'
+  lane :beta do
+    prepare_distribution(keychain_name: keychain_name)
+
     scan(
       scheme: 'JenkinsiOSTests',
       derived_data_path: 'tests',
@@ -37,11 +44,7 @@ platform :ios do
       sdk: 'iphoneos',
       clean: true
     )
-  end
 
-  desc 'This will also make sure the profile is up to date'
-  lane :beta do
-    prepare_distribution(keychain_name: keychain_name)
     gym(scheme: 'JenkinsiOS',
       export_method: "development",     
       export_options: {
