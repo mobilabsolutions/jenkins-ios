@@ -29,21 +29,6 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
-    sigh(
-      username: ENV['FASTLANE_USER'],
-      team_id: ENV['TEAM_NAME'],
-      development: true,
-      provisioning_name: 'Jenkins Development',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
-    )
-    
-    sigh(
-      username: ENV['FASTLANE_USER'],
-      team_id: ENV['TEAM_NAME'],
-      development: true,
-      app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
-    )
     scan(
       scheme: 'JenkinsiOSTests',
       derived_data_path: 'tests',
