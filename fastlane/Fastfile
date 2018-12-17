@@ -19,16 +19,6 @@ platform :ios do
 
   keychain_name = 'ci-example-certs'
 
-  before_all do
-    prepare_distribution(keychain_name: keychain_name)
-  end
-
-  after_all do
-    delete_keychain(
-      name: keychain_name
-    )
-  end
-
   desc 'Runs all the tests'
   lane :test do
     scan(
@@ -39,6 +29,21 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      development: true,
+      provisioning_name: 'Jenkins Development',
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+    )
+    
+    sigh(
+      username: ENV['FASTLANE_USER'],
+      team_id: ENV['TEAM_NAME'],
+      development: true,
+      app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+    )
     scan(
       scheme: 'JenkinsiOSTests',
       derived_data_path: 'tests',
@@ -51,6 +56,7 @@ platform :ios do
 
   desc 'This will also make sure the profile is up to date'
   lane :beta do
+    prepare_distribution(keychain_name: keychain_name)
     gym(scheme: 'JenkinsiOS',
       export_method: "development",     
       export_options: {
@@ -65,10 +71,14 @@ platform :ios do
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
       notes: notes
     )
+    delete_keychain(
+      name: keychain_name
+    )
   end
 
   desc 'Deploy a new version to the App Store'
   lane :release do
+    prepare_distribution(keychain_name: keychain_name)
     increment_build_number(build_number: ENV['TRAVIS_BUILD_NUMBER'])
     unless ENV['TRAVIS_TAG'].nil?
       increment_version_number(
@@ -85,6 +95,9 @@ platform :ios do
     }) # Build your app - more options available
     deliver(username: ENV['FASTLANE_USER'], dev_portal_team_id: ENV['DEV_PORTAL_TEAM_ID'],
             team_name: ENV['TEAM_NAME'], force: true)
+    delete_keychain(
+      name: keychain_name
+    )
   end
 
   lane :documentation do
