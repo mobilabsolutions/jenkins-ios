@@ -23,6 +23,11 @@ platform :ios do
     prepare_distribution(keychain_name: keychain_name)
   end
 
+  after_all do
+    delete_keychain(
+      name: keychain_name
+    )
+  end
 
   desc 'Runs all the tests'
   lane :test do
@@ -59,10 +64,6 @@ platform :ios do
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
       notes: notes
     )
-
-    delete_keychain(
-      name: keychain_name
-    )
   end
 
   desc 'Deploy a new version to the App Store'
@@ -83,10 +84,6 @@ platform :ios do
     }) # Build your app - more options available
     deliver(username: ENV['FASTLANE_USER'], dev_portal_team_id: ENV['DEV_PORTAL_TEAM_ID'],
             team_name: ENV['TEAM_NAME'], force: true)
-
-    delete_keychain(
-      name: keychain_name
-    )
   end
 
   lane :documentation do
