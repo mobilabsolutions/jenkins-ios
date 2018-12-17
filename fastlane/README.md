@@ -16,16 +16,16 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios before_all
-```
-fastlane ios before_all
-```
-
 ### ios test
 ```
 fastlane ios test
 ```
 Runs all the tests
+### ios build_for_test_lab
+```
+fastlane ios build_for_test_lab
+```
+Build for testing on Firebase test lab
 ### ios beta
 ```
 fastlane ios beta

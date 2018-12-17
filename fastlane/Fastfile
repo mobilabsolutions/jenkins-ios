@@ -32,6 +32,17 @@ platform :ios do
     )
   end
 
+  desc 'Build for testing on Firebase test lab'
+  lane :build_for_test_lab do
+    scan(
+      scheme: 'JenkinsiOSTests',
+      destination: 'generic/platform=iOS',
+      derived_data_path: 'tests',
+      build_for_testing: true,
+      scheme: 'JenkinsiOSTests'
+    )
+  end
+
   desc 'This will also make sure the profile is up to date'
   lane :beta do
     gym(scheme: 'JenkinsiOS',
