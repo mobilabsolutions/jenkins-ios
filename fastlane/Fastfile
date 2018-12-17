@@ -41,10 +41,11 @@ platform :ios do
   lane :build_for_test_lab do
     scan(
       scheme: 'JenkinsiOSTests',
-      destination: 'generic/platform=iOS',
       derived_data_path: 'tests',
       build_for_testing: true,
-      scheme: 'JenkinsiOSTests'
+      skip_detect_devices: true,
+      sdk: 'iphoneos',
+      clean: true
     )
   end
 
