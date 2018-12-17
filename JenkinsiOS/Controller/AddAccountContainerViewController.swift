@@ -12,12 +12,27 @@ protocol VerificationFailureNotifying: class {
     var verificationFailurePresenter: VerificationFailurePresenting? { get set }
 }
 
+protocol DoneButtonContaining: class {
+    func setDoneButton(enabled: Bool)
+    func setDoneButton(title: String)
+    func setDoneButton(alpha: CGFloat)
+    func tableViewOffsetForDoneButton() -> CGFloat
+}
+
 class AddAccountContainerViewController: UIViewController, VerificationFailurePresenting, AccountProvidable {
     var account: Account?
     var editingCurrentAccount = false
     var delegate: AddAccountTableViewControllerDelegate?
+    var doneButtonEventReceiver: DoneButtonEventReceiving?
+
+    @IBOutlet private var doneButton: BigButton!
 
     private var errorBanner: ErrorBanner?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if var dest = segue.destination as? AccountProvidable {
@@ -31,6 +46,8 @@ class AddAccountContainerViewController: UIViewController, VerificationFailurePr
         if let addAccountViewController = segue.destination as? AddAccountTableViewController {
             addAccountViewController.delegate = delegate
             addAccountViewController.isCurrentAccount = editingCurrentAccount
+            addAccountViewController.doneButtonContainer = self
+            doneButtonEventReceiver = addAccountViewController
         }
     }
 
@@ -62,6 +79,10 @@ class AddAccountContainerViewController: UIViewController, VerificationFailurePr
         hideErrorBanner()
     }
 
+    @objc private func doneButtonPressed() {
+        doneButtonEventReceiver?.doneButtonPressed()
+    }
+
     private func hideErrorBanner() {
         guard let errorBanner = errorBanner
         else { return }
@@ -76,5 +97,23 @@ class AddAccountContainerViewController: UIViewController, VerificationFailurePr
             errorBanner.removeFromSuperview()
             self.errorBanner = nil
         }
+    }
+}
+
+extension AddAccountContainerViewController: DoneButtonContaining {
+    func setDoneButton(enabled: Bool) {
+        doneButton.isEnabled = enabled
+    }
+
+    func setDoneButton(title: String) {
+        doneButton.setTitle(title, for: .normal)
+    }
+
+    func setDoneButton(alpha: CGFloat) {
+        doneButton.alpha = alpha
+    }
+
+    func tableViewOffsetForDoneButton() -> CGFloat {
+        return doneButton.frame.minY - view.bounds.height
     }
 }

@@ -18,7 +18,11 @@ protocol VerificationFailurePresenting: class {
     func hideVerificationFailure()
 }
 
-class AddAccountTableViewController: UITableViewController, VerificationFailureNotifying, AccountProvidable {
+protocol DoneButtonEventReceiving: class {
+    func doneButtonPressed()
+}
+
+class AddAccountTableViewController: UITableViewController, VerificationFailureNotifying, AccountProvidable, DoneButtonEventReceiving {
 
     // MARK: - Instance variables
 
@@ -27,6 +31,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     weak var delegate: AddAccountTableViewControllerDelegate?
     weak var verificationFailurePresenter: VerificationFailurePresenting?
+    weak var doneButtonContainer: DoneButtonContaining?
 
     private let remoteConfigManager = RemoteConfigurationManager()
 
@@ -36,7 +41,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     // MARK: - Outlets
 
-    @IBOutlet var addAccountButton: UIButton!
     @IBOutlet var nameTextField: UITextField?
     @IBOutlet var urlTextField: UITextField!
     @IBOutlet var usernameTextField: UITextField!
@@ -173,7 +177,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         }
 
         // The add button should not be enabled when there is no text in the mandatory textfields
-        addAccountButton.isEnabled = addButtonShouldBeEnabled()
+        doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
+        doneButtonContainer?.setDoneButton(title: actionButtonTitle)
         // For every mandatory textfield, add an event handler
         urlTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
         usernameTextField.addTarget(self, action: #selector(textFieldChanged), for: .allEditingEvents)
@@ -188,6 +193,9 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         addDoneButtonInputAccessory(to: apiKeyTextField)
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
+
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                              bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -196,20 +204,20 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {
-        addAccountButton.alpha = 0.7
-        addAccountButton.setTitle("Verifying...", for: .normal)
+        doneButtonContainer?.setDoneButton(alpha: 0.7)
+        doneButtonContainer?.setDoneButton(title: "Verifying...")
 
         verificationFailurePresenter?.hideVerificationFailure()
 
         _ = NetworkManager.manager.verifyAccount(userRequest: UserRequest.userRequestForJobList(account: account)) { error in
             DispatchQueue.main.async { [weak self] in
-                self?.addAccountButton.alpha = 1.0
-                self?.addAccountButton.setTitle(self?.actionButtonTitle, for: .normal)
+                self?.doneButtonContainer?.setDoneButton(alpha: 1.0)
+                self?.doneButtonContainer?.setDoneButton(title: self?.actionButtonTitle ?? "Done")
 
                 guard let error = error
                 else { onSuccess(); return }
 
-                self?.addAccountButton.isEnabled = false
+                self?.doneButtonContainer?.setDoneButton(enabled: false)
                 self?.verificationFailurePresenter?.showVerificationFailure(error: error)
             }
         }
@@ -260,7 +268,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
         trustAllCertificatesWarning.isHidden = !sender.isOn
-        addAccountButton.isEnabled = addButtonShouldBeEnabled()
+        doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
     }
 
     @IBAction func deleteAccount(_: Any) {
@@ -286,8 +294,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
             url = account.baseUrl
         }
 
-        addAccountButton.setTitle(actionButtonTitle, for: .normal)
-        addAccountButton.addTarget(self, action: #selector(verifyAndSaveAccount), for: .touchUpInside)
         usernameTextField.text = account.username ?? ""
         apiKeyTextField.text = account.password ?? ""
         urlTextField.text = url.absoluteString
@@ -298,8 +304,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     }
 
     private func prepareUIWithoutAccount() {
-        addAccountButton.addTarget(self, action: #selector(verifyAndAddAccount), for: .touchUpInside)
-        addAccountButton.setTitle(actionButtonTitle, for: .normal)
         usernameTextField.text = ""
         apiKeyTextField.text = ""
         urlTextField.placeholder = "https://jenkins.example.com:8080"
@@ -308,7 +312,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     }
 
     @objc private func didToggleTrustAllCertificates() {
-        addAccountButton.isEnabled = addButtonShouldBeEnabled()
+        doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
     }
 
     override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -320,9 +324,17 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     // MARK: - Textfield methods
 
     @objc private func textFieldChanged() {
-        addAccountButton.isEnabled = addButtonShouldBeEnabled()
+        doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
         setGithubTokenButtonEnabledState()
         toggleTrustAllCertificatesCell()
+    }
+
+    func doneButtonPressed() {
+        if account != nil {
+            verifyAndSaveAccount()
+        } else {
+            verifyAndAddAccount()
+        }
     }
 
     private func addButtonShouldBeEnabled() -> Bool {

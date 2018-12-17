@@ -13,31 +13,33 @@ protocol AccountAdder {
     func addOrUpdateAccount(account: Account) throws
 }
 
-class GitHubTokenTableViewController: UITableViewController, AccountProvidable, VerificationFailureNotifying {
-    var verificationFailurePresenter: VerificationFailurePresenting?
+class GitHubTokenTableViewController: UITableViewController, AccountProvidable, VerificationFailureNotifying, DoneButtonEventReceiving {
     var account: Account?
     var accountAdder: AccountAdder?
+
+    weak var verificationFailurePresenter: VerificationFailurePresenting?
+    weak var doneButtonContainer: DoneButtonContaining?
 
     private let githubTokenPage = URL(string: "https://github.com/settings/tokens")
     @IBOutlet var generateTokenButton: UIButton!
     @IBOutlet var tokenTextField: PasswordTextField!
     @IBOutlet var usernameTextField: UITextField!
 
-    @IBOutlet var doneButton: BigButton!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         generateTokenButton.addTarget(self, action: #selector(generateToken), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
         tokenTextField.addTarget(self, action: #selector(updateDoneButtonState), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(updateDoneButtonState), for: .editingChanged)
         updateDoneButtonState()
-        doneButton.setTitle("SAVE", for: .normal)
+        doneButtonContainer?.setDoneButton(title: "SAVE")
         tableView.keyboardDismissMode = .interactive
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
 
         tokenTextField.delegate = self
         usernameTextField.delegate = self
+
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                              bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -53,7 +55,11 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
     }
 
     @objc private func updateDoneButtonState() {
-        doneButton.isEnabled = tokenTextField.text != "" && usernameTextField.text != ""
+        doneButtonContainer?.setDoneButton(enabled: tokenTextField.text != "" && usernameTextField.text != "")
+    }
+
+    func doneButtonPressed() {
+        addAccount()
     }
 
     @objc private func addAccount() {
@@ -80,20 +86,20 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {
-        doneButton.alpha = 0.7
-        doneButton.setTitle("Verifying...", for: .normal)
+        doneButtonContainer?.setDoneButton(alpha: 0.7)
+        doneButtonContainer?.setDoneButton(title: "Verifying...")
 
         verificationFailurePresenter?.hideVerificationFailure()
 
         _ = NetworkManager.manager.verifyAccount(userRequest: UserRequest.userRequestForJobList(account: account)) { error in
             DispatchQueue.main.async { [weak self] in
-                self?.doneButton.alpha = 1.0
-                self?.doneButton.setTitle("SAVE", for: .normal)
+                self?.doneButtonContainer?.setDoneButton(alpha: 0.7)
+                self?.doneButtonContainer?.setDoneButton(title: "SAVE")
 
                 guard let error = error
                 else { onSuccess(); return }
 
-                self?.doneButton.isEnabled = false
+                self?.doneButtonContainer?.setDoneButton(enabled: false)
                 self?.verificationFailurePresenter?.showVerificationFailure(error: error)
             }
         }

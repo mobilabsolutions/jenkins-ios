@@ -16,6 +16,8 @@ class GitHubTokenContainerViewController: AddAccountContainerViewController {
 
         if let dest = segue.destination as? GitHubTokenTableViewController {
             dest.accountAdder = accountAdder
+            dest.doneButtonContainer = self
+            doneButtonEventReceiver = dest
         }
     }
 }

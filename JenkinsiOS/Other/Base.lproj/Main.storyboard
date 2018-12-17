@@ -2092,15 +2092,28 @@
                                     <segue destination="rU8-cw-u7t" kind="embed" id="n5R-OD-QT9"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-Bu-n5N" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
+                                <rect key="frame" x="8" y="787" width="398" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Kid-q5-TbB"/>
+                                </constraints>
+                                <state key="normal" title="Done"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7Zw-sp-Rnh" secondAttribute="trailing" id="Fck-AL-3WO"/>
                             <constraint firstItem="7Zw-sp-Rnh" firstAttribute="top" secondItem="IXr-dO-RdN" secondAttribute="bottom" id="MDi-gV-1lG"/>
                             <constraint firstItem="7Zw-sp-Rnh" firstAttribute="leading" secondItem="a5t-2J-8c8" secondAttribute="leading" id="URE-Xt-ndh"/>
+                            <constraint firstItem="7Ct-Bu-n5N" firstAttribute="bottom" secondItem="VYz-Cg-icS" secondAttribute="top" constant="-25" id="VQq-MD-xlH"/>
                             <constraint firstAttribute="bottom" secondItem="7Zw-sp-Rnh" secondAttribute="bottom" id="ajU-Fk-NiG"/>
+                            <constraint firstItem="7Ct-Bu-n5N" firstAttribute="leading" secondItem="7Zw-sp-Rnh" secondAttribute="leading" constant="8" id="kNw-3j-8Md"/>
+                            <constraint firstItem="7Zw-sp-Rnh" firstAttribute="trailing" secondItem="7Ct-Bu-n5N" secondAttribute="trailing" constant="8" id="zFH-aG-HNe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="doneButton" destination="7Ct-Bu-n5N" id="SxX-61-4Hv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nMY-F4-5uY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2132,28 +2145,6 @@
                                 <constraint firstItem="M78-Io-ZAV" firstAttribute="centerX" secondItem="u9G-Be-9iQ" secondAttribute="centerX" id="Onl-Jd-EWJ"/>
                                 <constraint firstAttribute="bottom" secondItem="M78-Io-ZAV" secondAttribute="bottom" constant="15" id="dLW-un-GYF"/>
                                 <constraint firstItem="M78-Io-ZAV" firstAttribute="top" secondItem="u9G-Be-9iQ" secondAttribute="top" constant="28" id="oHL-XZ-5uj"/>
-                            </constraints>
-                        </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="th9-Bt-xDc">
-                            <rect key="frame" x="0.0" y="577" width="414" height="102"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n65-fB-ESf" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
-                                    <rect key="frame" x="8" y="52" width="398" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="Qvg-KG-FPV"/>
-                                    </constraints>
-                                    <state key="normal" title="Done">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="n65-fB-ESf" firstAttribute="leading" secondItem="th9-Bt-xDc" secondAttribute="leading" constant="8" id="6ah-LG-xsm"/>
-                                <constraint firstAttribute="bottom" secondItem="n65-fB-ESf" secondAttribute="bottom" id="T8x-1M-p3l"/>
-                                <constraint firstAttribute="trailing" secondItem="n65-fB-ESf" secondAttribute="trailing" constant="8" id="ioF-xN-Dc7"/>
-                                <constraint firstItem="n65-fB-ESf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="th9-Bt-xDc" secondAttribute="top" constant="52" id="qfr-2n-S9V"/>
                             </constraints>
                         </view>
                         <sections>
@@ -2523,7 +2514,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="addAccountButton" destination="n65-fB-ESf" id="jR8-E5-EyW"/>
                         <outlet property="apiKeyTextField" destination="EcS-WL-E3y" id="Fnh-om-wZc"/>
                         <outlet property="bottomMostBackgroundView" destination="2SV-y5-TCv" id="GIY-J3-1dI"/>
                         <outlet property="deleteAccountCell" destination="F8o-Ls-2AL" id="bpE-RV-huV"/>
@@ -2754,6 +2744,13 @@
                                     <segue destination="zg4-r9-S6K" kind="embed" id="fRc-hG-nFP"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo5-rz-se4" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
+                                <rect key="frame" x="8" y="733" width="398" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="X1y-uS-Tpd"/>
+                                </constraints>
+                                <state key="normal" title="Done"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2761,8 +2758,14 @@
                             <constraint firstItem="Wyh-9U-mdo" firstAttribute="top" secondItem="ELq-gV-yo0" secondAttribute="top" id="LR1-7C-s0n"/>
                             <constraint firstAttribute="trailing" secondItem="Wyh-9U-mdo" secondAttribute="trailing" id="Uyk-yb-FgF"/>
                             <constraint firstItem="Wyh-9U-mdo" firstAttribute="leading" secondItem="ELq-gV-yo0" secondAttribute="leading" id="jvX-Z4-Gn3"/>
+                            <constraint firstItem="mo5-rz-se4" firstAttribute="leading" secondItem="Wyh-9U-mdo" secondAttribute="leading" constant="8" id="mZ7-u5-aLR"/>
+                            <constraint firstItem="mo5-rz-se4" firstAttribute="bottom" secondItem="Wyh-9U-mdo" secondAttribute="bottom" constant="-25" id="xwi-Z9-CsU"/>
+                            <constraint firstItem="mo5-rz-se4" firstAttribute="trailing" secondItem="Wyh-9U-mdo" secondAttribute="trailing" constant="-8" id="xyc-ld-uPT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="doneButton" destination="mo5-rz-se4" id="dkY-ZD-RHc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yoe-0T-W9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2776,7 +2779,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="exK-9H-AYK">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="exK-9H-AYK">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="261"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2787,7 +2790,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK0-gj-2wT">
-                                    <rect key="frame" x="46" y="126" width="354" height="89.666666666666686"/>
+                                    <rect key="frame" x="46" y="126" width="354" height="42"/>
                                     <string key="text">In order to login with your Github account,
 please generate a Github token. Please make sure that the token includes user and repo scopes.
 Note: you need to provide your Github token only once. </string>
@@ -2815,28 +2818,6 @@ Note: you need to provide your Github token only once. </string>
                                 <constraint firstItem="yK0-gj-2wT" firstAttribute="top" secondItem="GCs-Il-hsQ" secondAttribute="bottom" constant="28" id="rri-sh-IZ5"/>
                                 <constraint firstAttribute="trailing" secondItem="GCs-Il-hsQ" secondAttribute="trailing" constant="5" id="tFn-f2-lNA"/>
                                 <constraint firstItem="GCs-Il-hsQ" firstAttribute="leading" secondItem="exK-9H-AYK" secondAttribute="leading" constant="5" id="ti0-a3-jhT"/>
-                            </constraints>
-                        </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="UMl-Ri-vNO">
-                            <rect key="frame" x="0.0" y="459" width="414" height="102"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDl-2n-ER7" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
-                                    <rect key="frame" x="8" y="52" width="398" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="URv-Hf-KGT"/>
-                                    </constraints>
-                                    <state key="normal" title="Done">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="iDl-2n-ER7" secondAttribute="bottom" id="2GJ-5Z-NUr"/>
-                                <constraint firstItem="iDl-2n-ER7" firstAttribute="leading" secondItem="UMl-Ri-vNO" secondAttribute="leading" constant="8" id="hWu-I8-HXd"/>
-                                <constraint firstItem="iDl-2n-ER7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UMl-Ri-vNO" secondAttribute="top" constant="52" id="n9h-G2-3bu"/>
-                                <constraint firstAttribute="trailing" secondItem="iDl-2n-ER7" secondAttribute="trailing" constant="8" id="quF-yy-iyZ"/>
                             </constraints>
                         </view>
                         <sections>
@@ -3021,7 +3002,6 @@ Note: you need to provide your Github token only once. </string>
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="doneButton" destination="iDl-2n-ER7" id="Jt1-dj-ISG"/>
                         <outlet property="generateTokenButton" destination="Tfm-27-GlZ" id="duJ-GE-EIW"/>
                         <outlet property="tokenTextField" destination="n1h-t3-hfC" id="d1W-gs-TgL"/>
                         <outlet property="usernameTextField" destination="c4z-hu-16m" id="Hos-MJ-XGh"/>
@@ -3057,7 +3037,7 @@ Note: you need to provide your Github token only once. </string>
         <image name="userIc" width="231" height="206"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bpz-zz-7DZ"/>
+        <segue reference="4nI-wj-Atw"/>
         <segue reference="MVd-nB-ywD"/>
         <segue reference="bRt-MD-0Ng"/>
         <segue reference="Eeb-5l-59h"/>
