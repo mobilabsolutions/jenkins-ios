@@ -31,6 +31,7 @@ platform :ios do
   lane :build_for_test_lab do
     prepare_distribution(keychain_name: keychain_name, provisioning_path: '~/Library/MobileDevice/Provisioning\ Profiles')
     sh('ls ~/Library/MobileDevice/Provisioning\ Profiles')
+    sh('cp *.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/')
     scan(
       scheme: 'JenkinsiOSTests',
       derived_data_path: 'tests',
