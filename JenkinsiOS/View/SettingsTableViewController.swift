@@ -95,6 +95,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Settings"
         tableView.reloadData()
+
+        // Make sure the navigation item does not contain the search bar.
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = nil
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

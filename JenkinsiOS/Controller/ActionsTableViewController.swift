@@ -23,6 +23,11 @@ class ActionsTableViewController: UITableViewController, AccountProvidable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Actions"
+
+        // Make sure the navigation item does not contain the search bar.
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = nil
+        }
     }
 
     func performAction(action: JenkinsAction) {

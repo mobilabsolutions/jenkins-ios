@@ -38,6 +38,11 @@ class ComputersTableViewController: RefreshingTableViewController, AccountProvid
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Nodes"
+
+        // Make sure the navigation item does not contain the search bar.
+        if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = nil
+        }
     }
 
     private func performRequest() {
