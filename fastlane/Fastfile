@@ -29,6 +29,7 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
+    prepare_distribution(keychain_name: keychain_name)
     scan(
       scheme: 'JenkinsiOSTests',
       derived_data_path: 'tests',
@@ -36,6 +37,9 @@ platform :ios do
       skip_detect_devices: true,
       sdk: 'iphoneos',
       clean: true
+    )
+    delete_keychain(
+      name: keychain_name
     )
   end
 
