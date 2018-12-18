@@ -193,7 +193,10 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         addDoneButtonInputAccessory(to: apiKeyTextField)
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
                                               bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
     }

@@ -37,7 +37,10 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
 
         tokenTextField.delegate = self
         usernameTextField.delegate = self
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
                                               bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
     }

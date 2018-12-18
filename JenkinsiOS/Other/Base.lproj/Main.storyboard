@@ -2092,23 +2092,35 @@
                                     <segue destination="rU8-cw-u7t" kind="embed" id="n5R-OD-QT9"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-Bu-n5N" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
-                                <rect key="frame" x="8" y="787" width="398" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Msq-aI-AGb">
+                                <rect key="frame" x="0.0" y="791" width="414" height="105"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-Bu-n5N" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="5" width="398" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Kid-q5-TbB"/>
+                                        </constraints>
+                                        <state key="normal" title="Done"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Kid-q5-TbB"/>
+                                    <constraint firstAttribute="bottom" secondItem="7Ct-Bu-n5N" secondAttribute="bottom" constant="50" id="5Xd-8Y-wBD"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Ct-Bu-n5N" secondAttribute="trailing" constant="8" id="LUb-2l-aW7"/>
+                                    <constraint firstItem="7Ct-Bu-n5N" firstAttribute="top" secondItem="Msq-aI-AGb" secondAttribute="top" constant="5" id="d44-bg-Iby"/>
+                                    <constraint firstItem="7Ct-Bu-n5N" firstAttribute="leading" secondItem="Msq-aI-AGb" secondAttribute="leading" constant="8" id="rgV-Oq-Oep"/>
                                 </constraints>
-                                <state key="normal" title="Done"/>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Msq-aI-AGb" firstAttribute="bottom" secondItem="7Zw-sp-Rnh" secondAttribute="bottom" id="09f-4Y-wsI"/>
                             <constraint firstAttribute="trailing" secondItem="7Zw-sp-Rnh" secondAttribute="trailing" id="Fck-AL-3WO"/>
+                            <constraint firstItem="Msq-aI-AGb" firstAttribute="leading" secondItem="7Zw-sp-Rnh" secondAttribute="leading" id="HMO-Nq-il0"/>
                             <constraint firstItem="7Zw-sp-Rnh" firstAttribute="top" secondItem="IXr-dO-RdN" secondAttribute="bottom" id="MDi-gV-1lG"/>
                             <constraint firstItem="7Zw-sp-Rnh" firstAttribute="leading" secondItem="a5t-2J-8c8" secondAttribute="leading" id="URE-Xt-ndh"/>
-                            <constraint firstItem="7Ct-Bu-n5N" firstAttribute="bottom" secondItem="VYz-Cg-icS" secondAttribute="top" constant="-25" id="VQq-MD-xlH"/>
+                            <constraint firstItem="Msq-aI-AGb" firstAttribute="trailing" secondItem="7Zw-sp-Rnh" secondAttribute="trailing" id="UxC-Ak-OVl"/>
                             <constraint firstAttribute="bottom" secondItem="7Zw-sp-Rnh" secondAttribute="bottom" id="ajU-Fk-NiG"/>
-                            <constraint firstItem="7Ct-Bu-n5N" firstAttribute="leading" secondItem="7Zw-sp-Rnh" secondAttribute="leading" constant="8" id="kNw-3j-8Md"/>
-                            <constraint firstItem="7Zw-sp-Rnh" firstAttribute="trailing" secondItem="7Ct-Bu-n5N" secondAttribute="trailing" constant="8" id="zFH-aG-HNe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2744,23 +2756,35 @@
                                     <segue destination="zg4-r9-S6K" kind="embed" id="fRc-hG-nFP"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo5-rz-se4" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
-                                <rect key="frame" x="8" y="733" width="398" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXS-cG-1df">
+                                <rect key="frame" x="0.0" y="703" width="414" height="105"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo5-rz-se4" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="5" width="398" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="X1y-uS-Tpd"/>
+                                        </constraints>
+                                        <state key="normal" title="Done"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="X1y-uS-Tpd"/>
+                                    <constraint firstAttribute="bottom" secondItem="mo5-rz-se4" secondAttribute="bottom" constant="50" id="3uS-ex-adJ"/>
+                                    <constraint firstItem="mo5-rz-se4" firstAttribute="leading" secondItem="FXS-cG-1df" secondAttribute="leading" constant="8" id="QSq-G0-3ds"/>
+                                    <constraint firstItem="mo5-rz-se4" firstAttribute="top" secondItem="FXS-cG-1df" secondAttribute="top" constant="5" id="S9n-Zf-oQj"/>
+                                    <constraint firstAttribute="trailing" secondItem="mo5-rz-se4" secondAttribute="trailing" constant="8" id="Wmt-gZ-wB5"/>
                                 </constraints>
-                                <state key="normal" title="Done"/>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FXS-cG-1df" firstAttribute="bottom" secondItem="Wyh-9U-mdo" secondAttribute="bottom" id="2Kw-6q-0RY"/>
+                            <constraint firstItem="FXS-cG-1df" firstAttribute="trailing" secondItem="Wyh-9U-mdo" secondAttribute="trailing" id="3Li-1r-suB"/>
+                            <constraint firstItem="FXS-cG-1df" firstAttribute="leading" secondItem="Wyh-9U-mdo" secondAttribute="leading" id="7zT-DQ-QDf"/>
                             <constraint firstAttribute="bottom" secondItem="Wyh-9U-mdo" secondAttribute="bottom" id="JKd-qX-V9l"/>
                             <constraint firstItem="Wyh-9U-mdo" firstAttribute="top" secondItem="ELq-gV-yo0" secondAttribute="top" id="LR1-7C-s0n"/>
                             <constraint firstAttribute="trailing" secondItem="Wyh-9U-mdo" secondAttribute="trailing" id="Uyk-yb-FgF"/>
                             <constraint firstItem="Wyh-9U-mdo" firstAttribute="leading" secondItem="ELq-gV-yo0" secondAttribute="leading" id="jvX-Z4-Gn3"/>
-                            <constraint firstItem="mo5-rz-se4" firstAttribute="leading" secondItem="Wyh-9U-mdo" secondAttribute="leading" constant="8" id="mZ7-u5-aLR"/>
-                            <constraint firstItem="mo5-rz-se4" firstAttribute="bottom" secondItem="Wyh-9U-mdo" secondAttribute="bottom" constant="-25" id="xwi-Z9-CsU"/>
-                            <constraint firstItem="mo5-rz-se4" firstAttribute="trailing" secondItem="Wyh-9U-mdo" secondAttribute="trailing" constant="-8" id="xyc-ld-uPT"/>
                         </constraints>
                     </view>
                     <connections>
