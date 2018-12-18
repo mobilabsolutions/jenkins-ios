@@ -29,7 +29,7 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
-    prepare_distribution(keychain_name: keychain_name)
+    prepare_distribution(keychain_name: keychain_name, provisioning_path: '~/Library/MobileDevice/Provisioning\ Profiles')
     sh('ls ~/Library/MobileDevice/Provisioning\ Profiles')
     scan(
       scheme: 'JenkinsiOSTests',
@@ -37,15 +37,14 @@ platform :ios do
       build_for_testing: true,
       skip_detect_devices: true,
       sdk: 'iphoneos',
-      clean: true,
-      xcargs: "PROVISIONING_PROFILE=\"7e149ce6-2ea6-4f4a-8345-f579b23106a6.mobileprovision\""
+      clean: true
     )
     delete_keychain(name: keychain_name)
   end
 
   desc 'This will also make sure the profile is up to date'
   lane :beta do
-    prepare_distribution(keychain_name: keychain_name)
+    prepare_distribution(keychain_name: keychain_name, provisioning_path: '.')
     gym(scheme: 'JenkinsiOS',
       export_method: "development",     
       export_options: {
@@ -67,7 +66,7 @@ platform :ios do
 
   desc 'Deploy a new version to the App Store'
   lane :release do
-    prepare_distribution(keychain_name: keychain_name)
+    prepare_distribution(keychain_name: keychain_name, provisioning_path: '.')
     increment_build_number(build_number: ENV['TRAVIS_BUILD_NUMBER'])
     unless ENV['TRAVIS_TAG'].nil?
       increment_version_number(
@@ -96,7 +95,7 @@ platform :ios do
   end
 
   desc 'Prepares the build for distribution'
-  lane :prepare_distribution do |options|
+  lane :prepare_distribution do |options, provisioning_path|
     keychain_name = options[:keychain_name]
     keychain_password = SecureRandom.base64
     create_keychain(
@@ -121,14 +120,16 @@ platform :ios do
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       provisioning_name: 'Jenkins App Store',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['CERTIFICATE_ID'],
+      output_path: provisioning_path
     )
 
     sigh(
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
-      cert_id: ENV['CERTIFICATE_ID']
+      cert_id: ENV['CERTIFICATE_ID'],
+      output_path: provisioning_path
     )
 
     # Import development certificate
@@ -137,7 +138,8 @@ platform :ios do
       certificate_password: ENV['DEVELOPMENT_KEY_PASSWORD'],
       keychain_name: keychain_name,
       keychain_password: keychain_password,
-      log_output: true
+      log_output: true,
+      output_path: provisioning_path
     )
 
     sigh(
@@ -145,7 +147,8 @@ platform :ios do
       team_id: ENV['TEAM_NAME'],
       development: true,
       provisioning_name: 'Jenkins Development',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID'],
+      output_path: provisioning_path
     )
     
     sigh(
@@ -153,7 +156,8 @@ platform :ios do
       team_id: ENV['TEAM_NAME'],
       development: true,
       app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
-      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID']
+      cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID'],
+      output_path: provisioning_path
     )
   end
 end
