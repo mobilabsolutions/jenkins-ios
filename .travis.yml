@@ -4,7 +4,9 @@ osx_image: xcode10
 xcode_sdk: iphonesimulator12.0
 
 cache:
-- bundler
+  directories:
+  - "${HOME}/google-cloud-sdk"
+  - bundler
 
 before_install:
 - bundle install
