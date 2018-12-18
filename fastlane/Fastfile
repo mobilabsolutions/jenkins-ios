@@ -29,7 +29,7 @@ platform :ios do
 
   desc 'Build for testing on Firebase test lab'
   lane :build_for_test_lab do
-    prepare_distribution(keychain_name: keychain_name)
+    # prepare_distribution(keychain_name: keychain_name)
     sh('ls ~/Library/MobileDevice/Provisioning\ Profiles')
     scan(
       scheme: 'JenkinsiOSTests',
@@ -37,7 +37,8 @@ platform :ios do
       build_for_testing: true,
       skip_detect_devices: true,
       sdk: 'iphoneos',
-      clean: true
+      clean: true,
+      xcargs: "PROVISIONING_PROFILE=\"7e149ce6-2ea6-4f4a-8345-f579b23106a6.mobileprovision\""
     )
     delete_keychain(name: keychain_name)
   end
