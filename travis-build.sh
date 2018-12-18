@@ -19,9 +19,6 @@ echo "${DEVELOPMENT_CERTIFICATE}" > fastlane/Certificates/development_base64;
 base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/distribution.p12;
 base64 -D fastlane/Certificates/development_base64 -o fastlane/Certificates/development.p12;
 
-echo "Starting Test run";
-fastlane test;
-
 firebase_test_lab() {
     if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
         rm -rf ${HOME}/google-cloud-sdk;
@@ -41,28 +38,22 @@ firebase_test_lab() {
     rm -rf ./tests ./tests.zip;
 }
 
-echo "Testing succeeded. Next steps will be taken";
-
-OPERATION_RESULT=0;
-
 if [ ! -z "${TRAVIS_TAG}" ]; then
+    echo "Testing on Firebase Test Lab"
+    firebase_test_lab
     echo "Will release application to iTunes Connect";
     fastlane release;
-    let OPERATION_RESULT="$?";
-    elif [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
+elif [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = 'master' ]; then
     echo "Testing on Firebase Test Lab"
     firebase_test_lab
     echo "Will distribute application to Beta";
     fastlane beta;
-    let OPERATION_RESULT="$?";
+else 
+    echo "Starting Test run";
+    fastlane test;
 fi
 
 echo "Removing certificate folder";
 rm -rf fastlane/Certificates;
 
-echo "Operation result: $OPERATION_RESULT";
-
-if [ "$OPERATION_RESULT" -ne "0" ]; then
-    echo "An error occurred while distributing!";
-    exit 1;
-fi
+exit 0;

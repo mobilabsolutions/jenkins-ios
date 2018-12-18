@@ -37,6 +37,14 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
 
         tokenTextField.delegate = self
         usernameTextField.delegate = self
+
+        // Work around bug where the keyboard would not inset the table view
+        if #available(iOS 11.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
+                                                   name: UIWindow.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
+                                                   name: UIWindow.keyboardWillHideNotification, object: nil)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +94,18 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
 
     @objc private func endEditing() {
         view.endEditing(true)
+    }
+
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let frame = notification.userInfo?[UIWindow.keyboardFrameEndUserInfoKey] as? CGRect
+        else { return }
+        tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: tableView.contentInset.bottom + frame.height, right: tableView.contentInset.right)
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        guard let frame = notification.userInfo?[UIWindow.keyboardFrameBeginUserInfoKey] as? CGRect
+        else { return }
+        tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: tableView.contentInset.bottom - frame.height, right: tableView.contentInset.right)
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {
