@@ -138,8 +138,7 @@ platform :ios do
       certificate_password: ENV['DEVELOPMENT_KEY_PASSWORD'],
       keychain_name: keychain_name,
       keychain_password: keychain_password,
-      log_output: true,
-      output_path: provisioning_path
+      log_output: true
     )
 
     sigh(
