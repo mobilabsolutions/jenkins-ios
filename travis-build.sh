@@ -23,7 +23,8 @@ echo "Starting Test run";
 fastlane test;
 
 firebase_test_lab() {
-    if [ ! -d ${HOME}/google-cloud-sdk ]; then
+    if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
+        rm -rf ${HOME}/google-cloud-sdk;
         curl https://sdk.cloud.google.com | bash;
     fi
 
