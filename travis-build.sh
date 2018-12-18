@@ -20,7 +20,7 @@ base64 -D fastlane/Certificates/distribution_base64 -o fastlane/Certificates/dis
 base64 -D fastlane/Certificates/development_base64 -o fastlane/Certificates/development.p12;
 
 echo "Starting Test run";
-fastlane test;
+# fastlane test;
 
 firebase_test_lab() {
     if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
