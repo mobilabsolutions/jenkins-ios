@@ -290,6 +290,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         else { return }
         do {
             _ = try AccountManager.manager.deleteAccount(account: account)
+            LoggingManager.loggingManager.logDeleteAccount()
             delegate?.didDeleteAccount(account: account)
         } catch {
             print("An error occurred deleting the current account: \(error)")
