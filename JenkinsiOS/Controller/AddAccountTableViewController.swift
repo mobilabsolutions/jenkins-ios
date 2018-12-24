@@ -275,6 +275,17 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     }
 
     @IBAction func deleteAccount(_: Any) {
+        guard let alertImage = UIImage(named: "delete-account-illustration")
+        else { return }
+        let alert = alertWithImage(image: alertImage, title: "Delete Account", message: "Are you sure you want to delete this account?", height: 48)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            self?.deleteAccountConfirmed()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func deleteAccountConfirmed() {
         guard let account = account
         else { return }
         do {
