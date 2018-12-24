@@ -72,6 +72,10 @@ class LoggingManager {
         Analytics.logEvent("open_favorite_from_widget", parameters: nil)
     }
 
+    func logDeleteAccount() {
+        Analytics.logEvent("delete_account", parameters: nil)
+    }
+
     func logAccountCreation(https: Bool, allowsEveryCertificate: Bool, github: Bool, displayName: String?) {
         Analytics.logEvent(AnalyticsEventLogin, parameters: [
             "https_enabled": https, "all_certs": allowsEveryCertificate,
