@@ -16,6 +16,11 @@ struct Constants {
         static let defaultReloadInterval: TimeInterval = 4
     }
 
+    enum SupportedSchemes: String {
+        case http
+        case https
+    }
+
     struct Paths {
         static let userPath = PersistenceUtils.getDocumentDirectory()!.appendingPathComponent("User")
         static let sharedUserPath = PersistenceUtils.getSharedDirectory()?.appendingPathComponent("Storage").appendingPathComponent("User")

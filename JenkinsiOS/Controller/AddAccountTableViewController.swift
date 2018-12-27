@@ -357,8 +357,10 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
         // The urlTextField's text should be a valid URL
         // The port text field's text should either be empty or a valid integer
+        guard urlTextField.text != nil, let url = URL(string: urlTextField.text!), let scheme = url.scheme
+        else { return false }
 
-        return urlTextField.text != nil && URL(string: urlTextField.text!) != nil
+        return Constants.SupportedSchemes(rawValue: scheme) != nil
     }
 
     private func githubTokenButtonShouldBeEnabled() -> Bool {
