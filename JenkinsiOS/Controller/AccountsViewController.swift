@@ -133,8 +133,15 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
             let navigationController = UINavigationController()
             present(navigationController, animated: false, completion: nil)
             handler.showAccountCreationViewController(on: navigationController, delegate: self)
-        } else if !AccountManager.manager.accounts.isEmpty && didDeleteSelectedAccount {
-            setBackNavigation(enabled: false)
+        } else if !AccountManager.manager.accounts.isEmpty && didDeleteSelectedAccount, let selectedAccount = AccountManager.manager.accounts.first {
+            self.account = selectedAccount
+            currentAccountDelegate?.didChangeCurrentAccount(current: selectedAccount)
+            AccountManager.manager.currentAccount = selectedAccount
+            tableView.reloadSections([0], with: .automatic)
+        }
+
+        if navigationController?.topViewController != self {
+            navigationController?.popViewController(animated: true)
         }
 
         accountDeletionDelegate?.didDeleteAccount(account: account)

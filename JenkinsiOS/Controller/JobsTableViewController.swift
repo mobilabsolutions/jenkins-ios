@@ -214,6 +214,7 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
         searchController?.delegate = self
 
         if #available(iOS 11.0, *) {
+            tabBarController?.navigationItem.searchController = nil
             tabBarController?.navigationItem.searchController = searchController
         } else {
             tableView.tableHeaderView = searchController?.searchBar
