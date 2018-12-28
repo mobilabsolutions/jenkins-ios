@@ -1616,7 +1616,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "com.mobilabsolutions.jenkins.client.extension Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Extension Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG IS_EXTENSION";
 				SWIFT_VERSION = 4.2;
@@ -1788,7 +1788,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilabsolutions.jenkins.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development 1544533114";
+				PROVISIONING_PROFILE_SPECIFIER = "Jenkins Development";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
