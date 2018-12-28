@@ -144,7 +144,7 @@ platform :ios do
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       development: true,
-      provisioning_name: 'Jenkins Development',
+      provisioning_name: 'Jenkins Development 1544533114',
       cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID'],
       output_path: provisioning_path
     )
@@ -153,6 +153,7 @@ platform :ios do
       username: ENV['FASTLANE_USER'],
       team_id: ENV['TEAM_NAME'],
       development: true,
+      provisioning_name: 'com.mobilabsolutions.jenkins.client.extension Development',
       app_identifier: 'com.mobilabsolutions.jenkins.client.extension',
       cert_id: ENV['DEVELOPMENT_CERTIFICATE_ID'],
       output_path: provisioning_path
