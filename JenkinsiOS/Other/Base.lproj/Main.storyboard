@@ -3054,7 +3054,7 @@ Note: you need to provide your Github token only once. </string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRb-qB-WXN">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-logo-background" translatesAutoresizingMaskIntoConstraints="NO" id="reM-1G-gXi">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about-icon" translatesAutoresizingMaskIntoConstraints="NO" id="reM-1G-gXi">
                                                 <rect key="frame" x="73" y="8" width="268" height="237.66666666666666"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="reM-1G-gXi" secondAttribute="height" multiplier="230:204" id="a4z-8e-kdb"/>
@@ -3159,6 +3159,7 @@ of iOS in mind.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="about-icon" width="230" height="206"/>
         <image name="action" width="48" height="34"/>
         <image name="arrow-right" width="11" height="18"/>
         <image name="artifact" width="15" height="18"/>
@@ -3168,7 +3169,6 @@ of iOS in mind.</string>
         <image name="group-6" width="17" height="17"/>
         <image name="ic-actions-top" width="230" height="205"/>
         <image name="ic-jenkins-logosplash" width="130" height="91"/>
-        <image name="ic-logo-background" width="230" height="206"/>
         <image name="icAccountCreated" width="230" height="205"/>
         <image name="icon-favorite" width="83" height="69"/>
         <image name="jobTabBarItem" width="48" height="34"/>
