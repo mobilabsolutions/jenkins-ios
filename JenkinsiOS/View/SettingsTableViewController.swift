@@ -35,6 +35,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
         case accounts(currentAccountName: String)
         case currentAccount(currentAccountName: String)
         case otherAccounts(otherAccountNames: [String])
+        case about
 
         struct Cell {
             enum CellType {
@@ -58,6 +59,8 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
                 return "ACTIVE ACCOUNT"
             case .otherAccounts(otherAccountNames: _):
                 return "OTHER ACCOUNTS"
+            case .about:
+                return "ABOUT"
             }
         }
 
@@ -74,6 +77,8 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             case let .otherAccounts(otherAccountNames):
                 return otherAccountNames.map { Cell(actionTitle: $0, type: .contentCell) }
                     + [Cell(actionTitle: "Add account", type: .creationCell)]
+            case .about:
+                return [Cell(actionTitle: "Butler", type: .contentCell)]
             }
         }
     }
@@ -176,6 +181,8 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             else { return }
             let nonCurrent = nonCurrentAccounts(currentAccount: current)
             performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nonCurrent[indexPath.row - 1])
+        case .about:
+            performSegue(withIdentifier: Constants.Identifiers.aboutSegue, sender: nil)
         }
     }
 
@@ -218,11 +225,13 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
                 .plugins, .users,
                 .currentAccount(currentAccountName: account.displayName ?? account.baseUrl.absoluteString),
                 .otherAccounts(otherAccountNames: nonCurrentAccounts(currentAccount: account).map { $0.displayName ?? $0.baseUrl.absoluteString }),
+                .about,
             ]
         } else {
             sections = [
                 .plugins, .users,
                 .accounts(currentAccountName: account.displayName ?? account.baseUrl.absoluteString),
+                .about,
             ]
         }
     }
