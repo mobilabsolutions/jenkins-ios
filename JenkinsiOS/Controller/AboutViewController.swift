@@ -13,8 +13,10 @@ class AboutViewController: UIViewController {
     @IBOutlet private var versionLabel: UILabel!
     @IBOutlet private var giveFeedbackButton: BigButton!
     @IBOutlet private var rateButton: BigButton!
+    @IBOutlet var aboutLabel: UILabel!
 
     private let versionBuilder = VersionNumberBuilder()
+    private let aboutText = "Butler Client For Jenkins is the best Jenkins CI client for iOS. Its simple design, as well as feature richness, make it the perfect companion for your Jenkins server.\nButler was designed with the last generation of iOS in mind."
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,8 @@ class AboutViewController: UIViewController {
 
         rateButton.addTarget(self, action: #selector(rate), for: .touchUpInside)
         giveFeedbackButton.addTarget(self, action: #selector(giveFeedback), for: .touchUpInside)
+
+        aboutLabel.text = aboutText
     }
 
     @objc private func rate() {

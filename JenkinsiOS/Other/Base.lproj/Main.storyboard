@@ -3148,6 +3148,7 @@ of iOS in mind.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="aboutLabel" destination="p0Y-cj-vGq" id="Szn-OC-VhQ"/>
                         <outlet property="giveFeedbackButton" destination="cJe-0F-nOn" id="GAa-do-kQp"/>
                         <outlet property="rateButton" destination="AUf-GM-MKb" id="0cu-3l-WF2"/>
                         <outlet property="versionLabel" destination="S2d-dD-sK4" id="vbq-7j-LCV"/>

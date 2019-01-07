@@ -114,6 +114,6 @@ extension AddAccountContainerViewController: DoneButtonContaining {
     }
 
     func tableViewOffsetForDoneButton() -> CGFloat {
-        return (doneButton.superview?.frame.minY ?? 0) - view.bounds.height
+        return (doneButton.superview?.frame.minY ?? 0) - view.frame.height - UIApplication.shared.statusBarFrame.height - (navigationController?.navigationBar.frame.height ?? 0)
     }
 }

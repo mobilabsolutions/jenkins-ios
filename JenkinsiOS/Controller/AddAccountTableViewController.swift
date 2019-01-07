@@ -197,8 +197,13 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
-                                              bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
+        if #available(iOS 11.0, *) {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
+        } else {
+            tableView.contentInset = UIEdgeInsets(top: -(navigationController?.navigationBar.frame.height ?? 0), left: 0,
+                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
