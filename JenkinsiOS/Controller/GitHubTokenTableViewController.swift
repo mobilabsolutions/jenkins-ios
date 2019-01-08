@@ -38,19 +38,25 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
         tokenTextField.delegate = self
         usernameTextField.delegate = self
 
-        // Work around bug where the keyboard would not inset the table view
-        if #available(iOS 11.0, *) {
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
-                                                   name: UIWindow.keyboardWillShowNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
-                                                   name: UIWindow.keyboardWillHideNotification, object: nil)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
+                                               name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
+                                               name: UIWindow.keyboardWillHideNotification, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        let bottomOffset: CGFloat
+
+        if let doneButtonOffset = doneButtonContainer?.tableViewOffsetForDoneButton() {
+            bottomOffset = doneButtonOffset + (navigationController?.navigationBar.frame.height ?? 0)
+        } else {
+            bottomOffset = 0
+        }
+
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
-                                              bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
+                                              bottom: bottomOffset, right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
