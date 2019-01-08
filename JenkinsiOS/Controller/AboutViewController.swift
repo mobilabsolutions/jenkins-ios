@@ -31,7 +31,9 @@ class AboutViewController: UIViewController {
         rateButton.addTarget(self, action: #selector(rate), for: .touchUpInside)
         giveFeedbackButton.addTarget(self, action: #selector(giveFeedback), for: .touchUpInside)
 
-        aboutLabel.text = aboutText
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 7
+        aboutLabel.attributedText = NSAttributedString(string: aboutText, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
     }
 
     @objc private func rate() {
