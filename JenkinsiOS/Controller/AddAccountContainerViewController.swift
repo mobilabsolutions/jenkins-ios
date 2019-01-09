@@ -17,6 +17,7 @@ protocol DoneButtonContaining: class {
     func setDoneButton(title: String)
     func setDoneButton(alpha: CGFloat)
     func tableViewOffsetForDoneButton() -> CGFloat
+    func doneButtonFrame() -> CGRect
 }
 
 class AddAccountContainerViewController: UIViewController, VerificationFailurePresenting, AccountProvidable {
@@ -115,5 +116,9 @@ extension AddAccountContainerViewController: DoneButtonContaining {
 
     func tableViewOffsetForDoneButton() -> CGFloat {
         return (doneButton.superview?.frame.minY ?? 0) - view.frame.height - UIApplication.shared.statusBarFrame.height - (navigationController?.navigationBar.frame.height ?? 0)
+    }
+
+    func doneButtonFrame() -> CGRect {
+        return doneButton.convert(doneButton.bounds, to: children.first?.view)
     }
 }

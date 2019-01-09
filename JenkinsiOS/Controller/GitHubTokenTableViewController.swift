@@ -105,13 +105,16 @@ class GitHubTokenTableViewController: UITableViewController, AccountProvidable, 
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let frame = notification.userInfo?[UIWindow.keyboardFrameEndUserInfoKey] as? CGRect
         else { return }
-        tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: tableView.contentInset.bottom + frame.height, right: tableView.contentInset.right)
+
+        if tableView.contentInset.top != 0 {
+            return
+        }
+
+        tableView.contentInset.top = -frame.height
     }
 
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        guard let frame = notification.userInfo?[UIWindow.keyboardFrameBeginUserInfoKey] as? CGRect
-        else { return }
-        tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: tableView.contentInset.bottom - frame.height, right: tableView.contentInset.right)
+    @objc private func keyboardWillHide(notification _: NSNotification) {
+        tableView.contentInset.top = 0
     }
 
     private func verify(account: Account, onSuccess: @escaping () -> Void) {

@@ -247,15 +247,19 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     private func addKeyboardHandling() {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self]
             notification in
+
+            if self?.tableView.contentInset.top != 0 {
+                return
+            }
+
             guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             else { return }
 
-            guard let footerViewRect = self?.tableView.tableFooterView?.frame
+            guard let footerViewRect = self?.doneButtonContainer?.doneButtonFrame()
             else { return }
 
-            let inset = keyboardRect.minY - footerViewRect.minY
-
-            let movedTableViewBy = -inset - 20
+            let inset = footerViewRect.minY - keyboardRect.minY
+            let movedTableViewBy = -inset
 
             self?.tableView.contentInset.top = (inset > 0) ? movedTableViewBy : 0
         }
