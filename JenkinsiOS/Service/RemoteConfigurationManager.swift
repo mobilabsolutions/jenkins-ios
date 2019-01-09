@@ -39,7 +39,7 @@ class RemoteConfigurationManager {
 
     private func setDefaultValues() {
         config.setDefaults([
-            Constants.Identifiers.remoteConfigShowDisplayNameFieldKey: false as NSObject,
+            Constants.Identifiers.remoteConfigShowDisplayNameFieldKey: true as NSObject,
             Constants.Identifiers.remoteConfigNewAccountDesignKey: false as NSObject,
         ])
     }
