@@ -23,6 +23,8 @@ protocol DoneButtonContaining: class {
 class AddAccountContainerViewController: UIViewController, VerificationFailurePresenting, AccountProvidable {
     var account: Account?
     var editingCurrentAccount = false
+    var addingFirstAccount = false
+
     var delegate: AddAccountTableViewControllerDelegate?
     var doneButtonEventReceiver: DoneButtonEventReceiving?
 
@@ -47,6 +49,7 @@ class AddAccountContainerViewController: UIViewController, VerificationFailurePr
         if let addAccountViewController = segue.destination as? AddAccountTableViewController {
             addAccountViewController.delegate = delegate
             addAccountViewController.isCurrentAccount = editingCurrentAccount
+            addAccountViewController.isFirstAccount = addingFirstAccount
             addAccountViewController.doneButtonContainer = self
             doneButtonEventReceiver = addAccountViewController
         }

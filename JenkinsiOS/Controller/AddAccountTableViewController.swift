@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddAccountTableViewControllerDelegate: class {
-    func didEditAccount(account: Account, oldAccount: Account?)
+    func didEditAccount(account: Account, oldAccount: Account?, useAsCurrentAccount: Bool)
     func didDeleteAccount(account: Account)
 }
 
@@ -28,6 +28,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     var account: Account?
     var isCurrentAccount = false
+    var isFirstAccount = false
 
     weak var delegate: AddAccountTableViewControllerDelegate?
     weak var verificationFailurePresenter: VerificationFailurePresenting?
@@ -51,6 +52,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     @IBOutlet var deleteAccountCell: UITableViewCell!
     @IBOutlet var useGithubAccountContainer: UIView!
     @IBOutlet var githubTokenButton: UIButton!
+    @IBOutlet var switchAccountLabel: UILabel!
+    @IBOutlet var switchAccountSwitch: UISwitch!
 
     @IBOutlet var textFields: [UITextField]!
 
@@ -58,7 +61,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         if account == nil {
             return "DONE"
         }
-        return isCurrentAccount ? "SAVE" : "SAVE AND SWITCH"
+
+        return (isCurrentAccount || !switchAccountSwitch.isOn) ? "SAVE" : "SAVE AND SWITCH"
     }
 
     // MARK: - Nested Types
@@ -71,9 +75,10 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         case username
         case apiKey
         case trustCertificates
+        case switchAccount
         case delete
 
-        func heightForRowInSection(currentAccount: Account?, showName: Bool) -> CGFloat {
+        func heightForRowInSection(account: Account?, showName: Bool, isCurrentAccount: Bool, isFirstAccount: Bool) -> CGFloat {
             switch self {
             case .name where showName: return 50.0
             case .name: return 0.0
@@ -83,7 +88,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
             case .username: return 50
             case .apiKey: return 50
             case .trustCertificates: return 83
-            case .delete where currentAccount != nil: return 50
+            case .switchAccount: return isCurrentAccount || isFirstAccount ? 0 : 50
+            case .delete where account != nil: return 50
             case .delete: return 48
             }
         }
@@ -186,7 +192,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
         toggleTrustAllCertificates(trustAllCertificatesSwitch)
 
-        trustAllCertificatesSwitch.addTarget(self, action: #selector(didToggleTrustAllCertificates), for: .allEditingEvents)
+        trustAllCertificatesSwitch.addTarget(self, action: #selector(didToggleTrustAllCertificates), for: .valueChanged)
+        switchAccountSwitch.addTarget(self, action: #selector(didToggleSwitchAccount), for: .valueChanged)
 
         textFields.forEach { $0.delegate = self }
 
@@ -339,10 +346,15 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
     }
 
+    @objc private func didToggleSwitchAccount() {
+        doneButtonContainer?.setDoneButton(title: actionButtonTitle)
+    }
+
     override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let section = Section(rawValue: indexPath.section)
         else { return 0 }
-        return section.heightForRowInSection(currentAccount: account, showName: shouldShowNameField)
+        return section.heightForRowInSection(account: account, showName: shouldShowNameField,
+                                             isCurrentAccount: isCurrentAccount, isFirstAccount: isFirstAccount)
     }
 
     // MARK: - Textfield methods
@@ -420,11 +432,11 @@ extension AddAccountTableViewController: AccountAdder {
     func addOrUpdateAccount(account: Account) throws {
         if let oldAccount = self.account {
             try AccountManager.manager.editAccount(newAccount: account, oldAccount: oldAccount)
-            delegate?.didEditAccount(account: account, oldAccount: oldAccount)
+            delegate?.didEditAccount(account: account, oldAccount: oldAccount, useAsCurrentAccount: switchAccountSwitch.isOn)
         } else {
             try AccountManager.manager.addAccount(account: account)
             ApplicationUserManager.manager.save()
-            delegate?.didEditAccount(account: account, oldAccount: nil)
+            delegate?.didEditAccount(account: account, oldAccount: nil, useAsCurrentAccount: switchAccountSwitch.isOn)
         }
     }
 }

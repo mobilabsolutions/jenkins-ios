@@ -77,6 +77,7 @@ class OnBoardingHandler: OnBoardingViewControllerDelegate {
         else { return nil }
 
         accountViewController.delegate = self
+        accountViewController.addingFirstAccount = true
         accountViewController.title = "Add Account"
         accountViewController.navigationItem.hidesBackButton = true
         return accountViewController
@@ -94,7 +95,7 @@ extension OnBoardingHandler: AddAccountTableViewControllerDelegate {
         fatalError("You should not be able to delete an account from the onboarding flow")
     }
 
-    func didEditAccount(account: Account, oldAccount _: Account?) {
+    func didEditAccount(account: Account, oldAccount _: Account?, useAsCurrentAccount: Bool) {
         if var accountProvidable = presentedViewController?.presentingViewController as? AccountProvidable {
             accountProvidable.account = account
         }

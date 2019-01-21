@@ -96,6 +96,7 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         if let addAccountViewController = viewController as? AddAccountContainerViewController {
             addAccountViewController.account = AccountManager.manager.accounts[indexPath.row]
             addAccountViewController.delegate = self
+            addAccountViewController.editingCurrentAccount = addAccountViewController.account == account
         }
     }
 
@@ -103,9 +104,11 @@ class AccountsViewController: UIViewController, AccountProvidable, UITableViewDe
         performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nil)
     }
 
-    func didEditAccount(account: Account, oldAccount: Account?) {
-        self.account = account
-        currentAccountDelegate?.didChangeCurrentAccount(current: account)
+    func didEditAccount(account: Account, oldAccount: Account?, useAsCurrentAccount: Bool) {
+        if useAsCurrentAccount {
+            self.account = account
+            currentAccountDelegate?.didChangeCurrentAccount(current: account)
+        }
 
         var shouldAnimateNavigationStackChanges = true
 

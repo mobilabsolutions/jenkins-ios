@@ -261,9 +261,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
 }
 
 extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
-    func didEditAccount(account: Account, oldAccount: Account?) {
-        self.account = account
-        currentAccountDelegate?.didChangeCurrentAccount(current: account)
+    func didEditAccount(account: Account, oldAccount: Account?, useAsCurrentAccount: Bool) {
+        if useAsCurrentAccount {
+            self.account = account
+            currentAccountDelegate?.didChangeCurrentAccount(current: account)
+        }
 
         var shouldAnimateNavigationStackChanges = true
 

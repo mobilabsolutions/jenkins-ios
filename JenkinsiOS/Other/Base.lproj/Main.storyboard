@@ -2490,10 +2490,41 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="Azk-Y6-Nrd" userLabel="Table View Section">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="LBT-fa-UZy">
+                                        <rect key="frame" x="0.0" y="530" width="414" height="47"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LBT-fa-UZy" id="BGg-sH-RnO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Switch to this account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pa-kU-vCe">
+                                                    <rect key="frame" x="24" y="14.666666666666664" width="153" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.41960784313725491" green="0.47058823529411764" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80J-vX-JKL">
+                                                    <rect key="frame" x="341" y="8" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="80J-vX-JKL" firstAttribute="centerY" secondItem="2Pa-kU-vCe" secondAttribute="centerY" id="3Wx-Et-Z07"/>
+                                                <constraint firstItem="80J-vX-JKL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Pa-kU-vCe" secondAttribute="trailing" constant="10" id="Hvd-o6-Vig"/>
+                                                <constraint firstItem="2Pa-kU-vCe" firstAttribute="leading" secondItem="BGg-sH-RnO" secondAttribute="leading" constant="24" id="MaI-7y-sNa"/>
+                                                <constraint firstItem="2Pa-kU-vCe" firstAttribute="centerY" secondItem="BGg-sH-RnO" secondAttribute="centerY" id="SPj-AM-4ju"/>
+                                                <constraint firstAttribute="trailing" secondItem="80J-vX-JKL" secondAttribute="trailing" constant="24" id="SpJ-Dm-n8U"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="OsL-xd-PSo" userLabel="Table View Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="F8o-Ls-2AL">
-                                        <rect key="frame" x="0.0" y="530" width="414" height="47"/>
+                                        <rect key="frame" x="0.0" y="577" width="414" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F8o-Ls-2AL" id="NOK-E1-m9a">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
@@ -2532,6 +2563,8 @@
                         <outlet property="deleteAccountCell" destination="F8o-Ls-2AL" id="bpE-RV-huV"/>
                         <outlet property="githubTokenButton" destination="gWl-mo-V4E" id="aNH-wM-Kln"/>
                         <outlet property="nameTextField" destination="5Bv-rn-ffi" id="JDg-Fu-eYE"/>
+                        <outlet property="switchAccountLabel" destination="2Pa-kU-vCe" id="BAk-kx-UUa"/>
+                        <outlet property="switchAccountSwitch" destination="80J-vX-JKL" id="Ubb-TD-oWp"/>
                         <outlet property="trustAllCertificatesSwitch" destination="bP5-Jo-UMd" id="Mcr-87-dzY"/>
                         <outlet property="trustAllCertificatesWarning" destination="CYd-J8-g7E" id="HTC-Fe-4pG"/>
                         <outlet property="urlTextField" destination="oSM-Ni-XTa" id="oLl-mU-vzN"/>
