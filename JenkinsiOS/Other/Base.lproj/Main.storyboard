@@ -2434,30 +2434,24 @@
                             </tableViewSection>
                             <tableViewSection id="ZG5-te-0yu">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="83" id="JrP-gw-urw">
-                                        <rect key="frame" x="0.0" y="447" width="414" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="JrP-gw-urw">
+                                        <rect key="frame" x="0.0" y="447" width="414" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JrP-gw-urw" id="WE4-8M-AkY">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2SV-y5-TCv">
-                                                    <rect key="frame" x="8" y="0.0" width="398" height="83"/>
+                                                    <rect key="frame" x="8" y="0.0" width="398" height="47"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trust All Certificates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugR-jC-GoY">
-                                                            <rect key="frame" x="16" y="24" width="312" height="18"/>
+                                                            <rect key="frame" x="16" y="14.666666666666664" width="312" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.41960784309999999" green="0.47058823529999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warning! Trusting all certificates may be a security risk." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CYd-J8-g7E">
-                                                            <rect key="frame" x="16" y="50" width="366" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" red="1" green="0.1606305804" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bP5-Jo-UMd">
-                                                            <rect key="frame" x="333" y="17.666666666666671" width="51" height="31"/>
+                                                            <rect key="frame" x="333" y="8" width="51" height="31"/>
                                                             <color key="onTintColor" red="1" green="0.16063058035714287" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <connections>
                                                                 <action selector="toggleTrustAllCertificates:" destination="rU8-cw-u7t" eventType="valueChanged" id="US9-uB-gMZ"/>
@@ -2466,21 +2460,17 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="ugR-jC-GoY" firstAttribute="leading" secondItem="2SV-y5-TCv" secondAttribute="leadingMargin" constant="8" id="Rvr-9E-S0c"/>
-                                                        <constraint firstItem="bP5-Jo-UMd" firstAttribute="centerY" secondItem="2SV-y5-TCv" secondAttribute="centerY" constant="-8.5" id="XbK-LQ-ejk"/>
+                                                        <constraint firstItem="bP5-Jo-UMd" firstAttribute="centerY" secondItem="2SV-y5-TCv" secondAttribute="centerY" id="XbK-LQ-ejk"/>
                                                         <constraint firstItem="bP5-Jo-UMd" firstAttribute="leading" secondItem="ugR-jC-GoY" secondAttribute="trailing" constant="5" id="YbM-FU-9aD"/>
-                                                        <constraint firstItem="CYd-J8-g7E" firstAttribute="leading" secondItem="ugR-jC-GoY" secondAttribute="leading" id="hxv-wO-GsN"/>
-                                                        <constraint firstItem="CYd-J8-g7E" firstAttribute="top" secondItem="ugR-jC-GoY" secondAttribute="bottom" constant="8" id="lb9-0P-qKh"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="bP5-Jo-UMd" secondAttribute="trailing" constant="8" id="nSr-kl-blv"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="CYd-J8-g7E" secondAttribute="trailing" constant="8" id="uGQ-La-4KK"/>
-                                                        <constraint firstItem="ugR-jC-GoY" firstAttribute="centerY" secondItem="2SV-y5-TCv" secondAttribute="centerY" constant="-8.5" id="uUO-RI-mFN"/>
+                                                        <constraint firstItem="ugR-jC-GoY" firstAttribute="centerY" secondItem="2SV-y5-TCv" secondAttribute="centerY" id="uUO-RI-mFN"/>
                                                         <constraint firstItem="bP5-Jo-UMd" firstAttribute="centerY" secondItem="ugR-jC-GoY" secondAttribute="centerY" id="vpu-8T-axf"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="CYd-J8-g7E" secondAttribute="bottom" constant="8" id="w7i-TN-bBr"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
+                                                <constraint firstItem="ugR-jC-GoY" firstAttribute="leading" secondItem="WE4-8M-AkY" secondAttribute="leadingMargin" constant="4" id="4dD-60-8gV"/>
                                                 <constraint firstAttribute="bottom" secondItem="2SV-y5-TCv" secondAttribute="bottom" id="Grc-fp-vtr"/>
                                                 <constraint firstItem="2SV-y5-TCv" firstAttribute="top" secondItem="WE4-8M-AkY" secondAttribute="top" id="b4J-hq-PuI"/>
                                                 <constraint firstItem="2SV-y5-TCv" firstAttribute="leading" secondItem="WE4-8M-AkY" secondAttribute="leading" constant="8" id="bCS-FH-kdS"/>
@@ -2493,7 +2483,7 @@
                             <tableViewSection id="Azk-Y6-Nrd" userLabel="Table View Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="LBT-fa-UZy">
-                                        <rect key="frame" x="0.0" y="530" width="414" height="47"/>
+                                        <rect key="frame" x="0.0" y="494" width="414" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LBT-fa-UZy" id="BGg-sH-RnO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
@@ -2511,9 +2501,9 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
+                                                <constraint firstItem="2Pa-kU-vCe" firstAttribute="leading" secondItem="BGg-sH-RnO" secondAttribute="leadingMargin" constant="4" id="01b-kf-J9f"/>
                                                 <constraint firstItem="80J-vX-JKL" firstAttribute="centerY" secondItem="2Pa-kU-vCe" secondAttribute="centerY" id="3Wx-Et-Z07"/>
                                                 <constraint firstItem="80J-vX-JKL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Pa-kU-vCe" secondAttribute="trailing" constant="10" id="Hvd-o6-Vig"/>
-                                                <constraint firstItem="2Pa-kU-vCe" firstAttribute="leading" secondItem="BGg-sH-RnO" secondAttribute="leading" constant="24" id="MaI-7y-sNa"/>
                                                 <constraint firstItem="2Pa-kU-vCe" firstAttribute="centerY" secondItem="BGg-sH-RnO" secondAttribute="centerY" id="SPj-AM-4ju"/>
                                                 <constraint firstAttribute="trailing" secondItem="80J-vX-JKL" secondAttribute="trailing" constant="24" id="SpJ-Dm-n8U"/>
                                             </constraints>
@@ -2524,7 +2514,7 @@
                             <tableViewSection id="OsL-xd-PSo" userLabel="Table View Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="F8o-Ls-2AL">
-                                        <rect key="frame" x="0.0" y="577" width="414" height="47"/>
+                                        <rect key="frame" x="0.0" y="541" width="414" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F8o-Ls-2AL" id="NOK-E1-m9a">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
@@ -2566,7 +2556,6 @@
                         <outlet property="switchAccountLabel" destination="2Pa-kU-vCe" id="BAk-kx-UUa"/>
                         <outlet property="switchAccountSwitch" destination="80J-vX-JKL" id="Ubb-TD-oWp"/>
                         <outlet property="trustAllCertificatesSwitch" destination="bP5-Jo-UMd" id="Mcr-87-dzY"/>
-                        <outlet property="trustAllCertificatesWarning" destination="CYd-J8-g7E" id="HTC-Fe-4pG"/>
                         <outlet property="urlTextField" destination="oSM-Ni-XTa" id="oLl-mU-vzN"/>
                         <outlet property="useGithubAccountContainer" destination="A55-fz-61U" id="ac1-8f-N11"/>
                         <outlet property="usernameTextField" destination="icJ-wq-R6x" id="KcK-pq-CPm"/>
@@ -2837,7 +2826,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="exK-9H-AYK">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="exK-9H-AYK">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="261"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2848,10 +2837,10 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK0-gj-2wT">
-                                    <rect key="frame" x="46" y="126" width="354" height="42"/>
-                                    <string key="text">In order to login with your Github account,
-please generate a Github token. Please make sure that the token includes user and repo scopes.
-Note: you need to provide your Github token only once. </string>
+                                    <rect key="frame" x="46" y="126" width="354" height="89.666666666666686"/>
+                                    <string key="text">In order to login with your GitHub account,
+please generate a GitHub token. Please make sure that the token includes user and repo scopes.
+Note: you need to provide your GitHub token only once. </string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.5490196078431373" green="0.58823529411764708" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>

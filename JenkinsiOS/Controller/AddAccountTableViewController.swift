@@ -40,6 +40,10 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         return remoteConfigManager.configuration.shouldPresentDisplayNameField
     }
 
+    private var shouldShowSwitchAccountToggle: Bool {
+        return remoteConfigManager.configuration.shouldUseNewAccountDesign
+    }
+
     // MARK: - Outlets
 
     @IBOutlet var nameTextField: UITextField?
@@ -47,7 +51,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var apiKeyTextField: UITextField!
     @IBOutlet var trustAllCertificatesSwitch: UISwitch!
-    @IBOutlet var trustAllCertificatesWarning: UILabel!
     @IBOutlet var bottomMostBackgroundView: UIView!
     @IBOutlet var deleteAccountCell: UITableViewCell!
     @IBOutlet var useGithubAccountContainer: UIView!
@@ -78,7 +81,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         case switchAccount
         case delete
 
-        func heightForRowInSection(account: Account?, showName: Bool, isCurrentAccount: Bool, isFirstAccount: Bool) -> CGFloat {
+        func heightForRowInSection(account: Account?, showName: Bool, shouldShowSwitchAccount: Bool) -> CGFloat {
             switch self {
             case .name where showName: return 50.0
             case .name: return 0.0
@@ -87,8 +90,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
             case .separator: return 30
             case .username: return 50
             case .apiKey: return 50
-            case .trustCertificates: return 83
-            case .switchAccount: return isCurrentAccount || isFirstAccount ? 0 : 50
+            case .trustCertificates: return 47
+            case .switchAccount: return shouldShowSwitchAccount ? 47 : 0
             case .delete where account != nil: return 50
             case .delete: return 48
             }
@@ -200,6 +203,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         addDoneButtonInputAccessory(to: apiKeyTextField)
         addKeyboardHandling()
         toggleTrustAllCertificatesCell()
+
+        switchAccountSwitch.isOn = shouldShowSwitchAccountToggle
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -285,8 +290,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         tableView.endEditing(true)
     }
 
-    @IBAction func toggleTrustAllCertificates(_ sender: UISwitch) {
-        trustAllCertificatesWarning.isHidden = !sender.isOn
+    @IBAction func toggleTrustAllCertificates(_: UISwitch) {
         doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
     }
 
@@ -354,7 +358,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         guard let section = Section(rawValue: indexPath.section)
         else { return 0 }
         return section.heightForRowInSection(account: account, showName: shouldShowNameField,
-                                             isCurrentAccount: isCurrentAccount, isFirstAccount: isFirstAccount)
+                                             shouldShowSwitchAccount: !isCurrentAccount && !isFirstAccount && shouldShowSwitchAccountToggle)
     }
 
     // MARK: - Textfield methods
@@ -432,11 +436,11 @@ extension AddAccountTableViewController: AccountAdder {
     func addOrUpdateAccount(account: Account) throws {
         if let oldAccount = self.account {
             try AccountManager.manager.editAccount(newAccount: account, oldAccount: oldAccount)
-            delegate?.didEditAccount(account: account, oldAccount: oldAccount, useAsCurrentAccount: switchAccountSwitch.isOn)
+            delegate?.didEditAccount(account: account, oldAccount: oldAccount, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
         } else {
             try AccountManager.manager.addAccount(account: account)
             ApplicationUserManager.manager.save()
-            delegate?.didEditAccount(account: account, oldAccount: nil, useAsCurrentAccount: switchAccountSwitch.isOn)
+            delegate?.didEditAccount(account: account, oldAccount: nil, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
         }
     }
 }

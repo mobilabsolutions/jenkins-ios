@@ -296,12 +296,26 @@ extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
             updateSections(for: currentAccount)
         }
         tableView.reloadData()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: false)
+
+        let handler = OnBoardingHandler()
+        if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
+            let navigationController = UINavigationController()
+            present(navigationController, animated: false, completion: nil)
+            handler.showAccountCreationViewController(on: navigationController, delegate: self)
+        }
     }
 }
 
 extension SettingsTableViewController: AccountCreatedViewControllerDelegate {
     func doneButtonPressed() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension SettingsTableViewController: OnBoardingDelegate {
+    func didFinishOnboarding(didAddAccount _: Bool) {
+        account = AccountManager.manager.currentAccount ?? AccountManager.manager.accounts.first
+        dismiss(animated: true, completion: nil)
     }
 }
