@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_: UIApplication) {
-        Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
 
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
