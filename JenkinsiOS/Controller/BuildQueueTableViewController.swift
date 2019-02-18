@@ -118,6 +118,10 @@ class BuildQueueTableViewController: RefreshingTableViewController, AccountProvi
         performSegue(withIdentifier: Constants.Identifiers.showJobSegue, sender: queue?.items[indexPath.row])
     }
 
+    override func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return (queue?.items[indexPath.row].task?.wasBuilt ?? false) ? indexPath : nil
+    }
+
     // MARK: - View controller navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
