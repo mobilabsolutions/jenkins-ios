@@ -29,6 +29,8 @@ class BuildQueueTableViewCell: JobTableViewCell {
         super.setup(with: .job(job: task))
         causeLabel.text = queueItem.why
 
+        arrowView.isHidden = self.queueItem?.task?.wasBuilt == false
+
         // Extend the top color of the status view's image to fill the cell's height
         if let image = statusView.image, let cropped = image.cgImage?.cropping(to: CGRect(x: 0, y: 0, width: image.size.width / 4, height: image.size.height / 4)) {
             let patternImage = UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)

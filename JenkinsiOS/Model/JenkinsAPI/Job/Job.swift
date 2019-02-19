@@ -65,6 +65,11 @@ class Job: Favoratible {
     /// The job's build parameters, if any
     var parameters: [Parameter] = []
 
+    /// Whether or not the job was previously built
+    var wasBuilt: Bool {
+        return color != .notBuilt
+    }
+
     /// Optionally initialize a Job
     ///
     /// - parameter json:           The json from which to initialize the job
