@@ -278,7 +278,7 @@ extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
 
         var viewControllers = navigationController?.viewControllers ?? []
         // Remove the add account view controller from the navigation controller stack
-        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) && !($0 is GitHubTokenContainerViewController) }
+        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) }
         navigationController?.setViewControllers(viewControllers, animated: shouldAnimateNavigationStackChanges)
 
         if let currentAccount = self.account {
