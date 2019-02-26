@@ -6,6 +6,7 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
+import SafariServices
 import UIKit
 
 protocol AddAccountTableViewControllerDelegate: class {
@@ -53,10 +54,9 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     @IBOutlet var trustAllCertificatesSwitch: UISwitch!
     @IBOutlet var bottomMostBackgroundView: UIView!
     @IBOutlet var deleteAccountCell: UITableViewCell!
-    @IBOutlet var useGithubAccountContainer: UIView!
-    @IBOutlet var githubTokenButton: UIButton!
     @IBOutlet var switchAccountLabel: UILabel!
     @IBOutlet var switchAccountSwitch: UISwitch!
+    @IBOutlet var seeTutorialButton: UIButton!
 
     @IBOutlet var textFields: [UITextField]!
 
@@ -73,10 +73,9 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     private enum Section: Int {
         case name = 0
         case url
-        case github
-        case separator
         case username
         case apiKey
+        case seeTutorial
         case trustCertificates
         case switchAccount
         case delete
@@ -86,9 +85,8 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
             case .name where showName: return 50.0
             case .name: return 0.0
             case .url: return 50
-            case .github: return 70
-            case .separator: return 30
             case .username: return 50
+            case .seeTutorial: return 60
             case .apiKey: return 50
             case .trustCertificates: return 47
             case .switchAccount: return shouldShowSwitchAccount ? 47 : 0
@@ -171,12 +169,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     override func viewDidLoad() {
         bottomMostBackgroundView.layer.cornerRadius = 5
-        useGithubAccountContainer.layer.cornerRadius = 6
-
-        useGithubAccountContainer.layer.shadowOffset = CGSize(width: 0, height: 2)
-        useGithubAccountContainer.layer.shadowOpacity = 0.2
-        useGithubAccountContainer.layer.shadowColor = Constants.UI.paleGreyColor.cgColor
-        useGithubAccountContainer.layer.shadowRadius = 4
 
         // Write all known data into the text fields
         if let account = account {
@@ -205,17 +197,20 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         toggleTrustAllCertificatesCell()
 
         switchAccountSwitch.isOn = shouldShowSwitchAccountToggle
+
+        let text = NSMutableAttributedString(string: "See tutorial", attributes: [
+            .foregroundColor: Constants.UI.skyBlue,
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
+        ])
+        seeTutorialButton.setAttributedTitle(text, for: .normal)
+        seeTutorialButton.addTarget(self, action: #selector(showTutorial), for: .touchUpInside)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if #available(iOS 11.0, *) {
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
-                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
-        } else {
-            tableView.contentInset = UIEdgeInsets(top: -(navigationController?.navigationBar.frame.height ?? 0), left: 0,
-                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let bottomOffset = doneButtonContainer?.tableViewOffsetForDoneButton()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                              bottom: -(bottomOffset ?? 0), right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -335,7 +330,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         trustAllCertificatesSwitch.isOn = account.trustAllCertificates
         deleteAccountCell.isHidden = false
         nameTextField?.text = account.displayName
-        setGithubTokenButtonEnabledState()
     }
 
     private func prepareUIWithoutAccount() {
@@ -343,7 +337,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         apiKeyTextField.text = ""
         urlTextField.placeholder = "https://jenkins.example.com:8080"
         deleteAccountCell.isHidden = true
-        setGithubTokenButtonEnabledState()
     }
 
     @objc private func didToggleTrustAllCertificates() {
@@ -361,11 +354,14 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
                                              shouldShowSwitchAccount: !isCurrentAccount && !isFirstAccount && shouldShowSwitchAccountToggle)
     }
 
+    @objc private func showTutorial() {
+        presentSafariForApiFAQItem()
+    }
+
     // MARK: - Textfield methods
 
     @objc private func textFieldChanged() {
         doneButtonContainer?.setDoneButton(enabled: addButtonShouldBeEnabled())
-        setGithubTokenButtonEnabledState()
         toggleTrustAllCertificatesCell()
     }
 
@@ -388,15 +384,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         return Constants.SupportedSchemes(rawValue: scheme) != nil
     }
 
-    private func githubTokenButtonShouldBeEnabled() -> Bool {
-        return urlTextField.text != nil && URL(string: urlTextField.text!) != nil
-    }
-
-    private func setGithubTokenButtonEnabledState() {
-        githubTokenButton.isEnabled = githubTokenButtonShouldBeEnabled()
-        githubTokenButton.alpha = githubTokenButton.isEnabled ? 1.0 : 0.3
-    }
-
     private func addDoneButtonInputAccessory(to textField: UITextField) {
         let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: 50)))
         let doneItem = UIBarButtonItem(title: "Done", style: .plain, target: textField, action: #selector(resignFirstResponder))
@@ -410,10 +397,6 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if var dest = segue.destination as? AccountProvidable {
             dest.account = createAccount()
-        }
-
-        if let dest = segue.destination as? GitHubTokenContainerViewController {
-            dest.accountAdder = self
         }
     }
 }
@@ -432,8 +415,8 @@ extension AddAccountTableViewController: UITextFieldDelegate {
     }
 }
 
-extension AddAccountTableViewController: AccountAdder {
-    func addOrUpdateAccount(account: Account) throws {
+extension AddAccountTableViewController {
+    private func addOrUpdateAccount(account: Account) throws {
         if let oldAccount = self.account {
             try AccountManager.manager.editAccount(newAccount: account, oldAccount: oldAccount)
             delegate?.didEditAccount(account: account, oldAccount: oldAccount, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
@@ -442,5 +425,16 @@ extension AddAccountTableViewController: AccountAdder {
             ApplicationUserManager.manager.save()
             delegate?.didEditAccount(account: account, oldAccount: nil, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
         }
+    }
+}
+
+extension AddAccountTableViewController {
+    private func presentSafariForApiFAQItem() {
+        guard let item = remoteConfigManager.configuration.frequentlyAskedQuestions
+            .first(where: { $0.key == Constants.Defaults.apiTokenFAQItemId })
+        else { return }
+
+        let safari = SFSafariViewController(url: item.url)
+        present(safari, animated: true, completion: nil)
     }
 }

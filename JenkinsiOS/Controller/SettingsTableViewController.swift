@@ -60,7 +60,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             case .otherAccounts(otherAccountNames: _):
                 return "OTHER ACCOUNTS"
             case .about:
-                return "ABOUT"
+                return "INFO"
             }
         }
 
@@ -78,7 +78,7 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
                 return otherAccountNames.map { Cell(actionTitle: $0, type: .contentCell) }
                     + [Cell(actionTitle: "Add account", type: .creationCell)]
             case .about:
-                return [Cell(actionTitle: "Butler", type: .contentCell)]
+                return [Cell(actionTitle: "About Butler", type: .contentCell), Cell(actionTitle: "FAQs", type: .contentCell)]
             }
         }
     }
@@ -182,7 +182,11 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             let nonCurrent = nonCurrentAccounts(currentAccount: current)
             performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nonCurrent[indexPath.row - 1])
         case .about:
-            performSegue(withIdentifier: Constants.Identifiers.aboutSegue, sender: nil)
+            if indexPath.row == 0 {
+                performSegue(withIdentifier: Constants.Identifiers.aboutSegue, sender: nil)
+            } else {
+                performSegue(withIdentifier: Constants.Identifiers.faqSegue, sender: nil)
+            }
         }
     }
 
@@ -278,7 +282,7 @@ extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
 
         var viewControllers = navigationController?.viewControllers ?? []
         // Remove the add account view controller from the navigation controller stack
-        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) && !($0 is GitHubTokenContainerViewController) }
+        viewControllers = viewControllers.filter { !($0 is AddAccountContainerViewController) }
         navigationController?.setViewControllers(viewControllers, animated: shouldAnimateNavigationStackChanges)
 
         if let currentAccount = self.account {
