@@ -172,6 +172,9 @@ class BuildViewController: UITableViewController {
         } else if let artifactsViewController = viewController as? ArtifactsTableViewController {
             artifactsViewController.build = build
             artifactsViewController.account = account
+        } else if let changesViewController = viewController as? ChangesTableViewController {
+            changesViewController.account = account
+            changesViewController.build = build
         }
     }
 
@@ -225,5 +228,9 @@ extension BuildViewController: BuildsInformationOpeningDelegate {
 
     func showTestResults(build: Build) {
         performSegue(withIdentifier: Constants.Identifiers.showTestResultsSegue, sender: build)
+    }
+
+    func showChanges(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showChangesSegue, sender: build)
     }
 }

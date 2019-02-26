@@ -59,6 +59,7 @@ struct Constants {
         static let clearBlue = UIColor(red: 46.0 / 255.0, green: 126.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
         static let grapefruit = UIColor(red: 255.0 / 255.0, green: 98.0 / 255.0, blue: 96.0 / 255.0, alpha: 1.0)
         static let weirdGreen = UIColor(red: 59.0 / 255, green: 222.0 / 255, blue: 134.0 / 255, alpha: 1.0)
+        static let veryLightBlue = UIColor(red: 225.0 / 255.0, green: 232.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
     }
 
     struct Identifiers {
@@ -93,6 +94,7 @@ struct Constants {
         static let dependencyDataCell = "dependencyDataCell"
         static let creationCell = "creationCell"
         static let faqCell = "faqCell"
+        static let detailContentCell = "detailContentCell"
 
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -232,7 +234,7 @@ struct Constants {
             URLQueryItem(name: "tree", value: "quietingDown"),
         ]
         static let jobAdditionalQueryItems: [URLQueryItem] = {
-            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath]"
+            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath],changeSet[kind,items[commitId,timestamp,comment,date,msg,affectedPaths,author[absoluteUrl,fullName]]]"
             return [
                 URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)],property[parameterDefinitions[*]],actions[*[*]]"),
         ] }()
