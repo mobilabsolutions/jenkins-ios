@@ -13,6 +13,7 @@ class RemoteConfigurationManager {
 
     struct RemoteConfiguration {
         private let config: RemoteConfig
+        private let decoder = JSONDecoder()
 
         fileprivate init(config: RemoteConfig) {
             self.config = config
@@ -24,6 +25,19 @@ class RemoteConfigurationManager {
 
         var shouldUseNewAccountDesign: Bool {
             return config[Constants.Identifiers.remoteConfigNewAccountDesignKey].boolValue
+        }
+
+        var frequentlyAskedQuestions: [FAQItem] {
+            let data = config[Constants.Identifiers.remoteConfigFAQListKey].dataValue
+            do {
+                return try decoder.decode(Array<FAQItem>.self, from: data)
+            } catch _ {
+                guard let defaultValue = config.defaultValue(forKey: Constants.Identifiers.remoteConfigFAQListKey,
+                                                             namespace: nil)
+                else { return [] }
+
+                return (try? decoder.decode(Array<FAQItem>.self, from: defaultValue.dataValue)) ?? []
+            }
         }
     }
 
@@ -38,10 +52,18 @@ class RemoteConfigurationManager {
     }
 
     private func setDefaultValues() {
-        config.setDefaults([
+        var defaults = [
             Constants.Identifiers.remoteConfigShowDisplayNameFieldKey: true as NSObject,
             Constants.Identifiers.remoteConfigNewAccountDesignKey: false as NSObject,
-        ])
+        ]
+
+        let faqData = try? JSONEncoder().encode([Constants.Defaults.apiTokenFAQItem])
+
+        if let data = faqData {
+            defaults[Constants.Identifiers.remoteConfigFAQListKey] = data as NSData
+        }
+
+        config.setDefaults(defaults)
     }
 
     private func activateConfiguration() {

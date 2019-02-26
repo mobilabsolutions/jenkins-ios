@@ -6,6 +6,7 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
+import SafariServices
 import UIKit
 
 protocol AddAccountTableViewControllerDelegate: class {
@@ -205,15 +206,11 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         seeTutorialButton.addTarget(self, action: #selector(showTutorial), for: .touchUpInside)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if #available(iOS 11.0, *) {
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
-                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
-        } else {
-            tableView.contentInset = UIEdgeInsets(top: -(navigationController?.navigationBar.frame.height ?? 0), left: 0,
-                                                  bottom: doneButtonContainer?.tableViewOffsetForDoneButton() ?? 0, right: 0)
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let bottomOffset = doneButtonContainer?.tableViewOffsetForDoneButton()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                              bottom: -(bottomOffset ?? 0), right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -358,6 +355,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
     }
 
     @objc private func showTutorial() {
+        presentSafariForApiFAQItem()
     }
 
     // MARK: - Textfield methods
@@ -418,7 +416,7 @@ extension AddAccountTableViewController: UITextFieldDelegate {
 }
 
 extension AddAccountTableViewController {
-    func addOrUpdateAccount(account: Account) throws {
+    private func addOrUpdateAccount(account: Account) throws {
         if let oldAccount = self.account {
             try AccountManager.manager.editAccount(newAccount: account, oldAccount: oldAccount)
             delegate?.didEditAccount(account: account, oldAccount: oldAccount, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
@@ -427,5 +425,16 @@ extension AddAccountTableViewController {
             ApplicationUserManager.manager.save()
             delegate?.didEditAccount(account: account, oldAccount: nil, useAsCurrentAccount: switchAccountSwitch.isOn || isFirstAccount)
         }
+    }
+}
+
+extension AddAccountTableViewController {
+    private func presentSafariForApiFAQItem() {
+        guard let item = remoteConfigManager.configuration.frequentlyAskedQuestions
+            .first(where: { $0.key == Constants.Defaults.apiTokenFAQItemId })
+        else { return }
+
+        let safari = SFSafariViewController(url: item.url)
+        present(safari, animated: true, completion: nil)
     }
 }

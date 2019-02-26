@@ -214,6 +214,9 @@
 		E131DA49212BFB5E00DF2B8A /* OnBoardingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA48212BFB5E00DF2B8A /* OnBoardingOption.swift */; };
 		E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA4C212C09F600DF2B8A /* OnBoardingContainerViewController.swift */; };
 		E131DA4F212C09F600DF2B8A /* OnBoardingContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */; };
+		E141D1D72224331800E42302 /* FAQTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D62224331800E42302 /* FAQTableViewController.swift */; };
+		E141D1D92224337200E42302 /* FAQItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D82224337200E42302 /* FAQItem.swift */; };
+		E141D1DA2224391E00E42302 /* FAQItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D82224337200E42302 /* FAQItem.swift */; };
 		E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */; };
 		E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164530A212C588F00750C17 /* AccountCreatedViewController.swift */; };
 		E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E164530B212C588F00750C17 /* AccountCreatedViewController.xib */; };
@@ -464,6 +467,8 @@
 		E131DA4D212C09F600DF2B8A /* OnBoardingContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingContainerViewController.xib; sourceTree = "<group>"; };
 		E135158F1F20F6F8002847BF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = JenkinsiOS/Other/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		E141D1D62224331800E42302 /* FAQTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQTableViewController.swift; sourceTree = "<group>"; };
+		E141D1D82224337200E42302 /* FAQItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQItem.swift; sourceTree = "<group>"; };
 		E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountContainerViewController.swift; sourceTree = "<group>"; };
 		E164530A212C588F00750C17 /* AccountCreatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreatedViewController.swift; sourceTree = "<group>"; };
 		E164530B212C588F00750C17 /* AccountCreatedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCreatedViewController.xib; sourceTree = "<group>"; };
@@ -771,6 +776,7 @@
 				E164530B212C588F00750C17 /* AccountCreatedViewController.xib */,
 				E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */,
 				E1076BB021DA1AB5006DE3F7 /* AboutViewController.swift */,
+				E141D1D62224331800E42302 /* FAQTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -784,6 +790,7 @@
 				DCC2E1671D9FF4B500491B98 /* ApplicationUser.swift */,
 				DCC2E1641D9FF2BA00491B98 /* Favorite.swift */,
 				DCC2E1691D9FF54E00491B98 /* Favoratible.swift */,
+				E141D1D82224337200E42302 /* FAQItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1336,6 +1343,7 @@
 				DC2045CC1DB129C2009CF232 /* ChangeSet.swift in Sources */,
 				DC2045EF1DB12E67009CF232 /* ApplicationUserManager.swift in Sources */,
 				DC169FD21DE340080015A499 /* ParametersViewControllerDelegate.swift in Sources */,
+				E141D1DA2224391E00E42302 /* FAQItem.swift in Sources */,
 				DC2045E41DB12D95009CF232 /* ComputerList.swift in Sources */,
 				DC2045C81DB129C2009CF232 /* Author.swift in Sources */,
 				DC2045D31DB129EC009CF232 /* UserRequest.swift in Sources */,
@@ -1376,6 +1384,7 @@
 				E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */,
 				DC4D21B11DF4299A0023B4EA /* StarRatingViewDelegate.swift in Sources */,
 				DC99C40A1D95753B0031DBE4 /* JenkinsColor.swift in Sources */,
+				E141D1D72224331800E42302 /* FAQTableViewController.swift in Sources */,
 				DC08DD2E1EFBF51E00679B74 /* AllFavoritesTableViewCell.swift in Sources */,
 				DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */,
 				DCDB97A41DAE6EA7007BCBCC /* PluginsTableViewController.swift in Sources */,
@@ -1387,6 +1396,7 @@
 				DC2045AB1DB0CBFA009CF232 /* Searcher.swift in Sources */,
 				E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */,
 				E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */,
+				E141D1D92224337200E42302 /* FAQItem.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
 				E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */,

@@ -14,6 +14,14 @@ struct Constants {
         /// The default port that should be used. 443 because the default protocol is https
         static let defaultPort = 443
         static let defaultReloadInterval: TimeInterval = 4
+
+        static let apiTokenFAQItemId = "api_token"
+        static let apiTokenFAQItem: FAQItem = {
+            guard let url = URL(string: "https://mobilabsolutions.com/butler-tutorial/")
+            else { fatalError("Could not initialize api token faq url!") }
+
+            return FAQItem(key: Constants.Defaults.apiTokenFAQItemId, question: "How can I generate an API token?", url: url)
+        }()
     }
 
     enum SupportedSchemes: String {
@@ -84,6 +92,7 @@ struct Constants {
         static let buildCauseCell = "buildCauseCell"
         static let dependencyDataCell = "dependencyDataCell"
         static let creationCell = "creationCell"
+        static let faqCell = "faqCell"
 
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
@@ -110,6 +119,7 @@ struct Constants {
         static let showPluginSegue = "showPluginSegue"
         static let githubAccountSegue = "githubAccountSegue"
         static let aboutSegue = "aboutSegue"
+        static let faqSegue = "FAQSegue"
 
         static let favoritesShortcutItemType = "com.mobilabsolutions.favorites.shortcutItem"
 
@@ -119,6 +129,7 @@ struct Constants {
 
         static let remoteConfigNewAccountDesignKey = "new_account_design_active"
         static let remoteConfigShowDisplayNameFieldKey = "display_name_field_active"
+        static let remoteConfigFAQListKey = "faq_item_list"
     }
 
     struct JSON {
