@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestResultsTableViewController: RefreshingTableViewController {
+class TestResultsTableViewController: RefreshingTableViewController, AccountProvidable {
     var testResults: TestResult? {
         didSet {
             updateCases()

@@ -144,7 +144,6 @@
 		DC8B5C661DC26AA300A01D6E /* JobListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B5C641DC2694800A01D6E /* JobListResult.swift */; };
 		DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8C83821E054D540071EC50 /* NavigationController.swift */; };
 		DC9266191DACE49100FEF87A /* ConsoleOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */; };
-		DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */; };
 		DC92661D1DAD01DD00FEF87A /* TestResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */; };
 		DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */; };
 		DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C3D41D955C900031DBE4 /* AppDelegate.swift */; };
@@ -217,6 +216,8 @@
 		E141D1D72224331800E42302 /* FAQTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D62224331800E42302 /* FAQTableViewController.swift */; };
 		E141D1D92224337200E42302 /* FAQItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D82224337200E42302 /* FAQItem.swift */; };
 		E141D1DA2224391E00E42302 /* FAQItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D82224337200E42302 /* FAQItem.swift */; };
+		E141D1DC2225760800E42302 /* ChangesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1DB2225760800E42302 /* ChangesTableViewController.swift */; };
+		E141D1DE222587A500E42302 /* CorneredBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1DD222587A500E42302 /* CorneredBasicTableViewCell.swift */; };
 		E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */; };
 		E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164530A212C588F00750C17 /* AccountCreatedViewController.swift */; };
 		E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E164530B212C588F00750C17 /* AccountCreatedViewController.xib */; };
@@ -397,7 +398,6 @@
 		DC8B5C641DC2694800A01D6E /* JobListResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobListResult.swift; sourceTree = "<group>"; };
 		DC8C83821E054D540071EC50 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutputViewController.swift; sourceTree = "<group>"; };
-		DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesTableViewController.swift; sourceTree = "<group>"; };
 		DC92661C1DAD01DD00FEF87A /* TestResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultsTableViewController.swift; sourceTree = "<group>"; };
 		DC92661E1DAD01EC00FEF87A /* TestResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultTableViewController.swift; sourceTree = "<group>"; };
 		DC99C3D11D955C900031DBE4 /* JenkinsiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JenkinsiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,6 +471,8 @@
 		E13515911F20F6FB002847BF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = JenkinsiOS/Other/Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		E141D1D62224331800E42302 /* FAQTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQTableViewController.swift; sourceTree = "<group>"; };
 		E141D1D82224337200E42302 /* FAQItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQItem.swift; sourceTree = "<group>"; };
+		E141D1DB2225760800E42302 /* ChangesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesTableViewController.swift; sourceTree = "<group>"; };
+		E141D1DD222587A500E42302 /* CorneredBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorneredBasicTableViewCell.swift; sourceTree = "<group>"; };
 		E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountContainerViewController.swift; sourceTree = "<group>"; };
 		E164530A212C588F00750C17 /* AccountCreatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreatedViewController.swift; sourceTree = "<group>"; };
 		E164530B212C588F00750C17 /* AccountCreatedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCreatedViewController.xib; sourceTree = "<group>"; };
@@ -746,7 +748,6 @@
 				DC66CEDE1D9D5A1A00808ED0 /* BuildsTableViewController.swift */,
 				DC169FDF1DE3479B0015A499 /* BuildsTableViewControllerDataSource.swift */,
 				DC66CEDC1D9D5A0800808ED0 /* BuildViewController.swift */,
-				DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */,
 				DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */,
 				DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */,
 				DC85AE081DABDB3E00D20059 /* ActionsCollectionViewController.swift */,
@@ -781,6 +782,7 @@
 				E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */,
 				E1076BB021DA1AB5006DE3F7 /* AboutViewController.swift */,
 				E141D1D62224331800E42302 /* FAQTableViewController.swift */,
+				E141D1DB2225760800E42302 /* ChangesTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -979,6 +981,7 @@
 				E180534D21AD4F760041CEAD /* CreationTableViewCell.xib */,
 				E1C56423222940B900374315 /* ActionHeaderCollectionReusableView.swift */,
 				E1C56424222940B900374315 /* ActionHeaderCollectionReusableView.xib */,
+				E141D1DD222587A500E42302 /* CorneredBasicTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1435,6 +1438,7 @@
 				DC9CE6791DBA138000624742 /* JenkinsAction.swift in Sources */,
 				DC169FDB1DE340340015A499 /* ParameterValue.swift in Sources */,
 				DCF691DA1E02FA2900AA98D4 /* AppearanceManager.swift in Sources */,
+				E141D1DE222587A500E42302 /* CorneredBasicTableViewCell.swift in Sources */,
 				DC0550D11DACE274008D94E6 /* LongBuildInfoTableViewCell.swift in Sources */,
 				DC66CEC11D97FF1D00808ED0 /* AccountsViewController.swift in Sources */,
 				DC99C4021D9562F70031DBE4 /* NetworkManager.swift in Sources */,
@@ -1462,9 +1466,9 @@
 				DC8B5C651DC2694800A01D6E /* JobListResult.swift in Sources */,
 				DC99C3D51D955C900031DBE4 /* AppDelegate.swift in Sources */,
 				DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */,
+				E141D1DC2225760800E42302 /* ChangesTableViewController.swift in Sources */,
 				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
 				DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */,
-				DC92661B1DAD01CE00FEF87A /* ChangesTableViewController.swift in Sources */,
 				E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
 				DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */,

@@ -265,6 +265,19 @@ extension UIView {
     }
 }
 
+extension UIButton {
+    func centerButtonImageAndTitle() {
+        guard let image = self.imageView?.image,
+            let label = self.titleLabel, let text = label.text
+        else { return }
+
+        let offset: CGFloat = 4.0
+        let textSize = (text as NSString).size(withAttributes: [NSAttributedString.Key.font: label.font])
+        titleEdgeInsets = UIEdgeInsets(top: offset, left: (-image.size.width - textSize.width) / 2, bottom: -image.size.height, right: 0.0)
+        imageEdgeInsets = UIEdgeInsets(top: -(textSize.height + offset), left: 0, bottom: 0, right: (-image.size.width - textSize.width) / 2)
+    }
+}
+
 extension UIFont {
     var isBold: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitBold)

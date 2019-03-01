@@ -12,6 +12,7 @@ protocol BuildsInformationOpeningDelegate: class {
     func showLogs(build: Build)
     func showArtifacts(build: Build)
     func showTestResults(build: Build)
+    func showChanges(build: Build)
 }
 
 class SpecialBuildTableViewCell: UITableViewCell {
@@ -27,6 +28,7 @@ class SpecialBuildTableViewCell: UITableViewCell {
     @IBOutlet var artifactsButton: UIButton!
     @IBOutlet var testResultsButton: UIButton!
     @IBOutlet var logsButton: UIButton!
+    @IBOutlet var changesButton: UIButton!
     @IBOutlet var container: UIView!
 
     weak var delegate: BuildsInformationOpeningDelegate?
@@ -44,13 +46,15 @@ class SpecialBuildTableViewCell: UITableViewCell {
         buildNameLabel.text = "..."
         buildEndLabel.text = "..."
 
-        testResultsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        logsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        artifactsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        testResultsButton.centerButtonImageAndTitle()
+        logsButton.centerButtonImageAndTitle()
+        artifactsButton.centerButtonImageAndTitle()
+        changesButton.centerButtonImageAndTitle()
 
         testResultsButton.addTarget(self, action: #selector(showTestResults), for: .touchUpInside)
         logsButton.addTarget(self, action: #selector(showLogs), for: .touchUpInside)
         artifactsButton.addTarget(self, action: #selector(showArtifacts), for: .touchUpInside)
+        changesButton.addTarget(self, action: #selector(showChanges), for: .touchUpInside)
 
         container.layer.cornerRadius = 5
         container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
@@ -75,6 +79,7 @@ class SpecialBuildTableViewCell: UITableViewCell {
         }
 
         artifactsButton.isEnabled = !build.artifacts.isEmpty
+        changesButton.isEnabled = !build.allChangeItems.isEmpty
         testResultsButton.isEnabled = true
         logsButton.isEnabled = true
     }
@@ -104,5 +109,11 @@ class SpecialBuildTableViewCell: UITableViewCell {
         guard let build = self.build
         else { return }
         delegate?.showLogs(build: build)
+    }
+
+    @objc private func showChanges() {
+        guard let build = self.build
+        else { return }
+        delegate?.showChanges(build: build)
     }
 }

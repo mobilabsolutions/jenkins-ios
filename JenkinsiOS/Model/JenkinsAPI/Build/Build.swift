@@ -53,6 +53,10 @@ class Build: Favoratible, CustomDebugStringConvertible {
         return components?.url ?? url
     }
 
+    var allChangeItems: [Item] {
+        return changeSets.flatMap({ $0.items })
+    }
+
     /// Is the build information based on "full version" JSON?
     var isFullVersion = false
 

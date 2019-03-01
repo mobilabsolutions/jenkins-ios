@@ -15,6 +15,7 @@ class BuildCauseTableViewCell: UITableViewCell {
     @IBOutlet var testResultsButton: UIButton!
     @IBOutlet var logsButton: UIButton!
     @IBOutlet var artifactsButton: UIButton!
+    @IBOutlet var changesButton: UIButton!
 
     weak var delegate: BuildsInformationOpeningDelegate?
 
@@ -31,13 +32,15 @@ class BuildCauseTableViewCell: UITableViewCell {
         causeTitleLabel.textColor = Constants.UI.greyBlue
         causeLabel.textColor = Constants.UI.greyBlue
 
-        testResultsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        logsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        artifactsButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        testResultsButton.centerButtonImageAndTitle()
+        logsButton.centerButtonImageAndTitle()
+        artifactsButton.centerButtonImageAndTitle()
+        changesButton.centerButtonImageAndTitle()
 
         testResultsButton.addTarget(self, action: #selector(showTestResults), for: .touchUpInside)
         logsButton.addTarget(self, action: #selector(showLogs), for: .touchUpInside)
         artifactsButton.addTarget(self, action: #selector(showArtifacts), for: .touchUpInside)
+        changesButton.addTarget(self, action: #selector(showChanges), for: .touchUpInside)
 
         container.layer.cornerRadius = 5
         container.layer.borderColor = Constants.UI.paleGreyColor.cgColor
@@ -63,6 +66,7 @@ class BuildCauseTableViewCell: UITableViewCell {
         artifactsButton.isEnabled = build != nil && !build!.artifacts.isEmpty
         testResultsButton.isEnabled = build != nil
         logsButton.isEnabled = build != nil
+        changesButton.isEnabled = !(build?.allChangeItems.isEmpty ?? true)
     }
 
     @objc private func showArtifacts() {
@@ -81,5 +85,11 @@ class BuildCauseTableViewCell: UITableViewCell {
         guard let build = self.build
         else { return }
         delegate?.showLogs(build: build)
+    }
+
+    @objc private func showChanges() {
+        guard let build = self.build
+        else { return }
+        delegate?.showChanges(build: build)
     }
 }

@@ -400,6 +400,9 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else if let dest = segue.destination as? ConsoleOutputViewController, segue.identifier == Constants.Identifiers.showConsoleOutputSegue,
             let build = sender as? Build, let account = self.account {
             dest.request = NetworkManager.manager.getConsoleOutputUserRequest(build: build, account: account)
+        } else if let dest = segue.destination as? ChangesTableViewController, segue.identifier == Constants.Identifiers.showChangesSegue, let build = sender as? Build, let account = self.account {
+            dest.account = account
+            dest.build = build
         }
     }
 }
@@ -429,6 +432,10 @@ extension JobViewController: BuildsInformationOpeningDelegate {
 
     func showTestResults(build: Build) {
         performSegue(withIdentifier: Constants.Identifiers.showTestResultsSegue, sender: build)
+    }
+
+    func showChanges(build: Build) {
+        performSegue(withIdentifier: Constants.Identifiers.showChangesSegue, sender: build)
     }
 }
 
