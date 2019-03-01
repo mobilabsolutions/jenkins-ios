@@ -96,6 +96,8 @@ struct Constants {
         static let faqCell = "faqCell"
         static let detailContentCell = "detailContentCell"
 
+        static let actionHeader = "actionHeader"
+
         static let showJobsSegue = "showJobsSegue"
         static let showJobSegue = "showJobSegue"
         static let showBuildsSegue = "showBuildsSegue"

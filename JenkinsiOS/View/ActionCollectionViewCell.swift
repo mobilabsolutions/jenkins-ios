@@ -1,5 +1,5 @@
 //
-//  ActionTableViewCell.swift
+//  ActionCollectionViewCell.swift
 //  JenkinsiOS
 //
 //  Created by Robert on 10.08.18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActionTableViewCell: UITableViewCell {
+class ActionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var containerView: UIView!
     @IBOutlet var actionImageView: UIImageView!
     @IBOutlet var actionLabel: UILabel!

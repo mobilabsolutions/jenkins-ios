@@ -8,16 +8,17 @@
 
 import UIKit
 
-class ActionsTableViewController: UITableViewController, AccountProvidable {
+class ActionsCollectionViewController: UICollectionViewController, AccountProvidable {
     var account: Account?
     var actions: [JenkinsAction] = [.restart, .safeRestart, .exit, .safeExit, .quietDown, .cancelQuietDown]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = Constants.UI.backgroundColor
-        tableView.separatorStyle = .none
-
-        setBottomContentInsetForOlderDevices()
+        collectionView.backgroundColor = Constants.UI.backgroundColor
+        collectionView.collectionViewLayout = createFlowLayout()
+        collectionView.register(UINib(nibName: "ActionHeaderCollectionReusableView", bundle: .main),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: Constants.Identifiers.actionHeader)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -65,33 +66,36 @@ class ActionsTableViewController: UITableViewController, AccountProvidable {
         }
     }
 
-    // MARK: - Table view delegate and datasource
+    // MARK: - Collection view delegate and datasource
 
-    override func numberOfSections(in _: UITableView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return actions.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.actionCell, for: indexPath) as! ActionTableViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.actionCell, for: indexPath) as! ActionCollectionViewCell
         cell.setup(for: actions[indexPath.row])
         return cell
     }
 
-    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 74
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader
+        else { fatalError("Only section header supported as supplementary view") }
+
+        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Identifiers.actionHeader, for: indexPath)
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard account != nil
         else { return }
         verifyAction(action: actions[indexPath.row]) { [unowned self] action in
             self.performAction(action: action)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 
     private func verifyAction(action: JenkinsAction, onSuccess completion: @escaping (JenkinsAction) -> Void) {
@@ -101,6 +105,18 @@ class ActionsTableViewController: UITableViewController, AccountProvidable {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         present(alert, animated: true, completion: nil)
+    }
+
+    private func createFlowLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 7
+        layout.minimumLineSpacing = 7
+        let width = (view.frame.width - 3 * layout.minimumInteritemSpacing) / 2.0
+        let height: CGFloat = 70.0
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
+        layout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: 170)
+        return layout
     }
 }
 
