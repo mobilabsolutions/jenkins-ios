@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_: UIApplication) {
         FirebaseApp.configure()
+        Fabric.with([Crashlytics.self])
 
         ApplicationUserManager.manager.applicationUser.timesOpenedApp += 1
         saveIndefinitely()

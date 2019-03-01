@@ -6,6 +6,7 @@
 //  Copyright © 2016 MobiLab Solutions. All rights reserved.
 //
 
+import Crashlytics
 import UIKit
 
 class JobViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
