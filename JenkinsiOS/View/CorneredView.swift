@@ -13,6 +13,8 @@ class CorneredView: UIView {
 
     var borders: Set<BorderLocation> = []
 
+    private var borderLayer: CALayer?
+
     enum BorderLocation {
         case top
         case bottom
@@ -25,6 +27,8 @@ class CorneredView: UIView {
         if cornersToRound != [] {
             setCornerRounding(radius: 5, corners: cornersToRound)
         }
+
+        removeBorderLayer()
 
         for border in borders {
             switch border {
@@ -45,5 +49,11 @@ class CorneredView: UIView {
         layer.backgroundColor = Constants.UI.paleGreyColor.cgColor
         layer.frame = CGRect(x: x, y: y, width: width, height: height)
         self.layer.addSublayer(layer)
+        borderLayer = layer
+    }
+
+    private func removeBorderLayer() {
+        borderLayer?.removeFromSuperlayer()
+        borderLayer = nil
     }
 }

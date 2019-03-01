@@ -2,65 +2,134 @@
 //  ChangesTableViewController.swift
 //  JenkinsiOS
 //
-//  Created by Robert on 11.10.16.
-//  Copyright © 2016 MobiLab Solutions. All rights reserved.
+//  Created by Robert on 26.02.19.
+//  Copyright © 2019 MobiLab Solutions. All rights reserved.
 //
 
 import UIKit
 
-class ChangesTableViewController: BaseTableViewController {
-    var changeSetItems: [Item]?
+class ChangesTableViewController: UITableViewController, AccountProvidable {
+    var build: Build?
+    var account: Account?
+
+    private var items: [Item] {
+        return build?.allChangeItems ?? []
+    }
+
+    private enum CellType: Int {
+        case commitId = 0
+        case author
+        case date
+        case message
+
+        var cellStyle: CellStyle {
+            switch self {
+            case .commitId: return .header
+            default: return .basic
+            }
+        }
+
+        var title: String? {
+            switch self {
+            case .commitId: return nil
+            case .author: return "Author"
+            case .date: return "Date"
+            case .message: return "Message"
+            }
+        }
+
+        var cornersToRound: UIRectCorner? {
+            switch self {
+            case .commitId: return [.topLeft, .topRight]
+            case .author: return nil
+            case .date: return nil
+            case .message: return [.bottomLeft, .bottomRight]
+            }
+        }
+
+        func content(from item: Item) -> String? {
+            switch self {
+            case .commitId: return item.commitId
+            case .author: return item.author?.fullName ?? "Unknown author"
+            case .date: return item.date ?? "Unknown date"
+            case .message: return item.message ?? "No message"
+            }
+        }
+    }
+
+    private enum CellStyle {
+        case basic
+        case header
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = Constants.UI.backgroundColor
+        tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        title = "Changes"
-        emptyTableView(for: .noData, customString: "There don't seem to be any changes here")
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections() -> Int {
-        return changeSetItems?.count ?? 0
+    override func numberOfSections(in _: UITableView) -> Int {
+        return items.count
     }
 
-    override func tableViewIsEmpty() -> Bool {
-        return (changeSetItems?.count ?? 0) == 0
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return 4
     }
 
-    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let changeSetItems = changeSetItems
-        else { return 0 }
-        return (changeSetItems[section].comment?.trimmingCharacters(in: .whitespacesAndNewlines) == changeSetItems[section].message?.trimmingCharacters(in: .whitespacesAndNewlines)) ? 3 : 4
-    }
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cellType = CellType(rawValue: indexPath.row)
+        else { fatalError("No cell type for index path \(indexPath)") }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.changeCell, for: indexPath)
-
-        if let change = changeSetItems?[indexPath.section], let changeCell = cell as? LongBuildInfoTableViewCell {
-            switch indexPath.row {
-            case 0:
-                changeCell.titleLabel.text = "Commit Author"
-                changeCell.infoLabel.text = change.author?.fullName ?? "No author"
-            case 1:
-                changeCell.titleLabel.text = "Date"
-                changeCell.infoLabel.text = change.date ?? "No date"
-            case 2:
-                changeCell.titleLabel.text = "Message"
-                changeCell.infoLabel.text = change.message ?? "No message"
-            case 3:
-                changeCell.titleLabel.text = "Comment"
-                changeCell.infoLabel.text = change.comment ?? "No comment"
-            default:
-                break
-            }
+        switch cellType.cellStyle {
+        case .basic: return createBasicCell(for: indexPath, cellType: cellType, item: items[indexPath.section])
+        case .header: return createHeaderCell(for: indexPath, cellType: cellType, item: items[indexPath.section])
         }
+    }
+
+    private func createHeaderCell(for indexPath: IndexPath, cellType: CellType, item: Item) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.headerCell, for: indexPath) as? CorneredBasicTableViewCell
+        else { fatalError("Could not dequeue header cell of correct type for changes view controller") }
+        cell.titleLabel.text = cellType.content(from: item)
+        cell.container?.backgroundColor = Constants.UI.veryLightBlue.withAlphaComponent(0.08)
+        cell.contentView.backgroundColor = tableView.backgroundColor
+        if let cornersToRound = cellType.cornersToRound {
+            cell.container.cornersToRound = cornersToRound
+        }
+
+        cell.container.borders = [.bottom, .left, .right, .top]
+        return cell
+    }
+
+    private func createBasicCell(for indexPath: IndexPath, cellType: CellType, item: Item) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.detailContentCell, for: indexPath) as? DetailTableViewCell
+        else { fatalError("Could not dequeue content cell of correct type for changes view controller") }
+
+        cell.detailLabel.text = cellType.content(from: item)
+        cell.titleLabel.text = cellType.title
+
+        if let cornersToRound = cellType.cornersToRound {
+            cell.container.cornersToRound = cornersToRound
+        }
+
+        cell.container.borders = [.bottom, .left, .right]
 
         return cell
     }
 
-    override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return changeSetItems?[section].commitId
+    override func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+        return 8
+    }
+
+    override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = tableView.backgroundColor
+        return view
+    }
+
+    override func tableView(_: UITableView, willSelectRowAt _: IndexPath) -> IndexPath? {
+        return nil
     }
 }
