@@ -132,7 +132,7 @@
 		DC7B2F131DB793DE0090DD10 /* ArtifactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */; };
 		DC7B2F141DB797930090DD10 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE73CBA1DB678B400028A96 /* Artifact.swift */; };
 		DC85AE071DABD68500D20059 /* BuildQueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */; };
-		DC85AE091DABDB3E00D20059 /* ActionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */; };
+		DC85AE091DABDB3E00D20059 /* ActionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE081DABDB3E00D20059 /* ActionsCollectionViewController.swift */; };
 		DC85AE0B1DABDE8700D20059 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AE0A1DABDE8700D20059 /* QueueItem.swift */; };
 		DC86256B1DA90DD200EB7867 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256A1DA90DD200EB7867 /* UserList.swift */; };
 		DC86256D1DA90DD900EB7867 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86256C1DA90DD900EB7867 /* User.swift */; };
@@ -234,6 +234,9 @@
 		E1C32CB42126E36F00F73B91 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */; };
 		E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */; };
 		E1C32CB72126EEB900F73B91 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32CB62126EEB900F73B91 /* UserViewController.swift */; };
+		E1C56425222940B900374315 /* ActionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C56423222940B900374315 /* ActionHeaderCollectionReusableView.swift */; };
+		E1C56426222940B900374315 /* ActionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C56424222940B900374315 /* ActionHeaderCollectionReusableView.xib */; };
+		E1C56428222940E800374315 /* ActionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C56427222940E800374315 /* ActionCollectionViewCell.swift */; };
 		E1D266D42102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
 		E1D266D52102046000C4D6BB /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D32102046000C4D6BB /* JobTableViewCell.swift */; };
 		E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */; };
@@ -256,7 +259,6 @@
 		E1D2670C2119C10600C4D6BB /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */; };
 		E1D396EB212EB51A0056FE0E /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D396EA212EB51A0056FE0E /* FavoriteTableViewCell.swift */; };
 		E1D396ED212EFCE10056FE0E /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */; };
-		E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */; };
 		E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */; };
 		E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */; };
 		E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */; };
@@ -384,7 +386,7 @@
 		DC6F079E1DB502BB00C77FAE /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		DC7B2F121DB793DE0090DD10 /* ArtifactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtifactsTableViewController.swift; sourceTree = "<group>"; };
 		DC85AE061DABD68500D20059 /* BuildQueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewController.swift; sourceTree = "<group>"; };
-		DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsTableViewController.swift; sourceTree = "<group>"; };
+		DC85AE081DABDB3E00D20059 /* ActionsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsCollectionViewController.swift; sourceTree = "<group>"; };
 		DC85AE0A1DABDE8700D20059 /* QueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		DC86256A1DA90DD200EB7867 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		DC86256C1DA90DD900EB7867 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -484,6 +486,9 @@
 		E1C32CB22126E36F00F73B91 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E1C32CB32126E36F00F73B91 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		E1C32CB62126EEB900F73B91 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		E1C56423222940B900374315 /* ActionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		E1C56424222940B900374315 /* ActionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		E1C56427222940E800374315 /* ActionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1D266D32102046000C4D6BB /* JobTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		E1D266D6210B0F7000C4D6BB /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E1D266DC210F123A00C4D6BB /* FilteringHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -505,7 +510,6 @@
 		E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
 		E1D396EA212EB51A0056FE0E /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		E1D396EC212EFCE10056FE0E /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
-		E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
 		E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImageTableViewCell.swift; sourceTree = "<group>"; };
 		E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicImageTableViewCell.xib; sourceTree = "<group>"; };
 		E1E6321A211D82D900CBBB86 /* ComputerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerTableViewController.swift; sourceTree = "<group>"; };
@@ -745,7 +749,7 @@
 				DC92661A1DAD01CE00FEF87A /* ChangesTableViewController.swift */,
 				DCDB97A11DAE6E9A007BCBCC /* ComputersTableViewController.swift */,
 				DC9266181DACE49100FEF87A /* ConsoleOutputViewController.swift */,
-				DC85AE081DABDB3E00D20059 /* ActionsTableViewController.swift */,
+				DC85AE081DABDB3E00D20059 /* ActionsCollectionViewController.swift */,
 				DC99C40D1D958CB50031DBE4 /* JobsTableViewController.swift */,
 				DC66CEDA1D9D545900808ED0 /* JobViewController.swift */,
 				DCAD24B91E0BF6B200FAF0CF /* BuildProvidable.swift */,
@@ -934,6 +938,7 @@
 		E1D90AAB1F20F3C7009CE6B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1C56427222940E800374315 /* ActionCollectionViewCell.swift */,
 				E1E63216211D7DDC00CBBB86 /* BasicImageTableViewCell.swift */,
 				E1E63217211D7DDC00CBBB86 /* BasicImageTableViewCell.xib */,
 				DC169FDD1DE341230015A499 /* BigButton.swift */,
@@ -960,7 +965,6 @@
 				E1D2670121183A3B00C4D6BB /* SpecialBuildTableViewCell.swift */,
 				E1D2670321183DFE00C4D6BB /* BuildTableViewCell.swift */,
 				E1D2670B2119C10600C4D6BB /* BasicTableViewCell.swift */,
-				E1E63212211D732200CBBB86 /* ActionTableViewCell.swift */,
 				E1E6321C211D835C00CBBB86 /* DetailTableViewCell.swift */,
 				E1E6321D211D835C00CBBB86 /* DetailTableViewCell.xib */,
 				E101F0BE211DC6B100613132 /* CorneredView.swift */,
@@ -973,6 +977,8 @@
 				E12A48282186EAF2008EB747 /* ErrorBanner.swift */,
 				E180534C21AD4F760041CEAD /* CreationTableViewCell.swift */,
 				E180534D21AD4F760041CEAD /* CreationTableViewCell.xib */,
+				E1C56423222940B900374315 /* ActionHeaderCollectionReusableView.swift */,
+				E1C56424222940B900374315 /* ActionHeaderCollectionReusableView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1165,6 +1171,7 @@
 				DC99C3DF1D955C900031DBE4 /* LaunchScreen.storyboard in Resources */,
 				DC99C3DC1D955C900031DBE4 /* Assets.xcassets in Resources */,
 				E1C32CB52126E36F00F73B91 /* UserTableViewCell.xib in Resources */,
+				E1C56426222940B900374315 /* ActionHeaderCollectionReusableView.xib in Resources */,
 				E1D266F72110441500C4D6BB /* Lato-Bold.ttf in Resources */,
 				E1E63219211D7DDC00CBBB86 /* BasicImageTableViewCell.xib in Resources */,
 				E1D266F82110441500C4D6BB /* Lato-BoldItalic.ttf in Resources */,
@@ -1415,10 +1422,10 @@
 				DC9D79EA1DF06BC2008ADB86 /* ModalInformationViewControllerDelegate.swift in Sources */,
 				DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */,
 				DCAD24BA1E0BF6B200FAF0CF /* BuildProvidable.swift in Sources */,
+				E1C56428222940E800374315 /* ActionCollectionViewCell.swift in Sources */,
 				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
 				DC66CECF1D98273A00808ED0 /* View.swift in Sources */,
-				E1E63213211D732200CBBB86 /* ActionTableViewCell.swift in Sources */,
 				DC3CCD131DA6791D004C4C3D /* Dependency.swift in Sources */,
 				DC66CED31D9D408300808ED0 /* Item.swift in Sources */,
 				E1076BB121DA1AB5006DE3F7 /* AboutViewController.swift in Sources */,
@@ -1494,6 +1501,7 @@
 				DC66CEDF1D9D5A1B00808ED0 /* BuildsTableViewController.swift in Sources */,
 				E1D266D7210B0F7000C4D6BB /* RoundedButton.swift in Sources */,
 				DC66CECD1D98256C00808ED0 /* Extensions.swift in Sources */,
+				E1C56425222940B900374315 /* ActionHeaderCollectionReusableView.swift in Sources */,
 				E1D2670A2119BCF300C4D6BB /* SettingsTableViewController.swift in Sources */,
 				E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */,
 				DC99C4041D95647E0031DBE4 /* UserRequest.swift in Sources */,
@@ -1508,7 +1516,7 @@
 				DCC2E1681D9FF4B500491B98 /* ApplicationUser.swift in Sources */,
 				E131DA4E212C09F600DF2B8A /* OnBoardingContainerViewController.swift in Sources */,
 				E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */,
-				DC85AE091DABDB3E00D20059 /* ActionsTableViewController.swift in Sources */,
+				DC85AE091DABDB3E00D20059 /* ActionsCollectionViewController.swift in Sources */,
 				DCC2E1741DA0197800491B98 /* Child.swift in Sources */,
 				DCDB97A81DAE7580007BCBCC /* MonitorData.swift in Sources */,
 				DC99C4061D95719C0031DBE4 /* JobList.swift in Sources */,
