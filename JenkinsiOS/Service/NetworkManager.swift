@@ -494,6 +494,7 @@ class NetworkManager: NSObject {
         if let username = userRequest.account.username, let password = userRequest.account.password {
             request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
         }
+
         return request
     }
 

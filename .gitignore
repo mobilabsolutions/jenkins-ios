@@ -239,3 +239,4 @@ xcuserdata
 # End of https://www.gitignore.io/api/macos,swift,xcode,swiftpm,appcode,carthage,fastlane,objective-c
 
 JenkinsiOS/Other/Resources/GoogleService-Info.plist
+JenkinsiOS/Other/Resources/add-fabric.sh

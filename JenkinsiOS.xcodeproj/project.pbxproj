@@ -1047,7 +1047,7 @@
 				DC3CCD141DA67FCA004C4C3D /* ShellScript */,
 				DC2045C51DB12892009CF232 /* Embed App Extensions */,
 				E3E779F008ED343504C5D2B9 /* [CP] Embed Pods Frameworks */,
-				E1C564292229730B00374315 /* ShellScript */,
+				E1C564292229730B00374315 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -1287,7 +1287,7 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
 		};
-		E1C564292229730B00374315 /* ShellScript */ = {
+		E1C564292229730B00374315 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1297,13 +1297,14 @@
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "if [ -f \"${SRCROOT}/JenkinsiOS/Other/Resources/add-fabric.sh\" ]; then\n    /bin/sh \"${SRCROOT}/JenkinsiOS/Other/Resources/add-fabric.sh\"\nfi;\n";
 		};
 		E3E779F008ED343504C5D2B9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
