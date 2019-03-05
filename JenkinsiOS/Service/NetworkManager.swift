@@ -38,7 +38,7 @@ class NetworkManager: NSObject {
     /// - GET:  Standard HTTP GET Method
     /// - POST: Standard HTTP POST Method
     /// - HEAD: Standard HTTP HEAD Method
-    private enum HTTPMethod: String {
+    enum HTTPMethod: String {
         case GET
         case POST
         case HEAD
@@ -537,8 +537,8 @@ class NetworkManager: NSObject {
     /// - parameter method:      The HTTP method the request should use
     ///
     /// - returns: The url request created from the inputted user request
-    private func urlRequest(for userRequest: UserRequest, useAPIURL: Bool, method: HTTPMethod, body: Data?,
-                            customHeaderFields: [String: String]) -> URLRequest {
+    func urlRequest(for userRequest: UserRequest, useAPIURL: Bool, method: HTTPMethod, body: Data?,
+                    customHeaderFields: [String: String]) -> URLRequest {
         var request = URLRequest(url: useAPIURL ? userRequest.apiURL : userRequest.requestUrl)
         request.httpMethod = method.rawValue
 

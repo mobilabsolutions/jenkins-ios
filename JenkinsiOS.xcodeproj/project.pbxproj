@@ -214,6 +214,12 @@
 		E1131F61222ED5D00025A711 /* ParameterFormDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F58222D40340025A711 /* ParameterFormDataCreator.swift */; };
 		E1131F62222ED5D70025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
 		E1131F63222ED5DC0025A711 /* BuildIdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */; };
+		E1131F64222ED81E0025A711 /* ParameterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD71DE340340015A499 /* ParameterType.swift */; };
+		E1131F65222ED8560025A711 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC66CEC41D98069F00808ED0 /* Constants.swift */; };
+		E1131F66222ED85C0025A711 /* ParameterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FD81DE340340015A499 /* ParameterValue.swift */; };
+		E1131F67222ED8660025A711 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC169FCA1DE33FFD0015A499 /* Parameter.swift */; };
+		E1131F68222ED8860025A711 /* PersistenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC2E16E1D9FFD3D00491B98 /* PersistenceUtils.swift */; };
+		E1131F69222ED8910025A711 /* FAQItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141D1D82224337200E42302 /* FAQItem.swift */; };
 		E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A48282186EAF2008EB747 /* ErrorBanner.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
@@ -1585,13 +1591,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
+				E1131F65222ED8560025A711 /* Constants.swift in Sources */,
 				E1131F63222ED5DC0025A711 /* BuildIdContainer.swift in Sources */,
+				E1131F67222ED8660025A711 /* Parameter.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
 				DC9BAE2C1DEADEB1008AE942 /* NetworkManagerAuxiliaryTests.swift in Sources */,
 				DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */,
 				BC91BA54926325A92B026793 /* BuildTest.swift in Sources */,
+				E1131F68222ED8860025A711 /* PersistenceUtils.swift in Sources */,
 				DC595DFD1DD75344000FEA9F /* UserRequestTests.swift in Sources */,
 				DC8B5C611DC252B800A01D6E /* ModelTestCase.swift in Sources */,
+				E1131F69222ED8910025A711 /* FAQItem.swift in Sources */,
 				DC9BAE2E1DEADF36008AE942 /* JenkinsAccountReader.swift in Sources */,
 				DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */,
 				DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */,
@@ -1600,7 +1610,9 @@
 				BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */,
 				DC9BAE381DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DC9BAE321DEAE781008AE942 /* NetworkManagerTests.swift in Sources */,
+				E1131F66222ED85C0025A711 /* ParameterValue.swift in Sources */,
 				DC9BAE301DEAE266008AE942 /* JenkinsAccountReaderTests.swift in Sources */,
+				E1131F64222ED81E0025A711 /* ParameterType.swift in Sources */,
 				BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */,
 				E1131F62222ED5D70025A711 /* JobBuildIds.swift in Sources */,
 				BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */,
