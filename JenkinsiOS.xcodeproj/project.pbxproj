@@ -211,6 +211,9 @@
 		E1131F5E222EC8E70025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
 		E1131F5F222ECA3B0025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
 		E1131F60222ECA3E0025A711 /* BuildIdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */; };
+		E1131F61222ED5D00025A711 /* ParameterFormDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F58222D40340025A711 /* ParameterFormDataCreator.swift */; };
+		E1131F62222ED5D70025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
+		E1131F63222ED5DC0025A711 /* BuildIdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */; };
 		E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A48282186EAF2008EB747 /* ErrorBanner.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
@@ -1582,6 +1585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCE73CAC1DB61E2C00028A96 /* JobTests.swift in Sources */,
+				E1131F63222ED5DC0025A711 /* BuildIdContainer.swift in Sources */,
 				DCE73CB01DB624A300028A96 /* TestExtensions.swift in Sources */,
 				DC9BAE2C1DEADEB1008AE942 /* NetworkManagerAuxiliaryTests.swift in Sources */,
 				DC595E021DD7620F000FEA9F /* ApplicationUserTests.swift in Sources */,
@@ -1591,12 +1595,14 @@
 				DC9BAE2E1DEADF36008AE942 /* JenkinsAccountReader.swift in Sources */,
 				DC4CBA281DD4DB8800E54245 /* SearcherTests.swift in Sources */,
 				DC595E001DD75C3B000FEA9F /* AccountTests.swift in Sources */,
+				E1131F61222ED5D00025A711 /* ParameterFormDataCreator.swift in Sources */,
 				DC4CBA261DD4DA1100E54245 /* SearchableTests.swift in Sources */,
 				BC91B9BC63887A175B16A634 /* FavoriteTests.swift in Sources */,
 				DC9BAE381DEAF6FE008AE942 /* ColorPrinter.swift in Sources */,
 				DC9BAE321DEAE781008AE942 /* NetworkManagerTests.swift in Sources */,
 				DC9BAE301DEAE266008AE942 /* JenkinsAccountReaderTests.swift in Sources */,
 				BC91B75F999B4533DA54AEB7 /* AccountManagerTests.swift in Sources */,
+				E1131F62222ED5D70025A711 /* JobBuildIds.swift in Sources */,
 				BC91B0FF4E240D05659BA1CA /* ApplicationUserManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
