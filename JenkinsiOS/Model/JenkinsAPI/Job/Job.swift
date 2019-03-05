@@ -156,11 +156,6 @@ class Job: Favoratible {
                 for parameterJson in parametersJson {
                     guard let parameter = Parameter(json: parameterJson)
                     else { continue }
-
-                    if parameter.type == .run {
-                        parameter.additionalData = builds.map({ "\(name)#\($0.number)" }) as AnyObject?
-                    }
-
                     parameters.append(parameter)
                 }
 

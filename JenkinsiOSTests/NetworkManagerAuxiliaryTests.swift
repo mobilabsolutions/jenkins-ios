@@ -11,7 +11,7 @@ import XCTest
 class NetworkManagerAuxiliaryTests: XCTestCase {
     func testUrlRequestAreCorrectlyCreatedWithAPIUrl() {
         let userRequest = getGenericUserRequest()
-        let urlRequest = NetworkManager.manager.urlRequest(for: userRequest, useAPIURL: true, method: .GET)
+        let urlRequest = NetworkManager.manager.urlRequest(for: userRequest, useAPIURL: true, method: .GET, body: nil, customHeaderFields: [:])
 
         XCTAssertEqual(urlRequest.url, URL(string: "https://www.test.com/test/api/json?pretty=false")!)
         XCTAssertEqual(urlRequest.httpMethod, "GET")
@@ -19,7 +19,7 @@ class NetworkManagerAuxiliaryTests: XCTestCase {
 
     func testUrlRequestAreCorrectlyCreatedWithoutAPIUrl() {
         let userRequest = getGenericUserRequest()
-        let urlRequest = NetworkManager.manager.urlRequest(for: userRequest, useAPIURL: false, method: .GET)
+        let urlRequest = NetworkManager.manager.urlRequest(for: userRequest, useAPIURL: false, method: .GET, body: nil, customHeaderFields: [:])
 
         XCTAssertEqual(urlRequest.url, URL(string: "https://www.test.com/test")!)
         XCTAssertEqual(urlRequest.httpMethod, "GET")
