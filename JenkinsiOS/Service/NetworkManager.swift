@@ -110,6 +110,22 @@ class NetworkManager: NSObject {
         }
     }
 
+    func getJobBuildIds(userRequest: UserRequest, completion: @escaping (JobBuildIds?, Error?) -> Void) -> URLSessionTaskController {
+        return performRequest(userRequest: userRequest, method: .GET, useAPIURL: true, completion: { data, error, _ in
+            guard let data = data, error == nil
+            else { completion(nil, error); return }
+
+            let decoder = JSONDecoder()
+
+            do {
+                completion(try decoder.decode(JobBuildIds.self, from: data), nil)
+            } catch let error {
+                print(error)
+                completion(nil, ParsingError.DataNotCorrectFormatError)
+            }
+        })
+    }
+
     /// Get a build from a given user request
     ///
     /// - parameter userRequest: The user request containing the build url

@@ -71,7 +71,7 @@ extension UserRequest {
 
     /// Return the user request specific to getting the list of jobs
     ///
-    /// - parameter account: The account for which the user request should be create
+    /// - parameter account: The account for which the user request should be created
     ///
     /// - returns: The fitting user request object
     static func userRequestForJobList(account: Account, requestUrl: URL? = nil) -> UserRequest {
@@ -81,6 +81,12 @@ extension UserRequest {
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
 
+    /// Return the user request specific to checking whether or not a server is quieting down
+    ///
+    /// - Parameters:
+    ///   - account: The account for which the user request should be created
+    ///   - requestUrl: The (optional) URL that should be used for the request
+    /// - Returns: The fitting user request object
     static func userRequestForJobListQuietingDown(account: Account, requestUrl: URL? = nil) -> UserRequest {
         let url = requestUrl ?? account.baseUrl
         let additionalComponents = Constants.API.jobListQuietingDownAdditionalQueryItems
@@ -88,8 +94,18 @@ extension UserRequest {
         return UserRequest(requestUrl: url, account: account, additionalQueryItems: additionalComponents)
     }
 
+    /// Return the user request specific to returning all necessary job information
+    ///
+    /// - Parameters:
+    ///   - account: The account for which the user request should be created
+    ///   - requestUrl: The (optional) URL that should be used for the request
+    /// - Returns: The fitting user request object
     static func userRequestForJob(account: Account, requestUrl: URL) -> UserRequest {
         return UserRequest(requestUrl: requestUrl, account: account, additionalQueryItems: Constants.API.jobAdditionalQueryItems)
+    }
+
+    static func userRequestForJobBuildIds(account: Account, requestUrl: URL) -> UserRequest {
+        return UserRequest(requestUrl: requestUrl, account: account, additionalQueryItems: Constants.API.jobBuildIdsAdditionalQueryItems)
     }
 
     /// Return the user request specific to getting the list of computers

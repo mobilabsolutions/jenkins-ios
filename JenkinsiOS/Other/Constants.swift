@@ -241,6 +241,8 @@ struct Constants {
                 URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)],property[parameterDefinitions[*]],actions[*[*]]"),
         ] }()
 
+        static let jobBuildIdsAdditionalQueryItems: [URLQueryItem] = [URLQueryItem(name: "tree", value: "builds[id]")]
+
         static let testReport = "/testReport"
         static let testReportAdditionalQueryItems = [
             URLQueryItem(name: "tree", value: "suites[name,cases[className,name,status]],childReports[child[url],result[suites[name,cases[className,name,status]],failCount,passCount,skipCount]],failCount,skipCount,passCount,totalCount"),

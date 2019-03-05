@@ -26,6 +26,8 @@ class ParametersTableViewController: UITableViewController {
 
         parameterValues = parameters.filter { $0.type != .unknown }.map({ ParameterValue(parameter: $0, value: $0.defaultParameterString) })
 
+        loadRunParameterPossibilities(for: parameterValues)
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 130
         tableView.keyboardDismissMode = .onDrag
@@ -70,8 +72,22 @@ class ParametersTableViewController: UITableViewController {
         })
     }
 
-    func updateButton() {
+    private func updateButton() {
         buildButton.isEnabled = parameters.isEmpty || parameterValues.reduce(true) { $0 && $1.value != nil }
+    }
+
+    private func loadRunParameterPossibilities(for parameters: [ParameterValue]) {
+        let runParametersToLoad = parameters.enumerated()
+            .filter({ $0.element.parameter.type == .run && $0.element.parameter.additionalData is String })
+
+        for (row, runParameter) in runParametersToLoad {
+            delegate?.completeBuildIdsForRunParameter(parameter: runParameter.parameter, completion: { [weak self] parameter in
+                DispatchQueue.main.async {
+                    runParameter.parameter = parameter
+                    self?.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+                }
+            })
+        }
     }
 
     // MARK: - Table view data source
@@ -85,7 +101,8 @@ class ParametersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.parameterCell, for: indexPath) as! ParameterTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.parameterCell, for: indexPath) as? ParameterTableViewCell
+        else { fatalError("Cannot dequeue cell of type ParameterTableViewCell for ParametersTableViewController") }
 
         cell.parameter = parameters[indexPath.row]
         cell.parameterValue = parameterValues.first(where: { $0.parameter == parameters[indexPath.row] })

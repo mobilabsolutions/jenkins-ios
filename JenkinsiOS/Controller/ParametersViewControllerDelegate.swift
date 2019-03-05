@@ -11,4 +11,5 @@ import Foundation
 protocol ParametersViewControllerDelegate {
     func build(parameters: [ParameterValue], completion: @escaping (JobListQuietingDown?, Error?) -> Void)
     func updateAccount(data: [String: String?])
+    func completeBuildIdsForRunParameter(parameter: Parameter, completion: @escaping (Parameter) -> Void)
 }

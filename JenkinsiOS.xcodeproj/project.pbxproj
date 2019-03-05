@@ -207,6 +207,10 @@
 		E1085DF32191FAED00B718D4 /* JobListQuietingDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */; };
 		E1131F59222D40340025A711 /* ParameterFormDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F58222D40340025A711 /* ParameterFormDataCreator.swift */; };
 		E1131F5A222D58F80025A711 /* ParameterFormDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F58222D40340025A711 /* ParameterFormDataCreator.swift */; };
+		E1131F5C222EC8C30025A711 /* BuildIdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */; };
+		E1131F5E222EC8E70025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
+		E1131F5F222ECA3B0025A711 /* JobBuildIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5D222EC8E70025A711 /* JobBuildIds.swift */; };
+		E1131F60222ECA3E0025A711 /* BuildIdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */; };
 		E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A48282186EAF2008EB747 /* ErrorBanner.swift */; };
 		E131DA3B2127114500DF2B8A /* PluginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */; };
 		E131DA40212BF04800DF2B8A /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */; };
@@ -462,6 +466,8 @@
 		E108571A1F20F51D005363D2 /* SAMKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAMKeychain.framework; path = JenkinsiOS/Other/Frameworks/SAMKeychain.framework; sourceTree = "<group>"; };
 		E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListQuietingDown.swift; sourceTree = "<group>"; };
 		E1131F58222D40340025A711 /* ParameterFormDataCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterFormDataCreator.swift; sourceTree = "<group>"; };
+		E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildIdContainer.swift; sourceTree = "<group>"; };
+		E1131F5D222EC8E70025A711 /* JobBuildIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobBuildIds.swift; sourceTree = "<group>"; };
 		E12A48282186EAF2008EB747 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		E131DA3A2127114500DF2B8A /* PluginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTableViewController.swift; sourceTree = "<group>"; };
 		E131DA3E212BF04800DF2B8A /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -831,6 +837,7 @@
 				DC66CED81D9D507900808ED0 /* ChangeSet.swift */,
 				DC66CED21D9D408300808ED0 /* Item.swift */,
 				DCE73CBA1DB678B400028A96 /* Artifact.swift */,
+				E1131F5B222EC8C30025A711 /* BuildIdContainer.swift */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -867,6 +874,7 @@
 				DC99C4051D95719C0031DBE4 /* JobList.swift */,
 				DC8B5C641DC2694800A01D6E /* JobListResult.swift */,
 				E1085DF12191FAB200B718D4 /* JobListQuietingDown.swift */,
+				E1131F5D222EC8E70025A711 /* JobBuildIds.swift */,
 			);
 			path = Job;
 			sourceTree = "<group>";
@@ -1371,12 +1379,14 @@
 				DC2045D81DB12D4E009CF232 /* View.swift in Sources */,
 				DC2045E01DB12D7F009CF232 /* Case.swift in Sources */,
 				DC5B3DC21E4C93E700604F13 /* LoggableContentView.swift in Sources */,
+				E1131F60222ECA3E0025A711 /* BuildIdContainer.swift in Sources */,
 				DC169FCC1DE33FFD0015A499 /* Parameter.swift in Sources */,
 				DC2045DF1DB12D7F009CF232 /* Suite.swift in Sources */,
 				DC2045E31DB12D95009CF232 /* Computer.swift in Sources */,
 				DC2045E11DB12D7F009CF232 /* ChildReport.swift in Sources */,
 				DC2045E51DB12D95009CF232 /* MonitorData.swift in Sources */,
 				DC2045CA1DB129C2009CF232 /* Build.swift in Sources */,
+				E1131F5F222ECA3B0025A711 /* JobBuildIds.swift in Sources */,
 				DC2045BA1DB12892009CF232 /* TodayViewController.swift in Sources */,
 				DC2045CC1DB129C2009CF232 /* ChangeSet.swift in Sources */,
 				DC2045EF1DB12E67009CF232 /* ApplicationUserManager.swift in Sources */,
@@ -1436,6 +1446,7 @@
 				E101F0BF211DC6B100613132 /* CorneredView.swift in Sources */,
 				E1E6321B211D82D900CBBB86 /* ComputerTableViewController.swift in Sources */,
 				E141D1D92224337200E42302 /* FAQItem.swift in Sources */,
+				E1131F5C222EC8C30025A711 /* BuildIdContainer.swift in Sources */,
 				DC2045AF1DB0D2AD009CF232 /* SearchResultsTableViewController.swift in Sources */,
 				DC66CED71D9D4BF300808ED0 /* ComputerList.swift in Sources */,
 				E12A48292186EAF2008EB747 /* ErrorBanner.swift in Sources */,
@@ -1455,6 +1466,7 @@
 				DC66CEC31D98004A00808ED0 /* AddAccountTableViewController.swift in Sources */,
 				DCAD24BA1E0BF6B200FAF0CF /* BuildProvidable.swift in Sources */,
 				E1C56428222940E800374315 /* ActionCollectionViewCell.swift in Sources */,
+				E1131F5E222EC8E70025A711 /* JobBuildIds.swift in Sources */,
 				DC66CEBF1D97FD9000808ED0 /* Account.swift in Sources */,
 				DC99C40C1D9579810031DBE4 /* HealthReportResult.swift in Sources */,
 				DC66CECF1D98273A00808ED0 /* View.swift in Sources */,

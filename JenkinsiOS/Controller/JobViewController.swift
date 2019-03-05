@@ -409,6 +409,21 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
 }
 
 extension JobViewController: ParametersViewControllerDelegate {
+    func completeBuildIdsForRunParameter(parameter: Parameter, completion: @escaping (Parameter) -> Void) {
+        guard let account = self.account, let projectName = parameter.additionalData as? String
+        else { return }
+
+        let baseUrl = account.baseUrl.appendingPathComponent("job").appendingPathComponent(projectName)
+        let userRequest = UserRequest.userRequestForJobBuildIds(account: account, requestUrl: baseUrl)
+        _ = NetworkManager.manager.getJobBuildIds(userRequest: userRequest) { buildIds, _ in
+            guard let ids = buildIds
+            else { completion(parameter); return }
+
+            parameter.additionalData = ids.builds.map { "\(projectName)#\($0.id)" } as AnyObject
+            completion(parameter)
+        }
+    }
+
     func build(parameters: [ParameterValue], completion: @escaping (JobListQuietingDown?, Error?) -> Void) {
         guard let job = job, let account = account
         else { completion(nil, BuildError.notEnoughDataError); return }
