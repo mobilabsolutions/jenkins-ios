@@ -12,6 +12,7 @@ class ParametersTableViewController: UITableViewController {
     var parameters: [Parameter] = []
     var delegate: ParametersViewControllerDelegate?
 
+    fileprivate var documentPickerToParameter: [Int: Parameter] = [:]
     fileprivate var parameterValues: [ParameterValue] = []
 
     @IBOutlet var buildButton: BigButton!
@@ -87,6 +88,7 @@ class ParametersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.parameterCell, for: indexPath) as! ParameterTableViewCell
 
         cell.parameter = parameters[indexPath.row]
+        cell.parameterValue = parameterValues.first(where: { $0.parameter == parameters[indexPath.row] })
         cell.delegate = self
 
         return cell
@@ -97,5 +99,40 @@ extension ParametersTableViewController: ParameterTableViewCellDelegate {
     func set(value: String?, for parameter: Parameter) {
         parameterValues.first(where: { $0.parameter.hashValue == parameter.hashValue })?.value = value
         updateButton()
+    }
+
+    func openFile(for parameter: Parameter) {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+        documentPicker.delegate = self
+        documentPickerToParameter[documentPicker.hash] = parameter
+        present(documentPicker, animated: true, completion: nil)
+    }
+}
+
+extension ParametersTableViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        didPickDocument(controller: controller, url: url)
+    }
+
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first
+        else { return }
+        didPickDocument(controller: controller, url: url)
+    }
+
+    private func didPickDocument(controller: UIDocumentPickerViewController, url: URL) {
+        guard let parameter = documentPickerToParameter[controller.hash]
+        else { return }
+        parameterValues.first(where: { $0.parameter == parameter })?.value = url.path
+
+        if let firstIndex = parameters.firstIndex(where: { $0 == parameter }) {
+            tableView.reloadRows(at: [IndexPath(row: firstIndex, section: 0)], with: .automatic)
+        }
+
+        updateButton()
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        documentPickerToParameter[controller.hash] = nil
     }
 }

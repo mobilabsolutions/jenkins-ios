@@ -38,10 +38,17 @@ class NetworkManager: NSObject {
     /// - GET:  Standard HTTP GET Method
     /// - POST: Standard HTTP POST Method
     /// - HEAD: Standard HTTP HEAD Method
-    enum HTTPMethod: String {
+    private enum HTTPMethod: String {
         case GET
         case POST
         case HEAD
+    }
+
+    /// A request for creating a build
+    private struct BuildRequest {
+        let userRequest: UserRequest
+        let body: Data?
+        let customHeaderFields: [String: String]
     }
 
     // MARK: - Networking abstractions
@@ -304,7 +311,7 @@ class NetworkManager: NSObject {
     /// - returns: The url request that gets the console output
     func getConsoleOutputUserRequest(build: Build, account: Account) -> URLRequest {
         let userRequest = UserRequest(requestUrl: build.consoleOutputUrl, account: account)
-        return urlRequest(for: userRequest, useAPIURL: false, method: .GET)
+        return urlRequest(for: userRequest, useAPIURL: false, method: .GET, body: nil, customHeaderFields: [:])
     }
 
     /// Perform an action on the given jenkins instance
@@ -338,9 +345,13 @@ class NetworkManager: NSObject {
     /// - parameter completion: A closure handling the returned data and an (optional) error
     func performBuild(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: ((JobListQuietingDown?, Error?) -> Void)?) throws {
         configureBuildRequest(account: account, job: job, token: token, parameters: parameters) { request, error in
-            guard let userRequest = request, error == nil
+            guard let buildRequest = request, error == nil
             else { completion?(nil, error); return }
-            _ = self.performRequest(userRequest: userRequest, method: .POST, useAPIURL: false) { [weak self] data, error, _ in
+            _ = self.performRequest(userRequest: buildRequest.userRequest,
+                                    method: .POST,
+                                    useAPIURL: false,
+                                    body: buildRequest.body,
+                                    customHeaderFields: buildRequest.customHeaderFields) { [weak self] data, error, _ in
                 guard let strongSelf = self, error == nil
                 else { completion?(nil, error); return }
                 _ = strongSelf.performRequest(userRequest: UserRequest.userRequestForJobListQuietingDown(account: account),
@@ -366,25 +377,34 @@ class NetworkManager: NSObject {
     ///   - token: An optional security token that is passed with the url
     ///   - parameters: The parameters that the build should be triggered with
     ///   - completion: A closure handing the userrequest to the calling entity
-    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: @escaping (UserRequest?, Error?) -> Void) {
-        let buildDirectory = parameters == nil || parameters!.isEmpty ? "build" : "buildWithParameters"
+    private func configureBuildRequest(account: Account, job: Job, token: String?, parameters: [ParameterValue]?, completion: @escaping (BuildRequest?, Error?) -> Void) {
+        let needsFormData = parameters?.contains(where: { $0.parameter.type == .file }) ?? false
+        let buildDirectory = parameters == nil || parameters!.isEmpty || needsFormData ? "build" : "buildWithParameters"
 
         var components = URLComponents(url: job.url.appendingPathComponent(buildDirectory, isDirectory: true), resolvingAgainstBaseURL: true)
 
         components?.queryItems = [
-            URLQueryItem(name: "cause", value: "Caused by Jenkins for iOS"),
+            URLQueryItem(name: "cause", value: "Caused by Butler: Jenkins for iOS"),
         ]
 
         if let token = token {
             components?.queryItems?.append(URLQueryItem(name: "token", value: token))
         }
 
-        if let parameters = parameters {
+        var data: Data?
+        var customHeaderFields: [String: String] = [:]
+
+        if let parameters = parameters, needsFormData == false {
             let parameterQueryItems = parameters.map {
                 URLQueryItem(name: $0.parameter.name, value: $0.value)
             }
 
             components?.queryItems?.append(contentsOf: parameterQueryItems)
+        } else if let parameters = parameters {
+            let formDataProvider = ParameterFormDataCreator()
+            let (boundary, formData) = formDataProvider.formData(for: parameters)
+            customHeaderFields["Content-Type"] = "multipart/form-data; boundary=\(boundary)"
+            data = formData
         }
 
         getCrumb(account: account) { item in
@@ -394,7 +414,9 @@ class NetworkManager: NSObject {
             guard let url = components?.url
             else { completion(nil, NetworkManagerError.URLBuildingError); return }
 
-            completion(UserRequest(requestUrl: url, account: account), nil)
+            let buildRequest = BuildRequest(userRequest: UserRequest(requestUrl: url, account: account),
+                                            body: data, customHeaderFields: customHeaderFields)
+            completion(buildRequest, nil)
         }
     }
 
@@ -436,12 +458,24 @@ class NetworkManager: NSObject {
 
     /// Perform a request with the given method and return its data and/or error with the completion handler
     ///
-    /// - parameter userRequest: The user request object that describes the request that should be made
-    /// - parameter method:      The HTTP method that should be used
-    /// - parameter useAPIURL:   Whether or not the userRequest's api url should be used
-    /// - parameter completion:  A completion handler that takes an optional data and an optional error
-    private func performRequest(userRequest: UserRequest, method: HTTPMethod, useAPIURL: Bool, session: URLSession? = nil, completion: @escaping (Data?, Error?, URLResponse?) -> Void) -> URLSessionTaskController {
-        let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method)
+    /// - Parameters:
+    ///   - userRequest:        The user request object that describes the request that should be made
+    ///   - method:             The HTTP method that should be used
+    ///   - useAPIURL:          Whether or not the userRequest's api url should be used
+    ///   - session:            The session to use for performing the request
+    ///   - body:               A custom body that should be used for the HTTP request
+    ///   - customHeaderFields: Custom Header fields that should be used
+    ///   - completion:         A completion handler that takes an optional data and an optional error
+    /// - Returns: A URL session task controller for the created task
+    private func performRequest(userRequest: UserRequest,
+                                method: HTTPMethod,
+                                useAPIURL: Bool,
+                                session: URLSession? = nil,
+                                body: Data? = nil,
+                                customHeaderFields: [String: String] = [:],
+                                completion: @escaping (Data?, Error?, URLResponse?) -> Void) -> URLSessionTaskController {
+        let request = urlRequest(for: userRequest, useAPIURL: useAPIURL, method: method, body: body,
+                                 customHeaderFields: customHeaderFields)
 
         guard let session = session ?? self.session
         else { fatalError("No suitable URL session provided") }
@@ -487,13 +521,22 @@ class NetworkManager: NSObject {
     /// - parameter method:      The HTTP method the request should use
     ///
     /// - returns: The url request created from the inputted user request
-    func urlRequest(for userRequest: UserRequest, useAPIURL: Bool, method: HTTPMethod) -> URLRequest {
+    private func urlRequest(for userRequest: UserRequest, useAPIURL: Bool, method: HTTPMethod, body: Data?,
+                            customHeaderFields: [String: String]) -> URLRequest {
         var request = URLRequest(url: useAPIURL ? userRequest.apiURL : userRequest.requestUrl)
         request.httpMethod = method.rawValue
 
+        var headerFields = customHeaderFields
+
         if let username = userRequest.account.username, let password = userRequest.account.password {
-            request.allHTTPHeaderFields = basicAuthenticationHeader(username: username, password: password)
+            let basicAuthHeader = basicAuthenticationHeader(username: username, password: password)
+            for (key, value) in basicAuthHeader {
+                headerFields[key] = value
+            }
         }
+
+        request.allHTTPHeaderFields = headerFields
+        request.httpBody = body
 
         return request
     }

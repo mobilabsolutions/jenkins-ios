@@ -23,6 +23,12 @@ class ParameterTableViewCell: UITableViewCell {
         }
     }
 
+    var parameterValue: ParameterValue? {
+        didSet {
+            updateUI()
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         updateUI()
@@ -43,8 +49,9 @@ class ParameterTableViewCell: UITableViewCell {
         switch type {
         case .boolean: parameterInputView = switchView()
         case .run, .choice: parameterInputView = textFieldWithPickerView()
-        case .string, .file, .textBox: parameterInputView = textField(password: false)
+        case .string, .textBox: parameterInputView = textField(password: false)
         case .password: parameterInputView = textField(password: true)
+        case .file: parameterInputView = openFileView()
         case .unknown: parameterInputView = label(); descriptionLabel.text = "Unknown parameter type"
         }
 
@@ -82,8 +89,14 @@ class ParameterTableViewCell: UITableViewCell {
 
     private func switchView() -> UISwitch {
         let switchView = UISwitch()
+        switchView.isOn = false
 
-        switchView.isOn = (parameter?.defaultParameterString != nil ? Bool(parameter!.defaultParameterString!) : nil) ?? false
+        if let setValueString = self.parameterValue?.value, let setValue = Bool(setValueString) {
+            switchView.isOn = setValue
+        } else if let defaultString = parameter?.defaultParameterString, let defaultValue = Bool(defaultString) {
+            switchView.isOn = defaultValue
+        }
+
         switchView.addTarget(self, action: #selector(didEdit), for: .valueChanged)
 
         return switchView
@@ -92,7 +105,7 @@ class ParameterTableViewCell: UITableViewCell {
     private func textField(password: Bool) -> UITextField {
         let textField = UITextField()
         textField.placeholder = parameter?.name
-        textField.text = parameter?.defaultParameterString
+        textField.text = parameterValue?.value ?? parameter?.defaultParameterString
         textField.addTarget(self, action: #selector(didEdit), for: .editingChanged)
         textField.borderStyle = .roundedRect
         textField.autocorrectionType = .no
@@ -116,12 +129,41 @@ class ParameterTableViewCell: UITableViewCell {
         return textField
     }
 
+    private func openFileView() -> UIView {
+        let label = UILabel()
+        label.font = nameLabel.font
+        label.textColor = nameLabel.textColor
+
+        if let path = parameterValue?.value, let fileComponent = URL(string: path)?.lastPathComponent {
+            label.text = fileComponent
+        } else {
+            label.text = "No file"
+        }
+
+        let stackView = UIStackView(arrangedSubviews: [label, openFileButton()])
+        stackView.distribution = .fillEqually
+        return stackView
+    }
+
+    private func openFileButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle("Choose File", for: .normal)
+        button.addTarget(self, action: #selector(openFile), for: .touchUpInside)
+        return button
+    }
+
     private func label() -> UILabel {
         let label = UILabel()
         label.text = parameter?.defaultParameterString != nil ? parameter?.defaultParameterString : "No default value"
         label.numberOfLines = 0
         label.textColor = .lightText
         return label
+    }
+
+    @objc private func openFile() {
+        guard let parameter = self.parameter
+        else { return }
+        delegate?.openFile(for: parameter)
     }
 }
 

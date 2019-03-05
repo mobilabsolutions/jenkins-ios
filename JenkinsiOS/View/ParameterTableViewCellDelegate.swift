@@ -10,4 +10,5 @@ import Foundation
 
 protocol ParameterTableViewCellDelegate {
     func set(value: String?, for parameter: Parameter)
+    func openFile(for parameter: Parameter)
 }
