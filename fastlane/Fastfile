@@ -51,9 +51,7 @@ platform :ios do
           "com.mobilabsolutions.jenkins.client" => "Jenkins Development",
           "com.mobilabsolutions.jenkins.client.extension" => "Jenkins Extension Development"
         },
-        export_options: { 
-          iCloudContainerEnvironment: 'Production'
-        } 
+        iCloudContainerEnvironment: 'Production'
     }) # Build your app - more options available
     notes = changelog_from_git_commits
     crashlytics(
@@ -82,9 +80,7 @@ platform :ios do
           "com.mobilabsolutions.jenkins.client" => "Jenkins App Store",
           "com.mobilabsolutions.jenkins.client.extension" => "Jenkins Extension App Store"
         },
-        export_options: {
-          iCloudContainerEnvironment: 'Production' 
-        } 
+        iCloudContainerEnvironment: 'Production' 
     }) # Build your app - more options available
     deliver(username: ENV['FASTLANE_USER'], dev_portal_team_id: ENV['DEV_PORTAL_TEAM_ID'],
             team_name: ENV['TEAM_NAME'], force: true)
