@@ -115,7 +115,7 @@ class ActionsCollectionViewController: UICollectionViewController, AccountProvid
         let height: CGFloat = 70.0
         layout.itemSize = CGSize(width: width, height: height)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
-        layout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: 170)
+        layout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: 220)
         return layout
     }
 }
