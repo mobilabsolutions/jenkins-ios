@@ -93,7 +93,7 @@ class OnBoardingContainerViewController: UIViewController, UIPageViewControllerD
 
         pageControl.currentPage = pending
         skipButton.isHidden = !options[pending].canSkip
-
+        updateNextButtonTitle(for: pending)
         pendingIndex = nil
     }
 
@@ -119,5 +119,14 @@ class OnBoardingContainerViewController: UIViewController, UIPageViewControllerD
     @objc private func updateShownPage() {
         skipButton.isHidden = !options[pageControl.currentPage].canSkip
         pageViewController.setViewControllers([onboardingViewControllers[pageControl.currentPage]], direction: .forward, animated: true, completion: nil)
+        updateNextButtonTitle(for: pageControl.currentPage)
+    }
+
+    private func updateNextButtonTitle(for index: Int) {
+        if index == options.count - 1 {
+            nextButton.setTitle("DONE", for: .normal)
+        } else {
+            nextButton.setTitle("NEXT", for: .normal)
+        }
     }
 }
