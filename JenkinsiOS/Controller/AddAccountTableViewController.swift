@@ -24,7 +24,6 @@ protocol DoneButtonEventReceiving: class {
 }
 
 class AddAccountTableViewController: UITableViewController, VerificationFailureNotifying, AccountProvidable, DoneButtonEventReceiving {
-
     // MARK: - Instance variables
 
     var account: Account?
@@ -62,7 +61,7 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
     private var actionButtonTitle: String {
         if account == nil {
-            return "DONE"
+            return "ADD ACCOUNT"
         }
 
         return (isCurrentAccount || !switchAccountSwitch.isOn) ? "SAVE" : "SAVE AND SWITCH"
