@@ -18,6 +18,9 @@ class FAQTableViewController: UITableViewController {
         questions = remoteConfigManager.configuration.frequentlyAskedQuestions
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.separatorStyle = .none
+
+        title = "FAQs"
+        tableView.contentInset.top = 24
     }
 
     // MARK: - Table view data source
