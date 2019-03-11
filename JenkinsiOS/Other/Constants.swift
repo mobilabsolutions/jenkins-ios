@@ -236,7 +236,8 @@ struct Constants {
             URLQueryItem(name: "tree", value: "quietingDown"),
         ]
         static let jobAdditionalQueryItems: [URLQueryItem] = {
-            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath],changeSet[kind,items[commitId,timestamp,comment,date,msg,affectedPaths,author[absoluteUrl,fullName]]]"
+            let changeSetFields = "kind,items[commitId,timestamp,comment,date,msg,affectedPaths,author[absoluteUrl,fullName]]"
+            let buildFields = "duration,timestamp,fullDisplayName,result,id,url,artifacts,actions,number,artifacts[fileName,relativePath],changeSet[\(changeSetFields)],changeSets[\(changeSetFields)]"
             return [
                 URLQueryItem(name: "tree", value: "color,url,name,healthReport[description,score,iconClassName],lastBuild[\(buildFields)],lastStableBuild[\(buildFields)],lastSuccessfulBuild[\(buildFields)],lastCompletedBuilds[\(buildFields)],builds[\(buildFields)],property[parameterDefinitions[*]],actions[*[*]]"),
         ] }()

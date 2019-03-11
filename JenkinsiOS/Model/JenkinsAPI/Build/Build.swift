@@ -102,15 +102,15 @@ class Build: Favoratible, CustomDebugStringConvertible {
         duration = json["duration"] as? TimeInterval
         estimatedDuration = json["estimatedDuration"] as? TimeInterval
 
-        if let changeSetJson = json["changeSet"] as? [String: AnyObject] {
-            let changeSet = ChangeSet(json: changeSetJson)
-            if changeSet.items.count > 0 {
-                changeSets.append(changeSet)
+        for candidateKey in ["changeSet", "changeSets"] {
+            if let changeSetJson = json[candidateKey] as? [String: AnyObject] {
+                let changeSet = ChangeSet(json: changeSetJson)
+                if changeSet.items.count > 0 {
+                    changeSets.append(changeSet)
+                }
+            } else if let changeSetsJson = json[candidateKey] as? [[String: AnyObject]] {
+                changeSets = changeSetsJson.map { ChangeSet(json: $0) }
             }
-        } else if let changeSetsJson = json["changeSet"] as? [[String: AnyObject]] {
-            changeSets = changeSetsJson.map({ (dict) -> ChangeSet in
-                ChangeSet(json: dict)
-            })
         }
 
         if let artifactsJson = json[Constants.JSON.artifacts] as? [[String: AnyObject]] {
