@@ -34,11 +34,11 @@ private extension JenkinsAction {
     var imageName: String {
         switch self {
         case .cancelQuietDown:
-            return "quiet-down-red"
+            return "quiet-down"
         case .exit:
             return "exit"
         case .quietDown:
-            return "quiet-down"
+            return "quiet-down-red"
         case .restart:
             return "restart-red"
         case .safeExit:
