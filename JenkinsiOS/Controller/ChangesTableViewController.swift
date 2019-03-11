@@ -67,6 +67,7 @@ class ChangesTableViewController: UITableViewController, AccountProvidable {
         tableView.backgroundColor = Constants.UI.backgroundColor
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
+        title = "Changes"
     }
 
     // MARK: - Table view data source
