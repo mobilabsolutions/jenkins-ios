@@ -196,6 +196,12 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
 
         switchAccountSwitch.isOn = shouldShowSwitchAccountToggle
 
+        tableView.allowsSelection = false
+        tableView.keyboardDismissMode = .interactive
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        view.addGestureRecognizer(tap)
+
         let text = NSMutableAttributedString(string: "See tutorial", attributes: [
             .foregroundColor: Constants.UI.skyBlue,
             NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
@@ -366,6 +372,10 @@ class AddAccountTableViewController: UITableViewController, VerificationFailureN
         if var dest = segue.destination as? AccountProvidable {
             dest.account = createAccount()
         }
+    }
+
+    @objc private func endEditing() {
+        view.endEditing(true)
     }
 }
 
