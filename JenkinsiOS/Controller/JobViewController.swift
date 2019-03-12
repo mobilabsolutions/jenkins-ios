@@ -262,7 +262,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     private func createModalInformationViewController() -> ModalInformationViewController? {
-        guard isViewLoaded && view.window != nil
+        guard isViewLoaded, view.window != nil
         else { return nil }
         let modalViewController = ModalInformationViewController.withLoadingIndicator(title: "Loading...")
         modalViewController.dismissOnTap = false
@@ -312,7 +312,7 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
         do {
             try NetworkManager.manager.performBuild(account: account, job: job, token: token, parameters: parameters, completion: completion)
             LoggingManager.loggingManager.logTriggeredBuild(withParameters: parameters?.map { $0.parameter.type } ?? [])
-        } catch let error {
+        } catch {
             completion(nil, error)
         }
     }
@@ -384,9 +384,9 @@ class JobViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // MARK: - ViewController Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? ParametersTableViewController, segue.identifier == Constants.Identifiers.showParametersSegue {
+        if let dest = segue.destination as? ParametersContainerViewController, segue.identifier == Constants.Identifiers.showParametersSegue {
             dest.parameters = job?.parameters ?? []
-            dest.delegate = self
+            dest.parametersDelegate = self
         } else if let dest = segue.destination as? BuildViewController, segue.identifier == Constants.Identifiers.showBuildSegue, let build = sender as? Build {
             dest.account = account
             dest.build = build

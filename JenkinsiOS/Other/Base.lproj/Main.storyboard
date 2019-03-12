@@ -651,7 +651,7 @@
                         <outlet property="buildButton" destination="yPA-pW-XOt" id="1VV-pL-J6p"/>
                         <outlet property="tableView" destination="cmR-hu-HsT" id="CSX-qn-IM1"/>
                         <segue destination="i4y-E0-UnZ" kind="show" identifier="showBuildSegue" id="8wT-IP-ngG"/>
-                        <segue destination="bpX-Eh-8rH" kind="presentation" identifier="showParametersSegue" id="3ID-yu-8xf"/>
+                        <segue destination="GkW-z3-nNq" kind="presentation" identifier="showParametersSegue" id="3ID-yu-8xf"/>
                         <segue destination="yAe-F2-tSa" kind="show" identifier="showConsoleOutputSegue" id="MVd-nB-ywD"/>
                         <segue destination="kOu-bN-cfW" kind="show" identifier="showTestResultsSegue" id="Eeb-5l-59h"/>
                         <segue destination="fV2-Dr-dqS" kind="show" identifier="showArtifactsSegue" id="bRt-MD-0Ng"/>
@@ -2844,29 +2844,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="FCn-WG-NSo">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08d-rq-L2C">
-                                    <rect key="frame" x="8" y="19" width="61" height="30"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                    <state key="normal" title="Cancel"/>
-                                    <connections>
-                                        <action selector="dismiss:" destination="bpX-Eh-8rH" eventType="touchUpInside" id="uZz-RA-giM"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.95686274510000002" green="0.96078431369999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="08d-rq-L2C" secondAttribute="trailing" constant="5" id="KHA-cq-ybi"/>
-                                <constraint firstItem="08d-rq-L2C" firstAttribute="top" secondItem="FCn-WG-NSo" secondAttribute="top" constant="19" id="YLm-Lh-v1K"/>
-                                <constraint firstItem="08d-rq-L2C" firstAttribute="leading" secondItem="FCn-WG-NSo" secondAttribute="leading" constant="8" id="vXZ-Lz-Izw"/>
-                                <constraint firstAttribute="bottom" secondItem="08d-rq-L2C" secondAttribute="bottom" constant="20" id="wnT-zO-2es"/>
-                            </constraints>
-                        </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="HZI-N4-N09">
-                            <rect key="frame" x="0.0" y="224" width="414" height="69"/>
+                            <rect key="frame" x="0.0" y="155" width="414" height="69"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76P-Mw-9LE" customClass="BigButton" customModule="JenkinsiOS" customModuleProvider="target">
@@ -2884,7 +2863,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="parameterCell" rowHeight="127" id="j1T-K9-G4u" customClass="ParameterTableViewCell" customModule="JenkinsiOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="97" width="414" height="127"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="127"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j1T-K9-G4u" id="CMX-My-5wc">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="127"/>
@@ -2946,13 +2925,14 @@
                             <outlet property="delegate" destination="bpX-Eh-8rH" id="1Se-VH-HXQ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="QL3-Qa-NgC"/>
                     <connections>
                         <outlet property="buildButton" destination="76P-Mw-9LE" id="Lng-jI-Te5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGe-9q-je2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3080.8000000000002" y="171.36431784107947"/>
+            <point key="canvasLocation" x="3989.8550724637685" y="170.75892857142856"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="6bo-ZW-t25">
@@ -3091,6 +3071,24 @@ of iOS in mind.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htO-fp-dXN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2342.0289855072465" y="1628.5714285714284"/>
+        </scene>
+        <!--Parameters Container View Controller-->
+        <scene sceneID="XBl-ws-Vpe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GkW-z3-nNq" customClass="ParametersContainerViewController" customModule="JenkinsiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gyw-wD-Z6E">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bpX-Eh-8rH" kind="relationship" relationship="rootViewController" id="9gu-af-mo1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aKi-fT-JYX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3079.7101449275365" y="170.75892857142856"/>
         </scene>
     </scenes>
     <resources>

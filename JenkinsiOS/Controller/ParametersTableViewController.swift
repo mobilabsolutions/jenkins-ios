@@ -17,10 +17,6 @@ class ParametersTableViewController: UITableViewController {
 
     @IBOutlet var buildButton: BigButton!
 
-    @IBAction func dismiss(_: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +27,9 @@ class ParametersTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 130
         tableView.keyboardDismissMode = .onDrag
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        title = "Parameters"
 
         buildButton.addTarget(self, action: #selector(triggerBuild), for: .touchUpInside)
         updateButton()
@@ -49,6 +48,10 @@ class ParametersTableViewController: UITableViewController {
                 }
             }
         })
+    }
+
+    @objc private func cancel() {
+        dismiss(animated: true, completion: nil)
     }
 
     private func handleBuildSuccess(quietingDown: JobListQuietingDown?) {

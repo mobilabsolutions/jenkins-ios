@@ -236,6 +236,7 @@
 		E155E9DA2190A8540090D1F3 /* AddAccountContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */; };
 		E164530C212C588F00750C17 /* AccountCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164530A212C588F00750C17 /* AccountCreatedViewController.swift */; };
 		E164530D212C588F00750C17 /* AccountCreatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E164530B212C588F00750C17 /* AccountCreatedViewController.xib */; };
+		E1663E0922379F3B00372658 /* ParametersContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1663E0822379F3B00372658 /* ParametersContainerViewController.swift */; };
 		E16BDEC52121626900837E44 /* BuildQueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */; };
 		E16BDEC82121820D00837E44 /* BuildCauseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */; };
 		E16BDECA2121D30100837E44 /* ArtifactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */; };
@@ -494,6 +495,7 @@
 		E155E9D92190A8540090D1F3 /* AddAccountContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountContainerViewController.swift; sourceTree = "<group>"; };
 		E164530A212C588F00750C17 /* AccountCreatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreatedViewController.swift; sourceTree = "<group>"; };
 		E164530B212C588F00750C17 /* AccountCreatedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCreatedViewController.xib; sourceTree = "<group>"; };
+		E1663E0822379F3B00372658 /* ParametersContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersContainerViewController.swift; sourceTree = "<group>"; };
 		E16BDEC32121626900837E44 /* BuildQueueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildQueueTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC72121820D00837E44 /* BuildCauseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCauseTableViewCell.swift; sourceTree = "<group>"; };
 		E16BDEC92121D30100837E44 /* ArtifactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactTableViewCell.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 				DC8C83821E054D540071EC50 /* NavigationController.swift */,
 				DC169FCD1DE340080015A499 /* ParametersTableViewController.swift */,
 				DC169FCE1DE340080015A499 /* ParametersViewControllerDelegate.swift */,
+				E1663E0822379F3B00372658 /* ParametersContainerViewController.swift */,
 				DCDB97A31DAE6EA7007BCBCC /* PluginsTableViewController.swift */,
 				BC91B069E34CF6D98BFBAECF /* RefreshingTableViewController.swift */,
 				DC56A5071DF09452000D1A15 /* ReviewReminderViewController.swift */,
@@ -1520,6 +1523,7 @@
 				DCE73CBB1DB678B400028A96 /* Artifact.swift in Sources */,
 				DC169FCF1DE340080015A499 /* ParametersTableViewController.swift in Sources */,
 				E1E63218211D7DDC00CBBB86 /* BasicImageTableViewCell.swift in Sources */,
+				E1663E0922379F3B00372658 /* ParametersContainerViewController.swift in Sources */,
 				DC92661F1DAD01EC00FEF87A /* TestResultTableViewController.swift in Sources */,
 				DC8C83831E054D540071EC50 /* NavigationController.swift in Sources */,
 				E1D2670621198D1100C4D6BB /* MainTabBarViewController.swift in Sources */,
