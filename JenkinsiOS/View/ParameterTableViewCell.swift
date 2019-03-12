@@ -126,6 +126,8 @@ class ParameterTableViewCell: UITableViewCell {
         picker.selectRow(row, inComponent: 0, animated: false)
 
         textField.inputView = picker
+        textField.delegate = self
+
         return textField
     }
 
@@ -187,5 +189,15 @@ extension ParameterTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         else { return }
         (parameterInputView as? UITextField)?.text = "\(value)"
         delegate?.set(value: "\(value)", for: parameter)
+    }
+}
+
+extension ParameterTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard textField.text == nil || textField.text == "",
+            let picker = textField.inputView as? UIPickerView,
+            picker.numberOfRows(inComponent: 0) > 0
+        else { return }
+        picker.delegate?.pickerView?(picker, didSelectRow: 0, inComponent: 0)
     }
 }
