@@ -182,9 +182,9 @@ class SettingsTableViewController: UITableViewController, AccountProvidable, Cur
             let nonCurrent = nonCurrentAccounts(currentAccount: current)
             performSegue(withIdentifier: Constants.Identifiers.editAccountSegue, sender: nonCurrent[indexPath.row - 1])
         case .about:
-            if indexPath.row == 0 {
+            if indexPath.row == 1 {
                 performSegue(withIdentifier: Constants.Identifiers.aboutSegue, sender: nil)
-            } else {
+            } else if indexPath.row == 2 {
                 performSegue(withIdentifier: Constants.Identifiers.faqSegue, sender: nil)
             }
         }
@@ -303,7 +303,7 @@ extension SettingsTableViewController: AddAccountTableViewControllerDelegate {
         navigationController?.popViewController(animated: false)
 
         let handler = OnBoardingHandler()
-        if AccountManager.manager.accounts.isEmpty && handler.shouldShowAccountCreationViewController() {
+        if AccountManager.manager.accounts.isEmpty, handler.shouldShowAccountCreationViewController() {
             let navigationController = UINavigationController()
             present(navigationController, animated: false, completion: nil)
             handler.showAccountCreationViewController(on: navigationController, delegate: self)
