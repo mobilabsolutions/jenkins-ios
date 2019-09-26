@@ -61,10 +61,20 @@ class AddAccountContainerViewController: UIViewController, VerificationFailurePr
         switch error {
         case let NetworkManagerError.HTTPResponseNoSuccess(code, _) where code == 401 || code == 403:
             banner.errorDetails = "The username or password entered are incorrect.\nPlease confirm that the values are correct"
+        case let
+            NetworkManagerError
+                .HTTPResponseNoSuccess(code, _) where code == 404:
+            banner.errorDetails = "The hostname entered is incorrect.\nPlease enter a correct one"
+        case let NetworkManagerError.HTTPResponseNoSuccess(code, _) where code == -1003:
+            banner.errorDetails = "A server with the specified hostname could not be found"
         default:
             banner.errorDetails = "Something failed!\nPlease confirm that the fields below are filled correctly"
         }
-
+        if let error = error as? NSError {
+            if error.code == -1003{
+                banner.errorDetails = "A server with the specified hostname could not be found"
+            }
+        }
         view.addSubview(banner)
 
         banner.translatesAutoresizingMaskIntoConstraints = false
