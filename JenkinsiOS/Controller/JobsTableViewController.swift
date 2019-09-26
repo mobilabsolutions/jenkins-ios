@@ -220,8 +220,9 @@ class JobsTableViewController: RefreshingTableViewController, AccountProvidable 
             tableView.tableHeaderView = searchController?.searchBar
             tableView.contentOffset.y += tableView.tableHeaderView?.frame.height ?? 0
             searchController?.hidesNavigationBarDuringPresentation = false
-            searchResultsController.tableView.contentInset.top += (navigationController?.navigationBar.frame.height ?? 0)
-                + (searchController?.searchBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
+            var x1 = (searchController?.searchBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
+            searchResultsController.tableView.contentInset.top = (navigationController?.navigationBar.frame.height ?? 0)
+                + x1
         }
     }
 
